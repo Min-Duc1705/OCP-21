@@ -9,7 +9,7 @@
 
 | Chương | Tên Chương Trong Sách | Tài Liệu Chi Tiết | Trang Sách (PDF) | Trạng Thái |
 | :---: | :--- | :--- | :---: | :---: |
-| **01** | **Building Blocks** | [**01-chapter-1-building-blocks.md**](file:///t:/University/Interview/Java/ocp-21-study-guide/01-chapter-1-building-blocks.md) | Trang 90 | ✅ Hoàn thành |
+| **01** | **Building Blocks** | • [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/01-chapter-1-building-blocks.md)<br>• [Bộ 23 câu hỏi trắc nghiệm & đáp án](file:///t:/University/Interview/Java/ocp-21-study-guide/01-chapter-1-review-questions.md) | Trang 90 (Lý thuyết)<br>Trang 157 (Review Questions) | ✅ Hoàn thành |
 | **02** | **Operators** | `02-chapter-2-operators.md` | Trang 168 | ⏳ Sắp tới |
 | **03** | **Making Decisions** *(Switch Expressions & Patterns)* | `03-chapter-3-making-decisions.md` | Trang 224 | ⏳ Sắp tới |
 | **04** | **Core APIs** *(Strings, Arrays, Dates & Math)* | `04-chapter-4-core-apis.md` | Trang 309 | ⏳ Sắp tới |

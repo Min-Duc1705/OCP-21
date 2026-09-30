@@ -142,6 +142,20 @@ Trong Java, có sự khác biệt rất lớn giữa số nguyên và số thự
     System.out.println(0.0 / 0.0);  // NaN (Not a Number)
     ```
 
+### 3.4. Toán Tử Cộng Chuỗi (String Concatenation với `+` và `+=`)
+* Tất cả các toán tử số học (`+`, `-`, `*`, `/`, `%`) đều có thể áp dụng cho mọi kiểu nguyên thủy trong Java (ngoại trừ kiểu `boolean`).
+* Riêng với đối tượng kiểu `String`: **CHỈ CÓ toán tử `+` và `+=` là được phép sử dụng**, đóng vai trò là phép nối chuỗi (*String Concatenation*):
+  ```java
+  String s1 = "1" + 2; // "12"
+  s1 += 3;             // "123"
+  ```
+* ❌ **Bẫy thi:** Không có phép trừ, nhân, chia chuỗi trong Java:
+  ```java
+  String s2 = "Hello" - "o"; // ❌ LỖI BIÊN DỊCH: bad operand types for binary operator '-'
+  String s3 = "Hi" * 3;      // ❌ LỖI BIÊN DỊCH: bad operand types for binary operator '*'
+  ```
+*(Chi tiết về thứ tự đánh giá khi kết hợp số và chuỗi như `"1" + 2 + 3` vs `1 + 2 + "3"` sẽ được học chuyên sâu tại Chapter 4: Core APIs).*
+
 ---
 
 ## 4. 4 Quy Tắc Thăng Hạng Kiểu Số Học (Numeric Promotion Rules)
@@ -333,13 +347,40 @@ a instanceof B
 * **OR (`|`):** Chỉ `false` khi **cả hai cùng `false`**.
 * **XOR (`^`):** Chỉ `true` khi **hai toán hạng có giá trị khác nhau**.
 
-### 8.2. Sự Khác Biệt Giữa Logic (`&`, `|`) vs Đoản Mạch (`&&`, `||`)
+### 8.2. Toán Tử Thao Tác Bit Trên Số Nguyên (Bitwise Operators: `&`, `|`, `^`)
+Khi áp dụng cho kiểu số nguyên (`byte`, `short`, `char`, `int`, `long`), các toán tử `&`, `|`, `^` so sánh từng cặp bit tương ứng tại mỗi vị trí nhị phân (với `1` tương đương `true`, `0` tương đương `false`):
+* **Bitwise AND (`&`):** Bit kết quả là `1` khi và chỉ khi cả 2 bit cùng là `1`.
+* **Bitwise OR (`|`):** Bit kết quả là `1` nếu ít nhất 1 trong 2 bit là `1`.
+* **Bitwise XOR (`^`):** Bit kết quả là `1` khi 2 bit khác nhau, và `0` khi 2 bit giống nhau.
+
+#### 💡 Các Hằng Đẳng Thức Bit Cần Nhớ Trong Đề Thi:
+Cho số nguyên `number` bất kỳ và số bù đảo bit `negated = ~number;`:
+```java
+int number = 70;
+int negated = ~number; // -71 (theo công thức: -number - 1)
+
+System.out.println(number & number);   // 70 (chính nó)
+System.out.println(number | number);   // 70 (chính nó)
+System.out.println(number ^ number);   // 0  (hai số giống nhau XOR ra 0)
+
+System.out.println(number & negated);  // 0  (không có vị trí nào cùng là 1)
+System.out.println(number | negated);  // -1 (tất cả các bit đều là 1 -> biểu diễn bù 2 là -1)
+System.out.println(number ^ negated);  // -1 (tất cả các bit đều khác nhau -> toàn bit 1 là -1)
+```
+
+### 8.3. Toán Tử Dịch Bit (Bit Shift Operators: `<<`, `>>`, `>>>`)
+Mặc dù Oracle không hỏi sâu về việc tính nhẩm các phép dịch bit phức tạp, bạn bắt buộc phải biết sự tồn tại, thứ tự ưu tiên (ưu tiên sau toán tử cộng/trừ và trước toán tử quan hệ) và ý nghĩa cơ bản:
+* **`<<` (Signed left shift):** Dịch các bit sang trái và bù các số `0` vào bên phải. (Tương đương nhân với $2^n$).
+* **`>>` (Signed right shift):** Dịch các bit sang phải và giữ nguyên dấu (bù bit dấu `0` nếu dương, bù `1` nếu âm). (Tương đương chia nguyên cho $2^n$).
+* **`>>>` (Unsigned right shift):** Dịch các bit sang phải và **luôn luôn bù bit `0` vào bên trái**, bất kể số ban đầu là âm hay dương.
+
+### 8.4. Sự Khác Biệt Giữa Logic (`&`, `|`) vs Đoản Mạch (`&&`, `||`)
 * **Toán tử Logic thuần (`&`, `|`):** **LUÔN LUÔN đánh giá cả 2 vế** (trái và phải), bất kể vế trái là gì.
 * **Toán tử Đoản Mạch (`&&`, `||` - Short-Circuit Operators):**
   * Với `&&`: Nếu vế trái là `false`, kết quả chắc chắn là `false` $\rightarrow$ **JVM dừng lại ngay, không thèm chạy vế phải!**
   * Với `||`: Nếu vế trái là `true`, kết quả chắc chắn là `true` $\rightarrow$ **JVM dừng lại ngay, không thèm chạy vế phải!**
 
-### 8.3. Bẫy Tác Dụng Phụ Chưa Được Thực Thi (Unperformed Side Effects)
+### 8.5. Bẫy Tác Dụng Phụ Chưa Được Thực Thi (Unperformed Side Effects)
 Trong đề thi OCP, Oracle rất thích lồng toán tử tăng giảm (`++`, `--`) vào vế bên phải của toán tử đoản mạch:
 
 ```java

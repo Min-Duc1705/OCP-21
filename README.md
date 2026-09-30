@@ -12,7 +12,7 @@
 | **01** | **Building Blocks** | • [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/01-chapter-1-building-blocks.md)<br>• [Bộ 23 câu hỏi trắc nghiệm & đáp án](file:///t:/University/Interview/Java/ocp-21-study-guide/01-chapter-1-review-questions.md) | Trang 90 (Lý thuyết)<br>Trang 157 (Review Questions) | ✅ Hoàn thành |
 | **02** | **Operators** | • [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/02-chapter-2-operators.md)<br>• [Bộ 20 câu hỏi trắc nghiệm & đáp án](file:///t:/University/Interview/Java/ocp-21-study-guide/02-chapter-2-review-questions.md) | Trang 169 (Lý thuyết)<br>Trang 214 (Review Questions) | ✅ Hoàn thành |
 | **03** | **Making Decisions** *(Switch Expressions & Patterns)* | • [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/03-chapter-3-making-decisions.md)<br>• [Bộ 30 câu hỏi trắc nghiệm & đáp án](file:///t:/University/Interview/Java/ocp-21-study-guide/03-chapter-3-review-questions.md) | Trang 224 (Lý thuyết)<br>Trang 293 (Review Questions) | ✅ Hoàn thành |
-| **04** | **Core APIs** *(Strings, Arrays, Dates & Math)* | `04-chapter-4-core-apis.md` | Trang 309 | ⏳ Sắp tới |
+| **04** | **Core APIs** *(Strings, Arrays, Dates & Math)* | [**04-chapter-4-core-apis.md**](file:///t:/University/Interview/Java/ocp-21-study-guide/04-chapter-4-core-apis.md) | Trang 310 | ✅ Hoàn thành lý thuyết |
 | **05** | **Methods** *(Overloading, Modifiers, Varargs)* | `05-chapter-5-methods.md` | Trang 411 | ⏳ Sắp tới |
 | **06** | **Class Design** *(Inheritance & Init Order)* | `06-chapter-6-class-design.md` | Trang 492 | ⏳ Sắp tới |
 | **07** | **Beyond Classes** *(Enums, Records, Sealed)* | `07-chapter-7-beyond-classes.md` | Trang 586 | ⏳ Sắp tới |

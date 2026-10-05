@@ -31,6 +31,9 @@
       </a>
 
       <div class="nav-actions">
+        <button class="btn btn-secondary" id="btn-open-videos" title="Xem video bài giảng các chương OCP 21">
+          🎬 <span class="hide-mobile">Bài giảng</span>
+        </button>
         <button class="btn btn-secondary" id="btn-open-bookmarks" title="Xem các câu hỏi đã đánh dấu">
           ⭐ <span class="hide-mobile">Đã lưu (<span id="bookmark-count-badge">0</span>)</span>
         </button>
@@ -119,6 +122,7 @@
         </div>
 
         <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button class="btn btn-secondary" id="btn-practice-video" title="Xem video bài giảng của chương này">🎬 Bài giảng chương</button>
           <button class="btn btn-secondary" id="btn-practice-bookmark" title="Đánh dấu câu hỏi này (Phím B)">⭐ Lưu câu hỏi</button>
         </div>
       </div>
@@ -424,6 +428,39 @@
         <button class="btn btn-primary" id="btn-practice-modal-items" style="flex: 1;">
           🎯 Luyện tập riêng các câu này
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: VIDEO LECTURE PLAYER -->
+  <div class="modal-overlay" id="video-modal">
+    <div class="modal-content video-modal-content">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 1.5rem;">🎬</span>
+          <div>
+            <h2 id="video-modal-title" style="font-size: 1.15rem; margin: 0; line-height: 1.3;">Bài Giảng OCP Java SE 21</h2>
+            <div id="video-modal-subtitle" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Chương 1: Building Blocks</div>
+          </div>
+        </div>
+        <button class="close-modal-btn" id="btn-close-video-modal" title="Đóng bài giảng (Esc)">&times;</button>
+      </div>
+
+      <div class="video-player-container">
+        <video id="video-player" controls preload="metadata" playsinline>
+          <source src="" type="video/mp4" id="video-source">
+          Trình duyệt của bạn không hỗ trợ phát video MP4.
+        </video>
+      </div>
+
+      <!-- Video Chapter Selector Tabs -->
+      <div class="video-playlist-bar">
+        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em;">
+          📑 Danh sách bài giảng theo chương:
+        </div>
+        <div class="video-chapter-tabs" id="video-chapter-tabs">
+          <!-- Dynamically populated buttons -->
+        </div>
       </div>
     </div>
   </div>

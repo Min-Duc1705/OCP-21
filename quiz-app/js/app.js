@@ -181,13 +181,18 @@
       });
       const pct = ch.questionCount > 0 ? Math.round((completedInCh / ch.questionCount) * 100) : 0;
 
+      const hasVideo = Boolean(CHAPTER_VIDEOS[ch.id]);
+
       const card = document.createElement('div');
       card.className = 'chapter-card';
       card.innerHTML = `
         <div>
           <div class="chapter-header">
             <span class="chapter-num">Chương ${ch.id}</span>
-            <span class="badge badge-info">${ch.questionCount} câu hỏi</span>
+            <div style="display: flex; gap: 0.35rem; align-items: center;">
+              ${hasVideo ? '<span class="badge badge-warning" style="font-size: 0.72rem; padding: 0.15rem 0.45rem;">🎬 Có video</span>' : ''}
+              <span class="badge badge-info">${ch.questionCount} câu hỏi</span>
+            </div>
           </div>
           <h3 class="chapter-title">${ch.title}</h3>
           <div class="progress-container">
@@ -200,9 +205,16 @@
             </div>
           </div>
         </div>
-        <div class="chapter-actions">
-          <button class="btn btn-secondary btn-start-practice" data-chapter="${ch.id}">🎯 Luyện tập</button>
-          <button class="btn btn-primary btn-start-exam-ch" data-chapter="${ch.id}">⏱️ Thi thử</button>
+        <div>
+          <div class="chapter-actions">
+            <button class="btn btn-secondary btn-start-practice" data-chapter="${ch.id}">🎯 Luyện tập</button>
+            <button class="btn btn-primary btn-start-exam-ch" data-chapter="${ch.id}">⏱️ Thi thử</button>
+          </div>
+          ${hasVideo ? `
+          <div style="margin-top: 0.65rem; padding-top: 0.65rem; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.8rem; color: var(--text-muted);">🎥 Video bài giảng chuyên sâu</span>
+            <button class="btn-chapter-video btn-open-video-ch" data-chapter="${ch.id}">▶️ Xem bài giảng</button>
+          </div>` : ''}
         </div>
       `;
 
@@ -213,6 +225,12 @@
       card.querySelector('.btn-start-exam-ch').addEventListener('click', () => {
         openExamSetupModal(ch.id);
       });
+
+      if (hasVideo) {
+        card.querySelector('.btn-open-video-ch').addEventListener('click', () => {
+          openVideoModal(ch.id);
+        });
+      }
 
       container.appendChild(card);
     });
@@ -343,6 +361,17 @@
     } else {
       badge.textContent = 'Chọn 1 đáp án duy nhất (Single Choice)';
       badge.className = 'badge badge-info';
+    }
+
+    // Video button state
+    const btnPracticeVideo = document.getElementById('btn-practice-video');
+    if (btnPracticeVideo) {
+      if (CHAPTER_VIDEOS[q.chapterId]) {
+        btnPracticeVideo.style.display = 'inline-flex';
+        btnPracticeVideo.textContent = `🎬 Bài giảng Chương ${q.chapterId}`;
+      } else {
+        btnPracticeVideo.style.display = 'none';
+      }
     }
 
     // Bookmark button state
@@ -1047,11 +1076,112 @@
     modal.classList.add('show');
   }
 
+  // --- VIDEO LECTURE FUNCTIONS ---
+  const CHAPTER_VIDEOS = {
+    1: {
+      chapterId: 1,
+      title: "Giải Mã OCP Java SE 21 - Chương 1: Building Blocks",
+      subtitle: "Cấu trúc Class, Packages, Imports, Kiểu nguyên thủy, Scope biến, Text Blocks & Garbage Collection",
+      filename: "Giải_Mã_OCP_Java_SE_21_Chương_1.mp4"
+    },
+    2: {
+      chapterId: 2,
+      title: "OCP Java SE 21 - Chương 2: Operators (Toán Tử)",
+      subtitle: "Toán tử một ngôi, số học, ép kiểu (casting), quan hệ, logic, toán tử ba ngôi & bẫy thi ngầm định",
+      filename: "OCP_Java_SE_21__Toán_Tử_chương_2.mp4"
+    },
+    3: {
+      chapterId: 3,
+      title: "OCP Java 21 - Chương 3: Making Decisions (Cấu Trúc Điều Khiển)",
+      subtitle: "Câu lệnh if-else, switch statement, pattern matching switch Java 21, vòng lặp while, do-while, for",
+      filename: "OCP_Java_21__Quyết_Định_Chương_3.mp4"
+    },
+    4: {
+      chapterId: 4,
+      title: "OCP Java SE 21 Masterclass - Chương 4: Core APIs",
+      subtitle: "Các API cốt lõi: String, StringBuilder, Mảng (Arrays.compare / mismatch), Math, Date & Time API",
+      filename: "OCP_Java_SE_21_Masterclass_chương_4.mp4"
+    }
+  };
+
+  function openVideoModal(chapterId = 1) {
+    const modal = document.getElementById('video-modal');
+    if (!modal) return;
+
+    // Render playlist tabs
+    const tabsContainer = document.getElementById('video-chapter-tabs');
+    if (tabsContainer) {
+      tabsContainer.innerHTML = '';
+      Object.values(CHAPTER_VIDEOS).forEach(v => {
+        const tab = document.createElement('button');
+        tab.className = `video-tab-btn ${v.chapterId === Number(chapterId) ? 'active' : ''}`;
+        tab.innerHTML = `<span>Chương ${v.chapterId}</span>`;
+        tab.title = v.title;
+        tab.addEventListener('click', () => {
+          playChapterVideo(v.chapterId);
+        });
+        tabsContainer.appendChild(tab);
+      });
+    }
+
+    playChapterVideo(chapterId);
+    modal.classList.add('show');
+  }
+
+  function playChapterVideo(chapterId) {
+    const videoData = CHAPTER_VIDEOS[chapterId] || CHAPTER_VIDEOS[1];
+    const player = document.getElementById('video-player');
+    const source = document.getElementById('video-source');
+    const titleEl = document.getElementById('video-modal-title');
+    const subtitleEl = document.getElementById('video-modal-subtitle');
+
+    if (titleEl) titleEl.textContent = videoData.title;
+    if (subtitleEl) subtitleEl.textContent = videoData.subtitle;
+
+    const videoUrl = `videos/${encodeURIComponent(videoData.filename)}`;
+    if (source && source.getAttribute('src') !== videoUrl) {
+      source.src = videoUrl;
+      player.load();
+    }
+
+    // Update active tab styling
+    document.querySelectorAll('.video-tab-btn').forEach(btn => {
+      if (btn.textContent.includes(`Chương ${chapterId}`)) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    if (player) {
+      player.play().catch(e => console.log('Autoplay prevented:', e));
+    }
+  }
+
+  function closeVideoModal() {
+    const modal = document.getElementById('video-modal');
+    if (!modal) return;
+    const player = document.getElementById('video-player');
+    if (player) {
+      player.pause();
+    }
+    modal.classList.remove('show');
+  }
+
   // --- KEYBOARD SHORTCUTS ---
   function setupKeyboardShortcuts() {
     window.addEventListener('keydown', (e) => {
       // Don't intercept if inside input / modal
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      if (e.key === 'Escape') {
+        closeVideoModal();
+        const listModal = document.getElementById('list-modal');
+        if (listModal) listModal.classList.remove('show');
+        const examModal = document.getElementById('exam-setup-modal');
+        if (examModal) examModal.classList.remove('show');
+        return;
+      }
 
       if (state.currentView === 'practice') {
         const key = e.key.toUpperCase();
@@ -1129,6 +1259,12 @@
       switchView('dashboard');
     });
 
+    document.getElementById('btn-open-videos').addEventListener('click', () => openVideoModal(1));
+    document.getElementById('btn-close-video-modal').addEventListener('click', closeVideoModal);
+    document.getElementById('video-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'video-modal') closeVideoModal();
+    });
+
     document.getElementById('btn-open-bookmarks').addEventListener('click', () => openListModal('bookmarks'));
     document.getElementById('btn-open-mistakes').addEventListener('click', () => openListModal('mistakes'));
 
@@ -1155,6 +1291,11 @@
         updatePracticeBookmarkButton(q.id);
         updateDashboardStats();
       }
+    });
+    document.getElementById('btn-practice-video').addEventListener('click', () => {
+      const q = state.practiceQuestions[state.practiceIndex];
+      const chId = q ? q.chapterId : 1;
+      openVideoModal(chId);
     });
 
     // 4. Exam Setup Modal

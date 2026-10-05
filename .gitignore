@@ -1,0 +1,11 @@
+# Large media
+Video/
+videos/
+quiz-app/videos/
+*.mp4
+*.mkv
+*.webm
+
+# System / IDE
+.DS_Store
+Thumbs.db

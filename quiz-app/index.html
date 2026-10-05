@@ -107,11 +107,11 @@
       </div>
     </section>
 
-    <!-- VIEW 2: PRACTICE MODE -->
+    <!-- VIEW 2: PRACTICE MODE (SPLIT LAYOUT) -->
     <section id="practice-view" class="view">
       <div class="quiz-header">
         <div class="quiz-meta">
-          <button class="btn btn-secondary" id="btn-practice-back">← Thoát</button>
+          <button class="btn btn-secondary" id="btn-practice-back">← Thoát về Dashboard</button>
           <div>
             <div id="practice-chapter-title" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Chapter 1</div>
             <div style="font-size: 1.15rem; font-weight: 700;">Câu hỏi <span id="practice-current-index">1</span> / <span id="practice-total-count">23</span></div>
@@ -123,51 +123,88 @@
         </div>
       </div>
 
-      <!-- Question Card -->
-      <div class="question-box">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-          <span class="badge badge-info" id="practice-type-badge">Chọn 1 đáp án</span>
-          <span style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono);" id="practice-question-id">ch1_q1</span>
-        </div>
-
-        <div class="question-prompt" id="practice-prompt-text">
-          <!-- Question text -->
-        </div>
-
-        <!-- Code Snippet Area -->
-        <div id="practice-code-container" style="display: none;">
-          <pre><code class="language-java" id="practice-code-block"></code></pre>
-        </div>
-
-        <!-- Options List -->
-        <div class="options-list" id="practice-options-container">
-          <!-- Options rendered dynamically -->
-        </div>
-
-        <!-- Check Answer Button -->
-        <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem;">
-          <button class="btn btn-primary" id="btn-check-answer" style="padding: 0.65rem 1.5rem; font-size: 1rem;">
-            ✔️ Kiểm Tra Đáp Án (Enter)
-          </button>
-          <button class="btn btn-secondary" id="btn-reset-practice-question">
-            🔄 Làm lại câu này
-          </button>
-        </div>
-
-        <!-- Explanation Card (Revealed after check) -->
-        <div class="explanation-card" id="practice-explanation-card">
-          <div class="explanation-title">
-            <span>💡 Giải Thích Chuyên Sâu & Phân Tích Bẫy Thi:</span>
+      <!-- Sơ đồ câu hỏi (Question Navigator Bar) -->
+      <div class="question-navigator-bar" id="practice-navigator-bar">
+        <div class="navigator-header">
+          <div class="navigator-title">
+            <span>🗺️ Sơ đồ chuyển nhanh câu hỏi:</span>
           </div>
-          <div class="explanation-body" id="practice-explanation-text"></div>
+          <div class="navigator-stats" id="practice-navigator-stats">
+            <span class="navigator-stat-pill">⚪ Chưa làm: <strong id="stat-nav-unanswered">0</strong></span>
+            <span class="navigator-stat-pill" style="color: var(--success);">🟢 Đúng: <strong id="stat-nav-correct">0</strong></span>
+            <span class="navigator-stat-pill" style="color: var(--danger);">🔴 Sai: <strong id="stat-nav-wrong">0</strong></span>
+            <span class="navigator-stat-pill" style="color: var(--warning);">⭐ Đã lưu: <strong id="stat-nav-bookmarked">0</strong></span>
+          </div>
+        </div>
+        <div class="navigator-scroll-container" id="practice-palette-pills">
+          <!-- Rendered dynamically: 1, 2, 3... N -->
         </div>
       </div>
 
-      <!-- Practice Navigation Footer -->
-      <div class="quiz-footer">
-        <button class="btn btn-secondary" id="btn-practice-prev">← Câu trước (←)</button>
-        <span style="color: var(--text-muted); font-size: 0.9rem;" id="practice-key-hint">Dùng phím A, B, C, D để chọn • Enter để kiểm tra</span>
-        <button class="btn btn-primary" id="btn-practice-next">Câu tiếp theo (→) →</button>
+      <!-- 2-COLUMN SPLIT LAYOUT: TRÁI = ĐỀ & CODE | PHẢI = ĐÁP ÁN & GIẢI THÍCH -->
+      <div class="split-layout-container">
+        <!-- CỘT TRÁI: ĐỀ BÀI & MÃ CODE JAVA -->
+        <div class="split-left-pane">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+            <span class="badge badge-info" id="practice-type-badge">Chọn 1 đáp án</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono);" id="practice-question-id">ch1_q1</span>
+          </div>
+
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em;">
+            📋 Nội dung câu hỏi:
+          </div>
+
+          <div class="question-prompt" id="practice-prompt-text">
+            <!-- Question text -->
+          </div>
+
+          <!-- Code Snippet Area -->
+          <div id="practice-code-container" style="display: none; margin-top: 1rem;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.35rem;">
+              💻 Đoạn mã nguồn Java:
+            </div>
+            <pre><code class="language-java" id="practice-code-block"></code></pre>
+          </div>
+        </div>
+
+        <!-- CỘT PHẢI: LỰA CHỌN ĐÁP ÁN & GIẢI THÍCH CHUYÊN SÂU -->
+        <div class="split-right-pane">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">
+              ✏️ Chọn phương án trả lời:
+            </span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);" id="practice-key-hint">Phím A, B, C... để chọn</span>
+          </div>
+
+          <!-- Options List -->
+          <div class="options-list" id="practice-options-container" style="margin: 0.5rem 0 1.25rem;">
+            <!-- Options rendered dynamically -->
+          </div>
+
+          <!-- Action Buttons Bar -->
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
+            <button class="btn btn-primary" id="btn-check-answer" style="flex: 2; padding: 0.65rem 1.25rem; font-size: 1rem;">
+              ✔️ Kiểm Tra Đáp Án (Enter)
+            </button>
+            <button class="btn btn-secondary" id="btn-reset-practice-question" style="flex: 1;">
+              🔄 Làm lại
+            </button>
+          </div>
+
+          <!-- Explanation Card (Revealed after check) -->
+          <div class="explanation-card" id="practice-explanation-card" style="margin-top: 0; margin-bottom: 1.25rem;">
+            <div class="explanation-title">
+              <span>💡 Giải Thích Chuyên Sâu & Phân Tích Bẫy Thi:</span>
+            </div>
+            <div class="explanation-body" id="practice-explanation-text"></div>
+          </div>
+
+          <!-- Practice Navigation Footer -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+            <button class="btn btn-secondary" id="btn-practice-prev">← Câu trước (←)</button>
+            <button class="btn btn-primary" id="btn-practice-next">Câu tiếp theo (→) →</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -188,26 +225,43 @@
       </div>
 
       <div class="exam-layout">
-        <!-- Main Exam Question Area -->
+        <!-- Main Exam Question Area (Split into Left: Prompt & Code, Right: Options) -->
         <div class="exam-main">
-          <div class="question-box">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-              <span class="badge badge-info" id="exam-type-badge">Chọn tất cả đáp án đúng</span>
-              <span style="font-size: 0.85rem; color: var(--text-muted);" id="exam-chapter-indicator">Chapter 1</span>
+          <div class="split-layout-container" style="margin-bottom: 0;">
+            <!-- Cột Trái: Đề bài & Code Java -->
+            <div class="split-left-pane">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+                <span class="badge badge-info" id="exam-type-badge">Chọn tất cả đáp án đúng</span>
+                <span style="font-size: 0.85rem; color: var(--text-muted);" id="exam-chapter-indicator">Chapter 1</span>
+              </div>
+
+              <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em;">
+                📋 Nội dung câu hỏi:
+              </div>
+
+              <div class="question-prompt" id="exam-prompt-text"></div>
+
+              <div id="exam-code-container" style="display: none; margin-top: 1rem;">
+                <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.35rem;">
+                  💻 Đoạn mã nguồn Java:
+                </div>
+                <pre><code class="language-java" id="exam-code-block"></code></pre>
+              </div>
             </div>
 
-            <div class="question-prompt" id="exam-prompt-text"></div>
+            <!-- Cột Phải: Lựa chọn phương án -->
+            <div class="split-right-pane">
+              <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+                ✏️ Chọn phương án trả lời:
+              </div>
 
-            <div id="exam-code-container" style="display: none;">
-              <pre><code class="language-java" id="exam-code-block"></code></pre>
+              <div class="options-list" id="exam-options-container" style="margin: 0.5rem 0 1.25rem;"></div>
+
+              <div class="quiz-footer" style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color); margin-bottom: 0;">
+                <button class="btn btn-secondary" id="btn-exam-prev">← Câu trước</button>
+                <button class="btn btn-primary" id="btn-exam-next">Câu tiếp theo →</button>
+              </div>
             </div>
-
-            <div class="options-list" id="exam-options-container"></div>
-          </div>
-
-          <div class="quiz-footer" style="margin-top: 1rem;">
-            <button class="btn btn-secondary" id="btn-exam-prev">← Câu trước</button>
-            <button class="btn btn-primary" id="btn-exam-next">Câu tiếp theo →</button>
           </div>
         </div>
 

@@ -581,7 +581,7 @@ window.QUIZ_DATA = {
       "chapterId": 1,
       "chapterTitle": "Chapter 1: Building Blocks",
       "questionNumber": 13,
-      "questionText": "**Cho các class sau, snippet nào có thể chèn độc lập vào vị trí `INSERT IMPORTS HERE` để code biên dịch thành công? (Chọn tất cả các đáp án đúng)**\n\n  import aquarium.jellies.*;\n  import aquarium.Water;\n  ```\n\n  import aquarium.*;\n  import aquarium.jellies.*;\n  ```\n\n  import aquarium.Water;\n  import aquarium.jellies.Water;\n  ```",
+      "questionText": "Cho các class sau, snippet nào có thể chèn độc lập vào vị trí `INSERT IMPORTS HERE` để code biên dịch thành công? (Chọn tất cả các đáp án đúng)",
       "codeSnippet": "// File 1:\npackage aquarium;\npublic class Water {\n   boolean salty = false;\n}\n\n// File 2:\npackage aquarium.jellies;\npublic class Water {\n   boolean salty = true;\n}\n\n// File 3:\npackage employee;\n// INSERT IMPORTS HERE\npublic class WaterFiller {\n   Water water;\n}",
       "isMultipleChoice": true,
       "options": [
@@ -595,15 +595,15 @@ window.QUIZ_DATA = {
         },
         {
           "key": "C",
-          "text": "```java"
+          "text": "```java\nimport aquarium.jellies.*;\nimport aquarium.Water;\n```"
         },
         {
           "key": "D",
-          "text": "```java"
+          "text": "```java\nimport aquarium.*;\nimport aquarium.jellies.*;\n```"
         },
         {
           "key": "E",
-          "text": "```java"
+          "text": "```java\nimport aquarium.Water;\nimport aquarium.jellies.Water;\n```"
         }
       ],
       "correctAnswers": [
@@ -2556,25 +2556,25 @@ window.QUIZ_DATA = {
       "chapterId": 3,
       "chapterTitle": "Chapter 3: Making Decisions",
       "questionNumber": 17,
-      "questionText": "**Cho mảng sau, đoạn code nào sẽ in ra các phần tử của mảng `wolf` theo THỨ TỰ NGƯỢC LẠI (Reverse order)? (Chọn tất cả các đáp án đúng)**\r\n\r\n\r\n\r\n\r\n  for (int m = wolf.length - 1; m >= 0; m--)\r\n     System.out.print(wolf[m]);\r\n  ```\r\n\r\n  for (int m = wolf.length - 1; m >= 0; --m)\r\n     System.out.print(wolf[m]);\r\n  ```\r\n\r\n  for (int m = 0; m < wolf.length; m++)\r\n     System.out.print(wolf[wolf.length - m]);\r\n  ```\r\n\r\n  for (int m = wolf.length; m > 0; --m)\r\n     System.out.print(wolf[m - 1]);\r\n  ```",
+      "questionText": "Cho mảng sau, đoạn code nào sẽ in ra các phần tử của mảng `wolf` theo THỨ TỰ NGƯỢC LẠI (Reverse order)? (Chọn tất cả các đáp án đúng)",
       "codeSnippet": "String[] wolf = { \"W\", \"e\", \"b\", \"b\", \"y\" };",
       "isMultipleChoice": true,
       "options": [
         {
           "key": "A",
-          "text": "```java"
+          "text": "```java\nfor (int m = wolf.length - 1; m >= 0; m--)\r\n   System.out.print(wolf[m]);\n```"
         },
         {
           "key": "B",
-          "text": "```java"
+          "text": "```java\nfor (int m = wolf.length - 1; m >= 0; --m)\r\n   System.out.print(wolf[m]);\n```"
         },
         {
           "key": "C",
-          "text": "```java"
+          "text": "```java\nfor (int m = 0; m < wolf.length; m++)\r\n   System.out.print(wolf[wolf.length - m]);\n```"
         },
         {
           "key": "D",
-          "text": "```java"
+          "text": "```java\nfor (int m = wolf.length; m > 0; --m)\r\n   System.out.print(wolf[m - 1]);\n```"
         }
       ],
       "correctAnswers": [

@@ -22,37 +22,83 @@ function parseMarkdownQuestions(content, chapterId, chapterTitle) {
     const detailsMatch = section.match(/<details>([\s\S]*?)<\/details>/i);
     const mainPart = section.replace(/<details>[\s\S]*?<\/details>/i, '');
     
-    // 2. Extract Code Block (if any)
+    // 2. Separate Question & Code from Options
+    const firstOptionIndex = mainPart.search(/^[*-]\s+(?:\*\*)?[A-Z]\.(?:\*\*)?\s*/m);
+    
+    let promptAndCodePart = "";
+    let optionsSection = "";
+    
+    if (firstOptionIndex !== -1) {
+      promptAndCodePart = mainPart.substring(0, firstOptionIndex);
+      optionsSection = mainPart.substring(firstOptionIndex);
+    } else {
+      promptAndCodePart = mainPart;
+      optionsSection = "";
+    }
+
+    // 3. Extract Code Snippet (from promptAndCodePart only)
     let codeSnippet = null;
-    let textWithoutCode = mainPart;
-    const codeMatch = mainPart.match(/```(?:java)?\s*\n([\s\S]*?)```/);
+    let questionText = promptAndCodePart;
+    const codeMatch = promptAndCodePart.match(/```(?:java)?\s*\r?\n([\s\S]*?)```/);
     if (codeMatch) {
       codeSnippet = codeMatch[1].trimEnd();
-      textWithoutCode = mainPart.replace(/```(?:java)?\s*\n[\s\S]*?```/, '');
+      questionText = promptAndCodePart.replace(/```(?:java)?\s*\r?\n[\s\S]*?```/, '');
     }
-    
-    // 3. Extract Options: * A. ... or * A. `...` or * **A.** ...
-    const options = [];
-    const optionRegex = /^[*-]\s+(?:\*\*)?([A-Z])\.(?:\*\*)?\s+(.*)$/gm;
-    let optMatch;
-    while ((optMatch = optionRegex.exec(textWithoutCode)) !== null) {
-      options.push({
-        key: optMatch[1],
-        text: optMatch[2].trim()
-      });
-    }
-    
-    // 4. Extract Question Text
-    // Text between ### Câu X and the first option or code block
-    let questionText = textWithoutCode.replace(/^###\s+Câu\s+\d+.*$/m, '');
-    // Remove the options from questionText
-    questionText = questionText.replace(/^[*-]\s+(?:\*\*)?[A-Z]\.(?:\*\*)?\s+.*$/gm, '');
-    // Remove separator lines like ---
+
+    // Clean up questionText
+    questionText = questionText.replace(/^###\s+Câu\s+\d+.*$/m, '');
     questionText = questionText.replace(/^[ \t]*---[ \t]*$/gm, '');
     questionText = questionText.replace(/\n{2,}/g, '\n\n').trim();
-    // Clean up markdown bold markers if wrapping the whole question
     if (questionText.startsWith('**') && questionText.endsWith('**') && questionText.length > 4) {
       questionText = questionText.slice(2, -2).trim();
+    }
+
+    // 4. Extract Options from optionsSection
+    const options = [];
+    const optHeaderRegex = /^[*-]\s+(?:\*\*)?([A-Z])\.(?:\*\*)?\s*(.*)$/gm;
+    const optMatches = [];
+    let om;
+    while ((om = optHeaderRegex.exec(optionsSection)) !== null) {
+      optMatches.push({
+        key: om[1],
+        firstLine: om[2],
+        index: om.index,
+        headerLen: om[0].length
+      });
+    }
+
+    for (let i = 0; i < optMatches.length; i++) {
+      const curr = optMatches[i];
+      const next = optMatches[i + 1];
+      const start = curr.index + curr.headerLen;
+      const end = next ? next.index : optionsSection.length;
+      const restLines = optionsSection.substring(start, end);
+      
+      let optText = (curr.firstLine + '\n' + restLines);
+      // Clean up separator lines
+      optText = optText.replace(/^[ \t]*---[ \t]*$/gm, '').trim();
+
+      // Clean up indentation inside code blocks if present
+      if (optText.includes('```')) {
+        optText = optText.replace(/```(?:java)?\s*\r?\n([\s\S]*?)```/g, (match, code) => {
+          const codeLines = code.split('\n');
+          let minIndent = Infinity;
+          codeLines.forEach(l => {
+            if (l.trim().length > 0) {
+              const m = l.match(/^(\s*)/);
+              if (m && m[1].length < minIndent) minIndent = m[1].length;
+            }
+          });
+          if (minIndent === Infinity) minIndent = 0;
+          const cleanCode = codeLines.map(l => l.slice(minIndent)).join('\n').trim();
+          return '```java\n' + cleanCode + '\n```';
+        });
+      }
+
+      options.push({
+        key: curr.key,
+        text: optText
+      });
     }
     
     // 5. Extract Correct Answers & Explanation from <details>

@@ -27,13 +27,29 @@
     reviewFilter: 'all'
   };
 
-  // Helper: Format Markdown Text to HTML (for prompts, explanations)
+  // Helper: Format Markdown Text to HTML (for prompts, explanations, options)
   function formatMarkdown(text) {
     if (!text) return '';
-    const raw = text.trim();
+    let raw = text.trim();
     if (!raw) return '';
 
+    // Convert fenced code blocks: ```java ... ```
+    if (raw.includes('```')) {
+      raw = raw.replace(/```(?:java)?\s*\r?\n([\s\S]*?)```/g, (match, code) => {
+        const escaped = code.trim()
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+        return `<pre class="option-code-block"><code class="language-java">${escaped}</code></pre>`;
+      });
+    }
+
+    if (raw.startsWith('<pre') && raw.endsWith('</pre>')) {
+      return raw;
+    }
+
     function formatInline(str) {
+      if (str.includes('<pre')) return str;
       let s = str
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
@@ -65,6 +81,15 @@
           formattedElements.push('</ul>');
           inList = false;
         }
+        continue;
+      }
+
+      if (trimmed.includes('<pre')) {
+        if (inList) {
+          formattedElements.push('</ul>');
+          inList = false;
+        }
+        formattedElements.push(trimmed);
         continue;
       }
 
@@ -361,6 +386,10 @@
       optionsContainer.appendChild(item);
     });
 
+    if (window.Prism) {
+      optionsContainer.querySelectorAll('pre code').forEach(el => Prism.highlightElement(el));
+    }
+
     // Hide explanation & enable check button
     const explCard = document.getElementById('practice-explanation-card');
     explCard.classList.remove('show');
@@ -645,6 +674,10 @@
 
       optionsContainer.appendChild(item);
     });
+
+    if (window.Prism) {
+      optionsContainer.querySelectorAll('pre code').forEach(el => Prism.highlightElement(el));
+    }
 
     // Nav buttons
     document.getElementById('btn-exam-prev').disabled = (state.examIndex === 0);

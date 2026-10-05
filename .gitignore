@@ -1,10 +1,5 @@
-# Large media
+# Ignore raw local Video directory (to avoid 160MB duplicate with quiz-app/videos)
 Video/
-videos/
-quiz-app/videos/
-*.mp4
-*.mkv
-*.webm
 
 # System / IDE
 .DS_Store

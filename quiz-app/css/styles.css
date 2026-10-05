@@ -1005,6 +1005,43 @@ header {
   }
 }
 
+@media (max-width: 640px) {
+  .hide-mobile {
+    display: none !important;
+  }
+  .container {
+    padding: 0 1rem;
+  }
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+  .hero p {
+    font-size: 0.95rem;
+  }
+  .stats-ribbon {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .chapter-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .split-left-pane,
+  .split-right-pane {
+    padding: 1.25rem 1rem;
+  }
+  .navigator-stats {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .video-modal-content {
+    padding: 1rem;
+    width: 98vw;
+  }
+  .video-player-container video {
+    max-height: 45vh;
+  }
+}
+
 /* Video Lecture Player & Modal */
 .video-modal-content {
   max-width: 960px;

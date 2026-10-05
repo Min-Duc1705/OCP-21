@@ -30,23 +30,66 @@
   // Helper: Format Markdown Text to HTML (for prompts, explanations)
   function formatMarkdown(text) {
     if (!text) return '';
-    let html = text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
+    const raw = text.trim();
+    if (!raw) return '';
 
-    // Bold: **text**
-    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    // Italic: *text*
-    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    // Inline code: `code`
-    html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-    // Bullet lists: * or -
-    html = html.replace(/^[*-]\s+(.*)$/gm, '<li>$1</li>');
-    html = html.replace(/(<li>.*<\/li>(\n|$)[\s\S]*?)(?!<li>)/g, '<ul>$1</ul>');
-    // Line breaks
-    html = html.replace(/\n\n/g, '<br><br>');
-    return html;
+    function formatInline(str) {
+      let s = str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      // Inline code: `code`
+      s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+      // Bold: **text**
+      s = s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // Replace LaTeX arrows $\rightarrow$ or $\to$ with clean unicode arrow →
+      s = s.replace(/\$\\rightarrow\$/g, '→').replace(/\$\\to\$/g, '→');
+      return s;
+    }
+
+    const lines = raw.split('\n');
+
+    // Single line without bullets
+    if (lines.length === 1 && !raw.trim().match(/^[*-]\s+/)) {
+      return formatInline(raw);
+    }
+
+    const formattedElements = [];
+    let inList = false;
+
+    for (let line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) {
+        if (inList) {
+          formattedElements.push('</ul>');
+          inList = false;
+        }
+        continue;
+      }
+
+      // Check if line is a bullet item (* or -)
+      const bulletMatch = trimmed.match(/^[*-]\s+(.*)$/);
+      if (bulletMatch) {
+        if (!inList) {
+          formattedElements.push('<ul class="expl-list">');
+          inList = true;
+        }
+        formattedElements.push(`<li>${formatInline(bulletMatch[1])}</li>`);
+      } else {
+        if (inList) {
+          formattedElements.push('</ul>');
+          inList = false;
+        }
+        formattedElements.push(`<p class="expl-paragraph">${formatInline(trimmed)}</p>`);
+      }
+    }
+
+    if (inList) {
+      formattedElements.push('</ul>');
+    }
+
+    return formattedElements.join('');
   }
 
   // Evaluate Answer
@@ -405,9 +448,10 @@
     const explCard = document.getElementById('practice-explanation-card');
     const explText = document.getElementById('practice-explanation-text');
     explText.innerHTML = `
-      <div style="margin-bottom: 0.75rem;">
-        <strong>Đáp án đúng:</strong> <span class="badge badge-success" style="font-size: 0.9rem;">${q.correctAnswers.join(', ')}</span>
-        ${isCorrect ? ' <span style="color: var(--success); font-weight: 700;">— CHÍNH XÁC! 🎉</span>' : ' <span style="color: var(--danger); font-weight: 700;">— CHƯA CHÍNH XÁC! ❌</span>'}
+      <div class="explanation-status-banner">
+        <strong>Đáp án đúng:</strong>
+        <span class="badge badge-success" style="font-size: 0.9rem;">${q.correctAnswers.join(', ')}</span>
+        ${isCorrect ? '<span style="color: var(--success); font-weight: 700;">— CHÍNH XÁC! 🎉</span>' : '<span style="color: var(--danger); font-weight: 700;">— CHƯA CHÍNH XÁC! ❌</span>'}
       </div>
       <div>${formatMarkdown(q.explanation)}</div>
     `;
@@ -868,7 +912,7 @@
 
         <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid var(--success-border); border-radius: var(--radius-md); padding: 1rem; margin-top: 1rem;">
           <div style="color: var(--success); font-weight: 700; margin-bottom: 0.5rem;">💡 Giải Thích Chuyên Sâu:</div>
-          <div style="font-size: 0.95rem;">${formatMarkdown(q.explanation)}</div>
+          <div class="explanation-body" style="font-size: 0.95rem;">${formatMarkdown(q.explanation)}</div>
         </div>
       `;
 

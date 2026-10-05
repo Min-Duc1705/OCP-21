@@ -26,7 +26,23 @@
 
 ---
 
+## 🚀 Ứng Dụng Ôn Thi Trắc Nghiệm Trực Quan (OCP 21 Quiz Master)
+
+Để tối ưu hóa việc làm trắc nghiệm và khắc sâu các bẫy thi của Oracle, toàn bộ câu hỏi ôn tập của các chương đã được tích hợp vào ứng dụng web **[OCP 21 Quiz Master](file:///t:/University/Interview/Java/ocp-21-study-guide/quiz-app/index.html)**:
+
+* **Vị trí ứng dụng:** Thư mục [`quiz-app/index.html`](file:///t:/University/Interview/Java/ocp-21-study-guide/quiz-app/index.html)
+* **Cách sử dụng:** Chỉ cần mở trực tiếp file `index.html` bằng trình duyệt web (Chrome, Edge, Firefox...), hoạt động 100% offline không cần cài đặt.
+* **Các tính năng nổi bật:**
+  * **Thiết kế 2 cột khoa học:** Cột bên trái hiển thị đề bài và mã nguồn Java tô màu cú pháp (Prism.js); cột bên phải hiển thị các lựa chọn đáp án và hộp phân tích bẫy đề thi chi tiết (không bị đẩy câu hỏi xuống dưới).
+  * **Sơ đồ câu hỏi trực quan (Question Navigator):** Thanh điều hướng hiển thị trạng thái từng câu (⚪ Chưa làm, 🟢 Đúng, 🔴 Sai, ⭐ Đã lưu) giúp chuyển nhanh đến bất kỳ câu hỏi nào chỉ với 1 click.
+  * **2 Chế độ ôn thi toàn diện:**
+    * *Chế độ Luyện tập theo chương:* Kiểm tra đáp án tức thì, hiển thị phân tích chuyên sâu.
+    * *Chế độ Thi thử tính giờ:* Đếm ngược thời gian, cắm cờ xem lại (🚩), tính điểm phần trăm theo chuẩn Oracle (ngưỡng đỗ $\ge 68\%$) kèm thống kê phân tích theo từng chương.
+  * **Lưu trữ tự động (LocalStorage):** Tự động theo dõi tiến độ, sổ tay câu làm sai (*Mistakes Notebook*) và danh sách câu đã đánh dấu (*Bookmarks*).
+
+---
+
 ## 🎯 Phương Pháp Học Hiệu Quả
 1. Đọc lý thuyết giải thích chi tiết trong từng file tóm tắt.
 2. Đối chiếu với code mẫu và bẫy thi Oracle (Exam Essentials).
-3. Làm bài tập Review Questions ở cuối mỗi chương trong sách PDF.
+3. Làm bài tập Review Questions trực tiếp trên ứng dụng **[OCP 21 Quiz Master](file:///t:/University/Interview/Java/ocp-21-study-guide/quiz-app/index.html)** để kiểm tra kiến thức và rèn luyện phản xạ phòng thi.

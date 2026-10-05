@@ -62,11 +62,12 @@ function parseMarkdownQuestions(content, chapterId, chapterTitle) {
     if (detailsMatch) {
       const detailsContent = detailsMatch[1];
       
-      // Look for: * **Đáp án đúng:** **D, E** or similar
-      const ansMatch = detailsContent.match(/Đáp án đúng:[*\s]+([A-Z0-9,\s–-]+?)(?:\*|\n|<)/i);
+      // Look for: * **Đáp án đúng:** **F (7 biến)** or * **Đáp án đúng:** **D, E** etc.
+      const ansMatch = detailsContent.match(/Đáp án(?:\s+đúng)?:([^\r\n]+)/i);
       if (ansMatch) {
-        const rawAns = ansMatch[1];
-        const letters = rawAns.match(/[A-Z]/g);
+        const ansLine = ansMatch[1];
+        const beforeParen = ansLine.split(/[\(（]/)[0];
+        const letters = beforeParen.match(/[A-Z]/g);
         if (letters) {
           correctAnswers = [...new Set(letters)];
         }
@@ -77,7 +78,7 @@ function parseMarkdownQuestions(content, chapterId, chapterTitle) {
       if (explMatch) {
         explanation = explMatch[1].trim();
       } else {
-        explanation = detailsContent.replace(/\*\s*\*\*Đáp án đúng:.*$/m, '').trim();
+        explanation = detailsContent.replace(/\*\s*\*\*Đáp án(?:\s+đúng)?:.*$/im, '').trim();
       }
     }
     

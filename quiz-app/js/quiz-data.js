@@ -305,7 +305,9 @@ window.QUIZ_DATA = {
           "text": "Không có phương án nào đúng"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "Để giải câu này, ta lần lượt kiểm tra các biến và dấu ngoặc nhọn `{}`:\n  1. `hairs` (dòng 2): Đã ra khỏi khối initializer block $\\rightarrow$ **Hết scope**.\n  2. `water` (dòng 3): Instance variable $\\rightarrow$ **Còn trong scope (1)**.\n  3. `air` (dòng 3): Instance variable $\\rightarrow$ **Còn trong scope (2)**.\n  4. `twoHumps` (dòng 4): Instance variable $\\rightarrow$ **Còn trong scope (3)**.\n  5. `distance` (dòng 5): Tham số của hàm `spit` $\\rightarrow$ **Còn trong scope (4)**.\n  6. `path` (dòng 6): Biến cục bộ của hàm `spit` $\\rightarrow$ **Còn trong scope (5)**.\n  7. `teeth` (dòng 7): Nằm trong khối ngoặc nhọn riêng `{}` đã đóng $\\rightarrow$ **Hết scope**.\n  8. `age` (dòng 9): Biến cục bộ trong vòng lặp `while` $\\rightarrow$ **Còn trong scope (6)**.\n  9. `i` (dòng 10): Khai báo trước vòng `for`, nằm trong `while` $\\rightarrow$ **Còn trong scope (7)**.\n  10. `Private` (dòng 12): Khai báo trong vòng `for`, khi vòng for kết thúc thì đã ra khỏi scope $\\rightarrow$ **Hết scope**.\n  * **Tổng cộng: đúng 7 biến**."
     },
     {
@@ -520,7 +522,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "1. `import java.lang.*;` và `import java.lang.System;`: Package `java.lang` được Java **tự động import ngầm** vào mọi class. Hai dòng này hoàn toàn thừa.\n  2. `import aquarium.Water;` và `import aquarium.*;`: Cả `Tank` và `Water` đều nằm chung trong cùng một package là `aquarium`. Các class trong cùng một package luôn nhìn thấy nhau mà **không cần bất kỳ dòng import nào**.\n  * Do đó, cả 4 câu lệnh import đều dư thừa và có thể xóa hết."
     },
     {
@@ -959,7 +963,9 @@ window.QUIZ_DATA = {
           "text": "Không có phương án nào đúng."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "Thứ tự thực thi từng bước:\n  1. Chương trình bắt đầu tại hàm `main()`: dòng 10 in ra `7-`.\n  2. Dòng 11 tạo đối tượng `new Salmon()`. Trước khi chạy constructor, các khối **Instance Initializer** sẽ chạy theo thứ tự từ trên xuống:\n     * Dòng 3: in ra giá trị hiện tại của `count`. Do là instance field kiểu `int`, giá trị mặc định ban đầu là `0` $\\rightarrow$ in tiếp `0-`.\n     * Dòng 4: `count++` tăng lên thành `1`.\n  3. Sau khi khối initializer chạy xong, Constructor `Salmon()` mới được thực thi:\n     * Dòng 6: gán `count = 4`.\n     * Dòng 7: in tiếp `2-`.\n  4. Quay lại hàm `main()`, dòng 12 in giá trị của `s.count` (hiện đang là 4) $\\rightarrow$ in tiếp `4-`.\n  * Ghép toàn bộ chuỗi lại: `7-0-2-4-`."
     },
     {
@@ -1221,7 +1227,9 @@ window.QUIZ_DATA = {
           "text": "Không có phương án nào đúng."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "* **Dòng 5:** Phân tích biểu thức `(teeth != 10) ^ (wolf = false)`:\n    * Vế trái: `teeth != 10` $\\rightarrow$ `20 != 10` trả về `true`.\n    * Vế phải: `(wolf = false)` là một **phép gán**, gán giá trị `false` cho biến `wolf`, đồng thời biểu thức này trả về giá trị vừa gán là `false`.\n    * Phép toán XOR (`^`): `true ^ false` $\\rightarrow$ Hai giá trị khác nhau thì XOR trả về `true`. Do đó `canine = true`.\n  * Sau dòng 5:\n    * `canine` là `true`.\n    * `teeth` không hề bị thay đổi, vẫn là `20`.\n    * `wolf` đã bị gán thành `false`.\n  * Khi in ra: `true, 20, false`."
     },
     {
@@ -1302,7 +1310,9 @@ window.QUIZ_DATA = {
           "text": "Không có phương án nào đúng."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "* ⚠️ **Bẫy thứ tự ưu tiên của ép kiểu một ngôi:**\n    Tại dòng 3: `return (int)fruit + vegetables;`\n    * Do toán tử ép kiểu `(int)` có độ ưu tiên cao hơn phép cộng `+`, nên dấu `(int)` chỉ ép riêng cho biến `fruit` (biến `fruit` thành kiểu `int`).\n    * Sau đó, biểu thức trở thành `(int) + vegetables` (`int + float`). Theo Quy tắc Thăng hạng Số học số 2, kết quả của phép cộng này được thăng hạng thành **`float`**.\n    * Hàm `addCandy` khai báo kiểu trả về là **`long`**. Một giá trị kiểu `float` **không thể tự động chuyển đổi thành `long`** mà không ép kiểu tường minh!\n    * Trình biên dịch báo lỗi tại dòng 3: `incompatible types: possible loss of precision from float to long`.\n  * Vì vậy chương trình không biên dịch được $\\rightarrow$ **F là đáp án đúng**.\n  * *(Nếu sửa dòng 3 thành `return (long)(fruit + vegetables);` thì chương trình sẽ in ra `3, 5, 6` tương ứng với đáp án B).*"
     },
     {
@@ -1347,7 +1357,9 @@ window.QUIZ_DATA = {
           "text": "`false-false-false`"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "* **Biểu thức 1 (`clear`):**\n    `vis > 1 & (vis < 9 || ph < 2)` $\\rightarrow$ `2 > 1 & (2 < 9 || 7 < 2)` $\\rightarrow$ `true & (true || false)` $\\rightarrow$ `true & true` $\\rightarrow$ `true`.\n  * **Biểu thức 2 (`safe`):**\n    `(vis > 2) && (ph++ > 1)` $\\rightarrow$ Vế trái: `vis > 2` (`2 > 2`) là `false`.\n    * Vì toán tử là `&&` (đoản mạch) và vế trái là `false`, JVM **bỏ qua hoàn toàn vế phải**!\n    * Lệnh `ph++` không được chạy $\\rightarrow$ `ph` **vẫn giữ nguyên giá trị là 7**.\n    * `safe = false`.\n  * **Biểu thức 3 (`tasty`):**\n    `7 <= --ph` $\\rightarrow$ Toán tử tiền tố `--ph` giảm `ph` từ 7 xuống **6** ngay lập tức.\n    * So sánh: `7 <= 6` là **`false`**.\n    * `tasty = false`.\n  * Kết quả in ra: `true-false-false`."
     },
     {
@@ -1384,7 +1396,9 @@ window.QUIZ_DATA = {
           "text": "Không có phương án nào đúng."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "A"
+      ],
       "explanation": "* **Dòng 5 (`pig = pig++;`):** Đây là một bẫy kinh điển về hậu tố:\n    1. Toán tử hậu tố `pig++` trả về giá trị hiện tại của `pig` là **`4`** để phục vụ phép gán.\n    2. Sau đó `pig` được tăng lên thành 5 trong bộ nhớ.\n    3. Ngay lập tức phép gán `=` gán giá trị trả về trước đó (**`4`**) đè trở lại vào `pig`!\n    4. Kết quả cuối cùng: `pig` vẫn giữ nguyên giá trị là **`4`**.\n  * **Dòng 7 (`goat -= 1.0;`):**\n    * Toán tử gán phức hợp `-=` tự động ép kiểu ngầm định: `goat = (long)(goat - 1.0);`.\n    * `goat` từ 2 giảm đi 1 còn **`1`**. Code biên dịch hoàn toàn hợp lệ.\n  * Khi in ra: `4 - 1`."
     },
     {
@@ -1425,7 +1439,11 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "A",
+        "D",
+        "E"
+      ],
       "explanation": "1. **Lệnh 1:** `a > 2 ? --c : b++` $\\rightarrow$ `2 > 2` là `false`.\n     * Nhánh `b++` được thực thi. Do là hậu tố, giá trị cũ của `b` là **`4`** được trả về và in ra màn hình (**In ra: 4**).\n     * Sau đó `b` tăng lên thành `5`. Biến `c` không bị suy giảm vì chỉ có 1 nhánh được chạy (`c` vẫn là 2).\n  2. **Lệnh 2:** `b = (a != c ? a : b++)` $\\rightarrow$ `a != c` (`2 != 2`) là `false`.\n     * Nhánh `b++` được thực thi. Lúc này `b` đang là 5, hậu tố trả về giá trị **`5`**.\n     * Phép gán `b = 5` gán đè lại giá trị 5 vào `b`. Màn hình **in ra: 5**.\n  3. **Lệnh 3:** `a > b ? b < c ? b : 2 : 1`\n     * Viết lại có ngoặc: `(a > b) ? (b < c ? b : 2) : 1`.\n     * Điều kiện `a > b` (`2 > 5`) là `false`.\n     * Nhánh sau cùng được chọn trả về trực tiếp giá trị **`1`** (**In ra: 1**). Biểu thức ba ngôi bên trong không hề bị đánh giá.\n  * Tập hợp các giá trị duy nhất in ra là: `{4, 5, 1}` $\\rightarrow$ **Đáp án A, D, E**."
     },
     {
@@ -1458,7 +1476,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "* Đề bài hỏi giá trị nào **không phải** là output.\n  * Xét dòng 2: `short zebra = (byte) weight * (byte) height;`\n    * Dù cả `weight` và `height` đều được ép kiểu về `byte`, nhưng khi gặp toán tử nhân hai ngôi `*`, cả hai toán hạng đều bị tự động thăng hạng lên thành **`int`** (Quy tắc 3).\n    * Phép nhân trả về kiểu `int`, không thể tự động gán vào biến `short zebra` nếu không ép kiểu cả cụm `(short)`.\n    * Trình biên dịch báo lỗi: `incompatible types: possible loss of precision from int to short`.\n  * Vì code không chạy được nên **E là đáp án chính xác**."
     },
     {
@@ -1499,7 +1519,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "* `sample1 = (2 * 4) % 3` $\\rightarrow$ `8 % 3 = 2` (8 chia 3 được 2 dư 2).\n  * `sample2 = 3 * 2 % -3`:\n    * `*` và `%` cùng mức ưu tiên, tính từ trái sang phải: `3 * 2 = 6`.\n    * `6 % -3`: Phép chia dư với số âm bên phải thì dấu âm bị bỏ qua $\\rightarrow$ tương đương `6 % 3 = 0`.\n  * `sample3 = 5 * (1 % 2)`:\n    * `1 % 2 = 1` (1 chia 2 được 0 dư 1).\n    * `5 * 1 = 5`.\n  * In ra: `2, 0, 5`."
     },
     {
@@ -1536,7 +1558,9 @@ window.QUIZ_DATA = {
           "text": "pre-increment, post-decrement"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "* **Hậu tố tăng (Post-increment - `x++`):** Tăng biến lên 1 nhưng trả về giá trị ban đầu trước khi tăng (*original value*).\n  * **Tiền tố giảm (Pre-decrement - `--x`):** Giảm biến đi 1 và trả về giá trị mới ngay sau khi giảm (*new value*)."
     },
     {
@@ -1577,7 +1601,9 @@ window.QUIZ_DATA = {
           "text": "Không có phương án nào đúng"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "* **`goingToTheStore = sunny & raining ^ sunday;`**:\n    * Thứ tự ưu tiên: Toán tử `&` (AND - mức 9) có độ ưu tiên cao hơn `^` (XOR - mức 10).\n    * Thực hiện `sunny & raining` trước: `true & false = false`.\n    * Sau đó thực hiện XOR: `false ^ sunday` $\\rightarrow$ `false ^ true = true`.\n    * Vậy `goingToTheStore = true`.\n  * **`goingToTheZoo = sunday && !raining;`**:\n    * `!raining` $\\rightarrow$ `!false = true`.\n    * `sunday && true` $\\rightarrow$ `true && true = true`.\n    * Vậy `goingToTheZoo = true`.\n  * **`stayingHome = !(goingToTheStore && goingToTheZoo);`**:\n    * `!(true && true)` $\\rightarrow$ `!true = false`.\n  * Kết quả in ra: `true-true-false`."
     },
     {
@@ -1663,7 +1689,9 @@ window.QUIZ_DATA = {
           "text": "`/`"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "* Toán tử ba ngôi (*Ternary operator*) `booleanExpr ? expr1 : expr2` là toán tử duy nhất trong Java nhận đúng 3 toán hạng.\n  * Các phương án A, B, C, E, G là toán tử hai ngôi (*binary*). F là toán tử một ngôi (*unary*)."
     },
     {
@@ -1696,7 +1724,9 @@ window.QUIZ_DATA = {
           "text": "4 dòng"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "* **Dòng 1 bị lỗi:** `1 * 2 + (long)3`. Do có `(long)3`, toàn bộ phép cộng được thăng hạng thành `long`. Gán giá trị `long` cho biến `int note` gây lỗi: `incompatible types: possible loss of precision`.\n  * **Dòng 2 hợp lệ:** `note *= 2` trả về `int`, sau đó ép sang `double`, rồi ép sang `byte`. Cuối cùng gán `byte` cho `short melody` là mở rộng hợp lệ.\n  * **Dòng 3 hợp lệ:** Gán `short` sang `double` là mở rộng tự nhiên.\n  * **Dòng 4 hợp lệ:** Toán tử ba ngôi trả về kiểu số, sau đó được ép tường minh sang `(float)`.\n  * Tổng cộng: đúng 1 dòng lỗi $\\rightarrow$ **Đáp án B**."
     },
     {
@@ -1737,7 +1767,10 @@ window.QUIZ_DATA = {
           "text": "Đoạn code không biên dịch được."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "C",
+        "F"
+      ],
       "explanation": "* Ban đầu: `ticketsTaken = 1`, `ticketsSold = 3`.\n  * **Dòng 3:** `ticketsSold += 1 + ticketsTaken++;`\n    * `ticketsTaken++` là hậu tố: trả về giá trị cũ là `1`, sau đó `ticketsTaken` tăng lên thành `2`.\n    * Vế phải: `1 + 1 = 2`.\n    * `ticketsSold += 2` $\\rightarrow$ `ticketsSold = 3 + 2 = 5`.\n  * **Dòng 4:** `ticketsTaken *= 2;`\n    * `ticketsTaken = 2 * 2 = 4`.\n  * **Dòng 5:** `ticketsSold += (long)1;`\n    * Nhờ tính năng tự động ép kiểu của compound assignment `+=`, dòng này hoàn toàn hợp lệ mà không bị lỗi biên dịch kiểu số.\n    * `ticketsSold = 5 + 1 = 6`.\n  * Kết quả cuối cùng: `ticketsTaken = 4` (**F**) và `ticketsSold = 6` (**C**)."
     },
     {
@@ -1774,7 +1807,9 @@ window.QUIZ_DATA = {
           "text": "`\" \"`"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "C"
+      ],
       "explanation": "* Trong Java, **chỉ có duy nhất cặp dấu ngoặc đơn `( )`** mới có chức năng ghi đè và thay đổi thứ tự ưu tiên của các toán tử trong biểu thức tính toán.\n  * `[ ]` dùng cho mảng, `< >` dùng cho Generics / toán tử quan hệ, `{ }` dùng cho khối code block."
     },
     {
@@ -1819,7 +1854,10 @@ window.QUIZ_DATA = {
           "text": "Đoạn code biên dịch được nhưng ném ngoại lệ tại runtime."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B",
+        "F"
+      ],
       "explanation": "* **Dòng 5:** `end += ++start;`\n    * Tiền tố `++start` tăng `start` từ 7 lên `8` và trả về `8`.\n    * `end += 8` $\\rightarrow$ `end = 4 + 8 = 12` (**Đáp án F**).\n  * **Dòng 6:** `start = (byte)(Byte.MAX_VALUE + 1);`\n    * Hằng số `Byte.MAX_VALUE` có giá trị là `127`.\n    * `127 + 1 = 128` (kiểu `int`).\n    * Khi ép sang `(byte)128`, vượt quá giới hạn cực đại của kiểu `byte` (miền giá trị từ `-128` đến `127`). Hiện tượng tràn số (*overflow*) xảy ra: giá trị quay vòng về cực tiểu là **`-128`** (**Đáp án B**)."
     },
     {
@@ -1901,7 +1939,9 @@ window.QUIZ_DATA = {
           "text": "Không có phương án nào đúng."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "* Trong tính năng Pattern Matching cho `switch` (Java 21), mỗi nhánh mẫu kiểu dữ liệu (*Type Pattern*) bắt buộc phải khai báo rõ **Kiểu dữ liệu** đi kèm với **Tên biến mẫu** (ví dụ: `case Integer a when a < 10`).\r\n  * Tại dòng 34 (`case a when...`) và dòng 35 (`case b when...`), người viết đã bỏ quên kiểu dữ liệu (chỉ có tên biến `a` và `b`). Trình biên dịch sẽ báo lỗi cú pháp ở cả 2 dòng này.\r\n  * Nếu sửa lại thành `case Integer a when a < 10` và `case Integer b when b >= 10`, code sẽ biên dịch thành công và in ra `4`."
     },
     {
@@ -1979,7 +2019,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được do dòng 8."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "* Tính toán giá trị: `temperature = 4`.\r\n  * `humidity = -4 + (4 * 3) = -4 + 12 = 8`.\r\n  * Xét điều kiện:\r\n    * Dòng 5: `if (temperature >= 4)` $\rightarrow$ `4 >= 4` là `true`. Code tiếp tục đi vào câu lệnh con bên trong.\r\n    * Dòng 6: `if (humidity < 6)` $\rightarrow$ `8 < 6` là `false`.\r\n    * Theo quy tắc **Dangling Else**, nhánh `else` ở dòng 7 thuộc về `if` ở dòng 6. Do đó khối `else` dòng 7 được chạy và in ra `\"Just Right\"`.\r\n    * Nhánh `else` ở dòng 8 thuộc về `if` ở dòng 5 (nhưng vì dòng 5 là `true` nên dòng 8 bị bỏ qua)."
     },
     {
@@ -2061,7 +2103,9 @@ window.QUIZ_DATA = {
           "text": "Không có phương án nào đúng"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "* Đây là một **Switch Expression** (vì kết quả được gán vào biến `type`).\r\n  * Mọi Switch Expression **bắt buộc phải có tính vét cạn (Exhaustiveness)** — tức là phải bao quát hết mọi giá trị có thể có của biến đầu vào.\r\n  * Biến `category` có kiểu `int` (có hàng tỷ giá trị từ `-2^31` đến `2^31 - 1`). Việc chỉ liệt kê các case từ 1 đến 8 mà không có nhánh `default` khiến biểu thức switch không vét cạn.\r\n  * Trình biên dịch báo lỗi: `the switch expression does not cover all possible input values`. Vì vậy **F** là đáp án đúng."
     },
     {
@@ -2098,7 +2142,9 @@ window.QUIZ_DATA = {
           "text": "Vòng for thứ ba sinh lỗi biên dịch."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "* Xét vòng for thứ hai:\r\n    ```java\r\n    for (int b : myFavoriteNumbers) {\r\n       continue;\r\n       System.out.print(b + \", \"); // ⚠️ Mã không thể chạm tới!\r\n    }\r\n    ```\r\n    Lệnh `continue;` được đặt vô điều kiện ngay đầu thân vòng lặp. Dòng lệnh in `System.out.print(b + \", \");` ngay phía sau nó không bao giờ có thể được thực thi.\r\n  * Trình biên dịch Java phát hiện và báo lỗi: **`unreachable statement`**."
     },
     {
@@ -2176,7 +2222,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được do các dòng khác."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "G"
+      ],
       "explanation": "* **Lỗi 1 (Dòng 36):** `o instanceof Long bat || bat <= 20`. Theo quy tắc Flow Scoping, **cấm dùng biến mẫu ở vế phải của toán tử `||`** vì khi vế trái `false`, biến `bat` chưa được khởi tạo.\r\n  * **Lỗi 2 (Dòng 38):** Cú pháp `default { ... }` là của cấu trúc `switch`, **không tồn tại** từ khóa `default` đi kèm với cấu trúc `if-else` (phải dùng `else { ... }`).\r\n  * Do đó code có nhiều lỗi biên dịch $\rightarrow$ **G là đáp án đúng**."
     },
     {
@@ -2254,7 +2302,9 @@ window.QUIZ_DATA = {
           "text": "5 dòng"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "1. **Dòng 15 lỗi:** Lệnh `continue` chỉ được phép nằm trong vòng lặp (`for`, `while`, `do-while`), **cấm dùng trong cấu trúc `switch` độc lập**.\r\n  2. **Dòng 16 lỗi:** `thursday` là tham số của phương thức. Dù có từ khóa `final`, giá trị của nó chỉ được truyền vào khi chạy hàm nên **không phải là hằng số thời điểm biên dịch (compile-time constant)**. `switch` truyền thống yêu cầu hằng số biên dịch.\r\n  3. **Dòng 17 lỗi:** Dòng này dùng cú pháp pattern matching (`case int i when...`). Trong Java 21, **không được phép trộn lẫn cú pháp pattern matching với cú pháp case nhãn hai chấm kiểu cũ** và kiểu `int` nguyên thủy không thể dùng pattern matching kiểu này.\r\n  4. **Dòng 19 lỗi:** `case null -> ...` nằm trơ trọi **bên ngoài** cặp dấu ngoặc nhọn `{}` của khối lệnh `switch`!\r\n  * Tổng cộng: đúng 4 dòng lỗi."
     },
     {
@@ -2291,7 +2341,9 @@ window.QUIZ_DATA = {
           "text": "Ném ra ngoại lệ tại runtime."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "A"
+      ],
       "explanation": "* Đây là một Switch Expression hợp lệ dùng cú pháp mũi tên `->`.\r\n  * Biến truyền vào là `Animal.MAMMAL`, khớp chính xác với `case MAMMAL -> 3;`.\r\n  * Biểu thức trả về giá trị `3` và gán vào `long type`.\r\n  * Nhánh `default` ở dòng 17 là tùy chọn (vì toàn bộ giá trị enum đã được bao phủ hết), việc có thêm `default` không gây lỗi.\r\n  * In ra màn hình: `3`."
     },
     {
@@ -2328,7 +2380,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được do dòng 7."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "C"
+      ],
       "explanation": "* Khởi tạo: `sing = 8`, `squawk = 2`, `notes = 0`.\r\n  * **Lần lặp 1:** Điều kiện `8 > 2` là `true`.\r\n    * `sing--` $\rightarrow$ `sing = 7`.\r\n    * `squawk += 2` $\rightarrow$ `squawk = 4`.\r\n    * `notes += 7 + 4` $\rightarrow$ `notes = 0 + 11 = 11`.\r\n  * **Lần lặp 2:** Điều kiện `7 > 4` là `true`.\r\n    * `sing--` $\rightarrow$ `sing = 6`.\r\n    * `squawk += 2` $\rightarrow$ `squawk = 6`.\r\n    * `notes += 6 + 6` $\rightarrow$ `notes = 11 + 12 = 23`.\r\n  * **Lần lặp 3:** Điều kiện `6 > 6` là `false` $\rightarrow$ Vòng lặp dừng lại.\r\n  * In ra: `23`."
     },
     {
@@ -2365,7 +2419,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được do dòng 14."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "* Tại dòng 14: `case !(Number n) -> ...`.\r\n  * Trong cú pháp Pattern Matching của Java 21, **không hỗ trợ toán tử phủ định `!` đặt trước mẫu kiểu dữ liệu**.\r\n  * Trình biên dịch sẽ báo lỗi cú pháp ngay tại dòng 14."
     },
     {
@@ -2406,7 +2462,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được do dòng 8."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "G"
+      ],
       "explanation": "* Nhìn kỹ dòng 8: `} while keepGoing;`\r\n  * Trong cú pháp Java, biểu thức điều kiện của vòng lặp `do-while` **bắt buộc phải được đặt trong cặp dấu ngoặc đơn `( )`**:\r\n    `while (keepGoing);`\r\n  * Việc thiếu dấu ngoặc đơn `( )` khiến trình biên dịch báo lỗi cú pháp: `error: '(' expected`."
     },
     {
@@ -2488,7 +2546,9 @@ window.QUIZ_DATA = {
           "text": "Dòng `case final Middle:` sinh lỗi biên dịch."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "* Cú pháp nhãn `case` trong switch truyền thống chỉ nhận một hằng số biểu thức.\r\n  * Cú pháp `case final Middle:` hoàn toàn sai ngữ pháp trong Java vì không được phép dùng từ khóa `final` đứng trước tên biến như vậy trong nhãn case."
     },
     {
@@ -2558,7 +2618,10 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B",
+        "E"
+      ],
       "explanation": "1. Vòng lặp 1: `while ((participants = participants + 1) < 10) {}`\r\n     * Khi `participants` tăng lên 9: `9 < 10` là true $\rightarrow$ lặp tiếp.\r\n     * Khi `participants` tăng lên 10: `10 < 10` là false $\rightarrow$ dừng. Giá trị của `participants = 10`.\r\n  2. Vòng lặp 2: `do {} while (animals++ <= 1);`\r\n     * Ban đầu `animals = 2`. Thân rỗng chạy lần 1.\r\n     * Kiểm tra điều kiện: `animals++ <= 1` lấy giá trị cũ `2 <= 1` là `false` $\rightarrow$ dừng ngay. Sau đó `animals` tăng lên thành `3`.\r\n  3. Vòng lặp 3: `for ( ; performers < 2; performers += 2) {}`\r\n     * `performers = -1 < 2` $\rightarrow$ lặp, tăng thêm 2 thành `1`.\r\n     * `performers = 1 < 2` $\rightarrow$ lặp, tăng thêm 2 thành `3`.\r\n     * `performers = 3 < 2` là false $\rightarrow$ dừng. Giá trị của `performers = 3`.\r\n  * Ba giá trị in ra là: `10`, `3`, `3`. Các số phân biệt là **10** (**E**) và **3** (**B**)."
     },
     {
@@ -2595,7 +2658,9 @@ window.QUIZ_DATA = {
           "text": "Code biên dịch được nhưng lặp vô tận."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "* Biến `snake` được khai báo ở dòng 4, tức là **bên trong thân của khối lệnh `do { ... }`**.\r\n  * Phạm vi của `snake` kết thúc tại dấu đóng ngoặc nhọn `}` ở dòng 6.\r\n  * Tại dòng 7, điều kiện `while (snake <= 5);` nằm ngoài phạm vi khối lệnh nên không thể nhìn thấy biến `snake`.\r\n  * Trình biên dịch báo lỗi: `cannot find symbol: variable snake`."
     },
     {
@@ -2664,7 +2729,9 @@ window.QUIZ_DATA = {
           "text": "5 dòng"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "1. **Dòng 23:** Khối `{ \"Jane\"; }` thiếu từ khóa `yield` $\rightarrow$ Phải sửa thành `{ yield \"Jane\"; }`.\r\n  2. **Dòng 24:** Thừa dấu chấm phẩy sau dấu ngoặc nhọn `{ yield \"Lisa\"; };` $\rightarrow$ Phải bỏ dấu `;` thừa bên ngoài.\r\n  3. **Dòng 25 và 26:** Trùng lặp giá trị `case 30` (Duplicate case label) $\rightarrow$ Phải sửa một trong hai dòng (ví dụ đổi thành `case 40`) hoặc xóa đi 1 dòng.\r\n  * Tổng cộng có đúng 4 dòng cần sửa đổi/xóa bỏ."
     },
     {
@@ -2701,7 +2768,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được do dòng 3."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "* Dòng 3: `final var one = 1;` là hằng số biên dịch hợp lệ.\r\n  * Dòng 4: `tailFeathers = 3`. Khớp với `case 3:` ở dòng 6 $\rightarrow$ in ra: `5 `.\r\n  * Hết khối `switch` (dòng 7).\r\n  * Dòng 8: Vòng lặp `while (tailFeathers > 1)`:\r\n    * Lần 1: `--tailFeathers` giảm từ 3 xuống 2 $\rightarrow$ in ra: `2 `.\r\n    * Lần 2: `--tailFeathers` giảm từ 2 xuống 1 $\rightarrow$ in ra: `1 `.\r\n    * Lần 3: `1 > 1` là false $\rightarrow$ dừng.\r\n  * Toàn bộ chuỗi in ra: `5 2 1 `."
     },
     {
@@ -2738,7 +2807,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được do dòng 19."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "* Cấu trúc `if-else` chỉ có thể kết thúc bằng một nhánh `else` duy nhất.\r\n  * Nhánh `else` ở dòng 18 đã khép lại toàn bộ câu lệnh `if` bắt đầu từ dòng 17.\r\n  * Dòng 19 lại tiếp tục viết `else if (...)` trơ trọi mà không có `if` nào đứng trước để ghép nối.\r\n  * Trình biên dịch báo lỗi: `'else' without 'if'`."
     },
     {
@@ -2775,7 +2846,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được do dòng 26."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "* Đây là tính năng Pattern Matching cho `switch` của Java 21:\r\n  * Biến `zooStatus = \"Closed\"`.\r\n  * Dòng 24: `s.equals(\"Open\")` là `false` $\rightarrow$ bỏ qua.\r\n  * Dòng 25: `s` thuộc kiểu `Object`, điều kiện `s != null && !s.equals(\"\")` kiểm tra `\"Closed\"` khác null và không rỗng $\rightarrow$ `true`!\r\n  * Nhánh này được chọn và trả về giá trị `20`.\r\n  * Các nhánh được sắp xếp hợp lệ (không có nhánh nào bị dominate) nên code biên dịch và in ra `20`."
     },
     {
@@ -2812,7 +2885,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được do dòng 12."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "* `instrument = \"violin\"`.\r\n  * So sánh với các case: `\"bass\"`, `\"cello\"` (từ `CELLO`), `\"VIOLIN\"` (viết hoa), `\"viola\"` đều không khớp (Java phân biệt hoa thường).\r\n  * Do không khớp case nào, chương trình nhảy vào nhánh **`default:`** ở dòng 13:\r\n    * `p++` $\rightarrow$ `p` từ `-1` tăng lên `0`.\r\n    * ⚠️ **Do không có lệnh `break`**, code rơi tự do (*fall-through*) xuống dòng 14:\r\n      * `p++` $\rightarrow$ `p` từ `0` tăng lên `1`.\r\n    * Tiếp tục rơi tự do xuống dòng 15:\r\n      * `++p` $\rightarrow$ `p` từ `1` tăng lên `2`.\r\n      * Gặp lệnh `break;` $\rightarrow$ thoát switch.\r\n  * In ra: `2`."
     },
     {
@@ -2849,7 +2924,9 @@ window.QUIZ_DATA = {
           "text": "Code biên dịch được nhưng lặp vô hạn tại runtime."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "* Nhìn vào vòng lặp con `do { ... } while (r <= 1);` (dòng 13–17):\r\n    * Biến `r` có giá trị ban đầu là `1`.\r\n    * Lệnh tăng `r++` nằm ở dòng 18 (bên ngoài vòng `do-while`).\r\n    * Bên trong thân `do-while`, biến `r` hoàn toàn không hề bị thay đổi, điều kiện `r <= 1` luôn luôn là `true`.\r\n    * Nhánh `if (name.length() > 0)` luôn luôn chạy và không bao giờ chạm tới nhánh `else break;`.\r\n  * Vì vậy vòng lặp `do-while` chạy vô tận và chương trình không bao giờ dừng."
     },
     {
@@ -2886,7 +2963,9 @@ window.QUIZ_DATA = {
           "text": "Ném ra ngoại lệ tại runtime."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "* `amphibian = 2`, khớp với `case 2 -> { ... }`.\r\n  * Trong khối lệnh của `case 2`:\r\n    * Kiểm tra: `name.equals(\"Frog\")` $\rightarrow$ `\"Salamander\".equals(\"Frog\")` là `false`.\r\n    * Lệnh `yield \"Green\";` bị bỏ qua.\r\n    * Dòng tiếp theo chạy: `yield \"Blue\";` trả về giá trị `\"Blue\"` cho switch.\r\n  * In ra: `Blue`."
     },
     {
@@ -2923,7 +3002,9 @@ window.QUIZ_DATA = {
           "text": "Không có phương án nào đúng"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "* Hãy phân tích cơ chế Flow Scoping:\r\n    * Dòng 41: `if (!(fish instanceof String guppy))`\r\n    * Khi rẽ vào nhánh `else` (dòng 43), điều đó có nghĩa là `fish` **CHẮC CHẮN LÀ `String`**, và biến mẫu `guppy` đã tồn tại trong phạm vi của khối `else` này!\r\n    * Tại dòng 43, lại tiếp tục khai báo: `else if (!(fish instanceof String guppy))`.\r\n    * Trình biên dịch báo lỗi: **`variable guppy is already defined in method getFish(Object)`** (Trùng lặp tên biến cục bộ trong cùng một phạm vi)."
     },
     {
@@ -2960,7 +3041,9 @@ window.QUIZ_DATA = {
           "text": "Code lặp vô tận."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "C"
+      ],
       "explanation": "* Ban đầu: `y = -2`.\r\n  * **Lần 1:** Tiền tố `++y` tăng `y` lên `-1` và in ra `-1 `. Kiểm tra: `-1 <= 5` là true $\rightarrow$ Lặp tiếp.\r\n  * Tiếp tục tăng và in ra: `0 1 2 3 4`.\r\n  * Khi `y = 4`, `++y` in ra `5 `. Kiểm tra: `5 <= 5` là `true` $\rightarrow$ Vẫn tiếp tục lặp!\r\n  * Lần lặp cuối: `++y` tăng `y` lên `6` và in ra `6 `. Kiểm tra: `6 <= 5` là `false` $\rightarrow$ Dừng vòng lặp.\r\n  * Chuỗi in ra hoàn chỉnh: `-1 0 1 2 3 4 5 6 `."
     },
     {
@@ -3001,7 +3084,9 @@ window.QUIZ_DATA = {
           "text": "6 dòng"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "Các lỗi biên dịch cần sửa:\r\n  1. **Dòng 43:** Thiếu dấu chấm phẩy sau lệnh yield: `{ yield 4; }`.\r\n  2. **Dòng 46 & 47:** Nhánh `default` đứng trước `case null` $\rightarrow$ `default` thống trị `case null` khiến trình biên dịch báo lỗi `dominated case label`. Phải đổi chỗ hoặc sửa 2 dòng này.\r\n  3. **Dòng 48:** Lệnh `return switch (...) { ... };` bắt buộc phải có **dấu chấm phẩy `;`** sau dấu ngoặc nhọn đóng `}` của switch expression.\r\n  * Tổng cộng cần sửa đổi/điều chỉnh tối thiểu **4 dòng** $\rightarrow$ Đáp án **E**."
     },
     {
@@ -3038,7 +3123,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được (The code does not compile)."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "* Câu hỏi này kiểm tra sự chú ý của bạn về **kiểu dữ liệu** và **toán tử `+`**.\r\n  * Tại dòng 5: `numFish` là kiểu `int` (giá trị 4) và `1` là một số nguyên kiểu `int`. Vì cả hai toán hạng đều là số nguyên, phép toán `numFish + 1` là **phép cộng số học**, trả về kết quả số nguyên là `5` (kiểu `int`).\r\n  * Trình biên dịch sẽ báo lỗi tại dòng 5 vì Java **không cho phép gán trực tiếp một giá trị `int` vào một biến tham chiếu kiểu `String`** mà không có chuyển đổi kiểu (`incompatible types: int cannot be converted to String`).\r\n  * Nếu dòng 5 được sửa thành: `String anotherFish = numFish + 1 + \"\";` hoặc `String anotherFish = \"\" + (numFish + 1);`, code sẽ biên dịch thành công và in ra:\r\n    ```\r\n    5 tuna\r\n    4 1\r\n    ```"
     },
     {
@@ -3202,7 +3289,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "<summary><b>👉 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Giải thích chuyên sâu (Từng bước thực thi Method Chaining):**\r\n  1. Ban đầu: `sb` rỗng `\"\"`.\r\n  2. `append(\"aaa\")`: `sb` trở thành `\"aaa\"` (chỉ số 0: 'a', 1: 'a', 2: 'a').\r\n  3. `insert(1, \"bb\")`: Chèn chuỗi `\"bb\"` vào vị trí index 1:\r\n     * Ký tự tại index 0 giữ nguyên: `'a'`.\r\n     * Chèn 2 ký tự: `'b'`, `'b'` vào vị trí 1 và 2.\r\n     * Các ký tự cũ từ index 1 (`'a'`, `'a'`) bị dịch sang vị trí 3 và 4.\r\n     * Nội dung `sb` hiện tại: `\"abbaa\"`.\r\n  4. `insert(4, \"ccc\")`: Chèn chuỗi `\"ccc\"` vào vị trí index 4:\r\n     * Ký tự từ index 0 đến 3 giữ nguyên: `\"abba\"`.\r\n     * Chèn `\"ccc\"` vào vị trí 4, 5, 6.\r\n     * Ký tự tại index 4 cũ (`'a'`) bị đẩy sang index 7.\r\n     * Kết quả cuối cùng: `\"abbaccca\"`."
     },
     {
@@ -3235,7 +3324,9 @@ window.QUIZ_DATA = {
           "text": "`4`"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "C"
+      ],
       "explanation": "* **Dòng 23 hợp lệ:** `Math.pow(1, 2)` nhận và trả về kiểu `double`, gán vào biến `double one` hoàn toàn hợp lệ.\r\n  * **Dòng 24 LỖI BIÊN DỊCH:** Phương thức `Math.round()` khi truyền đối số là `double` (`1.0`) sẽ **trả về kiểu `long`** (không phải `int`). Không thể gán trực tiếp một giá trị `long` vào biến `int` mà không ép kiểu tường minh!\r\n  * **Dòng 25 LỖI BIÊN DỊCH:** Phương thức `Math.random()` luôn **trả về kiểu `double`** (nằm trong khoảng $[0.0, 1.0)$). Gán `double` vào biến `float` gây lỗi mất mát dữ liệu (*narrowing conversion*).\r\n  * **Dòng 26 hợp lệ:** Nếu sửa các lỗi trên, mảng `double[]` có thể chứa các giá trị `double`, `int` hoặc `long` (nhờ nới rộng kiểu ngầm định).\r\n  * Vì có đúng 2 dòng lỗi (24 và 25), đáp án chính xác là C."
     },
     {
@@ -3398,7 +3489,9 @@ window.QUIZ_DATA = {
           "text": "`4`"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "A"
+      ],
       "explanation": "* Dòng 23: `Math.min(5, 3)` nhận hai số `int` và trả về `int` (giá trị 3), gán vào `int one` hợp lệ.\r\n  * Dòng 24: `Math.round(5.5)` nhận đối số `double` và trả về kiểu `long` (giá trị 6L), gán vào `long two` hoàn toàn chuẩn xác.\r\n  * Dòng 25: `Math.floor(6.6)` nhận và trả về kiểu `double` (giá trị 6.0), gán vào `double three` hợp lệ.\r\n  * Dòng 26: Mảng `double[]` có thể nhận các giá trị kiểu `int` (`one`) và `long` (`two`) nhờ cơ chế nới rộng kiểu ngầm định (*widening primitive conversion* sang `double`).\r\n  * Tất cả các dòng đều hợp lệ, do đó có 0 dòng lỗi $\\rightarrow$ Chọn A."
     },
     {
@@ -3435,7 +3528,9 @@ window.QUIZ_DATA = {
           "text": "Ném ra ngoại lệ tại thời điểm runtime."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "* Lớp `LocalDate` **chỉ đại diện cho ngày (năm, tháng, ngày) và hoàn toàn không chứa thông tin về thời gian (giờ, phút, giây)**.\r\n  * Do đó, trong lớp `LocalDate` **không hề tồn tại phương thức `plusHours()`**!\r\n  * Lệnh `date.plusHours(3)` sẽ khiến trình biên dịch báo lỗi ngay lập tức: `cannot find symbol: method plusHours(int)`."
     },
     {
@@ -3513,7 +3608,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "* `String` là lớp **bất biến (Immutable)**. Gọi `roar1.concat(\"!!!\")` tạo ra một đối tượng `String` mới mang giá trị `\"roar!!!\"`, nhưng kết quả này không được gán lại vào biến `roar1`. Do đó chuỗi ban đầu `roar1` vẫn giữ nguyên là `\"roar\"`.\r\n  * `StringBuilder` là lớp **khả biến (Mutable)**. Gọi `roar2.append(\"!!!\")` sẽ sửa đổi trực tiếp dữ liệu trên mảng ký tự của đối tượng đó trên Heap. Do đó biến `roar2` ở phương thức `main` sẽ nhìn thấy sự thay đổi thành `\"roar!!!\"`.\r\n  * Kết quả in ra là `\"roar roar!!!\"`."
     },
     {
@@ -3855,7 +3952,9 @@ window.QUIZ_DATA = {
           "text": "Ném ra ngoại lệ tại thời điểm runtime."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "A"
+      ],
       "explanation": "* Tất cả các lớp trong gói `java.time` (bao gồm `LocalDate`) đều là **các lớp bất biến (Immutable)**.\r\n  * Các phương thức `date.plusDays(2)` và `date.plusYears(3)` tính toán và trả về đối tượng `LocalDate` mới, nhưng **không hề được gán lại vào biến `date`**.\r\n  * Đối tượng `date` ban đầu hoàn toàn giữ nguyên giá trị: Năm 2025, tháng APRIL, ngày 30."
     },
     {
@@ -3896,7 +3995,9 @@ window.QUIZ_DATA = {
           "text": "Ném ra ngoại lệ tại thời điểm runtime."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "<summary><b>👉 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Giải thích chuyên sâu (Từng bước tính toán chuỗi phương thức):**\r\n  1. `LocalDate.of(2025, Month.OCTOBER, 31)`: Khởi tạo ngày `2025-10-31`.\r\n  2. `.plusYears(1)`: Cộng 1 năm $\\rightarrow$ `2026-10-31`.\r\n  3. `.plusMonths(-5)`: Trừ 5 tháng (tháng 10 trừ 5 là tháng 5 - May) $\\rightarrow$ `2026-05-31`.\r\n  4. `.plusMonths(1)`: Cộng 1 tháng (từ tháng 5 sang tháng 6 - June). **Lưu ý bẫy ngày cuối tháng:** Tháng 6 chỉ có 30 ngày, Java tự động điều chỉnh ngày 31 thành ngày cuối cùng hợp lệ của tháng 6 là ngày 30 $\\rightarrow$ `2026-06-30`.\r\n  5. `.withYear(2026)`: Thiết lập lại năm là 2026 (vốn đã là 2026) $\\rightarrow$ giữ nguyên `2026-06-30`.\r\n  6. `.atTime(LocalTime.of(13, 4))`: Kết hợp với giờ `13:04` tạo thành `LocalDateTime` $\\rightarrow$ `2026-06-30T13:04`.\r\n  7. In ra màn hình: `2026-06-30T13:04`."
     },
     {
@@ -4290,7 +4391,9 @@ window.QUIZ_DATA = {
           "text": "Lỗi biên dịch tại dòng 7 của Chimp."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "* Trong lớp `Rope`: Dòng 3 khởi tạo `LENGTH = 5`. Ngay sau đó, khối `static { LENGTH = 10; }` chạy khi lớp được nạp và gán lại `LENGTH = 10`.\r\n  * Trong lớp `Chimp`:\r\n    * Dòng 2: `import static rope.Rope.*;` là cú pháp static import hợp lệ.\r\n    * Dòng 5: `Rope.swing()` gọi phương thức static qua tên lớp $\\rightarrow$ in ra `\"swing \"`.\r\n    * Dòng 6: `new Rope().swing()` gọi phương thức static qua biến thể hiện $\\rightarrow$ Java vẫn cho phép và dịch thành lời gọi static $\\rightarrow$ in ra `\"swing \"`.\r\n    * Dòng 7: `System.out.println(LENGTH)` in ra giá trị hiện tại của biến static `LENGTH` là `10`.\r\n  * Kết quả hiển thị: `swing swing 10`."
     },
     {
@@ -4367,7 +4470,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào đúng. Code không biên dịch được."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "* Một biến cục bộ là `effectively final` nếu nó không hề bị gán lại giá trị sau khi được khởi tạo lần đầu (thêm từ khóa `final` vào vẫn biên dịch được).\r\n  * `monkey` (dòng 11): Bị tăng giá trị ở dòng 13 (`monkey++`) $\\rightarrow$ **Không phải** effectively final.\r\n  * `giraffe` (dòng 13): Khởi tạo một lần và không bị thay đổi ở đâu $\\rightarrow$ **Effectively final (1)**.\r\n  * `name` (dòng 14–15): Nằm trong khối `{}` của `if`, chỉ được gán đúng 1 lần giá trị `\"geoffrey\"` $\\rightarrow$ **Effectively final (2)**.\r\n  * `name` (dòng 17): Nằm ở phạm vi phương thức ngoài `if`, bị gán lại bằng `null` ở dòng 22 $\\rightarrow$ **Không phải** effectively final.\r\n  * `food` (dòng 18): Bị gán lại bằng `0` ở dòng 20 trong vòng lặp $\\rightarrow$ **Không phải** effectively final.\r\n  * Tổng cộng có đúng 2 biến thỏa mãn $\\rightarrow$ Chọn B."
     },
     {
@@ -4404,7 +4509,9 @@ window.QUIZ_DATA = {
           "text": "Ném ra ngoại lệ tại thời điểm runtime."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "* **Chi tiết 1:** Khối `{ System.out.println(rope1.length); }` trong `RopeSwing` là một **khối khởi tạo thể hiện (*Instance Initializer*)**, không phải `static initializer` (vì không có từ khóa `static`). Khối này chỉ chạy khi một đối tượng `new RopeSwing()` được tạo ra. Trong hàm `main`, không có đối tượng `RopeSwing` nào được tạo, do đó khối này **hoàn toàn không được chạy**!\r\n  * **Chi tiết 2:** Biến `length` trong lớp `Rope` được khai báo là **`public static int length = 0;`**. Vì nó là biến tĩnh `static`, chỉ có duy nhất một vùng nhớ được chia sẻ chung.\r\n  * Lệnh `rope1.length = 2;` gán giá trị chung thành 2.\r\n  * Lệnh kế tiếp `rope2.length = 8;` ghi đè giá trị chung thành 8.\r\n  * Lệnh `System.out.println(rope1.length);` đọc giá trị chung đó và in ra **`8`**."
     },
     {
@@ -4441,7 +4548,9 @@ window.QUIZ_DATA = {
           "text": "`5`"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "* Quy tắc đối với biến `static final`: Bắt buộc phải được gán giá trị **đúng 1 lần duy nhất** ngay tại dòng khai báo hoặc trong khối khởi tạo tĩnh `static { }`.\r\n  * **Dòng 4 LỖI:** Biến `bench` là `static final` nhưng không hề được khởi tạo tại khai báo hay trong bất kỳ khối `static { }` nào (`variable bench might not have been initialized`).\r\n  * **Dòng 11 LỖI:** Biến `name` đã được gán tại dòng 5, cố tình gán lại lần thứ hai trong khối `static` (`cannot assign a value to final variable name`).\r\n  * **Dòng 12 LỖI:** Biến `rightRope` đã được gán tại dòng 8, cố tình gán lại lần thứ hai ở dòng 12 (`cannot assign a value to final variable rightRope`).\r\n  * **Dòng 15 LỖI:** Cố tình gán giá trị cho biến `static final bench` bên trong phương thức `main()` (biến `static final` tuyệt đối không được gán trong phương thức thường).\r\n  * Tổng cộng có đúng 4 dòng lỗi biên dịch $\\rightarrow$ Chọn E."
     },
     {
@@ -4517,7 +4626,9 @@ window.QUIZ_DATA = {
           "text": "`byte-Object-Object-`"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "<summary><b>👉 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Giải thích chuyên sâu (Quy tắc phân giải Overloading):**\r\n  1. **Dòng 17 `t.print(s)`:** Đối số `s` có kiểu `short`. Không có phương thức nào nhận `short`. Java sẽ tìm kiểu nguyên thủy lớn hơn tiếp theo (*Widening primitive*): `short` $\\rightarrow$ `int`. Phương thức `print(int)` (dòng 5) được chọn $\\rightarrow$ in ra **`int-`**. (Lưu ý: `short` không thể tự thu hẹp về `byte`!).\r\n  2. **Dòng 18 `t.print(true)`:** Đối số mang giá trị `boolean`. Không có phương thức nhận `boolean`. Java thực hiện Autoboxing thành đối tượng `Boolean`. `Boolean` là một lớp con kế thừa từ `Object`, do đó phương thức `print(Object)` (dòng 11) được chọn $\\rightarrow$ in ra **`Object-`**.\r\n  3. **Dòng 19 `t.print(6.789)`:** Giá trị `6.789` là một số thực dấu phẩy động kiểu `double`. Kiểu `double` không thể nới rộng sang `float` (vì `float` nhỏ hơn `double`). Java autobox `6.789` thành đối tượng `Double`. `Double` kế thừa từ `Object`, do đó phương thức `print(Object)` được chọn $\\rightarrow$ in ra **`Object-`**.\r\n  * Kết quả ghép lại: `int-Object-Object-`."
     },
     {
@@ -4550,7 +4661,9 @@ window.QUIZ_DATA = {
           "text": "Lỗi biên dịch tại dòng khác."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "* Java **luôn luôn truyền tham số theo giá trị (*Pass-by-value*)**.\r\n  * Khi gọi `square(value)`, một bản sao của giá trị `9` được gán cho biến tham số `x`.\r\n  * Bên trong phương thức `square()`, lệnh `x = -1;` chỉ làm thay đổi giá trị của biến cục bộ `x`, hoàn toàn **không ảnh hưởng gì đến biến `value`** trong hàm `main()`.\r\n  * Dòng 10 in ra giá trị của biến `value`, giá trị của nó vẫn nguyên vẹn là **`9`**."
     },
     {
@@ -4757,7 +4870,9 @@ window.QUIZ_DATA = {
           "text": "Code đã in ra `2` mà không cần thay đổi gì."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "* Để gọi một constructor nạp chồng khác trong cùng một lớp, ta bắt buộc phải dùng cú pháp `this(...)`. Không thể gọi tên constructor trực tiếp như một hàm thông thường (`BirdSeed(2);` → Lỗi biên dịch, loại A và B).\r\n  * Lời gọi `new BirdSeed(2);` (câu C và D) sẽ tạo ra một đối tượng hoàn toàn mới trên Heap rồi bỏ rơi nó, không hề gán giá trị cho trường `numberBags` của đối tượng hiện tại, nên chương trình sẽ in ra `0`, không phải `2`.\r\n  * Lời gọi `this(...)` **bắt buộc phải là dòng lệnh đầu tiên** trong thân constructor. Do đó chỉ có thể đặt tại **dòng 1** (E đúng, F sai).\r\n  * Mã ban đầu in ra `0` (giá trị mặc định của `int`), nên G sai."
     },
     {
@@ -4918,7 +5033,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "<summary><b>👉 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Giải thích chuyên sâu (Bẫy Ẩn Biến - Variable Hiding):**\r\n  * Trong lớp `Cheetah`, biến `int numSpots` che khuất (*hides*) biến `int numSpots` của lớp cha `Speedster`. Trong bộ nhớ đối tượng `Cheetah` trên Heap thực chất có cả 2 biến `numSpots` riêng biệt.\r\n  * Trong hàm `main`: Biến tham chiếu `s` được khai báo với kiểu **`Speedster`** (`Speedster s = new Cheetah(50);`).\r\n  * **Quy tắc truy cập biến:** Việc truy cập trường dữ liệu `s.numSpots` được quyết định dựa vào **kiểu tham chiếu lúc biên dịch** (`Speedster`), chứ không phụ thuộc vào đối tượng thực tế trên Heap! Do đó, `s.numSpots` sẽ đọc giá trị của trường `numSpots` thuộc về lớp **`Speedster`**!\r\n  * Để `s.numSpots` in ra `50`, constructor của `Cheetah` phải gán giá trị tham số `50` vào trường `numSpots` của lớp cha `Speedster`, cú pháp đúng là: `super.numSpots = numSpots;` → Chọn E.\r\n  * Nếu chọn C (`this.numSpots = numSpots;`), biến của `Cheetah` được gán 50 nhưng biến của `Speedster` vẫn là `0` → in ra `0`."
     },
     {
@@ -4999,7 +5116,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "A"
+      ],
       "explanation": "* Lớp `Arthropod` nạp chồng 2 phương thức: `printName(long)` và `printName(int)`.\r\n  * Tại lớp `Spider`: Phương thức `protected void printName(int)` ở dòng 9 đã **ghi đè (override)** thành công phương thức `void printName(int)` ở dòng 5 (vì cùng chữ ký và quyền `protected` rộng hơn package access).\r\n  * Trong hàm `main`: Biến tham chiếu `a` có kiểu `Arthropod`, nhưng đối tượng thực tế trên Heap là `Spider`. Nhờ cơ chế đa hình động (*Virtual Method Invocation*), bất kỳ lời gọi nào khớp với `printName(int)` sẽ thực thi phiên bản của `Spider`!\r\n  * **Dòng 14 `a.printName((short)4)`:** Giá trị `short` được nới rộng kiểu nguyên thủy sang `int` gần nhất → gọi phương thức ghi đè `printName(int)` của `Spider` → in ra **`Spider`**.\r\n  * **Dòng 15 `a.printName(4)`:** Giá trị `int` khớp chính xác → gọi `printName(int)` của `Spider` → in ra **`Spider`**.\r\n  * **Dòng 16 `a.printName(5L)`:** Giá trị `5L` có kiểu `long`, khớp với `printName(long)` của `Arthropod` (phương thức này không bị Spider ghi đè) → in ra **`Arthropod`**.\r\n  * Kết quả: `SpiderSpiderArthropod`."
     },
     {
@@ -5163,7 +5282,9 @@ window.QUIZ_DATA = {
           "text": "Ném ra ngoại lệ tại thời điểm runtime."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "C"
+      ],
       "explanation": "* Dòng 16: `new PolarBear()` tạo đối tượng đầu tiên. Khối khai báo biến và initializer chạy trước: `\"t\"` + `\"a\"` + `\"c\"` = `\"tac\"`. Sau đó constructor `PolarBear()` (dòng 5) chạy nối thêm `\"b\"` → biến `value` thành `\"tacb\"`.\r\n  * Dòng 17: `bear = new PolarBear(\"f\")` tạo đối tượng thứ hai gán đè vào biến `bear`:\r\n    * Khối initializer của đối tượng mới chạy trước: tạo lại `\"tac\"`.\r\n    * Lời gọi constructor: Tham số là literal `\"f\"` (kiểu `String`). Trình biên dịch ưu tiên chọn constructor nhận `String s` (dòng 8) vì `String` cụ thể hơn `CharSequence`.\r\n    * Dòng 9: Constructor này gọi `this()` → chạy constructor `PolarBear()` (dòng 5) nối thêm `\"b\"` → chuỗi thành `\"tacb\"`.\r\n    * Dòng 10: Nối thêm `s` (`\"f\"`) → chuỗi thành `\"tacbf\"`.\r\n  * Dòng 18 ép kiểu và in trường `value` của đối tượng thứ hai → in ra **`tacbf`**."
     },
     {
@@ -5200,7 +5321,9 @@ window.QUIZ_DATA = {
           "text": "5"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "C"
+      ],
       "explanation": "* **Lỗi tại dòng 8:** Lớp cha `Rodent` có constructor nhận `Integer`, không có no-arg constructor. Lớp `Beaver` không khai báo constructor nào nên compiler tự chèn constructor mặc định gọi `super();` → Báo lỗi biên dịch tại dòng 8.\r\n  * **Lỗi tại dòng 9:** Dòng 9 có tới 2 lỗi biên dịch:\r\n    1. Phương thức cha `chew()` là `static`, nhưng phương thức con lại là phương thức thể hiện (instance) → Vi phạm quy tắc Method Hiding (không thể override một static method thành instance method).\r\n    2. Kiểu trả về ở cha là `Integer`, ở con là `Number`. `Number` là lớp cha của `Integer` (không phải covariant return type, ở con phải là subtype chứ không được là supertype) → Lỗi biên dịch.\r\n  * Mặc dù có 3 lỗi nhưng các lỗi nằm trên **đúng 2 dòng (dòng 8 và dòng 9)** → Chọn C."
     },
     {
@@ -5365,7 +5488,9 @@ window.QUIZ_DATA = {
           "text": "Code không biên dịch được."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "<summary><b>👉 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Giải thích chuyên sâu (Từng bước Thứ tự khởi tạo):**\r\n  1. **Nạp lớp:** Lớp con `Scorpion` có cha là `Arachnid`.\r\n     * Static của `Arachnid`: Nối `\"u\"` vào `sb`.\r\n     * Static của `Scorpion`: Nối `\"q\"` vào `sb`.\r\n     * `sb` hiện tại là `\"uq\"`.\r\n  2. **Dòng 13 & 14:** In `Scorpion.sb + \" \"` hai lần → in ra: **`uq uq `**.\r\n  3. **Dòng 15 `new Arachnid()`:** Tạo thể hiện của cha.\r\n     * Khối thể hiện dòng 3 nối `\"c\"`.\r\n     * Khối thể hiện dòng 6 nối `\"r\"`.\r\n     * `sb` trở thành `\"uqcr\"`.\r\n  4. **Dòng 16 `new Scorpion()`:** Tạo thể hiện của con.\r\n     * Thể hiện của cha chạy trước: Khối dòng 3 nối `\"c\"`, dòng 6 nối `\"r\"` → `sb` thành `\"uqcrcr\"`.\r\n     * Thể hiện của con chạy tiếp: Khối dòng 11 nối `\"m\"` → `sb` thành `\"uqcrcrm\"`.\r\n  5. **Dòng 17:** In `Scorpion.sb` → in ra **`uqcrcrm`**.\r\n  * Toàn bộ kết quả: `uq uq uqcrcrm`."
     },
     {
@@ -5490,7 +5615,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên (Code không biên dịch được do dòng 9)."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "* Lớp cha `Reptile` chỉ định nghĩa một constructor có tham số `Reptile(int hatch)`. Do đó, lớp `Reptile` không có constructor không tham số.\r\n  * Constructor của lớp con `Lizard` ở dòng 9 không có lời gọi `this(...)` hay `super(...)` tường minh, do đó trình biên dịch tự động chèn `super();` vào dòng đầu tiên.\r\n  * Vì `Reptile` không có constructor không tham số, trình biên dịch báo lỗi tại dòng 9: `constructor Reptile in class Reptile cannot be applied to given types; required: int; found: no arguments`.\r\n  * Nếu sửa dòng 9 thành `public Lizard(int hatch) { super(hatch); }`, chương trình sẽ biên dịch và in ra `BALizard`. Nhưng ở trạng thái hiện tại, code bị lỗi biên dịch → Chọn F."
     },
     {
@@ -5527,7 +5654,9 @@ window.QUIZ_DATA = {
           "text": "Chương trình biên dịch và in ra `0`."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "* **Tính hợp lệ của Overriding & Covariant Return:**\r\n    * `Parrot` kế thừa `Bird`, ghi đè `fly()` với kiểu trả về `Parrot` (lớp con của `Bird`) → hợp lệ.\r\n    * `Macaw` kế thừa `Parrot`, ghi đè `fly()` với kiểu trả về `Macaw` (lớp con của `Parrot`) → hợp lệ.\r\n    * Quyền truy cập mở rộng dần: package → `protected` → `public` → hợp lệ.\r\n  * **Tại hàm `main`:**\r\n    * Dòng 18: `Bird p = new Macaw(4);` tạo đối tượng `Macaw`.\r\n    * Dòng 19: `p.fly()` được gọi. Do tính đa hình động (*Virtual Method Invocation*), phương thức `fly()` của đối tượng thực tế trên Heap (**`Macaw`**) được thực thi!\r\n    * `Macaw.fly()` thực hiện `return new Macaw(3);` → Tạo một đối tượng `Macaw` mới có trường `feathers = 3`.\r\n    * Đối tượng này được ép kiểu sang `Parrot` (hoàn toàn hợp lệ vì `Macaw` kế thừa `Parrot`).\r\n    * Truy cập `.feathers` của đối tượng mới tạo → in ra **`3`**."
     },
     {
@@ -5608,7 +5737,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "<summary><b>👉 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Giải thích chuyên sâu (Phân tích Bẫy Variable Hiding vs Method Overriding):**\r\n  * Biến `static String name` ở lớp `Child` **ẩn (hides)** biến `static String name` ở lớp `Person`. Có 2 biến riêng biệt: `Person.name` và `Child.name`.\r\n  * Phương thức `setName()` trong `Child` **ghi đè (overrides)** phương thức `setName()` trong `Person`.\r\n  * Dòng 8 & 9: `m` có kiểu tham chiếu `Child`, `t` có kiểu tham chiếu `Person`. Cả hai cùng trỏ vào 1 đối tượng `Child`.\r\n  * Dòng 10: `m.name = \"Elysia\"` gán vào biến tĩnh của lớp `Child` → `Child.name = \"Elysia\"`.\r\n  * Dòng 11: `t.name = \"Sophia\"` gán vào biến tĩnh của lớp `Person` → `Person.name = \"Sophia\"`.\r\n  * Dòng 12: `m.setName(\"Webby\")` gọi hàm `setName()` của `Child` → gán `Child.name = \"Webby\"`.\r\n  * Dòng 13: `t.setName(\"Olivia\")`: Do tính đa hình động (*Virtual Method Invocation*), phương thức ghi đè của đối tượng thực tế trên Heap (**`Child`**) được gọi! → gán `Child.name = \"Olivia\"`.\r\n  * Dòng 14: `m.name` đọc `Child.name` (giá trị **`Olivia`**); `t.name` đọc `Person.name` (giá trị **`Sophia`**).\r\n  * Output in ra: `Olivia Sophia`."
     },
     {
@@ -5649,7 +5780,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "<summary><b>👉 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Giải thích chuyên sâu (Lần vết chuỗi Constructor Top-Down):**\r\n  1. Dòng 24: Gọi `new Fennec(1)` (đối số kiểu `int`).\r\n  2. Constructor `Fennec(int)` (dòng 15) gọi `super(\"tails\")`.\r\n  3. Chuyển sang `Fox(String)` (dòng 10) → gặp dòng 11: `this(2)`.\r\n  4. Chuyển sang `Fox(long)` (dòng 9): Dòng đầu không viết gì nên compiler tự chèn `super();`.\r\n  5. Chuyển lên lớp cha cao nhất `Canine()` (dòng 3): Thêm `\"q\"` vào logger.\r\n  6. Mở ngược lại chuỗi constructor:\r\n     * Thân `Fox(long)` tiếp tục: dòng 9 thêm `\"p\"`.\r\n     * Thân `Fox(String)` tiếp tục: dòng 12 thêm `\"z\"`.\r\n     * Thân `Fennec(int)` tiếp tục: dòng 17 thêm `\"j\"`.\r\n  * Kết quả tích lũy trong logger là: **`qpzj`**."
     },
     {
@@ -5686,7 +5819,9 @@ window.QUIZ_DATA = {
           "text": "Kết quả không thể xác định cho đến lúc runtime."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "C"
+      ],
       "explanation": "1. **Khởi tạo Class (Static):**\r\n     * Static của cha `Antelope` (dòng 6): in ra **`1`**.\r\n     * Static của con `Gazelle` (dòng 16): in ra **`8`**.\r\n     * (Output hiện tại: `18`).\r\n  2. **Khởi tạo Instance khi gọi `new Gazelle(0)`:**\r\n     * Lớp con gọi `super(6)` lên cha `Antelope`.\r\n     * Khối thể hiện `{}` của `Antelope` (dòng 5) chạy trước → in ra **`2`**.\r\n     * Constructor `Antelope(int)` (dòng 3) chạy → in ra **`4`**.\r\n     * Quay lại lớp con `Gazelle`:\r\n     * Khối thể hiện `{}` của `Gazelle` (dòng 17) chạy → in ra **`9`**.\r\n     * Constructor `Gazelle(int)` (dòng 11) chạy → in ra **`3`**.\r\n  * Kết quả in ra đầy đủ: `182493`."
     },
     {
@@ -5767,7 +5902,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "* Dòng 7: `Whale whale = new Orca();` khai báo biến `whale` với **kiểu tham chiếu là `Whale`**.\r\n  * Dòng 8: Lệnh `whale.dive(3);` cố gắng gọi phương thức `dive(int)`.\r\n  * **Quy tắc biên dịch:** Tại thời điểm biên dịch (*compile-time*), trình biên dịch kiểm tra xem trong lớp `Whale` có phương thức nào tên là `dive` nhận tham số số nguyên hay không.\r\n  * Trong lớp `Whale` **chỉ có duy nhất phương thức `public abstract void dive();` không nhận tham số**. Phương thức `dive(int... depth)` chỉ tồn tại ở lớp con `Orca`, lớp `Whale` hoàn toàn không biết đến phương thức này!\r\n  * Do đó, trình biên dịch báo lỗi ngay tại dòng 8: `method dive in class Whale cannot be applied to given types; required: no arguments; found: int` → Chọn D."
     },
     {
@@ -5895,7 +6032,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * **Dòng 13:** Khi enum chỉ chứa danh sách hằng số, dấu chấm phẩy (`;`) ở cuối danh sách là tuỳ chọn. Tuy nhiên, khi enum có thêm bất kỳ thành viên nào khác (như constructor ở dòng 14), **dấu chấm phẩy (`;`) kết thúc danh sách hằng số là BẮT BUỘC**. Dòng 13 thiếu dấu `;` nên bị lỗi biên dịch.\r\n  * **Dòng 14:** Constructor của enum luôn luôn ngầm định là `private`. Bạn **tuyệt đối không được phép khai báo constructor của enum là `public` hoặc `protected`**. Dòng 14 khai báo `public Flavors()` nên gây lỗi biên dịch.\r\n  * Vì có 2 dòng mã bị lỗi biên dịch (dòng 13 và 14), đáp án đúng là **D**.\r\n  * Nếu sửa 2 lỗi trên, chương trình sẽ in ra: `0 1 0 ` (vì ordinals lần lượt là 0, 1, 2).\r\n* **Bẫy thi cần nhớ:** Constructor của enum chỉ có thể là private; nếu enum có chứa thêm phương thức hay constructor thì bắt buộc phải có dấu chấm phẩy ';' sau danh sách hằng số."
     },
     {
@@ -5928,7 +6067,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "C"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * `ArmoredAnimal` là một **sealed class** cho phép lớp `Armadillo` kế thừa (`permits Armadillo`).\r\n  * **Quy tắc bắt buộc của Sealed Class:** Mọi lớp con trực tiếp (`direct subclass`) của một sealed class **bắt buộc phải có chính xác một trong ba modifier**: `final`, `sealed`, hoặc `non-sealed`.\r\n  * Lớp `Armadillo` khai báo là `class Armadillo extends ArmoredAnimal` mà không có modifier nào trong số 3 modifier trên.\r\n  * Do đó, trình biên dịch báo lỗi tại khai báo của lớp `Armadillo`: `sealed, non-sealed or final modifiers expected`.\r\n* **Bẫy thi cần nhớ:** Lớp con trực tiếp của sealed class bắt buộc phải mang đúng một trong 3 modifier: final, sealed, hoặc non-sealed."
     },
     {
@@ -5965,7 +6106,9 @@ window.QUIZ_DATA = {
           "text": "Đoạn mã không biên dịch được do dòng 10."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Dòng 1–4: Interface `HasExoskeleton` khai báo hằng số `size` (ngầm định `public static final`) và abstract method `getNumberOfSections()` (ngầm định `public abstract`). Hoàn toàn hợp lệ.\r\n  * Dòng 5–7: `Insect` là abstract class kế thừa interface `HasExoskeleton` và thêm abstract method `getNumberOfLegs()`. Hoàn toàn hợp lệ.\r\n  * Dòng 8–11: `Beetle` là concrete class kế thừa `Insect`, do đó nó bắt buộc phải ghi đè (override) tất cả các abstract method chưa được triển khai:\r\n  *   * `getNumberOfLegs()` ở dòng 9: Override hợp lệ.\r\n  *   * `getNumberOfSections()` trong interface không nhận tham số nào. Nhưng dòng 10 lại khai báo `getNumberOfSections(int count)` → Đây là **nạp chồng (overload)**, không phải ghi đè!\r\n  * Vì `Beetle` chưa triển khai phương thức trừu tượng `int getNumberOfSections()` không tham số, nên khai báo lớp `Beetle` ở dòng 8 bị lỗi biên dịch: `Beetle is not abstract and does not override abstract method getNumberOfSections() in HasExoskeleton`.\r\n* **Bẫy thi cần nhớ:** Lớp cụ thể (concrete class) kế thừa abstract class/interface bắt buộc phải override chính xác chữ ký phương thức (signature) của mọi abstract method."
     },
     {
@@ -6042,7 +6185,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Dòng 2: Phương thức `int getNumOfGills(int p);` trong interface `Aquatic` **ngầm định là `public abstract`**.\r\n  * Dòng 6: Lớp `ClownFish` ghi đè phương thức này nhưng lại khai báo là `int getNumOfGills(int input)` với **quyền truy cập package-private (mặc định)**.\r\n  * **Quy tắc ghi đè phương thức:** Phương thức ghi đè ở lớp con **không được phép thu hẹp quyền truy cập** so với phương thức ở lớp cha (từ `public` xuống package-private là phạm luật).\r\n  * Do đó, dòng 6 gây lỗi biên dịch: `getNumOfGills(int) in ClownFish cannot implement getNumOfGills(int) in Aquatic; attempting to assign weaker access privileges; was public`.\r\n  * Dòng 5 là phương thức nạp chồng (overload) không tham số, hoàn toàn hợp lệ.\r\n* **Bẫy thi cần nhớ:** Mọi phương thức abstract trong interface đều là public. Khi lớp con triển khai (override) bắt buộc phải khai báo từ khoá 'public'."
     },
     {
@@ -6223,7 +6368,9 @@ window.QUIZ_DATA = {
           "text": "Mã biên dịch nhưng phát sinh ngoại lệ tại runtime."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Kể từ Java 16+, một **Inner Class (non-static)** hoàn toàn được phép chứa các thành viên `static` (như biến `public static int butter = 10;` ở dòng 6) → Dòng 6 biên dịch hợp lệ.\r\n  * Dòng 3 & dòng 5: Các constructor dù là `private` nhưng đều nằm bên trong cùng phạm vi của lớp ngoài `Movie`, nên các phương thức trong `Movie` (kể cả `main`) đều có quyền truy cập → Dòng 12 và 13 biên dịch hợp lệ.\r\n  * Dòng 13: Cú pháp khởi tạo inner class `new Movie().new Popcorn()` hoàn toàn chính xác.\r\n  * Dòng 8: Lệnh `System.out.println(butter);` nằm bên trong lớp `Popcorn`. Theo quy tắc che giấu phạm vi (scoping), biến `butter` ở dòng 6 của chính lớp `Popcorn` sẽ che giấu biến `butter` của lớp ngoài `Movie`.\r\n  * Do đó, chương trình in ra giá trị `10`.\r\n* **Bẫy thi cần nhớ:** Java 16+ cho phép inner class chứa biến static; biến cục bộ/thành viên lớp trong sẽ che giấu biến cùng tên của lớp ngoài."
     },
     {
@@ -6318,7 +6465,9 @@ window.QUIZ_DATA = {
           "text": "Mã biên dịch nhưng phát sinh ngoại lệ tại thời điểm chạy (runtime)."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "G"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Kể từ Java 21, câu lệnh và biểu thức `switch` hỗ trợ Pattern Matching và cho phép sử dụng tên đầy đủ kèm tiền tố enum (Qualified enum constant) như `case Seasons.SPRING ->` → Mã nguồn biên dịch hoàn toàn hợp lệ!\r\n  * Tuy nhiên, biến `v` được gán giá trị bằng `null` (`Seasons v = null;`).\r\n  * Trong Java, khi biểu thức selector của câu lệnh `switch` đánh giá ra `null`, và trong `switch` **không có nhánh `case null`**, JVM sẽ **ném ra ngoại lệ `NullPointerException` ngay lập tức** tại thời điểm chạy!\r\n  * Nhánh `default` KHÔNG bắt giá trị `null` nếu không có `case null`. Do đó, chương trình ném ngoại lệ tại runtime → Chọn **G**.\r\n* **Bẫy thi cần nhớ:** Switch trên biến null mà không có nhánh 'case null' sẽ ném ra NullPointerException tại runtime, ngay cả khi có nhánh 'default'!"
     },
     {
@@ -6400,7 +6549,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * **Bẫy thi cực kỳ tinh vi của Oracle:** Hãy chú ý dòng khai báo lớp `Spirit`:\r\n  * `protected final class Spirit` được đánh dấu là **`final`**!\r\n  * Trong phương thức `main`, đoạn mã viết: `var g = new Ghost().new Spirit() {};`.\r\n  * Cặp dấu `{}` ở cuối dòng này chính là cú pháp khai báo một **Anonymous Class (lớp vô danh) kế thừa từ lớp `Spirit`**.\r\n  * Vì lớp `Spirit` là `final`, nó **tuyệt đối không thể bị kế thừa**! Trình biên dịch sẽ báo lỗi ngay lập tức: `cannot inherit from final Ghost.Spirit`.\r\n  * Vì đoạn mã không thể biên dịch được, nên không có dòng lệnh nào có thể làm cho chương trình in ra kết quả → Chọn **F**.\r\n* **Bẫy thi cần nhớ:** Không thể tạo anonymous class từ một class được đánh dấu là 'final'. Đề thi thường gài bẫy biên dịch trước khi bạn kịp suy nghĩ đến logic runtime!"
     },
     {
@@ -6433,7 +6584,9 @@ window.QUIZ_DATA = {
           "text": "Lỗi biên dịch xảy ra tại dòng 5."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Lớp `OstrichWrangler` là một **Static Nested Class** (lớp tĩnh lồng nhau).\r\n  * Khác với Inner Class thông thường, một static nested class **không gắn liền với đối tượng instance nào của lớp ngoài**.\r\n  * Tại dòng 5, phương thức `stampede()` cố gắng truy cập trực tiếp biến instance `count` của lớp ngoài `Ostrich` mà không thông qua một đối tượng tham chiếu cụ thể.\r\n  * Do đó, dòng 5 gây lỗi biên dịch: `non-static variable count cannot be referenced from a static context` → Đáp án đúng là **E**.\r\n* **Bẫy thi cần nhớ:** Static nested class không thể truy cập trực tiếp instance variable của outer class mà không có đối tượng cụ thể."
     },
     {
@@ -6522,7 +6675,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "E"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * `Diet` là một **Inner Class (member class non-static)** của lớp `Deer`.\r\n  * Một inner class non-static **bắt buộc phải gắn liền với một đối tượng của lớp ngoài** thì mới có thể khởi tạo.\r\n  * Trong phương thức `main` (là một static method), đoạn mã gọi trực tiếp: `new Diet()` mà không thông qua instance nào của `Deer`.\r\n  * Trình biên dịch sẽ báo lỗi: `an enclosing instance that contains Deer.Diet is required`.\r\n  * Để sửa lỗi, cần viết là: `new Deer().new Diet().getFavorite()`. Do đó, phương thức `main()` không biên dịch được → Chọn **E**.\r\n* **Bẫy thi cần nhớ:** Từ static context (như main), không thể khởi tạo trực tiếp non-static inner class bằng 'new Inner()' mà phải qua 'outerInstance.new Inner()'."
     },
     {
@@ -6559,7 +6714,9 @@ window.QUIZ_DATA = {
           "text": "Đoạn mã không biên dịch được."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Enum `FOOD` khai báo một phương thức trừu tượng: `public abstract boolean isHealthy();`.\r\n  * **Quy tắc vàng của Enum có abstract method:** Khi enum khai báo một phương thức abstract, **MỌI hằng số enum bên trong bắt buộc phải cung cấp phần thân ghi đè phương thức này** trong body riêng của nó!\r\n  * Trong mã nguồn trên, chỉ duy nhất hằng số `INSECTS` triển khai phương thức `isHealthy()`, còn các hằng số khác (`BERRIES`, `FISH`, `ROOTS`, `COOKIES`, `HONEY`) đều không triển khai.\r\n  * Do đó, trình biên dịch báo lỗi tại các hằng số chưa triển khai phương thức abstract → Đoạn mã không biên dịch được.\r\n* **Bẫy thi cần nhớ:** Khi enum có abstract method, TẤT CẢ các giá trị hằng số enum đều bắt buộc phải ghi đè phương thức đó."
     },
     {
@@ -6604,7 +6761,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên (Lỗi biên dịch)"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "H"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Đoạn mã chứa nhiều lỗi biên dịch trong biểu thức `switch`:\r\n  * 1. **Không tương thích kiểu:** Tại dòng 23, thành phần thứ hai của `Gorilla` được khai báo là kiểu đối tượng `Double y`. Nhưng pattern ở dòng 23 lại khai báo `Gorilla(int d, double e)` với kiểu nguyên thủy `double`. Trong Record Pattern, kiểu wrapper `Double` không tự động unbox để khớp với kiểu primitive `double` → Lỗi biên dịch.\r\n  * 2. **Thống trị mẫu (Pattern Dominance):** Dòng 22 `case Family(var a, var b)` đã bao quát 100% mọi đối tượng kiểu `Family`. Các nhánh `case` từ dòng 23 đến 26 đều là các mẫu con cụ thể hơn của `Family` và bị nhánh ở dòng 22 che khuất hoàn toàn (unreachable code). Trình biên dịch Java cấm điều này và báo lỗi pattern dominance!\r\n  * Vì biểu thức `switch` không biên dịch được, đáp án đúng là **H**.\r\n* **Bẫy thi cần nhớ:** Nhánh tổng quát hơn (như var a, var b) đứng trước sẽ 'thống trị' (dominate) các nhánh cụ thể đứng sau, gây lỗi biên dịch Unreachable Code."
     },
     {
@@ -6641,7 +6800,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Constructor `public RabbitFood()` là một **constructor nạp chồng (overloaded / non-canonical constructor)** vì nó có danh sách tham số khác với header của record.\r\n  * **Quy tắc bất di bất dịch của Record Constructor:** Mọi non-canonical constructor trong record **bắt buộc phải gọi một constructor khác thông qua `this(...)` ngay tại dòng đầu tiên**, và chuỗi gọi này cuối cùng phải dẫn về Canonical Constructor!\r\n  * Trong các lựa chọn từ A đến E, không có lựa chọn nào chứa lời gọi `this(...)` (ví dụ: `this(MAX_STORAGE, \"Default\", LocalDate.now())`).\r\n  * Do đó, không có đáp án nào trong A–E có thể làm cho constructor này biên dịch hợp lệ → Chọn **F**.\r\n* **Bẫy thi cần nhớ:** Constructor nạp chồng trong record BẮT BUỘC phải gọi this(...) ở dòng đầu tiên để ủy quyền khởi tạo cho canonical constructor."
     },
     {
@@ -6727,7 +6888,9 @@ window.QUIZ_DATA = {
           "text": "Mã biên dịch nhưng do tính đa hình, không thể tạo ra kết quả yêu cầu mà không tạo đối tượng mới."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "D"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Lớp `Penguin` triển khai cả hai interface `Swim` và `Dance` đều có phương thức default `perform()`. Lớp `Penguin` đã ghi đè lại phương thức này để giải quyết xung đột, hoàn toàn hợp lệ.\r\n  * Để gọi phương thức `default` của một interface cha cụ thể, Java cung cấp cú pháp chuẩn mực duy nhất:\r\n  * **`<TênInterface>.super.<tênPhươngThức>()`**\r\n  * Ở đây, để gọi phiên bản của `Swim`, cú pháp chính xác là: `Swim.super.perform();` → Đáp án đúng là **D**.\r\n  * Các cú pháp như `super.perform()`, `Swim.perform()`, hay `super.Swim.perform()` đều là cú pháp sai và gây lỗi biên dịch.\r\n* **Bẫy thi cần nhớ:** Cú pháp gọi default method của interface cha: InterfaceName.super.methodName()."
     },
     {
@@ -6808,7 +6971,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "B"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Dòng 5 định nghĩa một **Local Abstract Class** `Stripes` bên trong phương thức `hunt()`, hoàn toàn hợp lệ.\r\n  * Dòng 11 sử dụng một **Anonymous Class** để kế thừa và khởi tạo lớp trừu tượng `Stripes`: `new Stripes() {}` → Hoàn toàn hợp lệ.\r\n  * Dòng 8: Lệnh in sử dụng biến cục bộ `message` (là `effectively final` vì không bị thay đổi sau khi gán) kết hợp với `Zebra.this.x`.\r\n  * Biểu thức `Zebra.this.x` tham chiếu một cách tường minh đến biến instance `x` của đối tượng lớp ngoài `Zebra` (có giá trị là `24`), bỏ qua biến `x = 0` của lớp `Stripes`.\r\n  * Do đó, chương trình in ra: `x is 24` → Đáp án đúng là **B**.\r\n* **Bẫy thi cần nhớ:** Cú pháp 'OuterClass.this.variable' cho phép truy cập chính xác biến của lớp ngoài khi bị trùng tên với biến lớp trong."
     },
     {
@@ -6857,7 +7022,9 @@ window.QUIZ_DATA = {
           "text": "Không có đáp án nào ở trên."
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "C"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Khác với Record, các trường trong Enum **không bị bắt buộc phải là `final`**. Trường `legs` ở dòng 28 không có modifier `final`, do đó dòng 34 thay đổi tham chiếu `Animals.BIRD.legs = List.of(-1);` là hoàn toàn hợp lệ (dù trong thực tế đây là bad practice).\r\n  * Hằng số `BIRD` ghi đè phương thức `stand()` ở dòng 24:\r\n  *   `return legs.get(0) + 4;`\r\n  * Tại thời điểm chạy dòng 35, `legs.get(0)` trả về `-1`. Do đó, biểu thức tính toán: `-1 + 4 = 3`.\r\n  * Chương trình in ra số `3` → Đáp án đúng là **C**.\r\n* **Bẫy thi cần nhớ:** Hằng số enum có thể ghi đè phương thức trong body riêng; biến trong enum nếu không khai báo final thì vẫn có thể bị sửa đổi giá trị."
     },
     {
@@ -6981,7 +7148,9 @@ window.QUIZ_DATA = {
           "text": "4"
         }
       ],
-      "correctAnswers": [],
+      "correctAnswers": [
+        "F"
+      ],
       "explanation": "<summary><b>🔍 Xem Đáp Án & Giải Thích Chi Tiết</b></summary>\r\n\r\n\r\n* **Phân tích chi tiết:**\r\n  * Chương trình chứa chính xác 3 dòng bị lỗi biên dịch:\r\n  * 1. **Dòng 5 (`this().age = 3;`):** Cú pháp `this()` chỉ được dùng để gọi constructor khác ở dòng đầu tiên của constructor. `this()` không phải là một tham chiếu đối tượng để có thể truy xuất thuộc tính `.age` (phải là `this.age = 3;`).\r\n  * 2. **Dòng 12 (`this().age = 6;`):** Mắc lỗi tương tự như dòng 5.\r\n  * 3. **Dòng 15 (`(Primate)new Orangutan();`):** Lớp `Orangutan` và lớp `Primate` là hai lớp hoàn toàn độc lập, không có quan hệ cha - con trong cây kế thừa (`Orangutan` không `extends Primate`). Khi ép kiểu giữa hai lớp không cùng nhánh kế thừa, trình biên dịch sẽ báo lỗi ngay lập tức: `inconvertible types; cannot cast Orangutan to Primate`.\r\n  * Tổng cộng có 3 dòng bị lỗi biên dịch (dòng 5, dòng 12, dòng 15) → Đáp án đúng là **F**.\r\n* **Bẫy thi cần nhớ:** Cú pháp 'this()' dùng gọi constructor, không thể gọi thuộc tính 'this().field'; trình biên dịch chặn đứng việc ép kiểu giữa 2 class không có quan hệ thừa kế."
     },
     {

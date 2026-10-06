@@ -160,6 +160,13 @@ function parseAllChapters(baseDir) {
     { file: "05-chapter-5-review-questions.md", id: 5, title: "Chapter 5: Methods" },
     { file: "06-chapter-6-review-questions.md", id: 6, title: "Chapter 6: Class Design" },
     { file: "07-chapter-7-review-questions.md", id: 7, title: "Chapter 7: Beyond Classes" },
+    { file: "08-chapter-8-review-questions.md", id: 8, title: "Chapter 8: Lambdas and Functional Interfaces" },
+    { file: "09-chapter-9-review-questions.md", id: 9, title: "Chapter 9: Collections and Generics" },
+    { file: "10-chapter-10-review-questions.md", id: 10, title: "Chapter 10: Streams" },
+    { file: "11-chapter-11-review-questions.md", id: 11, title: "Chapter 11: Exceptions and Localization" },
+    { file: "12-chapter-12-review-questions.md", id: 12, title: "Chapter 12: Modules" },
+    { file: "13-chapter-13-review-questions.md", id: 13, title: "Chapter 13: Concurrency" },
+    { file: "14-chapter-14-review-questions.md", id: 14, title: "Chapter 14: I/O (NIO.2 & Serialization)" },
   ];
   
   const allQuestions = [];

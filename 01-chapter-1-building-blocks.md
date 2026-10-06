@@ -253,11 +253,23 @@ Java có đúng **8 kiểu dữ liệu nguyên thủy**:
 * **Hệ nhị phân (Binary - cơ số 2):** Tiền tố `0b` hoặc `0B` (ví dụ: `0b1011` = 11).
 
 ### 6.2. Quy tắc dấu gạch dưới (`_`) trong số học (Underscore Rules)
-Dấu `_` giúp số dễ đọc hơn, nhưng phải tuân thủ nghiêm các vị trí **bị cấm**:
-* ❌ Không được đặt ở **đầu hoặc cuối** của số: `_100` hay `100_` $\rightarrow$ Lỗi biên dịch.
-* ❌ Không được đặt **ngay trước hoặc ngay sau dấu chấm thập phân**: `3._14` hay `3_.14` $\rightarrow$ Lỗi biên dịch.
-* ❌ Không được đặt **ngay trước hậu tố `L`, `F`, `D`**: `100_L` hay `2.5_F` $\rightarrow$ Lỗi biên dịch.
-* ❌ Không được đặt **ngay sau tiền tố `0x` hoặc `0b`**: `0x_52` hay `0b_10` $\rightarrow$ Lỗi biên dịch (`0x5_2` thì hợp lệ).
+
+> [!TIP]
+> **Nguyên tắc vàng duy nhất:** Dấu gạch dưới `_` **CHỈ ĐƯỢC PHÉP ĐỨNG GIỮA HAI CHỮ SỐ** (*between two digits*) thuộc hệ cơ số tương ứng. Mọi vị trí khác đều không hợp lệ.
+
+#### 1. Các vị trí BỊ CẤM (Compile Error & Bẫy thi OCP)
+* ❌ **Đầu số:** `_100` $\rightarrow$ Trình biên dịch xem đây là tên biến/định danh (identifier), không phải số. Sẽ báo lỗi `cannot find symbol: variable _100`.
+* ❌ **Cuối số:** `100_` $\rightarrow$ Lỗi biên dịch (`illegal underscore`).
+* ❌ **Cạnh dấu chấm thập phân (`.`):** `3._14` hay `3_.14` $\rightarrow$ Lỗi biên dịch (vì `.` không phải chữ số).
+* ❌ **Cạnh hậu tố chỉ kiểu (`L`, `F`, `D`):** `100_L` hay `2.5_F` $\rightarrow$ Lỗi biên dịch (vì ký tự hậu tố không phải chữ số).
+* ❌ **Cạnh tiền tố hệ đếm (`0b`, `0x`):** `0b_10`, `0_b10`, `0x_52`, `0_x52` $\rightarrow$ Lỗi biên dịch (vì `b`, `x` không phải chữ số).
+* ❌ **Cạnh ký hiệu số mũ khoa học (`e`, `E`):** `1_e2` hay `1e_2` $\rightarrow$ Lỗi biên dịch (vì `e`/`E` không phải chữ số).
+
+#### 2. Các trường hợp HỢP LỆ đặc biệt (Rất hay xuất hiện trong đề thi)
+* ✅ **Nhiều dấu `_` liên tiếp:** `1___000` $\rightarrow$ Hợp lệ (vì toàn bộ dấu `_` đều nằm giữa hai chữ số `1` và `0`).
+* ✅ **Chữ số trong hệ Thập lục phân (A–F):** `0x1_F`, `0xCA_FE` $\rightarrow$ Hợp lệ (vì `A`–`F` chính là các chữ số hợp lệ của hệ 16).
+* ✅ **Hệ bát phân (Octal):** `0_17` $\rightarrow$ **Hợp lệ** (in ra `15`). *Lưu ý:* `0` và `1` đều là chữ số, nên dấu `_` ở đây hoàn toàn hợp lệ, không bị lỗi như `0b_` hay `0x_`.
+
 
 ---
 

@@ -4,3 +4,4 @@ Video/
 # System / IDE
 .DS_Store
 Thumbs.db
+.superpowers/

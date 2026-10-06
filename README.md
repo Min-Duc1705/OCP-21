@@ -21,7 +21,7 @@
 | **10** | **Streams** *(Pipelines & Collectors)* | • [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/10-chapter-10-streams.md)<br>• [Bộ 21 câu hỏi trắc nghiệm & đáp án](file:///t:/University/Interview/Java/ocp-21-study-guide/10-chapter-10-review-questions.md) | Trang 843 (Lý thuyết)<br>Trang 895 (Review Questions) | ✅ Hoàn thành |
 | **11** | **Exceptions and Localization** | • [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/11-chapter-11-exceptions.md)<br>• [Bộ 26 câu hỏi trắc nghiệm & đáp án](file:///t:/University/Interview/Java/ocp-21-study-guide/11-chapter-11-review-questions.md) | Trang 906 (Lý thuyết)<br>Trang 991 (Review Questions) | ✅ Hoàn thành |
 | **12** | **Modules** *(JPMS & CLI tools)* | • [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/12-chapter-12-modules.md)<br>• [Bộ 25 câu hỏi trắc nghiệm & đáp án](file:///t:/University/Interview/Java/ocp-21-study-guide/12-chapter-12-review-questions.md) | Trang 1008 (Lý thuyết)<br>Trang 1091 (Review Questions) | ✅ Hoàn thành |
-| **13** | **Concurrency** *(Virtual Threads)* | [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/13-chapter-13-concurrency.md) | Trang 1103 | ✅ Hoàn thành lý thuyết |
+| **13** | **Concurrency** *(Virtual Threads)* | • [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/13-chapter-13-concurrency.md)<br>• [Bộ 25 câu hỏi trắc nghiệm & đáp án](file:///t:/University/Interview/Java/ocp-21-study-guide/13-chapter-13-review-questions.md) | Trang 1103 (Lý thuyết)<br>Trang 1182 (Review Questions) | ✅ Hoàn thành |
 | **14** | **I/O** *(NIO.2 & Serialization)* | `14-chapter-14-io.md` | Trang 1197 | ⏳ Sắp tới |
 
 ---

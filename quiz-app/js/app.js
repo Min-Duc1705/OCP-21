@@ -1101,6 +1101,30 @@
       title: "OCP Java SE 21 Masterclass - Chương 4: Core APIs",
       subtitle: "Các API cốt lõi: String, StringBuilder, Mảng (Arrays.compare / mismatch), Math, Date & Time API",
       filename: "OCP_Java_SE_21_Masterclass_chương_4.mp4"
+    },
+    5: {
+      chapterId: 5,
+      title: "OCP Java 21 - Chương 5: Methods (Phương Thức)",
+      subtitle: "Bẫy biên dịch Access Modifiers, Static vs Instance, Overloading, Varargs & Kiểu trả về",
+      filename: "OCP_Java_21__Bẫy_Biên_Dịch_chương_5.mp4"
+    },
+    6: {
+      chapterId: 6,
+      title: "OCP Java 21 - Chương 6: Class Design (Thiết Kế Lớp)",
+      subtitle: "Kế thừa, Thứ tự khởi tạo (Initialization Order), Abstract classes & Ghi đè phương thức (Overriding)",
+      filename: "OCP_Java_21__Thiết_Kế_Lớp_chương_6.mp4"
+    },
+    7: {
+      chapterId: 7,
+      title: "OCP Java 21 - Chương 7: Beyond Classes (Enums, Records & Sealed)",
+      subtitle: "Lập trình nâng cao với Enums, Records bất biến, Sealed Classes & Sealed Interfaces",
+      filename: "OCP_Java_21__Beyond_Classes_Chương_7.mp4"
+    },
+    8: {
+      chapterId: 8,
+      title: "Chuyên Sâu OCP Java 21 - Chương 8: Lambdas & Functional Interfaces",
+      subtitle: "Cú pháp biểu thức Lambda, Method References và bộ các Functional Interfaces tiêu chuẩn trong java.util.function",
+      filename: "Chuyên_Sâu_OCP_Chapter_8.mp4"
     }
   };
 

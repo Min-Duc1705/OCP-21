@@ -2,7 +2,8 @@
 // Total Chapters: 14
 // Total Questions: 338
 
-window.QUIZ_DATA = {
+(function(root) {
+  const data = {
   "chapters": [
     {
       "id": 1,
@@ -13987,7 +13988,10 @@ window.QUIZ_DATA = {
     }
   ]
 };
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = window.QUIZ_DATA;
-}
+  if (typeof window !== 'undefined') {
+    window.QUIZ_DATA = data;
+  }
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = data;
+  }
+})(typeof globalThis !== 'undefined' ? globalThis : this);

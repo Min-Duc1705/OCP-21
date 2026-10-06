@@ -18,7 +18,7 @@
 | **07** | **Beyond Classes** *(Enums, Records, Sealed)* | • [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/07-chapter-7-beyond-classes.md)<br>• [Bộ 30 câu hỏi trắc nghiệm & đáp án](file:///t:/University/Interview/Java/ocp-21-study-guide/07-chapter-7-review-questions.md) | Trang 586 (Lý thuyết)<br>Trang 682 (Review Questions) | ✅ Hoàn thành |
 | **08** | **Lambdas and Functional Interfaces** | • [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/08-chapter-8-lambdas.md)<br>• [Bộ 21 câu hỏi trắc nghiệm & đáp án](file:///t:/University/Interview/Java/ocp-21-study-guide/08-chapter-8-review-questions.md) | Trang 702 (Lý thuyết)<br>Trang 749 (Review Questions) | ✅ Hoàn thành |
 | **09** | **Collections and Generics** *(Sequenced Collections)*| • [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/09-chapter-9-collections.md)<br>• [Bộ 23 câu hỏi trắc nghiệm & đáp án](file:///t:/University/Interview/Java/ocp-21-study-guide/09-chapter-9-review-questions.md) | Trang 761 (Lý thuyết)<br>Trang 831 (Review Questions) | ✅ Hoàn thành |
-| **10** | **Streams** *(Pipelines & Collectors)* | `10-chapter-10-streams.md` | Trang 843 | ⏳ Sắp tới |
+| **10** | **Streams** *(Pipelines & Collectors)* | [Lý thuyết chuyên sâu](file:///t:/University/Interview/Java/ocp-21-study-guide/10-chapter-10-streams.md) | Trang 843 | ✅ Hoàn thành lý thuyết |
 | **11** | **Exceptions and Localization** | `11-chapter-11-exceptions.md` | Trang 906 | ⏳ Sắp tới |
 | **12** | **Modules** *(JPMS & CLI tools)* | `12-chapter-12-modules.md` | Trang 1008 | ⏳ Sắp tới |
 | **13** | **Concurrency** *(Virtual Threads)* | `13-chapter-13-concurrency.md` | Trang 1103 | ⏳ Sắp tới |

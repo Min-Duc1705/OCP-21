@@ -42,7 +42,21 @@
 
 ---
 
+## ⚡ Trung Tâm Giải Đề & Bẫy Thi Enthuware (Enthuware Mock Exam Hub)
+
+Song song với sách giáo khoa, toàn bộ các đề thi thử từ phần mềm **Enthuware ETS-Viewer (OCP 1Z0-830)** được phân tích chuyên sâu tại thư mục: **[enthuware/](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/README.md)**.
+
+* **[Dashboard Theo Dõi Điểm & Lộ Trình](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/README.md)**
+* **[Mẫu Phân Tích Câu Hỏi (Question Template)](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/TEMPLATE-QUESTION.md)**
+* **[Cheatsheet Tổng Hợp Bẫy Kinh Điển](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/notes-and-gotchas/enthuware-classic-traps.md)**
+* **[Sổ Tay Lỗi Sai (Mistakes Notebook)](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/notes-and-gotchas/error-log.md)**
+* **Các đề Standard Tests:** [Test 1](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/01-standard-tests/test-1-analysis.md) | [Test 2](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/01-standard-tests/test-2-analysis.md) | [Test 3](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/01-standard-tests/test-3-analysis.md) | [Test 4](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/01-standard-tests/test-4-analysis.md) | [Test 5](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/01-standard-tests/test-5-analysis.md) | [Test 6](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/01-standard-tests/test-6-analysis.md) | [Foundation Test 1](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/00-foundation-test/foundation-test-1.md) | [Unique Test](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/03-unique-test/unique-test-analysis.md)
+
+---
+
 ## 🎯 Phương Pháp Học Hiệu Quả
-1. Đọc lý thuyết giải thích chi tiết trong từng file tóm tắt.
+1. Đọc lý thuyết giải thích chi tiết trong từng file tóm tắt chương.
 2. Đối chiếu với code mẫu và bẫy thi Oracle (Exam Essentials).
-3. Làm bài tập Review Questions trực tiếp trên ứng dụng **[OCP 21 Quiz Master](file:///t:/University/Interview/Java/ocp-21-study-guide/quiz-app/index.html)** để kiểm tra kiến thức và rèn luyện phản xạ phòng thi.
+3. Làm bài tập Review Questions trực tiếp trên ứng dụng **[OCP 21 Quiz Master](file:///t:/University/Interview/Java/ocp-21-study-guide/quiz-app/index.html)** để kiểm tra kiến thức theo từng chương.
+4. Luyện đề thi thử trên **Enthuware** và ghi chép, mổ xẻ các câu bẫy khó vào **[enthuware/](file:///t:/University/Interview/Java/ocp-21-study-guide/enthuware/README.md)**.
+

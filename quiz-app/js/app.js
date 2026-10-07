@@ -1125,6 +1125,42 @@
       title: "Chuyên Sâu OCP Java 21 - Chương 8: Lambdas & Functional Interfaces",
       subtitle: "Cú pháp biểu thức Lambda, Method References và bộ các Functional Interfaces tiêu chuẩn trong java.util.function",
       filename: "Chuyên_Sâu_OCP_Chapter_8.mp4"
+    },
+    9: {
+      chapterId: 9,
+      title: "OCP Java 21 - Chương 9: Collections & Generics",
+      subtitle: "List, Set, Queue, Map, Sequenced Collections (addFirst, reversed) và Generics Wildcards",
+      filename: "OCP_Chương_9__Collections.mp4"
+    },
+    10: {
+      chapterId: 10,
+      title: "OCP Java 21 - Chương 10: Java Streams",
+      subtitle: "Stream Pipelines, Intermediate & Terminal Operations, Primitive Streams và Collectors",
+      filename: "Chương_10__Java_Streams.mp4"
+    },
+    11: {
+      chapterId: 11,
+      title: "OCP Java 21 - Chương 11: Exceptions & Localization",
+      subtitle: "Xử lý ngoại lệ, try-with-resources, AutoCloseable, Localization, ResourceBundles và DateTimeFormatter",
+      filename: "OCP_Java_21__Chapter_11.mp4"
+    },
+    12: {
+      chapterId: 12,
+      title: "Giải Mã OCP Java 21 - Chương 12: JPMS & CLI",
+      subtitle: "Java Platform Module System, module-info.java, directives (exports, opens, requires transitive) và CLI tools",
+      filename: "Giải_Mã_OCP__JPMS___CLI_chương_12.mp4"
+    },
+    13: {
+      chapterId: 13,
+      title: "OCP Java 21 - Chương 13: Concurrency & Virtual Threads",
+      subtitle: "Virtual Threads Java 21, ExecutorService, Callable/Future, Thread Safety, Locks & Concurrent Collections",
+      filename: "OCP_Java_21__Đa_Luồng_chương_13.mp4"
+    },
+    14: {
+      chapterId: 14,
+      title: "Tránh Mìn I/O - OCP Java 21 Chương 14: I/O & NIO.2",
+      subtitle: "File I/O Streams, Readers/Writers, Serialization, NIO.2 Path, Files methods và Directory traversal",
+      filename: "Tránh_Mìn_I_O__OCP_Java_21_chương_14.mp4"
     }
   };
 

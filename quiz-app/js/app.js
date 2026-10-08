@@ -1237,6 +1237,23 @@
   }
 
   // --- THEORY VIEWER FUNCTIONS ---
+  const CHAPTER_METADATA = {
+    1: { vi: "Khối Xây Dựng Cơ Bản", en: "Building Blocks (1Z0-830)" },
+    2: { vi: "Toán Tử & Biểu Thức", en: "Operators & Type Promotion" },
+    3: { vi: "Cấu Trúc Ra Quyết Định", en: "Making Decisions & Loops" },
+    4: { vi: "Core APIs Thường Gặp", en: "Strings, Arrays, Dates & Math" },
+    5: { vi: "Thiết Kế Phương Thức", en: "Methods & Encapsulation" },
+    6: { vi: "Thiết Kế Lớp & Kế Thừa", en: "Class Design & Polymorphism" },
+    7: { vi: "Beyond Classes", en: "Enums, Records, Sealed & Interfaces" },
+    8: { vi: "Lambdas & Functional", en: "Functional Interfaces & Lambdas" },
+    9: { vi: "Collections & Generics", en: "Collections Framework & Generics" },
+    10: { vi: "Streams & Pipeline", en: "Streams & Collectors" },
+    11: { vi: "Xử Lý Ngoại Lệ & Locale", en: "Exceptions & Localization" },
+    12: { vi: "Java Platform Modules", en: "JPMS & Modularity" },
+    13: { vi: "Lập Trình Đa Luồng", en: "Concurrency & Virtual Threads" },
+    14: { vi: "Java I/O & NIO.2", en: "I/O, NIO.2 & Serialization" }
+  };
+
   function openTheoryModal(chapterId = 1) {
     try {
       state.currentTheoryChapterId = Number(chapterId) || 1;
@@ -1273,27 +1290,29 @@
         tabsContainer.innerHTML = '';
         Object.keys(window.THEORY_DATA).forEach(k => {
           const item = window.THEORY_DATA[k];
-          let cleanTitle = item.title || `Chương ${item.chapterId}`;
-          if (cleanTitle.includes(':')) {
-            cleanTitle = cleanTitle.split(':').slice(1).join(':').trim();
-          }
-          cleanTitle = cleanTitle.replace(/- OCP.*$/, '').trim();
+          const chId = Number(item.chapterId);
+          const meta = CHAPTER_METADATA[chId] || { vi: item.title || `Chương ${chId}`, en: `Chapter ${chId}` };
 
-          const itemEl = document.createElement('div');
-          itemEl.className = `theory-sidebar-item ${item.chapterId === state.currentTheoryChapterId ? 'active' : ''}`;
-          itemEl.dataset.chapter = item.chapterId;
-          itemEl.innerHTML = `
-            <span class="theory-sidebar-badge">${String(item.chapterId).padStart(2, '0')}</span>
-            <span class="theory-sidebar-title" title="${item.title}">${cleanTitle}</span>
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `theory-sidebar-item ${chId === state.currentTheoryChapterId ? 'active' : ''}`;
+          btn.dataset.chapter = chId;
+          btn.innerHTML = `
+            <span class="theory-sidebar-badge">CH ${String(chId).padStart(2, '0')}</span>
+            <div class="theory-sidebar-text">
+              <span class="theory-sidebar-title">${meta.vi}</span>
+              <span class="theory-sidebar-sub">${meta.en}</span>
+            </div>
+            <span class="theory-sidebar-arrow">›</span>
           `;
-          itemEl.addEventListener('click', () => {
-            renderTheoryChapter(item.chapterId);
+          btn.addEventListener('click', () => {
+            renderTheoryChapter(chId);
             if (window.innerWidth < 768) {
               const layout = document.getElementById('theory-main-layout');
               if (layout) layout.classList.add('sidebar-collapsed');
             }
           });
-          tabsContainer.appendChild(itemEl);
+          tabsContainer.appendChild(btn);
         });
       }
 
@@ -1318,15 +1337,11 @@
       }
 
       const data = window.THEORY_DATA[state.currentTheoryChapterId];
-      let cleanTitle = data.title || `Chương ${state.currentTheoryChapterId}`;
-      if (cleanTitle.includes(':')) {
-        cleanTitle = cleanTitle.split(':').slice(1).join(':').trim();
-      }
-      cleanTitle = cleanTitle.replace(/- OCP.*$/, '').trim();
+      const meta = CHAPTER_METADATA[state.currentTheoryChapterId] || { vi: data.title || `Chương ${state.currentTheoryChapterId}` };
 
       const breadcrumbEl = document.getElementById('theory-modal-breadcrumb');
       if (breadcrumbEl) {
-        breadcrumbEl.textContent = `Chương ${state.currentTheoryChapterId}: ${cleanTitle}`;
+        breadcrumbEl.textContent = `Chương ${state.currentTheoryChapterId}: ${meta.vi}`;
       }
 
       const githubLink = document.getElementById('theory-github-link');
@@ -1384,6 +1399,38 @@
             console.warn('Prism highlight warning:', pe);
           }
         }
+
+        // Add copy button to code blocks
+        bodyEl.querySelectorAll('pre').forEach(pre => {
+          if (pre.querySelector('.btn-copy-code')) return;
+          const copyBtn = document.createElement('button');
+          copyBtn.className = 'btn-copy-code';
+          copyBtn.type = 'button';
+          copyBtn.innerHTML = '📋 Sao chép';
+          copyBtn.title = 'Sao chép đoạn mã vào clipboard';
+          copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const codeEl = pre.querySelector('code');
+            const codeText = codeEl ? codeEl.innerText : pre.innerText;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(codeText).then(() => {
+                copyBtn.innerHTML = '✓ Đã sao chép!';
+                copyBtn.classList.add('copied');
+                setTimeout(() => {
+                  copyBtn.innerHTML = '📋 Sao chép';
+                  copyBtn.classList.remove('copied');
+                }, 2000);
+              }).catch(() => {
+                copyBtn.innerHTML = '✓ Đã chép';
+                setTimeout(() => { copyBtn.innerHTML = '📋 Sao chép'; }, 2000);
+              });
+            } else {
+              copyBtn.innerHTML = '✓ Đã chép';
+              setTimeout(() => { copyBtn.innerHTML = '📋 Sao chép'; }, 2000);
+            }
+          });
+          pre.appendChild(copyBtn);
+        });
       }
 
       if (containerEl) {
@@ -1703,10 +1750,56 @@
       });
     });
 
-    // 7. Modals close
+    // 7. Modals close & controls
     document.getElementById('btn-close-list-modal').addEventListener('click', () => {
       document.getElementById('list-modal').classList.remove('show');
     });
+
+    const closeTheoryBtn = document.getElementById('btn-close-theory-modal');
+    if (closeTheoryBtn) {
+      closeTheoryBtn.addEventListener('click', closeTheoryModal);
+    }
+
+    const toggleSidebarBtn = document.getElementById('btn-toggle-theory-sidebar');
+    if (toggleSidebarBtn) {
+      toggleSidebarBtn.addEventListener('click', () => {
+        const layout = document.getElementById('theory-main-layout');
+        if (layout) layout.classList.toggle('sidebar-collapsed');
+      });
+    }
+
+    const theoryVideoBtn = document.getElementById('btn-theory-video-link');
+    if (theoryVideoBtn) {
+      theoryVideoBtn.addEventListener('click', () => {
+        openVideoModal(state.currentTheoryChapterId);
+      });
+    }
+
+    const scrollTopBtn = document.getElementById('btn-theory-scroll-top');
+    const theoryReader = document.getElementById('theory-reader-container');
+    if (scrollTopBtn && theoryReader) {
+      scrollTopBtn.addEventListener('click', () => {
+        theoryReader.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      theoryReader.addEventListener('scroll', () => {
+        if (theoryReader.scrollTop > 250) {
+          scrollTopBtn.classList.add('visible');
+        } else {
+          scrollTopBtn.classList.remove('visible');
+        }
+      });
+    }
+
+    const searchInput = document.getElementById('theory-search-input');
+    if (searchInput) {
+      let searchDebounce = null;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchDebounce);
+        searchDebounce = setTimeout(() => {
+          handleTheorySearch(e.target.value);
+        }, 200);
+      });
+    }
 
     // 8. Keyboard shortcuts
     setupKeyboardShortcuts();

@@ -13,7 +13,7 @@
   
   <!-- CSS -->
   <link rel="stylesheet" href="lib/prism.css">
-  <link rel="stylesheet" href="css/styles.css?v=2.4.0">
+  <link rel="stylesheet" href="css/styles.css?v=2.6.0">
 </head>
 <body>
 
@@ -475,16 +475,16 @@
   <!-- MODAL: THEORY READER (MODERN DOCS LAYOUT) -->
   <div class="modal-overlay" id="theory-modal">
     <div class="modal-content theory-modal-content">
-      <!-- Top Bar: Minimal 52px height -->
+      <!-- Top Bar: Minimal 56px height -->
       <div class="theory-top-bar">
         <div class="theory-top-left">
-          <button class="btn-sidebar-toggle" id="btn-toggle-theory-sidebar" title="Ẩn/Hiện danh mục 14 chương">
+          <button class="btn-sidebar-toggle" id="btn-toggle-theory-sidebar" title="Ẩn / Hiện thanh danh mục 14 chương">
             ☰
           </button>
           <div class="theory-breadcrumb">
             <span class="theory-brand-tag">📖 Sổ Tay Lý Thuyết</span>
             <span class="theory-breadcrumb-sep">/</span>
-            <span class="theory-breadcrumb-active" id="theory-modal-breadcrumb">Chương 1: Building Blocks</span>
+            <span class="theory-breadcrumb-active" id="theory-modal-breadcrumb">Chương 1: Khối Xây Dựng Cơ Bản</span>
           </div>
         </div>
 
@@ -497,14 +497,11 @@
         </div>
 
         <div class="theory-top-right">
-          <a id="theory-github-link" href="https://github.com/Min-Duc1705/OCP-21" target="_blank" class="btn btn-secondary btn-sm" title="Mở file Markdown gốc trên GitHub">
+          <a id="theory-github-link" href="https://github.com/Min-Duc1705/OCP-21" target="_blank" class="btn btn-secondary btn-sm" title="Mở file Markdown gốc trên GitHub" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
             🔗 <span class="hide-mobile">GitHub</span>
           </a>
-          <button class="btn btn-secondary btn-sm" id="btn-theory-video-link" title="Xem video bài giảng của chương này">
+          <button class="btn btn-secondary btn-sm" id="btn-theory-video-link" title="Xem video bài giảng của chương này" style="display: inline-flex; align-items: center; gap: 0.35rem;">
             🎬 <span class="hide-mobile">Video</span>
-          </button>
-          <button class="btn btn-icon btn-sm" id="btn-theory-fullscreen" title="Phóng to toàn màn hình">
-            ⛶
           </button>
           <button class="close-modal-btn" id="btn-close-theory-modal" title="Đóng sổ tay lý thuyết (Esc)">&times;</button>
         </div>
@@ -515,31 +512,34 @@
         <!-- Left Sidebar: 14 Chapters -->
         <aside class="theory-sidebar" id="theory-sidebar">
           <div class="theory-sidebar-header">
-            <span>DANH MỤC 14 CHƯƠNG</span>
+            <span>📑 14 CHƯƠNG LÝ THUYẾT</span>
+            <span class="theory-sidebar-count">14</span>
           </div>
           <div class="theory-chapter-list" id="theory-chapter-tabs">
             <!-- Dynamically populated 14 items -->
           </div>
         </aside>
 
-        <!-- Right Content Area (Maximum width & comfortable reading height) -->
+        <!-- Right Content Area (Full screen reading experience) -->
         <main class="theory-reader-container" id="theory-reader-container">
           <div class="theory-content-wrapper">
             <div id="theory-content-body" class="markdown-body">
               <!-- Rendered Markdown Theory -->
             </div>
           </div>
+          <!-- Scroll to top button -->
+          <button class="btn-theory-scroll-top" id="btn-theory-scroll-top" title="Cuộn lên đầu trang">↑</button>
         </main>
       </div>
     </div>
   </div>
 
   <!-- Scripts -->
-  <script src="lib/prism.js?v=2.4.0"></script>
-  <script src="lib/marked.min.js?v=2.4.0"></script>
-  <script src="js/quiz-data.js?v=2.4.0"></script>
-  <script src="js/theory-data.js?v=2.4.0"></script>
-  <script src="js/storage.js?v=2.4.0"></script>
-  <script src="js/app.js?v=2.4.0"></script>
+  <script src="lib/prism.js?v=2.6.0"></script>
+  <script src="lib/marked.min.js?v=2.6.0"></script>
+  <script src="js/quiz-data.js?v=2.6.0"></script>
+  <script src="js/theory-data.js?v=2.6.0"></script>
+  <script src="js/storage.js?v=2.6.0"></script>
+  <script src="js/app.js?v=2.6.0"></script>
 </body>
 </html>

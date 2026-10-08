@@ -1255,7 +1255,7 @@
         const bodyEl = document.getElementById('theory-content-body');
         if (bodyEl) {
           bodyEl.innerHTML = `
-            <div style="padding: 2.5rem; text-align: center;">
+            <div style="padding: 3rem; text-align: center;">
               <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">📖 Đang kết nối dữ liệu Sổ Tay Lý Thuyết...</h3>
               <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 1.5rem;">
                 Dữ liệu tài liệu đang được khởi tạo. Nếu giao diện không hiển thị nội dung sau vài giây, vui lòng nhấn phím <strong>Ctrl + F5</strong> (hoặc tải lại trang) để xóa bộ nhớ đệm cache của trình duyệt.
@@ -1267,26 +1267,41 @@
         return;
       }
 
-      // Render playlist tabs
+      // Render 14 chapter items into Left Sidebar
       const tabsContainer = document.getElementById('theory-chapter-tabs');
       if (tabsContainer) {
         tabsContainer.innerHTML = '';
         Object.keys(window.THEORY_DATA).forEach(k => {
           const item = window.THEORY_DATA[k];
-          const tab = document.createElement('button');
-          tab.className = `theory-tab-btn ${item.chapterId === state.currentTheoryChapterId ? 'active' : ''}`;
-          tab.innerHTML = `<span>Chương ${item.chapterId}</span>`;
-          tab.title = item.title;
-          tab.addEventListener('click', () => {
+          let cleanTitle = item.title || `Chương ${item.chapterId}`;
+          if (cleanTitle.includes(':')) {
+            cleanTitle = cleanTitle.split(':').slice(1).join(':').trim();
+          }
+          cleanTitle = cleanTitle.replace(/- OCP.*$/, '').trim();
+
+          const itemEl = document.createElement('div');
+          itemEl.className = `theory-sidebar-item ${item.chapterId === state.currentTheoryChapterId ? 'active' : ''}`;
+          itemEl.dataset.chapter = item.chapterId;
+          itemEl.innerHTML = `
+            <span class="theory-sidebar-badge">${String(item.chapterId).padStart(2, '0')}</span>
+            <span class="theory-sidebar-title" title="${item.title}">${cleanTitle}</span>
+          `;
+          itemEl.addEventListener('click', () => {
             renderTheoryChapter(item.chapterId);
+            if (window.innerWidth < 768) {
+              const layout = document.getElementById('theory-main-layout');
+              if (layout) layout.classList.add('sidebar-collapsed');
+            }
           });
-          tabsContainer.appendChild(tab);
+          tabsContainer.appendChild(itemEl);
         });
       }
 
       // Reset search
       const searchInput = document.getElementById('theory-search-input');
       if (searchInput) searchInput.value = '';
+      const searchCount = document.getElementById('theory-search-count');
+      if (searchCount) searchCount.style.display = 'none';
 
       renderTheoryChapter(state.currentTheoryChapterId);
     } catch (err) {
@@ -1303,29 +1318,36 @@
       }
 
       const data = window.THEORY_DATA[state.currentTheoryChapterId];
-      const titleEl = document.getElementById('theory-modal-title');
-      const subtitleEl = document.getElementById('theory-modal-subtitle');
-      const badgeEl = document.getElementById('theory-modal-badge');
+      let cleanTitle = data.title || `Chương ${state.currentTheoryChapterId}`;
+      if (cleanTitle.includes(':')) {
+        cleanTitle = cleanTitle.split(':').slice(1).join(':').trim();
+      }
+      cleanTitle = cleanTitle.replace(/- OCP.*$/, '').trim();
+
+      const breadcrumbEl = document.getElementById('theory-modal-breadcrumb');
+      if (breadcrumbEl) {
+        breadcrumbEl.textContent = `Chương ${state.currentTheoryChapterId}: ${cleanTitle}`;
+      }
+
       const githubLink = document.getElementById('theory-github-link');
+      if (githubLink) {
+        githubLink.href = data.githubUrl || `https://github.com/Min-Duc1705/OCP-21/blob/main/${data.filename}`;
+      }
+
       const bodyEl = document.getElementById('theory-content-body');
       const containerEl = document.getElementById('theory-reader-container');
 
-      if (titleEl) titleEl.textContent = data.title || `Chương ${state.currentTheoryChapterId}`;
-      if (subtitleEl) subtitleEl.textContent = `Tài liệu ôn tập & bẫy thi OCP 21 (File: ${data.filename})`;
-      if (badgeEl) badgeEl.textContent = `Chương ${state.currentTheoryChapterId}`;
-      if (githubLink) githubLink.href = data.githubUrl || `https://github.com/Min-Duc1705/OCP-21/blob/main/${data.filename}`;
-
-      // Update active tab button safely
-      document.querySelectorAll('.theory-tab-btn').forEach(btn => {
-        if (btn.textContent.trim() === `Chương ${state.currentTheoryChapterId}`) {
-          btn.classList.add('active');
-          if (typeof btn.scrollIntoView === 'function') {
+      // Update active sidebar item
+      document.querySelectorAll('.theory-sidebar-item').forEach(el => {
+        if (Number(el.dataset.chapter) === state.currentTheoryChapterId) {
+          el.classList.add('active');
+          if (typeof el.scrollIntoView === 'function') {
             try {
-              btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+              el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             } catch (se) {}
           }
         } else {
-          btn.classList.remove('active');
+          el.classList.remove('active');
         }
       });
 
@@ -1384,6 +1406,7 @@
   function handleTheorySearch(term) {
     term = (term || '').trim();
     const bodyEl = document.getElementById('theory-content-body');
+    const countEl = document.getElementById('theory-search-count');
     if (!bodyEl) return;
 
     // Remove old search marks
@@ -1396,7 +1419,10 @@
       }
     });
 
-    if (!term || term.length < 2) return;
+    if (!term || term.length < 2) {
+      if (countEl) countEl.style.display = 'none';
+      return;
+    }
 
     const walker = document.createTreeWalker(bodyEl, NodeFilter.SHOW_TEXT, {
       acceptNode: function(node) {
@@ -1414,6 +1440,11 @@
       if (currentNode.nodeValue.toLowerCase().includes(term.toLowerCase())) {
         nodesToReplace.push(currentNode);
       }
+    }
+
+    if (countEl) {
+      countEl.style.display = 'inline-block';
+      countEl.textContent = `${nodesToReplace.length} kết quả`;
     }
 
     let firstMatch = null;
@@ -1536,6 +1567,27 @@
       closeTheoryModal();
       openVideoModal(state.currentTheoryChapterId);
     });
+
+    // Sidebar toggle button
+    const btnToggleSidebar = document.getElementById('btn-toggle-theory-sidebar');
+    if (btnToggleSidebar) {
+      btnToggleSidebar.addEventListener('click', () => {
+        const layout = document.getElementById('theory-main-layout');
+        if (layout) layout.classList.toggle('sidebar-collapsed');
+      });
+    }
+
+    // Fullscreen toggle button
+    const btnFullscreen = document.getElementById('btn-theory-fullscreen');
+    if (btnFullscreen) {
+      btnFullscreen.addEventListener('click', () => {
+        const modalContent = document.querySelector('.theory-modal-content');
+        if (modalContent) {
+          modalContent.classList.toggle('fullscreen');
+          btnFullscreen.textContent = modalContent.classList.contains('fullscreen') ? '🗗' : '⛶';
+        }
+      });
+    }
 
     let theorySearchTimeout = null;
     const theorySearchInput = document.getElementById('theory-search-input');

@@ -1238,94 +1238,137 @@
 
   // --- THEORY VIEWER FUNCTIONS ---
   function openTheoryModal(chapterId = 1) {
-    state.currentTheoryChapterId = Number(chapterId);
-    const modal = document.getElementById('theory-modal');
-    if (!modal) return;
+    try {
+      state.currentTheoryChapterId = Number(chapterId) || 1;
+      const modal = document.getElementById('theory-modal');
+      if (!modal) {
+        console.error('Modal element #theory-modal not found');
+        return;
+      }
 
-    // Render tabs if not already done
-    const tabsContainer = document.getElementById('theory-chapter-tabs');
-    if (tabsContainer && window.THEORY_DATA) {
-      tabsContainer.innerHTML = '';
-      Object.keys(window.THEORY_DATA).forEach(k => {
-        const item = window.THEORY_DATA[k];
-        const tab = document.createElement('button');
-        tab.className = `theory-tab-btn ${item.chapterId === state.currentTheoryChapterId ? 'active' : ''}`;
-        tab.innerHTML = `<span>Chương ${item.chapterId}</span>`;
-        tab.title = item.title;
-        tab.addEventListener('click', () => {
-          renderTheoryChapter(item.chapterId);
+      // Display the modal immediately
+      modal.classList.add('show');
+
+      // Check if THEORY_DATA exists
+      if (!window.THEORY_DATA) {
+        console.warn('THEORY_DATA not ready, showing notification');
+        const bodyEl = document.getElementById('theory-content-body');
+        if (bodyEl) {
+          bodyEl.innerHTML = `
+            <div style="padding: 2.5rem; text-align: center;">
+              <h3 style="font-size: 1.3rem; margin-bottom: 0.75rem;">📖 Đang kết nối dữ liệu Sổ Tay Lý Thuyết...</h3>
+              <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 1.5rem;">
+                Dữ liệu tài liệu đang được khởi tạo. Nếu giao diện không hiển thị nội dung sau vài giây, vui lòng nhấn phím <strong>Ctrl + F5</strong> (hoặc tải lại trang) để xóa bộ nhớ đệm cache của trình duyệt.
+              </p>
+              <button class="btn btn-primary" onclick="location.reload(true)">🔄 Làm mới trang ngay</button>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      // Render playlist tabs
+      const tabsContainer = document.getElementById('theory-chapter-tabs');
+      if (tabsContainer) {
+        tabsContainer.innerHTML = '';
+        Object.keys(window.THEORY_DATA).forEach(k => {
+          const item = window.THEORY_DATA[k];
+          const tab = document.createElement('button');
+          tab.className = `theory-tab-btn ${item.chapterId === state.currentTheoryChapterId ? 'active' : ''}`;
+          tab.innerHTML = `<span>Chương ${item.chapterId}</span>`;
+          tab.title = item.title;
+          tab.addEventListener('click', () => {
+            renderTheoryChapter(item.chapterId);
+          });
+          tabsContainer.appendChild(tab);
         });
-        tabsContainer.appendChild(tab);
-      });
+      }
+
+      // Reset search
+      const searchInput = document.getElementById('theory-search-input');
+      if (searchInput) searchInput.value = '';
+
+      renderTheoryChapter(state.currentTheoryChapterId);
+    } catch (err) {
+      console.error('Lỗi khi mở Theory Modal:', err);
     }
-
-    // Reset search
-    const searchInput = document.getElementById('theory-search-input');
-    if (searchInput) searchInput.value = '';
-
-    renderTheoryChapter(state.currentTheoryChapterId);
-    modal.classList.add('show');
   }
 
   function renderTheoryChapter(chapterId) {
-    state.currentTheoryChapterId = Number(chapterId);
-    if (!window.THEORY_DATA || !window.THEORY_DATA[chapterId]) return;
+    try {
+      state.currentTheoryChapterId = Number(chapterId) || 1;
+      if (!window.THEORY_DATA || !window.THEORY_DATA[state.currentTheoryChapterId]) {
+        console.warn('Không tìm thấy dữ liệu cho chương:', state.currentTheoryChapterId);
+        return;
+      }
 
-    const data = window.THEORY_DATA[chapterId];
-    const titleEl = document.getElementById('theory-modal-title');
-    const subtitleEl = document.getElementById('theory-modal-subtitle');
-    const badgeEl = document.getElementById('theory-modal-badge');
-    const githubLink = document.getElementById('theory-github-link');
-    const bodyEl = document.getElementById('theory-content-body');
-    const containerEl = document.getElementById('theory-reader-container');
+      const data = window.THEORY_DATA[state.currentTheoryChapterId];
+      const titleEl = document.getElementById('theory-modal-title');
+      const subtitleEl = document.getElementById('theory-modal-subtitle');
+      const badgeEl = document.getElementById('theory-modal-badge');
+      const githubLink = document.getElementById('theory-github-link');
+      const bodyEl = document.getElementById('theory-content-body');
+      const containerEl = document.getElementById('theory-reader-container');
 
-    if (titleEl) titleEl.textContent = data.title || `Chương ${chapterId}`;
-    if (subtitleEl) subtitleEl.textContent = `Tài liệu ôn tập & bẫy thi OCP 21 (File: ${data.filename})`;
-    if (badgeEl) badgeEl.textContent = `Chương ${chapterId}`;
-    if (githubLink) githubLink.href = data.githubUrl || `https://github.com/Min-Duc1705/OCP-21/blob/main/${data.filename}`;
+      if (titleEl) titleEl.textContent = data.title || `Chương ${state.currentTheoryChapterId}`;
+      if (subtitleEl) subtitleEl.textContent = `Tài liệu ôn tập & bẫy thi OCP 21 (File: ${data.filename})`;
+      if (badgeEl) badgeEl.textContent = `Chương ${state.currentTheoryChapterId}`;
+      if (githubLink) githubLink.href = data.githubUrl || `https://github.com/Min-Duc1705/OCP-21/blob/main/${data.filename}`;
 
-    // Update active tab button
-    document.querySelectorAll('.theory-tab-btn').forEach(btn => {
-      if (btn.textContent.trim() === `Chương ${chapterId}`) {
-        btn.classList.add('active');
-        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      // Update active tab button safely
+      document.querySelectorAll('.theory-tab-btn').forEach(btn => {
+        if (btn.textContent.trim() === `Chương ${state.currentTheoryChapterId}`) {
+          btn.classList.add('active');
+          if (typeof btn.scrollIntoView === 'function') {
+            try {
+              btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } catch (se) {}
+          }
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Parse and render Markdown
+      const rawMd = data.content || '';
+      let html = '';
+
+      const markedObj = (typeof window !== 'undefined' && window.marked) || (typeof marked !== 'undefined' ? marked : null);
+      if (markedObj && typeof markedObj.parse === 'function') {
+        html = markedObj.parse(rawMd);
+
+        // Post-process GitHub alert callouts in blockquotes
+        html = html.replace(/<blockquote>\s*<p>\s*\[!NOTE\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+          '<div class="md-alert md-alert-note"><div class="md-alert-title">ℹ️ Ghi chú</div><p>$1</p></div>');
+        html = html.replace(/<blockquote>\s*<p>\s*\[!TIP\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+          '<div class="md-alert md-alert-tip"><div class="md-alert-title">💡 Mẹo thi cử</div><p>$1</p></div>');
+        html = html.replace(/<blockquote>\s*<p>\s*\[!IMPORTANT\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+          '<div class="md-alert md-alert-important"><div class="md-alert-title">⚡ Quan trọng</div><p>$1</p></div>');
+        html = html.replace(/<blockquote>\s*<p>\s*\[!WARNING\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+          '<div class="md-alert md-alert-warning"><div class="md-alert-title">⚠️ Cảnh báo bẫy thi</div><p>$1</p></div>');
+        html = html.replace(/<blockquote>\s*<p>\s*\[!CAUTION\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+          '<div class="md-alert md-alert-caution"><div class="md-alert-title">🛑 Chú ý</div><p>$1</p></div>');
       } else {
-        btn.classList.remove('active');
+        html = formatMarkdown(rawMd);
       }
-    });
 
-    // Parse and render Markdown
-    const rawMd = data.content || '';
-    let html = '';
-
-    if (typeof marked !== 'undefined' && marked.parse) {
-      html = marked.parse(rawMd);
-
-      // Post-process GitHub alert callouts in blockquotes
-      html = html.replace(/<blockquote>\s*<p>\s*\[!NOTE\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
-        '<div class="md-alert md-alert-note"><div class="md-alert-title">ℹ️ Ghi chú</div><p>$1</p></div>');
-      html = html.replace(/<blockquote>\s*<p>\s*\[!TIP\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
-        '<div class="md-alert md-alert-tip"><div class="md-alert-title">💡 Mẹo thi cử</div><p>$1</p></div>');
-      html = html.replace(/<blockquote>\s*<p>\s*\[!IMPORTANT\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
-        '<div class="md-alert md-alert-important"><div class="md-alert-title">⚡ Quan trọng</div><p>$1</p></div>');
-      html = html.replace(/<blockquote>\s*<p>\s*\[!WARNING\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
-        '<div class="md-alert md-alert-warning"><div class="md-alert-title">⚠️ Cảnh báo bẫy thi</div><p>$1</p></div>');
-      html = html.replace(/<blockquote>\s*<p>\s*\[!CAUTION\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
-        '<div class="md-alert md-alert-caution"><div class="md-alert-title">🛑 Chú ý</div><p>$1</p></div>');
-    } else {
-      html = formatMarkdown(rawMd);
-    }
-
-    if (bodyEl) {
-      bodyEl.innerHTML = html;
-      // Syntax highlight
-      if (window.Prism) {
-        Prism.highlightAllUnder(bodyEl);
+      if (bodyEl) {
+        bodyEl.innerHTML = html;
+        // Syntax highlight
+        if (typeof window !== 'undefined' && window.Prism && typeof window.Prism.highlightAllUnder === 'function') {
+          try {
+            window.Prism.highlightAllUnder(bodyEl);
+          } catch (pe) {
+            console.warn('Prism highlight warning:', pe);
+          }
+        }
       }
-    }
 
-    if (containerEl) {
-      containerEl.scrollTop = 0;
+      if (containerEl) {
+        containerEl.scrollTop = 0;
+      }
+    } catch (err) {
+      console.error('Lỗi khi render nội dung lý thuyết:', err);
     }
   }
 
@@ -1333,6 +1376,10 @@
     const modal = document.getElementById('theory-modal');
     if (modal) modal.classList.remove('show');
   }
+
+  // Expose to window for external/inline access
+  window.openTheoryModal = openTheoryModal;
+  window.closeTheoryModal = closeTheoryModal;
 
   function handleTheorySearch(term) {
     term = (term || '').trim();

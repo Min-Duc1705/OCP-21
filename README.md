@@ -1,7 +1,10 @@
 # Sổ Tay Ôn Luyện OCP Oracle Certified Professional Java SE 21 (Exam 1Z0-830)
 
 > Thư mục tổng hợp và phân tích chuyên sâu kiến thức từ sách chính thức:  
-> **"OCP Oracle Certified Professional Java SE 21 Developer Study Guide"** — *Jeanne Boyarsky & Scott Selikoff (Sybex / Wiley)*.
+> **"OCP Oracle Certified Professional Java SE 21 Developer Study Guide"** — *Jeanne Boyarsky & Scott Selikoff (Sybex / Wiley)*.  
+>  
+> 🌐 **Trang Web Ôn Thi & Tra Cứu Lý Thuyết Trực Tuyến:**  
+> 👉 **[https://min-duc1705.github.io/OCP-21/](https://min-duc1705.github.io/OCP-21/)** *(Hoạt động online & offline với đầy đủ 14 chương lý thuyết, 338 câu trắc nghiệm & video bài giảng)*
 
 ---
 
@@ -33,6 +36,7 @@
 * **Vị trí ứng dụng:** Thư mục [`quiz-app/index.html`](file:///t:/University/Interview/Java/ocp-21-study-guide/quiz-app/index.html)
 * **Cách sử dụng:** Chỉ cần mở trực tiếp file `index.html` bằng trình duyệt web (Chrome, Edge, Firefox...), hoạt động 100% offline không cần cài đặt.
 * **Các tính năng nổi bật:**
+  * **Sổ tay lý thuyết chuyên sâu 14 chương:** Tích hợp bộ đọc tài liệu Markdown trực quan, phân tích bẫy thi, bảng so sánh và tô màu cú pháp Java ngay trong ứng dụng, có thể tra cứu tức thì khi đang làm bài thi hoặc luyện tập.
   * **Thiết kế 2 cột khoa học:** Cột bên trái hiển thị đề bài và mã nguồn Java tô màu cú pháp (Prism.js); cột bên phải hiển thị các lựa chọn đáp án và hộp phân tích bẫy đề thi chi tiết (không bị đẩy câu hỏi xuống dưới).
   * **Sơ đồ câu hỏi trực quan (Question Navigator):** Thanh điều hướng hiển thị trạng thái từng câu (⚪ Chưa làm, 🟢 Đúng, 🔴 Sai, ⭐ Đã lưu) giúp chuyển nhanh đến bất kỳ câu hỏi nào chỉ với 1 click.
   * **2 Chế độ ôn thi toàn diện:**

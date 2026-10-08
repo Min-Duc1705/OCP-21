@@ -34,6 +34,9 @@
         <a href="https://github.com/Min-Duc1705/OCP-21/tree/main/enthuware" target="_blank" class="btn btn-secondary" title="Sổ tay giải đề & bẫy thi Enthuware" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
           ⚡ <span class="hide-mobile">Đề Enthuware</span>
         </a>
+        <button class="btn btn-secondary" id="btn-open-theory" title="Xem sổ tay lý thuyết trọn bộ 14 chương OCP 21">
+          📖 <span class="hide-mobile">14 Chương Lý Thuyết</span>
+        </button>
         <button class="btn btn-secondary" id="btn-open-videos" title="Xem video bài giảng trọn bộ 14 chương OCP 21">
           🎬 <span class="hide-mobile">14 Video Bài Giảng</span>
         </button>
@@ -125,6 +128,7 @@
         </div>
 
         <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <button class="btn btn-secondary" id="btn-practice-theory" title="Đọc sổ tay lý thuyết của chương này">📖 Lý thuyết chương</button>
           <button class="btn btn-secondary" id="btn-practice-video" title="Xem video bài giảng của chương này">🎬 Bài giảng chương</button>
           <button class="btn btn-secondary" id="btn-practice-bookmark" title="Đánh dấu câu hỏi này (Phím B)">⭐ Lưu câu hỏi</button>
         </div>
@@ -468,9 +472,63 @@
     </div>
   </div>
 
+  <!-- MODAL: THEORY READER -->
+  <div class="modal-overlay" id="theory-modal">
+    <div class="modal-content theory-modal-content">
+      <div class="modal-header theory-modal-header">
+        <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 0;">
+          <span style="font-size: 1.6rem; flex-shrink: 0;">📖</span>
+          <div style="min-width: 0;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <h2 id="theory-modal-title" style="font-size: 1.2rem; margin: 0; line-height: 1.3;">Sổ Tay Lý Thuyết OCP Java 21</h2>
+              <span id="theory-modal-badge" class="badge badge-info">Chương 1</span>
+            </div>
+            <div id="theory-modal-subtitle" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              Building Blocks
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0;">
+          <a id="theory-github-link" href="https://github.com/Min-Duc1705/OCP-21" target="_blank" class="btn btn-secondary btn-sm" title="Mở file Markdown gốc trên GitHub" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.82rem; padding: 0.4rem 0.75rem;">
+            🔗 <span class="hide-mobile">GitHub</span>
+          </a>
+          <button class="btn btn-secondary btn-sm" id="btn-theory-video-link" title="Xem video bài giảng của chương này" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.82rem; padding: 0.4rem 0.75rem;">
+            🎬 <span class="hide-mobile">Video</span>
+          </button>
+          <button class="close-modal-btn" id="btn-close-theory-modal" title="Đóng sổ tay lý thuyết (Esc)">&times;</button>
+        </div>
+      </div>
+
+      <!-- Theory Chapter Selector Tabs -->
+      <div class="theory-playlist-bar">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+            📑 Chọn chương cần đọc lý thuyết:
+          </div>
+          <div class="theory-search-wrapper" style="position: relative;">
+            <input type="text" id="theory-search-input" placeholder="🔍 Tìm kiếm trong chương..." style="padding: 0.35rem 0.75rem; font-size: 0.82rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); width: 200px;">
+          </div>
+        </div>
+        <div class="theory-chapter-tabs" id="theory-chapter-tabs">
+          <!-- Dynamically populated 14 buttons -->
+        </div>
+      </div>
+
+      <!-- Main Reader Body -->
+      <div class="theory-reader-container" id="theory-reader-container">
+        <div id="theory-content-body" class="markdown-body">
+          <!-- Rendered theory markdown content here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="lib/prism.js"></script>
+  <script src="lib/marked.min.js"></script>
   <script src="js/quiz-data.js?v=2.2.0"></script>
+  <script src="js/theory-data.js?v=2.2.0"></script>
   <script src="js/storage.js?v=2.2.0"></script>
   <script src="js/app.js?v=2.2.0"></script>
 </body>

@@ -29,6 +29,9 @@ jobs:
         with:
           enablement: true
 
+      - name: Build Theory Data & Bundle Docs
+        run: node quiz-app/scripts/build-theory.js
+
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:

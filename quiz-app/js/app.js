@@ -24,7 +24,10 @@
 
     // Review / Result state
     lastExamResult: null,
-    reviewFilter: 'all'
+    reviewFilter: 'all',
+
+    // Theory Reader State
+    currentTheoryChapterId: 1
   };
 
   // Helper: Format Markdown Text to HTML (for prompts, explanations, options)
@@ -207,6 +210,7 @@
         </div>
         <div>
           <div class="chapter-actions">
+            <button class="btn btn-secondary btn-open-theory-ch" data-chapter="${ch.id}" title="Đọc sổ tay lý thuyết Chương ${ch.id}">📖 Lý thuyết</button>
             <button class="btn btn-secondary btn-start-practice" data-chapter="${ch.id}">🎯 Luyện tập</button>
             <button class="btn btn-primary btn-start-exam-ch" data-chapter="${ch.id}">⏱️ Thi thử</button>
           </div>
@@ -217,6 +221,10 @@
           </div>` : ''}
         </div>
       `;
+
+      card.querySelector('.btn-open-theory-ch').addEventListener('click', () => {
+        openTheoryModal(ch.id);
+      });
 
       card.querySelector('.btn-start-practice').addEventListener('click', () => {
         startPracticeForChapter(ch.id);
@@ -1228,6 +1236,158 @@
     modal.classList.remove('show');
   }
 
+  // --- THEORY VIEWER FUNCTIONS ---
+  function openTheoryModal(chapterId = 1) {
+    state.currentTheoryChapterId = Number(chapterId);
+    const modal = document.getElementById('theory-modal');
+    if (!modal) return;
+
+    // Render tabs if not already done
+    const tabsContainer = document.getElementById('theory-chapter-tabs');
+    if (tabsContainer && window.THEORY_DATA) {
+      tabsContainer.innerHTML = '';
+      Object.keys(window.THEORY_DATA).forEach(k => {
+        const item = window.THEORY_DATA[k];
+        const tab = document.createElement('button');
+        tab.className = `theory-tab-btn ${item.chapterId === state.currentTheoryChapterId ? 'active' : ''}`;
+        tab.innerHTML = `<span>Chương ${item.chapterId}</span>`;
+        tab.title = item.title;
+        tab.addEventListener('click', () => {
+          renderTheoryChapter(item.chapterId);
+        });
+        tabsContainer.appendChild(tab);
+      });
+    }
+
+    // Reset search
+    const searchInput = document.getElementById('theory-search-input');
+    if (searchInput) searchInput.value = '';
+
+    renderTheoryChapter(state.currentTheoryChapterId);
+    modal.classList.add('show');
+  }
+
+  function renderTheoryChapter(chapterId) {
+    state.currentTheoryChapterId = Number(chapterId);
+    if (!window.THEORY_DATA || !window.THEORY_DATA[chapterId]) return;
+
+    const data = window.THEORY_DATA[chapterId];
+    const titleEl = document.getElementById('theory-modal-title');
+    const subtitleEl = document.getElementById('theory-modal-subtitle');
+    const badgeEl = document.getElementById('theory-modal-badge');
+    const githubLink = document.getElementById('theory-github-link');
+    const bodyEl = document.getElementById('theory-content-body');
+    const containerEl = document.getElementById('theory-reader-container');
+
+    if (titleEl) titleEl.textContent = data.title || `Chương ${chapterId}`;
+    if (subtitleEl) subtitleEl.textContent = `Tài liệu ôn tập & bẫy thi OCP 21 (File: ${data.filename})`;
+    if (badgeEl) badgeEl.textContent = `Chương ${chapterId}`;
+    if (githubLink) githubLink.href = data.githubUrl || `https://github.com/Min-Duc1705/OCP-21/blob/main/${data.filename}`;
+
+    // Update active tab button
+    document.querySelectorAll('.theory-tab-btn').forEach(btn => {
+      if (btn.textContent.trim() === `Chương ${chapterId}`) {
+        btn.classList.add('active');
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    // Parse and render Markdown
+    const rawMd = data.content || '';
+    let html = '';
+
+    if (typeof marked !== 'undefined' && marked.parse) {
+      html = marked.parse(rawMd);
+
+      // Post-process GitHub alert callouts in blockquotes
+      html = html.replace(/<blockquote>\s*<p>\s*\[!NOTE\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+        '<div class="md-alert md-alert-note"><div class="md-alert-title">ℹ️ Ghi chú</div><p>$1</p></div>');
+      html = html.replace(/<blockquote>\s*<p>\s*\[!TIP\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+        '<div class="md-alert md-alert-tip"><div class="md-alert-title">💡 Mẹo thi cử</div><p>$1</p></div>');
+      html = html.replace(/<blockquote>\s*<p>\s*\[!IMPORTANT\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+        '<div class="md-alert md-alert-important"><div class="md-alert-title">⚡ Quan trọng</div><p>$1</p></div>');
+      html = html.replace(/<blockquote>\s*<p>\s*\[!WARNING\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+        '<div class="md-alert md-alert-warning"><div class="md-alert-title">⚠️ Cảnh báo bẫy thi</div><p>$1</p></div>');
+      html = html.replace(/<blockquote>\s*<p>\s*\[!CAUTION\]\s*([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+        '<div class="md-alert md-alert-caution"><div class="md-alert-title">🛑 Chú ý</div><p>$1</p></div>');
+    } else {
+      html = formatMarkdown(rawMd);
+    }
+
+    if (bodyEl) {
+      bodyEl.innerHTML = html;
+      // Syntax highlight
+      if (window.Prism) {
+        Prism.highlightAllUnder(bodyEl);
+      }
+    }
+
+    if (containerEl) {
+      containerEl.scrollTop = 0;
+    }
+  }
+
+  function closeTheoryModal() {
+    const modal = document.getElementById('theory-modal');
+    if (modal) modal.classList.remove('show');
+  }
+
+  function handleTheorySearch(term) {
+    term = (term || '').trim();
+    const bodyEl = document.getElementById('theory-content-body');
+    if (!bodyEl) return;
+
+    // Remove old search marks
+    const marks = bodyEl.querySelectorAll('.highlight-search');
+    marks.forEach(m => {
+      const parent = m.parentNode;
+      if (parent) {
+        parent.replaceChild(document.createTextNode(m.textContent), m);
+        parent.normalize();
+      }
+    });
+
+    if (!term || term.length < 2) return;
+
+    const walker = document.createTreeWalker(bodyEl, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        if (node.parentElement && (node.parentElement.tagName === 'CODE' || node.parentElement.tagName === 'PRE' || node.parentElement.tagName === 'SCRIPT')) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    const nodesToReplace = [];
+    let currentNode;
+    while ((currentNode = walker.nextNode())) {
+      if (currentNode.nodeValue.toLowerCase().includes(term.toLowerCase())) {
+        nodesToReplace.push(currentNode);
+      }
+    }
+
+    let firstMatch = null;
+    const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+
+    nodesToReplace.forEach(node => {
+      const span = document.createElement('span');
+      span.innerHTML = node.nodeValue.replace(regex, '<mark class="highlight-search">$1</mark>');
+      if (!firstMatch) {
+        firstMatch = span.querySelector('.highlight-search');
+      }
+      if (node.parentNode) {
+        node.parentNode.replaceChild(span, node);
+      }
+    });
+
+    if (firstMatch) {
+      firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
   // --- KEYBOARD SHORTCUTS ---
   function setupKeyboardShortcuts() {
     window.addEventListener('keydown', (e) => {
@@ -1235,6 +1395,7 @@
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
       if (e.key === 'Escape') {
+        closeTheoryModal();
         closeVideoModal();
         const listModal = document.getElementById('list-modal');
         if (listModal) listModal.classList.remove('show');
@@ -1319,6 +1480,27 @@
       switchView('dashboard');
     });
 
+    document.getElementById('btn-open-theory').addEventListener('click', () => openTheoryModal(1));
+    document.getElementById('btn-close-theory-modal').addEventListener('click', closeTheoryModal);
+    document.getElementById('theory-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'theory-modal') closeTheoryModal();
+    });
+    document.getElementById('btn-theory-video-link').addEventListener('click', () => {
+      closeTheoryModal();
+      openVideoModal(state.currentTheoryChapterId);
+    });
+
+    let theorySearchTimeout = null;
+    const theorySearchInput = document.getElementById('theory-search-input');
+    if (theorySearchInput) {
+      theorySearchInput.addEventListener('input', (e) => {
+        clearTimeout(theorySearchTimeout);
+        theorySearchTimeout = setTimeout(() => {
+          handleTheorySearch(e.target.value);
+        }, 300);
+      });
+    }
+
     document.getElementById('btn-open-videos').addEventListener('click', () => openVideoModal(1));
     document.getElementById('btn-close-video-modal').addEventListener('click', closeVideoModal);
     document.getElementById('video-modal').addEventListener('click', (e) => {
@@ -1351,6 +1533,11 @@
         updatePracticeBookmarkButton(q.id);
         updateDashboardStats();
       }
+    });
+    document.getElementById('btn-practice-theory').addEventListener('click', () => {
+      const q = state.practiceQuestions[state.practiceIndex];
+      const chId = q ? q.chapterId : 1;
+      openTheoryModal(chId);
     });
     document.getElementById('btn-practice-video').addEventListener('click', () => {
       const q = state.practiceQuestions[state.practiceIndex];

@@ -1431,6 +1431,8 @@
           });
           pre.appendChild(copyBtn);
         });
+        // Setup Headings Slug IDs and Smooth Scroll for TOC links
+        setupTheoryHeadingsAndTOC(bodyEl, containerEl);
       }
 
       if (containerEl) {
@@ -1439,6 +1441,164 @@
     } catch (err) {
       console.error('Lỗi khi render nội dung lý thuyết:', err);
     }
+  }
+
+  function setupTheoryHeadingsAndTOC(bodyEl, containerEl) {
+    if (!bodyEl || !containerEl) return;
+
+    function generateSlug(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .replace(/<[^>]+>/g, '') // remove HTML tags
+        .replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '') // remove punctuation
+        .replace(/\s/g, '-'); // spaces to hyphens
+    }
+
+    const headings = bodyEl.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    const slugMap = new Map();
+    const slugCounts = {};
+
+    headings.forEach((h, idx) => {
+      const rawText = h.textContent.trim();
+      let slug = generateSlug(rawText);
+      if (!slug) slug = `section-${idx + 1}`;
+
+      if (slugCounts[slug]) {
+        slugCounts[slug]++;
+        slug = `${slug}-${slugCounts[slug] - 1}`;
+      } else {
+        slugCounts[slug] = 1;
+      }
+
+      h.id = slug;
+      h.setAttribute('data-slug', slug);
+      const normSlug = slug.replace(/-+/g, '-');
+      h.setAttribute('data-slug-norm', normSlug);
+      h.setAttribute('data-heading-text', rawText.toLowerCase());
+
+      slugMap.set(slug, h);
+      if (!slugMap.has(normSlug)) {
+        slugMap.set(normSlug, h);
+      }
+
+      // Check for section number prefix (e.g. "1.", "1.1.", "PHẦN 1")
+      const numMatch = rawText.match(/^(\d+(?:\.\d+)*)/i) || rawText.match(/^phần\s+(\d+)/i);
+      if (numMatch) {
+        h.setAttribute('data-section-num', numMatch[1]);
+      }
+    });
+
+    // Intercept TOC links and all in-page hash links
+    bodyEl.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = a.getAttribute('href');
+        if (!href || href === '#') return;
+
+        const rawTargetId = href.substring(1);
+        let decodedTargetId = '';
+        try {
+          decodedTargetId = decodeURIComponent(rawTargetId).toLowerCase().trim();
+        } catch (err) {
+          decodedTargetId = rawTargetId.toLowerCase().trim();
+        }
+        const normTargetId = decodedTargetId.replace(/-+/g, '-');
+
+        // Strategy 1: Map lookup or getElementById
+        let targetEl = slugMap.get(decodedTargetId) ||
+                       slugMap.get(normTargetId) ||
+                       document.getElementById(rawTargetId) ||
+                       document.getElementById(decodedTargetId) ||
+                       document.getElementById(normTargetId);
+
+        // Strategy 2: Query by attribute in bodyEl
+        if (!targetEl) {
+          targetEl = bodyEl.querySelector(
+            `[data-slug="${decodedTargetId}"], [data-slug="${normTargetId}"], [data-slug-norm="${normTargetId}"]`
+          );
+        }
+
+        // Strategy 3: By anchor text comparison
+        if (!targetEl) {
+          const linkText = a.textContent.trim().toLowerCase();
+          if (linkText) {
+            for (const h of headings) {
+              const hText = h.getAttribute('data-heading-text') || h.textContent.trim().toLowerCase();
+              if (hText === linkText || hText.includes(linkText) || linkText.includes(hText)) {
+                targetEl = h;
+                break;
+              }
+            }
+          }
+        }
+
+        // Strategy 4: By section number prefix (e.g. target starts with "1-" or "2-")
+        if (!targetEl) {
+          const numMatch = decodedTargetId.match(/^(\d+(?:[-.]\d+)*)/);
+          if (numMatch) {
+            const secNum = numMatch[1].replace(/-/g, '.');
+            for (const h of headings) {
+              const hSec = h.getAttribute('data-section-num');
+              if (hSec && (hSec === secNum || hSec.startsWith(secNum + '.') || secNum.startsWith(hSec + '.'))) {
+                targetEl = h;
+                break;
+              }
+            }
+          }
+        }
+
+        // Strategy 5: Partial word matching between targetId and headings
+        if (!targetEl) {
+          const targetWords = normTargetId.split('-').filter(w => w.length > 2);
+          if (targetWords.length > 0) {
+            let bestHeading = null;
+            let maxMatches = 0;
+            for (const h of headings) {
+              const hNorm = h.getAttribute('data-slug-norm') || '';
+              let matches = 0;
+              for (const w of targetWords) {
+                if (hNorm.includes(w)) matches++;
+              }
+              if (matches > maxMatches) {
+                maxMatches = matches;
+                bestHeading = h;
+              }
+            }
+            if (maxMatches >= Math.min(2, targetWords.length)) {
+              targetEl = bestHeading;
+            }
+          }
+        }
+
+        if (targetEl) {
+          // Scroll containerEl to targetEl smoothly with 18px top margin
+          const containerRect = containerEl.getBoundingClientRect();
+          const targetRect = targetEl.getBoundingClientRect();
+          const currentScrollTop = containerEl.scrollTop;
+          const targetTop = targetRect.top - containerRect.top + currentScrollTop - 18;
+
+          containerEl.scrollTo({
+            top: Math.max(0, targetTop),
+            behavior: 'smooth'
+          });
+
+          // Highlight target heading with subtle pulse
+          targetEl.classList.add('heading-target-active');
+          setTimeout(() => {
+            targetEl.classList.remove('heading-target-active');
+          }, 1800);
+        } else {
+          console.warn('Could not find target heading for TOC link:', href);
+        }
+      });
+    });
+
+    // External links: target=_blank
+    bodyEl.querySelectorAll('a[href^="http"]').forEach(a => {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener noreferrer');
+    });
   }
 
   function closeTheoryModal() {

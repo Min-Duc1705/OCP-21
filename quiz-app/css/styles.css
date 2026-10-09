@@ -1662,6 +1662,60 @@ button.theory-sidebar-item.active::before,
   color: #334155;
 }
 
+/* Links in Markdown & TOC */
+.markdown-body a {
+  color: #38bdf8;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(56, 189, 248, 0.4);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+[data-theme="light"] .markdown-body a {
+  color: #0284c7;
+  border-bottom-color: rgba(2, 132, 199, 0.4);
+}
+
+.markdown-body a:hover {
+  color: #7dd3fc;
+  border-bottom-style: solid;
+  border-bottom-color: #38bdf8;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.35);
+}
+
+/* Headings with smooth scroll target highlight */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  scroll-margin-top: 1.5rem;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, padding 0.3s ease;
+}
+
+@keyframes headingPulse {
+  0% {
+    background-color: rgba(56, 189, 248, 0.22);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+    border-radius: 6px;
+    padding-left: 8px;
+  }
+  60% {
+    background-color: rgba(56, 189, 248, 0.1);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+    border-radius: 6px;
+    padding-left: 8px;
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+    padding-left: 0;
+  }
+}
+
+.heading-target-active {
+  animation: headingPulse 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
 .markdown-body h1 {
   font-size: 2.2rem;
   font-weight: 800;

@@ -1,0 +1,284 @@
+/* ==========================================================================
+   OCP 21 Quiz Master - Responsive Tablet & Mobile Styles (responsive.css)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .stats-ribbon {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .split-layout-container {
+    grid-template-columns: 1fr;
+  }
+  .split-left-pane {
+    position: static;
+    max-height: none;
+  }
+  .exam-layout {
+    grid-template-columns: 1fr;
+  }
+  .exam-mobile-palette-toggle {
+    display: inline-flex;
+  }
+  /* Smooth Exam Sidebar Drawer on Tablet & Phone */
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 7, 15, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 240;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0.28s ease;
+  }
+  .exam-layout.drawer-open .sidebar-backdrop {
+    opacity: 1;
+    visibility: visible;
+  }
+  .exam-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(320px, 88vw);
+    max-height: 100dvh;
+    overflow-y: auto;
+    z-index: 250;
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.6);
+    transform: translateX(105%);
+    transition: transform 0.3s var(--ease-spring);
+  }
+  .exam-layout.drawer-open .exam-sidebar {
+    transform: translateX(0);
+  }
+  .exam-sidebar-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
+  /* Header scrollable action bar on mobile */
+  .nav-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+  }
+
+  .brand {
+    justify-content: space-between;
+  }
+
+  .nav-actions {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .nav-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-actions .btn {
+    padding: 0.42rem 0.72rem;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+  }
+
+  /* Theory Modal Top Bar & Smooth Off-Canvas Drawer on Mobile */
+  .theory-top-bar {
+    flex-wrap: wrap;
+    padding: 0.5rem 0.75rem;
+    gap: 0.45rem;
+  }
+
+  .theory-top-left {
+    flex: 1 1 auto;
+    max-width: calc(100% - 110px);
+  }
+
+  .theory-brand-tag,
+  .theory-breadcrumb-sep {
+    display: none;
+  }
+
+  .theory-top-right {
+    order: 2;
+  }
+
+  .theory-top-center {
+    order: 3;
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  /* Theory Sidebar Mobile Backdrop + Hardware-Accelerated Drawer */
+  .theory-sidebar-backdrop {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 7, 15, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 30;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.28s var(--ease-spring),
+                visibility 0.28s var(--ease-spring);
+  }
+
+  .theory-main-layout.sidebar-collapsed .theory-sidebar-backdrop {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .theory-sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: min(305px, 85vw);
+    z-index: 40;
+    box-shadow: 12px 0 40px rgba(0, 0, 0, 0.75);
+    transform: translateX(0);
+    transition: transform 0.3s var(--ease-spring);
+  }
+
+  .theory-main-layout.sidebar-collapsed .theory-sidebar {
+    transform: translateX(-105%);
+  }
+
+  .btn-close-theory-drawer {
+    display: inline-flex;
+  }
+
+  .theory-reader-container {
+    padding: 1.25rem 1rem 4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 0.85rem;
+  }
+
+  .hero {
+    padding: 1.5rem 1rem 1.15rem;
+  }
+
+  .stats-ribbon {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+
+  .stat-card {
+    padding: 0.85rem;
+    gap: 0.65rem;
+  }
+
+  .stat-icon {
+    width: 2.35rem;
+    height: 2.35rem;
+    font-size: 1.15rem;
+  }
+
+  .stat-content h3 {
+    font-size: 1.25rem;
+  }
+
+  .stat-content span {
+    font-size: 0.68rem;
+  }
+
+  .quick-exam-banner {
+    padding: 1.15rem;
+  }
+
+  .quick-exam-cta {
+    width: 100%;
+  }
+
+  .dashboard-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chapter-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .chapter-search-box,
+  .chapter-search-box input,
+  .chapter-search-box input:focus {
+    width: 100%;
+  }
+
+  .chapter-filter-pills {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filter-pill-btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .chapter-grid {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .quiz-header {
+    padding: 0.8rem 0.9rem;
+  }
+
+  .quiz-header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .quiz-header-actions .btn {
+    flex: 1;
+    padding: 0.42rem 0.5rem;
+    font-size: 0.76rem;
+  }
+
+  /* Single-row horizontal scroll for question navigator pills on mobile */
+  .navigator-scroll-container {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .split-left-pane,
+  .split-right-pane {
+    padding: 1.1rem 0.95rem;
+  }
+
+  .pane-footer-nav .btn {
+    flex: 1;
+  }
+
+  .video-modal-content {
+    padding: 0.9rem;
+    width: 98vw;
+  }
+}

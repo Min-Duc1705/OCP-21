@@ -91,8 +91,8 @@
   * Tính toán giá trị: `temperature = 4`.
   * `humidity = -4 + (4 * 3) = -4 + 12 = 8`.
   * Xét điều kiện:
-    * Dòng 5: `if (temperature >= 4)` $ightarrow$ `4 >= 4` là `true`. Code tiếp tục đi vào câu lệnh con bên trong.
-    * Dòng 6: `if (humidity < 6)` $ightarrow$ `8 < 6` là `false`.
+    * Dòng 5: `if (temperature >= 4)` → `4 >= 4` là `true`. Code tiếp tục đi vào câu lệnh con bên trong.
+    * Dòng 6: `if (humidity < 6)` → `8 < 6` là `false`.
     * Theo quy tắc **Dangling Else**, nhánh `else` ở dòng 7 thuộc về `if` ở dòng 6. Do đó khối `else` dòng 7 được chạy và in ra `"Just Right"`.
     * Nhánh `else` ở dòng 8 thuộc về `if` ở dòng 5 (nhưng vì dòng 5 là `true` nên dòng 8 bị bỏ qua).
 </details>
@@ -272,7 +272,7 @@ private void print(int[] weather) {
 * **Giải thích chuyên sâu:**
   * **Lỗi 1 (Dòng 36):** `o instanceof Long bat || bat <= 20`. Theo quy tắc Flow Scoping, **cấm dùng biến mẫu ở vế phải của toán tử `||`** vì khi vế trái `false`, biến `bat` chưa được khởi tạo.
   * **Lỗi 2 (Dòng 38):** Cú pháp `default { ... }` là của cấu trúc `switch`, **không tồn tại** từ khóa `default` đi kèm với cấu trúc `if-else` (phải dùng `else { ... }`).
-  * Do đó code có nhiều lỗi biên dịch $ightarrow$ **G là đáp án đúng**.
+  * Do đó code có nhiều lỗi biên dịch → **G là đáp án đúng**.
 </details>
 
 ---
@@ -304,14 +304,14 @@ System.out.println(count);
 * **Đáp án đúng:** **B, C, E**
 * **Giải thích chuyên sâu:**
   * Phân tích các bước:
-    * `row = 1, col = 0`: `(1 + 0) % 2 != 0` $ightarrow$ không thỏa `if` $ightarrow$ `count++` thành **1**.
-    * `row = 1, col = 1`: `(1 + 1) % 2 == 0` $ightarrow$ Thỏa mãn điều kiện `if`!
+    * `row = 1, col = 0`: `(1 + 0) % 2 != 0` → không thỏa `if` → `count++` thành **1**.
+    * `row = 1, col = 1`: `(1 + 1) % 2 == 0` → Thỏa mãn điều kiện `if`!
   * Ta cần chọn lệnh làm sao để `count` tăng thêm đúng 1 lần nữa rồi dừng lại ở giá trị **2**:
     * **B (`break RABBIT`) và E (`break`):** Thoát khỏi vòng lặp `col` hiện tại (`RABBIT`), quay lại vòng ngoài `row = 2`.
-      * Với `row = 2, col = 0`: `(2 + 0) % 2 == 0` $ightarrow$ lại `break`, không tăng `count`.
-      * Với `row = 3, col = 0`: `(3 + 0) % 2 != 0` $ightarrow$ `count++` thành **2**.
-      * Sau đó `col = 1`: `(3 + 1) % 2 == 0` $ightarrow$ lại `break`. Hết vòng lặp $ightarrow$ in ra đúng **2**. (B và E đúng!).
-    * **C (`continue BUNNY`):** Bỏ qua phần còn lại của `BUNNY`, tăng thẳng `row` lên giá trị tiếp theo. Hành vi này hoàn toàn tương đương với việc thoát khỏi vòng lặp con `RABBIT` $ightarrow$ cũng cho ra `count = 2`.
+      * Với `row = 2, col = 0`: `(2 + 0) % 2 == 0` → lại `break`, không tăng `count`.
+      * Với `row = 3, col = 0`: `(3 + 0) % 2 != 0` → `count++` thành **2**.
+      * Sau đó `col = 1`: `(3 + 1) % 2 == 0` → lại `break`. Hết vòng lặp → in ra đúng **2**. (B và E đúng!).
+    * **C (`continue BUNNY`):** Bỏ qua phần còn lại của `BUNNY`, tăng thẳng `row` lên giá trị tiếp theo. Hành vi này hoàn toàn tương đương với việc thoát khỏi vòng lặp con `RABBIT` → cũng cho ra `count = 2`.
 </details>
 
 ---
@@ -424,14 +424,14 @@ System.out.println(count);
 * **Giải thích chuyên sâu:**
   * Khởi tạo: `sing = 8`, `squawk = 2`, `notes = 0`.
   * **Lần lặp 1:** Điều kiện `8 > 2` là `true`.
-    * `sing--` $ightarrow$ `sing = 7`.
-    * `squawk += 2` $ightarrow$ `squawk = 4`.
-    * `notes += 7 + 4` $ightarrow$ `notes = 0 + 11 = 11`.
+    * `sing--` → `sing = 7`.
+    * `squawk += 2` → `squawk = 4`.
+    * `notes += 7 + 4` → `notes = 0 + 11 = 11`.
   * **Lần lặp 2:** Điều kiện `7 > 4` là `true`.
-    * `sing--` $ightarrow$ `sing = 6`.
-    * `squawk += 2` $ightarrow$ `squawk = 6`.
-    * `notes += 6 + 6` $ightarrow$ `notes = 11 + 12 = 23`.
-  * **Lần lặp 3:** Điều kiện `6 > 6` là `false` $ightarrow$ Vòng lặp dừng lại.
+    * `sing--` → `sing = 6`.
+    * `squawk += 2` → `squawk = 6`.
+    * `notes += 6 + 6` → `notes = 11 + 12 = 23`.
+  * **Lần lặp 3:** Điều kiện `6 > 6` là `false` → Vòng lặp dừng lại.
   * In ra: `23`.
 </details>
 
@@ -647,15 +647,15 @@ private void countAttendees() {
 * **Đáp án đúng:** **B, E (Các số phân biệt được in ra là 3 và 10)**
 * **Giải thích chuyên sâu:**
   1. Vòng lặp 1: `while ((participants = participants + 1) < 10) {}`
-     * Khi `participants` tăng lên 9: `9 < 10` là true $ightarrow$ lặp tiếp.
-     * Khi `participants` tăng lên 10: `10 < 10` là false $ightarrow$ dừng. Giá trị của `participants = 10`.
+     * Khi `participants` tăng lên 9: `9 < 10` là true → lặp tiếp.
+     * Khi `participants` tăng lên 10: `10 < 10` là false → dừng. Giá trị của `participants = 10`.
   2. Vòng lặp 2: `do {} while (animals++ <= 1);`
      * Ban đầu `animals = 2`. Thân rỗng chạy lần 1.
-     * Kiểm tra điều kiện: `animals++ <= 1` lấy giá trị cũ `2 <= 1` là `false` $ightarrow$ dừng ngay. Sau đó `animals` tăng lên thành `3`.
+     * Kiểm tra điều kiện: `animals++ <= 1` lấy giá trị cũ `2 <= 1` là `false` → dừng ngay. Sau đó `animals` tăng lên thành `3`.
   3. Vòng lặp 3: `for ( ; performers < 2; performers += 2) {}`
-     * `performers = -1 < 2` $ightarrow$ lặp, tăng thêm 2 thành `1`.
-     * `performers = 1 < 2` $ightarrow$ lặp, tăng thêm 2 thành `3`.
-     * `performers = 3 < 2` là false $ightarrow$ dừng. Giá trị của `performers = 3`.
+     * `performers = -1 < 2` → lặp, tăng thêm 2 thành `1`.
+     * `performers = 1 < 2` → lặp, tăng thêm 2 thành `3`.
+     * `performers = 3 < 2` là false → dừng. Giá trị của `performers = 3`.
   * Ba giá trị in ra là: `10`, `3`, `3`. Các số phân biệt là **10** (**E**) và **3** (**B**).
 </details>
 
@@ -724,8 +724,8 @@ private void countAttendees() {
 * **Giải thích chuyên sâu:**
   * Vòng lặp trong cùng `L3: while (true)` là một vòng lặp vô hạn. Nếu luồng điều khiển đi tới dòng 10, chương trình sẽ bị treo vĩnh viễn trong `L3`.
   * Do đó, điều kiện `if (humidity-- % 12 == 0)` ở dòng 8 (thỏa mãn ngay ở lần chạy đầu tiên vì 12 % 12 == 0) bắt buộc phải nhảy thoát ra khỏi hoặc bỏ qua toàn bộ khối bên dưới:
-    * **A (`break L1`):** Thoát hẳn khỏi vòng lặp ngoài cùng `L1` $ightarrow$ Kết thúc an toàn.
-    * **E (`continue L1`):** Nhảy sang lần lặp tiếp theo của `L1`, bỏ qua việc đi xuống `L3` $ightarrow$ Không bị vô hạn.
+    * **A (`break L1`):** Thoát hẳn khỏi vòng lặp ngoài cùng `L1` → Kết thúc an toàn.
+    * **E (`continue L1`):** Nhảy sang lần lặp tiếp theo của `L1`, bỏ qua việc đi xuống `L3` → Không bị vô hạn.
     * Các phương án khác vẫn để chương trình trôi xuống hoặc lặp vô tận.
 </details>
 
@@ -757,9 +757,9 @@ private void countAttendees() {
 
 * **Đáp án đúng:** **D (Tối thiểu 4 dòng cần sửa)**
 * **Giải thích chuyên sâu:**
-  1. **Dòng 23:** Khối `{ "Jane"; }` thiếu từ khóa `yield` $ightarrow$ Phải sửa thành `{ yield "Jane"; }`.
-  2. **Dòng 24:** Thừa dấu chấm phẩy sau dấu ngoặc nhọn `{ yield "Lisa"; };` $ightarrow$ Phải bỏ dấu `;` thừa bên ngoài.
-  3. **Dòng 25 và 26:** Trùng lặp giá trị `case 30` (Duplicate case label) $ightarrow$ Phải sửa một trong hai dòng (ví dụ đổi thành `case 40`) hoặc xóa đi 1 dòng.
+  1. **Dòng 23:** Khối `{ "Jane"; }` thiếu từ khóa `yield` → Phải sửa thành `{ yield "Jane"; }`.
+  2. **Dòng 24:** Thừa dấu chấm phẩy sau dấu ngoặc nhọn `{ yield "Lisa"; };` → Phải bỏ dấu `;` thừa bên ngoài.
+  3. **Dòng 25 và 26:** Trùng lặp giá trị `case 30` (Duplicate case label) → Phải sửa một trong hai dòng (ví dụ đổi thành `case 40`) hoặc xóa đi 1 dòng.
   * Tổng cộng có đúng 4 dòng cần sửa đổi/xóa bỏ.
 </details>
 
@@ -793,12 +793,12 @@ private void countAttendees() {
 * **Đáp án đúng:** **E (`5 2 1 `)**
 * **Giải thích chuyên sâu:**
   * Dòng 3: `final var one = 1;` là hằng số biên dịch hợp lệ.
-  * Dòng 4: `tailFeathers = 3`. Khớp với `case 3:` ở dòng 6 $ightarrow$ in ra: `5 `.
+  * Dòng 4: `tailFeathers = 3`. Khớp với `case 3:` ở dòng 6 → in ra: `5 `.
   * Hết khối `switch` (dòng 7).
   * Dòng 8: Vòng lặp `while (tailFeathers > 1)`:
-    * Lần 1: `--tailFeathers` giảm từ 3 xuống 2 $ightarrow$ in ra: `2 `.
-    * Lần 2: `--tailFeathers` giảm từ 2 xuống 1 $ightarrow$ in ra: `1 `.
-    * Lần 3: `1 > 1` là false $ightarrow$ dừng.
+    * Lần 1: `--tailFeathers` giảm từ 3 xuống 2 → in ra: `2 `.
+    * Lần 2: `--tailFeathers` giảm từ 2 xuống 1 → in ra: `1 `.
+    * Lần 3: `1 > 1` là false → dừng.
   * Toàn bộ chuỗi in ra: `5 2 1 `.
 </details>
 
@@ -863,8 +863,8 @@ private void countAttendees() {
 * **Giải thích chuyên sâu:**
   * Đây là tính năng Pattern Matching cho `switch` của Java 21:
   * Biến `zooStatus = "Closed"`.
-  * Dòng 24: `s.equals("Open")` là `false` $ightarrow$ bỏ qua.
-  * Dòng 25: `s` thuộc kiểu `Object`, điều kiện `s != null && !s.equals("")` kiểm tra `"Closed"` khác null và không rỗng $ightarrow$ `true`!
+  * Dòng 24: `s.equals("Open")` là `false` → bỏ qua.
+  * Dòng 25: `s` thuộc kiểu `Object`, điều kiện `s != null && !s.equals("")` kiểm tra `"Closed"` khác null và không rỗng → `true`!
   * Nhánh này được chọn và trả về giá trị `20`.
   * Các nhánh được sắp xếp hợp lệ (không có nhánh nào bị dominate) nên code biên dịch và in ra `20`.
 </details>
@@ -904,12 +904,12 @@ private void countAttendees() {
   * `instrument = "violin"`.
   * So sánh với các case: `"bass"`, `"cello"` (từ `CELLO`), `"VIOLIN"` (viết hoa), `"viola"` đều không khớp (Java phân biệt hoa thường).
   * Do không khớp case nào, chương trình nhảy vào nhánh **`default:`** ở dòng 13:
-    * `p++` $ightarrow$ `p` từ `-1` tăng lên `0`.
+    * `p++` → `p` từ `-1` tăng lên `0`.
     * ⚠️ **Do không có lệnh `break`**, code rơi tự do (*fall-through*) xuống dòng 14:
-      * `p++` $ightarrow$ `p` từ `0` tăng lên `1`.
+      * `p++` → `p` từ `0` tăng lên `1`.
     * Tiếp tục rơi tự do xuống dòng 15:
-      * `++p` $ightarrow$ `p` từ `1` tăng lên `2`.
-      * Gặp lệnh `break;` $ightarrow$ thoát switch.
+      * `++p` → `p` từ `1` tăng lên `2`.
+      * Gặp lệnh `break;` → thoát switch.
   * In ra: `2`.
 </details>
 
@@ -985,7 +985,7 @@ private void countAttendees() {
 * **Giải thích chuyên sâu:**
   * `amphibian = 2`, khớp với `case 2 -> { ... }`.
   * Trong khối lệnh của `case 2`:
-    * Kiểm tra: `name.equals("Frog")` $ightarrow$ `"Salamander".equals("Frog")` là `false`.
+    * Kiểm tra: `name.equals("Frog")` → `"Salamander".equals("Frog")` là `false`.
     * Lệnh `yield "Green";` bị bỏ qua.
     * Dòng tiếp theo chạy: `yield "Blue";` trả về giá trị `"Blue"` cho switch.
   * In ra: `Blue`.
@@ -1054,10 +1054,10 @@ private void countAttendees() {
 * **Đáp án đúng:** **C (`-1 0 1 2 3 4 5 6 `)**
 * **Giải thích chuyên sâu:**
   * Ban đầu: `y = -2`.
-  * **Lần 1:** Tiền tố `++y` tăng `y` lên `-1` và in ra `-1 `. Kiểm tra: `-1 <= 5` là true $ightarrow$ Lặp tiếp.
+  * **Lần 1:** Tiền tố `++y` tăng `y` lên `-1` và in ra `-1 `. Kiểm tra: `-1 <= 5` là true → Lặp tiếp.
   * Tiếp tục tăng và in ra: `0 1 2 3 4`.
-  * Khi `y = 4`, `++y` in ra `5 `. Kiểm tra: `5 <= 5` là `true` $ightarrow$ Vẫn tiếp tục lặp!
-  * Lần lặp cuối: `++y` tăng `y` lên `6` và in ra `6 `. Kiểm tra: `6 <= 5` là `false` $ightarrow$ Dừng vòng lặp.
+  * Khi `y = 4`, `++y` in ra `5 `. Kiểm tra: `5 <= 5` là `true` → Vẫn tiếp tục lặp!
+  * Lần lặp cuối: `++y` tăng `y` lên `6` và in ra `6 `. Kiểm tra: `6 <= 5` là `false` → Dừng vòng lặp.
   * Chuỗi in ra hoàn chỉnh: `-1 0 1 2 3 4 5 6 `.
 </details>
 
@@ -1093,7 +1093,7 @@ private void countAttendees() {
 * **Giải thích chuyên sâu:**
   Các lỗi biên dịch cần sửa:
   1. **Dòng 43:** Thiếu dấu chấm phẩy sau lệnh yield: `{ yield 4; }`.
-  2. **Dòng 46 & 47:** Nhánh `default` đứng trước `case null` $ightarrow$ `default` thống trị `case null` khiến trình biên dịch báo lỗi `dominated case label`. Phải đổi chỗ hoặc sửa 2 dòng này.
+  2. **Dòng 46 & 47:** Nhánh `default` đứng trước `case null` → `default` thống trị `case null` khiến trình biên dịch báo lỗi `dominated case label`. Phải đổi chỗ hoặc sửa 2 dòng này.
   3. **Dòng 48:** Lệnh `return switch (...) { ... };` bắt buộc phải có **dấu chấm phẩy `;`** sau dấu ngoặc nhọn đóng `}` của switch expression.
-  * Tổng cộng cần sửa đổi/điều chỉnh tối thiểu **4 dòng** $ightarrow$ Đáp án **E**.
+  * Tổng cộng cần sửa đổi/điều chỉnh tối thiểu **4 dòng** → Đáp án **E**.
 </details>

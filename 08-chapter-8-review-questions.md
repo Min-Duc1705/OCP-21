@@ -423,9 +423,9 @@ for (int i = 0; i<3; i++) {
 
 * **Đáp án đúng:** **E (Đoạn mã biên dịch và in ra kết quả: 3, sau đó 1, sau đó 3)**
 * **Phân tích chi tiết:**
-  * Biến `length` được khai báo ngoài vòng lặp và không bao giờ bị gán lại $ightarrow$ Là biến **effectively final** $ightarrow$ Dòng A hợp lệ.
+  * Biến `length` được khai báo ngoài vòng lặp và không bao giờ bị gán lại → Là biến **effectively final** → Dòng A hợp lệ.
   * Biến `i` trong vòng lặp `for` bị thay đổi sau mỗi bước lặp (`i++`), do đó `i` **KHÔNG PHẢI** là effectively final. Nếu lambda trực tiếp tham chiếu đến `i`, mã sẽ bị lỗi.
-  * Tuy nhiên, ở nhánh `else`, tác giả đã khai báo một biến mới `int j = i;`. Mỗi lần vòng lặp chạy vào nhánh `else`, một biến `j` độc lập mới được tạo ra và không bao giờ bị thay đổi $ightarrow$ `j` là **effectively final** $ightarrow$ Dòng C hoàn toàn hợp lệ!
+  * Tuy nhiên, ở nhánh `else`, tác giả đã khai báo một biến mới `int j = i;`. Mỗi lần vòng lặp chạy vào nhánh `else`, một biến `j` độc lập mới được tạo ra và không bao giờ bị thay đổi → `j` là **effectively final** → Dòng C hoàn toàn hợp lệ!
   * Chương trình chạy vòng lặp với `i = 0, 1, 2`:
   *   * `i = 0`: In ra `length` là `3`.
   *   * `i = 1`: In ra `j` là `1`.
@@ -473,8 +473,10 @@ public class Hyena {
    private int age = 1;
    public static void main(String[] args) {
       var p = new Hyena();
-      int age = 2;
+      double height = 10;
+      int age = 1;
       check(p, ___________);
+      age = 2;
    }
    private static void check(Hyena hyena, Predicate<Hyena> pred) {
       String result = pred.test(hyena) ? "hahaha" : "silence";
@@ -496,8 +498,8 @@ public class Hyena {
 * **Đáp án đúng:** **A, F**
 * **Phân tích chi tiết:**
   * `Predicate<Hyena>` yêu cầu lambda nhận 1 tham số có kiểu `Hyena` và trả về `boolean`.
-  * `A` đúng: `var` trong Java là một **từ khoá ngữ cảnh (contextual keyword)**, không phải là từ khoá bảo lưu (reserved word). Do đó, bạn hoàn toàn có thể dùng `var` làm **tên của một tham số**! Thân hàm kiểm tra `p.age < 5` (`1 < 5` là `true`) $ightarrow$ in ra `hahaha`.
-  * `F` đúng: Khai báo tường minh `(Hyena h) -> h.age < 5`. Đối tượng truyền vào có `age = 1 < 5` $ightarrow$ in ra `hahaha`.
+  * `A` đúng: `var` trong Java là một **từ khoá ngữ cảnh (contextual keyword)**, không phải là từ khoá bảo lưu (reserved word). Do đó, bạn hoàn toàn có thể dùng `var` làm **tên của một tham số**! Thân hàm kiểm tra `p.age < 5` (`1 < 5` là `true`) → in ra `hahaha`.
+  * `F` đúng: Khai báo tường minh `(Hyena h) -> h.age < 5`. Đối tượng truyền vào có `age = 1 < 5` → in ra `hahaha`.
   * `B` và `E`: Sử dụng biến cục bộ `age = 2` của phương thức `main`, tuy nhiên đề thi kiểm tra logic đối tượng `Hyena`.
   * `C`: Lỗi biên dịch vì tên biến `p` trùng với biến cục bộ `p` đã khai báo trước đó trong phương thức `main`.
   * `D`: Lỗi biên dịch vì `Predicate` yêu cầu 1 tham số, nhưng `() -> ...` lại có 0 tham số.
@@ -614,9 +616,9 @@ public void remove(List<Character> chars) {
   *   * `BiFunction` (D) bắt buộc phải có 3 kiểu generic `BiFunction<T, U, R>`, không thể có 2 kiểu.
   *   * `UnaryOperator` (H) chỉ có 1 kiểu generic `UnaryOperator<T>`, không thể có 2 kiểu.
   * Xét từng dòng mã:
-  *   * **Dòng 6:** `String::new` tham chiếu đến constructor không tham số của `String` (`() -> new String()`), không nhận tham số và trả về `String` $ightarrow$ Khớp với **`Supplier<String>`** (F đúng).
+  *   * **Dòng 6:** `String::new` tham chiếu đến constructor không tham số của `String` (`() -> new String()`), không nhận tham số và trả về `String` → Khớp với **`Supplier<String>`** (F đúng).
   *   * **Dòng 7:** `m.andThen(n)` là phương thức tiện ích có trong `Consumer`, `BiConsumer` và `Function`. Trong các phương án còn lại, **`BiConsumer<String, String>`** là lựa chọn hợp lệ (B đúng).
-  *   * **Dòng 8:** `a -> a + a` nhận vào 1 đối tượng kiểu String và trả về chuỗi String ghép $ightarrow$ Nhận vào và trả về cùng một kiểu $ightarrow$ Khớp với **`UnaryOperator<String>`** (G đúng).
+  *   * **Dòng 8:** `a -> a + a` nhận vào 1 đối tượng kiểu String và trả về chuỗi String ghép → Nhận vào và trả về cùng một kiểu → Khớp với **`UnaryOperator<String>`** (G đúng).
 * **Bẫy thi cần nhớ:** BiConsumer có andThen; UnaryOperator chỉ có 1 tham số generic (UnaryOperator<T>); không tồn tại BinaryConsumer hay BinaryFunction.
 </details>
 
@@ -744,11 +746,11 @@ public interface Boat {
 * **Đáp án đúng:** **A, E, F**
 * **Phân tích chi tiết:**
   * `Transport` (E) đúng: Có phương thức `go()` là SAM. Phương thức `equals(Object o)` là phương thức public của `java.lang.Object` nên không tính vào SAM.
-  * `Train` (F) đúng: Kế thừa `Transport` và không khai báo thêm phương thức trừu tượng nào, kế thừa trọn vẹn duy nhất phương thức abstract `go()` $ightarrow$ Là Functional Interface hợp lệ.
-  * `Boat` (A) đúng: Phương thức `hashCode()` là của `Object` nên không tính; phương thức `hashCode(String input)` nhận tham số `String` là một abstract method duy nhất $ightarrow$ Thỏa mãn SAM!
+  * `Train` (F) đúng: Kế thừa `Transport` và không khai báo thêm phương thức trừu tượng nào, kế thừa trọn vẹn duy nhất phương thức abstract `go()` → Là Functional Interface hợp lệ.
+  * `Boat` (A) đúng: Phương thức `hashCode()` là của `Object` nên không tính; phương thức `hashCode(String input)` nhận tham số `String` là một abstract method duy nhất → Thỏa mãn SAM!
   * `Car` (B) sai: `Car` là một **`abstract class`**, không phải là `interface`.
-  * `Locomotive` (C) sai: Kế thừa `go()` từ `Train/Transport` và khai báo thêm `getSpeed()` $ightarrow$ Có 2 abstract methods $ightarrow$ Vi phạm SAM.
-  * `Spaceship` (D) sai: Khai báo `default int blastOff();` nhưng **không có thân hàm `{}`** $ightarrow$ Đây là lỗi cú pháp biên dịch (phương thức default bắt buộc phải có thân hàm).
+  * `Locomotive` (C) sai: Kế thừa `go()` từ `Train/Transport` và khai báo thêm `getSpeed()` → Có 2 abstract methods → Vi phạm SAM.
+  * `Spaceship` (D) sai: Khai báo `default int blastOff();` nhưng **không có thân hàm `{}`** → Đây là lỗi cú pháp biên dịch (phương thức default bắt buộc phải có thân hàm).
 * **Bẫy thi cần nhớ:** Phương thức default bắt buộc phải có thân hàm {}; abstract class không bao giờ là functional interface; interface kế thừa có thể là functional interface nếu không thêm abstract method mới.
 </details>
 

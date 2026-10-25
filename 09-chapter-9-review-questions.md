@@ -57,9 +57,9 @@
 * **Phân tích chi tiết:**
   * Dòng 12 khai báo `List<?> q`. Vì sử dụng Unbounded Wildcard `<?>`, trình biên dịch coi các phần tử trong `q` thuộc kiểu tổng quát `Object`.
   * Phương thức `removeIf(Predicate<? super E> filter)` trên `List<?>` sẽ kỳ vọng một predicate nhận `Object`.
-  * Dòng 15 (`String::isEmpty`) và dòng 16 (`s -> s.length() == 4`) đều gọi các phương thức chỉ có ở `String` (`isEmpty()`, `length()`). Trình biên dịch không cho phép vì kiểu phần tử trong `q` chỉ được suy luận là `Object` $\rightarrow$ **Dòng 15 và dòng 16 bị LỖI BIÊN DỊCH** (Có đúng 2 dòng lỗi biên dịch $\rightarrow$ chọn **C**).
+  * Dòng 15 (`String::isEmpty`) và dòng 16 (`s -> s.length() == 4`) đều gọi các phương thức chỉ có ở `String` (`isEmpty()`, `length()`). Trình biên dịch không cho phép vì kiểu phần tử trong `q` chỉ được suy luận là `Object` → **Dòng 15 và dòng 16 bị LỖI BIÊN DỊCH** (Có đúng 2 dòng lỗi biên dịch → chọn **C**).
   * Dòng 13 dùng `var v = List.of(...)` nên `v` được suy luận chính xác là `List<String>`. Do đó, dòng 17 và 18 hoàn toàn hợp lệ về mặt biên dịch.
-  * **Tuy nhiên:** `List.of()` tạo ra một danh sách **bất biến tuyệt đối (immutable list)**. Việc gọi `removeIf()` cố gắng sửa đổi danh sách sẽ khiến Java ném ra **`UnsupportedOperationException` tại runtime** $\rightarrow$ chọn **G**.
+  * **Tuy nhiên:** `List.of()` tạo ra một danh sách **bất biến tuyệt đối (immutable list)**. Việc gọi `removeIf()` cố gắng sửa đổi danh sách sẽ khiến Java ném ra **`UnsupportedOperationException` tại runtime** → chọn **G**.
 * **Bẫy thi cần nhớ:** Với `List<?>`, bạn không thể gọi các phương thức đặc thù của kiểu con ngoài `Object`. Ngoài ra, các collection tạo bởi `List.of()`, `Set.of()`, `Map.of()` là bất biến; bất kỳ thao tác thay đổi nào (`add`, `remove`, `removeIf`, `replaceAll`) đều ném `UnsupportedOperationException`.
 </details>
 
@@ -92,16 +92,16 @@
 * **Đáp án đúng:** **B (hellohi)**
 * **Phân tích chi tiết:**
   * Dòng 3 khởi tạo `ArrayDeque<String>`: `greetings = []`.
-  * Dòng 4: `offerLast("hello")` $\rightarrow$ thêm vào đuôi: `["hello"]`.
-  * Dòng 5: `offerLast("hi")` $\rightarrow$ thêm vào đuôi: `["hello", "hi"]`.
-  * Dòng 6: `offerFirst("ola")` $\rightarrow$ thêm vào đầu: `["ola", "hello", "hi"]`.
-  * Dòng 7: `pop()` tương đương với thao tác ngăn xếp (Stack LIFO), lấy và xoá phần tử ở đỉnh/đầu deque $\rightarrow$ xoá `"ola"`. Danh sách còn lại: `["hello", "hi"]`.
-  * Dòng 8: `peek()` xem phần tử ở đầu danh sách mà không xoá $\rightarrow$ trả về `"hello"`, không làm thay đổi deque.
+  * Dòng 4: `offerLast("hello")` → thêm vào đuôi: `["hello"]`.
+  * Dòng 5: `offerLast("hi")` → thêm vào đuôi: `["hello", "hi"]`.
+  * Dòng 6: `offerFirst("ola")` → thêm vào đầu: `["ola", "hello", "hi"]`.
+  * Dòng 7: `pop()` tương đương với thao tác ngăn xếp (Stack LIFO), lấy và xoá phần tử ở đỉnh/đầu deque → xoá `"ola"`. Danh sách còn lại: `["hello", "hi"]`.
+  * Dòng 8: `peek()` xem phần tử ở đầu danh sách mà không xoá → trả về `"hello"`, không làm thay đổi deque.
   * Dòng 9–10: Vòng lặp `while (peek() != null)` liên tục gọi `pop()`:
     * Lần 1: Lấy và in `"hello"`.
     * Lần 2: Lấy và in `"hi"`.
     * Lần 3: `peek()` trả về `null`, vòng lặp kết thúc.
-  * Kết quả in ra liền nhau: `hellohi` $\rightarrow$ Đáp án **B**.
+  * Kết quả in ra liền nhau: `hellohi` → Đáp án **B**.
 * **Bẫy thi cần nhớ:** Với `Deque`:
   * `push()` = `addFirst()` (đẩy vào đầu).
   * `pop()` = `removeFirst()` (lấy từ đầu).
@@ -131,7 +131,7 @@
   * **C sai:** Diamond operator `<>` chỉ được phép nằm ở phía bên phải toán tử gán khi khởi tạo đối tượng, không được phép nằm ở kiểu khai báo tham chiếu bên trái.
   * **D sai:** `HashSet` triển khai `Set`, không triển khai `List`, không có quan hệ kế thừa trực tiếp.
   * **E sai:** Ký tự đại diện `?` (wildcard) **tuyệt đối không được xuất hiện ở vế phải khi gọi toán tử `new`**. Khởi tạo đối tượng bắt buộc phải xác định kiểu cụ thể (`new ArrayList<Object>()`).
-  * **F đúng:** `? extends Number` cho phép vế phải có kiểu giá trị là `Integer` (vì `Integer` là con của `Number`). Vế trái dùng kiểu giao diện `Map`, vế phải dùng lớp triển khai `HashMap`, kiểu khoá `String` khớp nhau $\rightarrow$ Hợp lệ 100%.
+  * **F đúng:** `? extends Number` cho phép vế phải có kiểu giá trị là `Integer` (vì `Integer` là con của `Number`). Vế trái dùng kiểu giao diện `Map`, vế phải dùng lớp triển khai `HashMap`, kiểu khoá `String` khớp nhau → Hợp lệ 100%.
 * **Bẫy thi cần nhớ:** Wildcard `?` chỉ được dùng trong khai báo tham chiếu (vế trái, tham số phương thức, kiểu trả về), KHÔNG BAO GIỜ được dùng sau từ khoá `new` ở vế phải!
 </details>
 
@@ -169,8 +169,8 @@
   * Dòng 3 khai báo một **generic method** `private <T> void println(T message)`.
     * **Bẫy thi lớn:** Tham số kiểu `<T>` được khai báo tại dòng 3 là một tham số kiểu **hoàn toàn độc lập** với tham số `<T>` của record tại dòng 1 (nó làm bóng mờ - shadow - type parameter của class trong phạm vi phương thức này).
     * Do đó, `message` có thể nhận bất kỳ kiểu dữ liệu nào, không bị ràng buộc bởi kiểu `T` của đối tượng `Hello`!
-  * Dòng 7: Khởi tạo `Hello<String>` với `t = "hi"`. Gọi `println(1)`, số nguyên nguyên thuỷ `1` được autobox thành `Integer` và truyền vào phương thức `println`. Dòng 4 in: `"hi" + "-" + 1` $\rightarrow$ `hi-1`.
-  * Dòng 8: Khởi tạo `Hello` dưới dạng raw type (không chỉ định generic type parameter). Trình biên dịch đưa ra cảnh báo (warning) nhưng **không gây lỗi biên dịch**. Giá trị `t = "hola"`. Gọi `println(true)`, giá trị `true` autobox thành `Boolean`. Dòng 4 in: `"hola" + "-" + true` $\rightarrow$ `hola-true`.
+  * Dòng 7: Khởi tạo `Hello<String>` với `t = "hi"`. Gọi `println(1)`, số nguyên nguyên thuỷ `1` được autobox thành `Integer` và truyền vào phương thức `println`. Dòng 4 in: `"hi" + "-" + 1` → `hi-1`.
+  * Dòng 8: Khởi tạo `Hello` dưới dạng raw type (không chỉ định generic type parameter). Trình biên dịch đưa ra cảnh báo (warning) nhưng **không gây lỗi biên dịch**. Giá trị `t = "hola"`. Gọi `println(true)`, giá trị `true` autobox thành `Boolean`. Dòng 4 in: `"hola" + "-" + true` → `hola-true`.
   * Tổng kết in ra: `hi-1hola-true`.
 * **Bẫy thi cần nhớ:** Khi một generic method tự khai báo `<T>`, nó che lấp `<T>` của class. Cảnh báo raw type không phải là lỗi biên dịch.
 </details>
@@ -212,16 +212,16 @@
 * **Phân tích chi tiết:**
   * Ba đối tượng: `p1("Paula", 3)`, `p2("Peter", 5)`, `p3("Peter", 7)`.
   * Đề bài muốn in ra: `[7, 5, 3]`, tức là danh sách theo thứ tự giảm dần của `beakLength`: `p3 (7) -> p2 (5) -> p1 (3)`.
-  * **Xét lựa chọn A:** `comparing(Platypus::beakLength)` sắp xếp tăng dần theo độ dài mỏ $\rightarrow$ in `[3, 5, 7]` (Sai).
-  * **Xét lựa chọn B:** Thêm `.reversed()` đảo ngược lại thành giảm dần theo `beakLength` $\rightarrow$ in `[7, 5, 3]` (Đúng!).
-  * **Xét lựa chọn C:** Sắp xếp theo tên tăng dần ("Paula" trước "Peter"), với tên trùng nhau sắp xếp theo beakLength tăng dần $\rightarrow$ in `[3, 5, 7]` (Sai).
-  * **Xét lựa chọn D:** Sắp xếp theo tên tăng dần ("Paula" đứng đầu), chỉ đảo ngược beakLength với những ai trùng tên $\rightarrow$ "Paula" (3) vẫn đứng đầu $\rightarrow$ in `[3, 7, 5]` (Sai).
-  * **Xét lựa chọn E:** Không tồn tại phương thức nào tên là `thenComparingNumber()` trong `Comparator` $\rightarrow$ Lỗi biên dịch.
+  * **Xét lựa chọn A:** `comparing(Platypus::beakLength)` sắp xếp tăng dần theo độ dài mỏ → in `[3, 5, 7]` (Sai).
+  * **Xét lựa chọn B:** Thêm `.reversed()` đảo ngược lại thành giảm dần theo `beakLength` → in `[7, 5, 3]` (Đúng!).
+  * **Xét lựa chọn C:** Sắp xếp theo tên tăng dần ("Paula" trước "Peter"), với tên trùng nhau sắp xếp theo beakLength tăng dần → in `[3, 5, 7]` (Sai).
+  * **Xét lựa chọn D:** Sắp xếp theo tên tăng dần ("Paula" đứng đầu), chỉ đảo ngược beakLength với những ai trùng tên → "Paula" (3) vẫn đứng đầu → in `[3, 7, 5]` (Sai).
+  * **Xét lựa chọn E:** Không tồn tại phương thức nào tên là `thenComparingNumber()` trong `Comparator` → Lỗi biên dịch.
   * **Xét lựa chọn F:** 
     * `Comparator.comparing(Platypus::name)`: Sắp xếp theo tên tăng dần ("Paula" < "Peter").
     * `.thenComparingInt(Platypus::beakLength)`: Tên trùng nhau thì sắp xếp theo beakLength tăng dần (5 < 7). Thứ tự lúc này: `p1("Paula", 3) -> p2("Peter", 5) -> p3("Peter", 7)`.
     * `.reversed()`: **Đảo ngược toàn bộ comparator trước đó**. Thứ tự bị đảo ngược hoàn toàn: `p3("Peter", 7) -> p2("Peter", 5) -> p1("Paula", 3)`.
-    * In ra: `[7, 5, 3]` $\rightarrow$ Hoàn toàn chính xác!
+    * In ra: `[7, 5, 3]` → Hoàn toàn chính xác!
 * **Bẫy thi cần nhớ:** Phương thức `.reversed()` áp dụng lên toàn bộ chuỗi so sánh đứng trước nó. Không có phương thức `thenComparingNumber()` (chỉ có `thenComparing`, `thenComparingInt`, `thenComparingLong`, `thenComparingDouble`).
 </details>
 
@@ -250,12 +250,12 @@ public class Alpaca {
 * **Đáp án đúng:** **B, F**
 * **Phân tích chi tiết:**
   * **Quy tắc ghi đè phương thức có Generics trong Java:**
-    1. **Danh sách tham số (Parameters):** Phải có chữ ký giống hệt sau cơ chế xoá kiểu (*Type Erasure*). Vì lớp cha nhận `List<String>`, phương thức ở lớp con cũng bắt buộc phải nhận tham số có kiểu khớp chính xác là `List<String>`. Các lựa chọn A (`List<CharSequence>`) và C (`List<Integer>`) đều làm thay đổi tham số $\rightarrow$ Sau khi xoá kiểu đều thành `hairy(List)` nhưng lại khác chữ ký generic, gây lỗi biên dịch (vừa không phải override, vừa không thể overload vì cùng raw type).
+    1. **Danh sách tham số (Parameters):** Phải có chữ ký giống hệt sau cơ chế xoá kiểu (*Type Erasure*). Vì lớp cha nhận `List<String>`, phương thức ở lớp con cũng bắt buộc phải nhận tham số có kiểu khớp chính xác là `List<String>`. Các lựa chọn A (`List<CharSequence>`) và C (`List<Integer>`) đều làm thay đổi tham số → Sau khi xoá kiểu đều thành `hairy(List)` nhưng lại khác chữ ký generic, gây lỗi biên dịch (vừa không phải override, vừa không thể overload vì cùng raw type).
     2. **Kiểu trả về (Return Type):** Phải là kiểu hiệp biến (**Covariant return type**), nghĩa là cùng kiểu hoặc là lớp con của kiểu trả về ở lớp cha (`List<String>`).
-  * Xét B: Kiểu trả về `List<String>` khớp hoàn toàn $\rightarrow$ Override hợp lệ.
-  * Xét D: `List<CharSequence>` không phải là kiểu con của `List<String>` (Generics là invariant) $\rightarrow$ Sai.
-  * Xét E: `Object` là kiểu cha của `List`, không phải kiểu con hiệp biến $\rightarrow$ Sai.
-  * Xét F: `ArrayList<String>` là lớp con của `List<String>` $\rightarrow$ Là kiểu trả về hiệp biến hợp lệ!
+  * Xét B: Kiểu trả về `List<String>` khớp hoàn toàn → Override hợp lệ.
+  * Xét D: `List<CharSequence>` không phải là kiểu con của `List<String>` (Generics là invariant) → Sai.
+  * Xét E: `Object` là kiểu cha của `List`, không phải kiểu con hiệp biến → Sai.
+  * Xét F: `ArrayList<String>` là lớp con của `List<String>` → Là kiểu trả về hiệp biến hợp lệ!
 * **Bẫy thi cần nhớ:** Để override phương thức có generics: tham số đầu vào phải giữ nguyên generic type, kiểu trả về được phép là subtype hiệp biến.
 </details>
 
@@ -325,17 +325,17 @@ public class Alpaca {
 * **Đáp án đúng:** **A (Abb aab 123 )**
 * **Phân tích chi tiết:**
   * Dòng 5: `b.toLowerCase().compareTo(a.toLowerCase())`.
-    * Chú ý thứ tự so sánh: `b` được gọi `compareTo` với `a` $\rightarrow$ Đây là sắp xếp theo thứ tự **giảm dần (reverse order)**, không phân biệt hoa thường.
+    * Chú ý thứ tự so sánh: `b` được gọi `compareTo` với `a` → Đây là sắp xếp theo thứ tự **giảm dần (reverse order)**, không phân biệt hoa thường.
   * Các chuỗi ban đầu khi chuyển về chữ thường:
-    * `"123"` $\rightarrow$ `"123"`
-    * `"Abb"` $\rightarrow$ `"abb"`
-    * `"aab"` $\rightarrow$ `"aab"`
+    * `"123"` → `"123"`
+    * `"Abb"` → `"abb"`
+    * `"aab"` → `"aab"`
   * Theo bảng mã ASCII tự nhiên (tăng dần): Các chữ số luôn đứng trước chữ cái: `"123"` < `"aab"` < `"abb"`.
   * Nhưng vì Comparator này đảo ngược thứ tự (`b.compareTo(a)`), thứ tự sắp xếp giảm dần sẽ là:
     1. `"abb"` lớn nhất (tương ứng với chuỗi gốc `"Abb"`)
     2. `"aab"` tiếp theo (tương ứng với chuỗi gốc `"aab"`)
     3. `"123"` nhỏ nhất (tương ứng với chuỗi gốc `"123"`)
-  * Vòng lặp duyệt qua mảng đã sắp xếp và in ra: `Abb aab 123 ` $\rightarrow$ Đáp án đúng là **A**.
+  * Vòng lặp duyệt qua mảng đã sắp xếp và in ra: `Abb aab 123 ` → Đáp án đúng là **A**.
 * **Bẫy thi cần nhớ:** So sánh `b.compareTo(a)` tương đương với việc đảo ngược thứ tự tự nhiên. Chữ cái đứng sau chữ số, nên khi đảo ngược chữ cái sẽ lên đầu.
 </details>
 
@@ -368,11 +368,11 @@ public class Alpaca {
 * **Đáp án đúng:** **A, B, D**
 * **Phân tích chi tiết:**
   * Phương thức `printException` có khai báo kiểu generic: `<U extends Exception>`. Đây là một **Upper Bound**, nghĩa là kiểu `U` bắt buộc phải là `Exception` hoặc một lớp con kế thừa từ `Exception`.
-  * **Xét A:** `FileNotFoundException` là con của `IOException`, kế thừa từ `Exception` $\rightarrow$ Hợp lệ.
-  * **Xét B:** `Exception` khớp chính xác với upper bound `Exception` $\rightarrow$ Hợp lệ.
-  * **Xét C:** Chỉ định tường minh `<Throwable>` trước tên phương thức. Vì `Throwable` là lớp cha của `Exception` (không thoả mãn điều kiện `extends Exception`) $\rightarrow$ Bị lỗi biên dịch.
-  * **Xét D:** Cú pháp chỉ định generic type tường minh: `Helper.<NullPointerException>printException(...)`. Kiểu `NullPointerException` là lớp con của `Exception`, thoả mãn hoàn toàn ràng buộc $\rightarrow$ Hợp lệ.
-  * **Xét E:** `Throwable` là lớp cha của `Exception`, vi phạm upper bound $\rightarrow$ Bị lỗi biên dịch.
+  * **Xét A:** `FileNotFoundException` là con của `IOException`, kế thừa từ `Exception` → Hợp lệ.
+  * **Xét B:** `Exception` khớp chính xác với upper bound `Exception` → Hợp lệ.
+  * **Xét C:** Chỉ định tường minh `<Throwable>` trước tên phương thức. Vì `Throwable` là lớp cha của `Exception` (không thoả mãn điều kiện `extends Exception`) → Bị lỗi biên dịch.
+  * **Xét D:** Cú pháp chỉ định generic type tường minh: `Helper.<NullPointerException>printException(...)`. Kiểu `NullPointerException` là lớp con của `Exception`, thoả mãn hoàn toàn ràng buộc → Hợp lệ.
+  * **Xét E:** `Throwable` là lớp cha của `Exception`, vi phạm upper bound → Bị lỗi biên dịch.
 * **Bẫy thi cần nhớ:** Cú pháp gọi generic method với type argument tường minh được đặt ngay trước tên phương thức: `ClassName.<Type>methodName()`.
 </details>
 
@@ -402,10 +402,10 @@ ____________.forEach(System.out::println);
 
 * **Đáp án đúng:** **A, B, E, F**
 * **Phân tích chi tiết:**
-  * Phương thức `forEach` của `Iterable` / `Collection` nhận vào một `Consumer<T>` (1 tham số) $\rightarrow$ Hoàn toàn tương thích với method reference `System.out::println`.
-  * Do đó, `list` (List) và `set` (Set) điền vào đều biên dịch thành công $\rightarrow$ Chọn **A, B**.
-  * `map.keySet()` trả về một `Set<K>`, `map.values()` trả về một `Collection<V>` $\rightarrow$ Cả hai đều là Collection và có `forEach(Consumer)` $\rightarrow$ Chọn **E, F**.
-  * **Xét C (`map`):** Giao diện `Map` cũng có phương thức `forEach()`, nhưng nó nhận vào một **`BiConsumer<K, V>`** (nhận 2 tham số: key và value). Trong khi đó, `System.out::println` chỉ nhận 0 hoặc 1 tham số, không có overload nào nhận 2 tham số $\rightarrow$ Bị lỗi biên dịch!
+  * Phương thức `forEach` của `Iterable` / `Collection` nhận vào một `Consumer<T>` (1 tham số) → Hoàn toàn tương thích với method reference `System.out::println`.
+  * Do đó, `list` (List) và `set` (Set) điền vào đều biên dịch thành công → Chọn **A, B**.
+  * `map.keySet()` trả về một `Set<K>`, `map.values()` trả về một `Collection<V>` → Cả hai đều là Collection và có `forEach(Consumer)` → Chọn **E, F**.
+  * **Xét C (`map`):** Giao diện `Map` cũng có phương thức `forEach()`, nhưng nó nhận vào một **`BiConsumer<K, V>`** (nhận 2 tham số: key và value). Trong khi đó, `System.out::println` chỉ nhận 0 hoặc 1 tham số, không có overload nào nhận 2 tham số → Bị lỗi biên dịch!
   * **Xét D & G:** Không có phương thức nào tên là `keys()` hay `valueSet()` trong giao diện `Map` (chỉ có `keySet()` và `values()`).
 * **Bẫy thi cần nhớ:** `Collection.forEach` nhận `Consumer<T>` (1 tham số). `Map.forEach` nhận `BiConsumer<K, V>` (2 tham số).
 </details>
@@ -440,11 +440,11 @@ ____________.forEach(System.out::println);
 * **Đáp án đúng:** **B, E**
 * **Phân tích chi tiết:**
   * Phương thức `showSize(List<?> list)` nhận bất kỳ đối tượng nào triển khai `List`.
-  * **Xét A:** `new HashSet<String>()` là một `Set`, không phải `List` $\rightarrow$ Lỗi biên dịch ở dòng 9.
-  * **Xét B:** `<? super Date>` cho phép vế phải là `Date` hoặc lớp cha của nó. Vế phải là `ArrayList<Date>` $\rightarrow$ Dòng 9 hợp lệ. `ArrayList` là kiểu con của `List` nên dòng 10 gọi `showSize(list)` hoàn toàn hợp lệ $\rightarrow$ Chọn **B**.
-  * **Xét C:** Ký tự đại diện `?` không được phép xuất hiện ở vế phải toán tử `new` (`new ArrayList<?>()` bị lỗi biên dịch) $\rightarrow$ Sai.
-  * **Xét D:** Generics là invariant, `LinkedList<IOException>` không thể gán cho `List<Exception>` $\rightarrow$ Lỗi biên dịch ở dòng 9.
-  * **Xét E:** `<? extends Number>` cho phép vế phải là `Integer` (vì `Integer` là con của `Number`). Vế phải là `ArrayList<Integer>` $\rightarrow$ Dòng 9 hợp lệ. Dòng 10 truyền `list` vào phương thức nhận `List<?>` hoàn toàn hợp lệ $\rightarrow$ Chọn **E**.
+  * **Xét A:** `new HashSet<String>()` là một `Set`, không phải `List` → Lỗi biên dịch ở dòng 9.
+  * **Xét B:** `<? super Date>` cho phép vế phải là `Date` hoặc lớp cha của nó. Vế phải là `ArrayList<Date>` → Dòng 9 hợp lệ. `ArrayList` là kiểu con của `List` nên dòng 10 gọi `showSize(list)` hoàn toàn hợp lệ → Chọn **B**.
+  * **Xét C:** Ký tự đại diện `?` không được phép xuất hiện ở vế phải toán tử `new` (`new ArrayList<?>()` bị lỗi biên dịch) → Sai.
+  * **Xét D:** Generics là invariant, `LinkedList<IOException>` không thể gán cho `List<Exception>` → Lỗi biên dịch ở dòng 9.
+  * **Xét E:** `<? extends Number>` cho phép vế phải là `Integer` (vì `Integer` là con của `Number`). Vế phải là `ArrayList<Integer>` → Dòng 9 hợp lệ. Dòng 10 truyền `list` vào phương thức nhận `List<?>` hoàn toàn hợp lệ → Chọn **E**.
 * **Bẫy thi cần nhớ:** Toán tử `new` không bao giờ đi kèm wildcard `<?>`. Muốn dùng generic polymorphism giữa các kiểu lồng nhau bắt buộc phải có wildcard (`? extends` hoặc `? super`).
 </details>
 
@@ -499,7 +499,7 @@ ____________.forEach(System.out::println);
     * Do đó, `t2` sẽ sắp xếp dựa trên phương thức `compare()` của `s1`.
     * Phương thức `compare` so sánh theo trường `num`: `s1.num - s2.num` = `88 - 55 > 0`, tức là số 55 đứng trước số 88 (`s2` đứng trước `s1`).
     * In ra `t2`: `[55, 88]`.
-  * Kết hợp lại in ra: `[88, 55] [55, 88]` $\rightarrow$ Đáp án **C**.
+  * Kết hợp lại in ra: `[88, 55] [55, 88]` → Đáp án **C**.
 * **Bẫy thi cần nhớ:** Nếu `TreeSet` không được truyền `Comparator` vào constructor, nó dùng `Comparable.compareTo()`. Nếu có truyền `Comparator`, nó ưu tiên dùng `Comparator.compare()`.
 </details>
 
@@ -538,11 +538,11 @@ System.out.println(Collections.binarySearch(list, 2));
     * **Lưu ý quy tắc của `binarySearch`:** Khi không truyền `Comparator` vào `binarySearch()`, phương thức này mặc định coi danh sách đã được sắp xếp theo **thứ tự tự nhiên (tăng dần)**!
     * Nếu danh sách chưa được sắp xếp tăng dần, kết quả tìm kiếm là **không xác định (undefined)**.
   * Bây giờ xét các comparator điền vào chỗ trống:
-    * `c1` (`o2 - o1`) sắp xếp giảm dần: `[7, 5, 4, 2]` $\rightarrow$ Không phải thứ tự tự nhiên $\rightarrow$ Kết quả undefined.
-    * `c3` (`reverseOrder()`) sắp xếp giảm dần $\rightarrow$ Kết quả undefined.
+    * `c1` (`o2 - o1`) sắp xếp giảm dần: `[7, 5, 4, 2]` → Không phải thứ tự tự nhiên → Kết quả undefined.
+    * `c3` (`reverseOrder()`) sắp xếp giảm dần → Kết quả undefined.
     * `c2` (`naturalOrder()`) sắp xếp tăng dần theo thứ tự tự nhiên: `[2, 4, 5, 7]`.
     * Khi danh sách là `[2, 4, 5, 7]`, số `2` nằm ngay tại **chỉ số 0 (index 0)**. `binarySearch(list, 2)` tìm thấy và trả về kết quả là `0`.
-  * Do đó, khi điền `c2`, chương trình in ra `0` $\rightarrow$ Đáp án đúng là **A**.
+  * Do đó, khi điền `c2`, chương trình in ra `0` → Đáp án đúng là **A**.
 * **Bẫy thi cần nhớ:** `Collections.binarySearch(list, key)` yêu cầu danh sách phải sắp xếp tăng dần tự nhiên. Nếu sắp xếp bằng Comparator tuỳ biến, phải dùng overload `Collections.binarySearch(list, key, comparator)`.
 </details>
 
@@ -579,8 +579,8 @@ class Z<Y> {
     * Vì `Y` là type parameter, bạn **không thể** gọi `new Y()` (bị cấm do cơ chế xoá kiểu). Do đó các dòng C và F (`new Y()`) đều bị lỗi biên dịch.
     * Bạn cũng không thể gán một đối tượng cụ thể `new W()` hay `new X()` cho biến kiểu generic `Y` mà không ép kiểu. Do đó các dòng D và E đều bị lỗi biên dịch.
   * Trong khi đó:
-    * Dòng A: `W w1 = new W();` khởi tạo bình thường lớp `W` $\rightarrow$ Hợp lệ.
-    * Dòng B: `W w2 = new X();` gán đối tượng lớp con `X` cho tham chiếu lớp cha `W` $\rightarrow$ Đa hình thông thường, hoàn toàn hợp lệ.
+    * Dòng A: `W w1 = new W();` khởi tạo bình thường lớp `W` → Hợp lệ.
+    * Dòng B: `W w2 = new X();` gán đối tượng lớp con `X` cho tham chiếu lớp cha `W` → Đa hình thông thường, hoàn toàn hợp lệ.
   * Vì vậy, chỉ có **A và B** biên dịch thành công.
 * **Bẫy thi cần nhớ:** Đặt tên Type Parameter trùng với tên một Class có sẵn (ví dụ `<Y>`) sẽ che khuất Class đó trong phạm vi thân lớp generic. Bạn không bao giờ được phép `new T()`.
 </details>
@@ -615,15 +615,15 @@ System.out.print(u);
     * Giao diện `List` có 2 phương thức `remove`: `remove(int index)` và `remove(Object o)`.
     * Lệnh `q.remove(1)` nhận tham số nguyên thuỷ `1` (primitive `int`), Java ưu tiên gọi chính xác `remove(int index)` mà không autobox.
     * Ban đầu `q` có `[10, 12]`. Gọi `remove(1)` sẽ xoá phần tử tại **chỉ số 1** (là số 12).
-    * `q` còn lại `[10]`. Biến `u` là một unmodifiable view của `q` (vẫn phản ánh sự thay đổi của collection gốc). In `u` ra `[10]` $\rightarrow$ **A đúng**.
+    * `q` còn lại `[10]`. Biến `u` là một unmodifiable view của `q` (vẫn phản ánh sự thay đổi của collection gốc). In `u` ra `[10]` → **A đúng**.
   * **Kịch bản 2: Điền `Queue<Integer>`:**
     * Giao diện `Queue` **KHÔNG CÓ** phương thức `remove(int index)`. Nó chỉ kế thừa phương thức `boolean remove(Object o)` từ `Collection`.
     * Do đó, khi gọi `q.remove(1)`, Java bắt buộc phải **autobox** số `1` thành `Integer.valueOf(1)`.
     * Phương thức sẽ tìm đối tượng có giá trị bằng `1` để xoá. Nhưng trong danh sách chỉ có `10` và `12`, không có số `1`. Vì vậy không có phần tử nào bị xoá!
-    * `q` vẫn giữ nguyên `[10, 12]`, in ra `[10, 12]` $\rightarrow$ **B sai**.
+    * `q` vẫn giữ nguyên `[10, 12]`, in ra `[10, 12]` → **B sai**.
   * **Kịch bản 3: Điền `var`:**
     * Với `var`, kiểu của `q` được suy luận là `LinkedList<Object>`.
-    * Lớp `LinkedList` có sẵn phương thức `remove(int index)` của `List`, do đó nó gọi `remove(int index)` xoá phần tử tại vị trí 1 $\rightarrow$ In ra `[10]` $\rightarrow$ **C đúng**.
+    * Lớp `LinkedList` có sẵn phương thức `remove(int index)` của `List`, do đó nó gọi `remove(int index)` xoá phần tử tại vị trí 1 → In ra `[10]` → **C đúng**.
 * **Bẫy thi cần nhớ:** `List` có `remove(int index)` (xoá theo vị trí). `Queue` chỉ có `remove(Object o)` (xoá theo giá trị đối tượng).
 </details>
 
@@ -657,7 +657,7 @@ System.out.print(u);
   * Thay vào đó, `Map` tách biệt thành hai phương thức riêng biệt:
     * `boolean containsKey(Object key)`
     * `boolean containsValue(Object value)`
-  * Vì vậy, lời gọi `m.contains("123")` tại dòng 7 dẫn đến **LỖI BIÊN DỊCH** $\rightarrow$ Đáp án **E**.
+  * Vì vậy, lời gọi `m.contains("123")` tại dòng 7 dẫn đến **LỖI BIÊN DỊCH** → Đáp án **E**.
 * **Bẫy thi cần nhớ:** `Collection` dùng `contains()`. `Map` KHÔNG CÓ `contains()`, chỉ có `containsKey()` và `containsValue()`.
 </details>
 
@@ -697,9 +697,9 @@ System.out.print(u);
 * **Phân tích chi tiết:**
   * Dòng 48: `Map.of(1, 2, 3, 6)` tạo ra một `Map<Integer, Integer>`.
   * Dòng 49: `map.entrySet()` trả về `Set<Map.Entry<Integer, Integer>>`. Do đó `list` có kiểu là `List<Map.Entry<Integer, Integer>>`.
-  * Dòng 56: `list.replaceAll(x -> x * 2);`. Biến `x` ở đây là một đối tượng `Map.Entry`, **không thể thực hiện phép nhân toán học `x * 2`** $\rightarrow$ **Dòng 56 bị LỖI BIÊN DỊCH** (chỉ có duy nhất dòng 56 lỗi biên dịch $\rightarrow$ chọn **A**).
+  * Dòng 56: `list.replaceAll(x -> x * 2);`. Biến `x` ở đây là một đối tượng `Map.Entry`, **không thể thực hiện phép nhân toán học `x * 2`** → **Dòng 56 bị LỖI BIÊN DỊCH** (chỉ có duy nhất dòng 56 lỗi biên dịch → chọn **A**).
   * Dòng 51–53: `one`, `copy`, `copyOfCopy` đều là các danh sách bất biến (**immutable lists**) được tạo bởi `List.of()` và `List.copyOf()`.
-  * Dòng 57: `one.replaceAll(x -> x * 2);`. Mặc dù biên dịch được, nhưng vì `one` là danh sách bất biến, thao tác `replaceAll` sửa đổi phần tử sẽ ném ra **`UnsupportedOperationException` tại runtime** $\rightarrow$ chọn **E**.
+  * Dòng 57: `one.replaceAll(x -> x * 2);`. Mặc dù biên dịch được, nhưng vì `one` là danh sách bất biến, thao tác `replaceAll` sửa đổi phần tử sẽ ném ra **`UnsupportedOperationException` tại runtime** → chọn **E**.
   * Dòng 54: `thirdCopy` được bọc trong `new ArrayList<>()` nên nó là một danh sách có thể thay đổi (**mutable**). Nếu dòng 56 và 57 được loại bỏ, dòng 58 sẽ nhân đôi từng phần tử và dòng 60 in ra `[16, 32, 4]`.
 * **Bẫy thi cần nhớ:** `List.copyOf()` luôn tạo ra collection bất biến. `replaceAll()` cố gắng sửa danh sách bất biến sẽ ném `UnsupportedOperationException`.
 </details>
@@ -775,7 +775,7 @@ System.out.println(map);
     * Key `3` đang có giá trị liên kết là **`null`**.
     * **Quy tắc đặc thù của `Map.merge()`:** Nếu key chưa tồn tại, HOẶC đang có giá trị liên kết là `null`, thì `merge()` sẽ **không gọi hàm ánh xạ (mapping function)**! Thay vào đó, nó gán trực tiếp giá trị mới (`3`) vào map cho key đó.
     * Do đó, key `3` được cập nhật giá trị mới là `3`.
-  * Kết quả trong map: `{1=13, 2=20, 3=3}` $\rightarrow$ Đáp án **F**.
+  * Kết quả trong map: `{1=13, 2=20, 3=3}` → Đáp án **F**.
 * **Bẫy thi cần nhớ:** Nếu key chưa có hoặc giá trị hiện tại là `null`, `map.merge()` sẽ gán thẳng giá trị mới mà không thèm gọi mapping function!
 </details>
 
@@ -806,7 +806,7 @@ System.out.println(map);
     * D đúng (`Comparator` chứa `compare`).
     * E sai (`compare` nhận 2 tham số).
     * F đúng (`compare` nhận 2 tham số).
-* **Bẫy thi cần nhớ:** `Comparable` $\rightarrow$ `java.lang` $\rightarrow$ `compareTo(1 tham số)`. `Comparator` $\rightarrow$ `java.util` $\rightarrow$ `compare(2 tham số)`.
+* **Bẫy thi cần nhớ:** `Comparable` → `java.lang` → `compareTo(1 tham số)`. `Comparator` → `java.util` → `compare(2 tham số)`.
 </details>
 
 ---
@@ -836,7 +836,7 @@ System.out.println(map);
 
 * **Đáp án đúng:** **B (Snowball)**
 * **Phân tích chi tiết:**
-  * Dòng 21 khai báo `SequencedMap` tham chiếu đến `TreeMap`. Trong Java 21, `TreeMap` triển khai `SequencedMap` $\rightarrow$ Biên dịch hoàn toàn hợp lệ.
+  * Dòng 21 khai báo `SequencedMap` tham chiếu đến `TreeMap`. Trong Java 21, `TreeMap` triển khai `SequencedMap` → Biên dịch hoàn toàn hợp lệ.
   * Dòng 22–24 đưa 3 cặp key-value vào `TreeMap`. Vì là `TreeMap`, các cặp được tự động sắp xếp theo thứ tự tự nhiên của **Key**:
     * Entry đầu: `1 -> "Minnie Mouse"`
     * Entry giữa: `2 -> "Sugar"`
@@ -846,8 +846,8 @@ System.out.println(map);
   * Dòng 26: `cats.lastEntry().getKey()` lấy key của entry cuối cùng (trả về `3`). Chú ý: `lastEntry()` chỉ đọc chứ **không xoá**.
   * Dòng 27: `cats.pollFirstEntry()` tiếp tục lấy và xoá entry đầu tiên hiện tại (`2 -> "Sugar"`).
     * Map còn lại duy nhất một entry: `[3 -> "Snowball"]`.
-  * Dòng 28: `cats.firstEntry().getValue()` đọc giá trị của entry đầu tiên còn lại $\rightarrow$ chính là `"Snowball"`.
-  * In ra màn hình: `Snowball` $\rightarrow$ Đáp án **B**.
+  * Dòng 28: `cats.firstEntry().getValue()` đọc giá trị của entry đầu tiên còn lại → chính là `"Snowball"`.
+  * In ra màn hình: `Snowball` → Đáp án **B**.
 * **Bẫy thi cần nhớ:** `pollFirstEntry()` vừa lấy vừa xoá; `firstEntry()` và `lastEntry()` chỉ đọc mà không làm thay đổi Map.
 </details>
 
@@ -884,6 +884,6 @@ for(var fish : fishes)
     * Cấu trúc `TreeSet` yêu cầu tất cả các phần tử phải tuân thủ nghiêm ngặt theo trật tự sắp xếp đã định (`Comparable` hoặc `Comparator`).
     * Việc ép buộc chèn một phần tử vào vị trí đầu tiên (`addFirst`) hoặc cuối cùng (`addLast`) có thể phá vỡ tính đúng đắn của cây tìm kiếm tự cân bằng.
     * Vì lý do này, tài liệu đặc tả Java 21 (JEP 431) quy định rằng phương thức `addFirst()` và `addLast()` trên `TreeSet` sẽ **ném ra `UnsupportedOperationException`** tại thời điểm chạy!
-  * Do đó, chương trình biên dịch thành công nhưng bị dừng lại ngay tại dòng `fishes.addFirst("clown")` vì ngoại lệ runtime $\rightarrow$ Chọn **H**.
+  * Do đó, chương trình biên dịch thành công nhưng bị dừng lại ngay tại dòng `fishes.addFirst("clown")` vì ngoại lệ runtime → Chọn **H**.
 * **Bẫy thi cần nhớ:** Đây là bẫy thi đặc trưng số 1 về Sequenced Collections trong Java 21: `TreeSet` có phương thức `addFirst()` / `addLast()` nhưng khi gọi sẽ ném `UnsupportedOperationException`!
 </details>

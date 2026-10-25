@@ -35,8 +35,8 @@ System.out.println(null + "abc");    // In ra: "nullabc" (Giá trị null đư�
 
 > [!WARNING]
 > **Bẫy phòng thi với `null`:**  
-> * Nối biến chứa `null` với chuỗi: `String s = null; s += "abc";` $\rightarrow$ Biến `s` mang giá trị `"nullabc"`.
-> * Gọi bất kỳ phương thức nào trên biến mang giá trị `null`: `String s = null; s.length();` $\rightarrow$ Ném ngay ngoại lệ **`NullPointerException`** tại thời điểm runtime.
+> * Nối biến chứa `null` với chuỗi: `String s = null; s += "abc";` → Biến `s` mang giá trị `"nullabc"`.
+> * Gọi bất kỳ phương thức nào trên biến mang giá trị `null`: `String s = null; s.length();` → Ném ngay ngoại lệ **`NullPointerException`** tại thời điểm runtime.
 
 ---
 
@@ -250,7 +250,7 @@ System.out.println("Hello %s, order %d is ready".formatted(name, orderId));
 > [!CAUTION]
 > **Bẫy Runtime Mismatch Kiểu:**  
 > Nếu bạn truyền số thực dấu phẩy động vào vị trí yêu cầu số nguyên `%d`:  
-> `String.format("Food: %d tons", 2.0);` $\rightarrow$ Ném ngoại lệ **`IllegalFormatConversionException`** tại runtime!
+> `String.format("Food: %d tons", 2.0);` → Ném ngoại lệ **`IllegalFormatConversionException`** tại runtime!
 
 ##### Sử dụng Cờ Định Dạng (Formatting Flags):
 * `%.1f`: Hiển thị chính xác 1 chữ số thập phân (thực hiện **làm tròn số**).
@@ -594,7 +594,7 @@ So sánh hai mảng theo thứ tự từ điển (*lexicographical order*):
 
 > [!CAUTION]
 > **Bẫy biên dịch:** Hai mảng truyền vào `Arrays.compare()` bắt buộc phải có cùng kiểu mảng!  
-> `Arrays.compare(new int[]{1}, new String[]{"a"});` $\rightarrow$ **DOES NOT COMPILE!**
+> `Arrays.compare(new int[]{1}, new String[]{"a"});` → **DOES NOT COMPILE!**
 
 ---
 
@@ -657,8 +657,8 @@ double maxDouble = Math.max(3.14, 2.71); // 3.14
 ### 5.2. Làm Tròn Số: `Math.round()`
 > [!WARNING]
 > **Bẫy kiểu dữ liệu trả về của `Math.round()`:**  
-> * `Math.round(float)` $\rightarrow$ Trả về kiểu **`int`**.  
-> * `Math.round(double)` $\rightarrow$ Trả về kiểu **`long`**.  
+> * `Math.round(float)` → Trả về kiểu **`int`**.  
+> * `Math.round(double)` → Trả về kiểu **`long`**.  
 > Công thức toán học: Cộng thêm `0.5` rồi lấy phần sàn (`floor`).
 
 ```java
@@ -728,7 +728,7 @@ Từ Java 8, gói **`java.time.*`** cung cấp hệ thống API ngày giờ hi�
 > [!CAUTION]
 > **BẪY PHÒNG THI KINH ĐIỂN VỀ CONSTRUCTOR:**  
 > Tất cả các lớp `LocalDate`, `LocalTime`, `LocalDateTime`, `ZonedDateTime` đều có **constructor là `private`**!  
-> `LocalDate d = new LocalDate();` $\rightarrow$ **DOES NOT COMPILE!**  
+> `LocalDate d = new LocalDate();` → **DOES NOT COMPILE!**  
 > Bắt buộc phải sử dụng các static factory method như **`.now()`** hoặc **`.of(...)`**.
 
 ```java
@@ -755,7 +755,7 @@ var zoned = ZonedDateTime.of(2025, 1, 20, 6, 15, 0, 0, zone);
 > [!WARNING]
 > **Ngoại lệ `DateTimeException`:**  
 > Nếu truyền tham số ngày giờ không tồn tại (ví dụ ngày 32, tháng 13, giờ 25, ngày 29 tháng 2 của năm không nhuận):  
-> `LocalDate.of(2025, Month.FEBRUARY, 29);` $\rightarrow$ Ném ngoại lệ **`DateTimeException`** tại runtime!
+> `LocalDate.of(2025, Month.FEBRUARY, 29);` → Ném ngoại lệ **`DateTimeException`** tại runtime!
 
 ---
 
@@ -777,7 +777,7 @@ var zoned = ZonedDateTime.of(2025, 1, 20, 6, 15, 0, 0, zone);
 > **Nhắc lại tính bất biến:**  
 > `LocalDate date = LocalDate.of(2025, 1, 20);`  
 > `date.plusDays(10);` // Không gán lại!  
-> `System.out.println(date);` $\rightarrow$ Vẫn in ra `2025-01-20`!
+> `System.out.println(date);` → Vẫn in ra `2025-01-20`!
 
 ##### BẢNG 4.7: Các phương thức chuyển đổi kiểu (TABLE 4.7 in book)
 | Lớp Gốc | Phương Thức Chuyển Đổi | Kiểu Trả Về |
@@ -839,8 +839,8 @@ var custom = Duration.of(2, ChronoUnit.HOURS);
 ##### BẢNG 4.8: Phân biệt đối tượng sử dụng Duration và Period (TABLE 4.8 in book)
 | Lớp Ngày Giờ | Sử Dụng Được Với `Period`? | Sử Dụng Được Với `Duration`? |
 | :--- | :---: | :---: |
-| **`LocalDate`** | **Có (Yes)** | **KHÔNG (No)** $\rightarrow$ Ném `UnsupportedTemporalTypeException` |
-| **`LocalTime`** | **KHÔNG (No)** $\rightarrow$ Ném ngoại lệ | **Có (Yes)** |
+| **`LocalDate`** | **Có (Yes)** | **KHÔNG (No)** → Ném `UnsupportedTemporalTypeException` |
+| **`LocalTime`** | **KHÔNG (No)** → Ném ngoại lệ | **Có (Yes)** |
 | **`LocalDateTime`** | **Có (Yes)** | **Có (Yes)** |
 | **`ZonedDateTime`** | **Có (Yes)** | **Có (Yes)** |
 
@@ -949,7 +949,7 @@ System.out.println(dateTime); // 2025-11-02T01:30-05:00[US/Eastern] (Vẫn là 1
    * `Math.pow()` luôn trả về `double`.
 6. **API Ngày Giờ `java.time`:**
    * Mọi lớp trong `java.time` đều **bất biến (Immutable)**.
-   * Tất cả constructor là `private` $\rightarrow$ Khởi tạo bằng `.now()` hoặc `.of(...)`, **cấm dùng `new`**.
+   * Tất cả constructor là `private` → Khởi tạo bằng `.now()` hoặc `.of(...)`, **cấm dùng `new`**.
    * Tháng đánh số từ `1` đến `12`.
    * `Period` chỉ dùng cho ngày (năm, tháng, ngày). Cấm xâu chuỗi tĩnh (`Period.ofYears(1).ofDays(2)` chỉ ra 2 ngày).
    * `Duration` chỉ dùng cho giờ (giờ, phút, giây). Ném `UnsupportedTemporalTypeException` nếu cộng vào `LocalDate`.

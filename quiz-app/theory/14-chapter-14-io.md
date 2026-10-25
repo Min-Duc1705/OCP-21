@@ -114,7 +114,7 @@ System.out.println(p3.relativize(p4)); // ../arctic/polar.bear
 
 ### 4. Chuẩn Hóa (`normalize`) & Đường Dẫn Thật (`toRealPath`)
 * **`normalize()`:** Loại bỏ các phần tử dư thừa như `.` và `..` bằng việc tính toán chuỗi ký tự thuần túy. **Không hề truy cập ổ cứng** (file không tồn tại vẫn normalize được).
-  * Ví dụ: `Path.of("/a/b/../c/./d").normalize()` $\rightarrow$ `/a/c/d`.
+  * Ví dụ: `Path.of("/a/b/../c/./d").normalize()` → `/a/c/d`.
 * **`toRealPath(LinkOption...)`:**
   * Chuẩn hóa đường dẫn và giải quyết các liên kết tượng trưng (Symbolic Links) để trỏ đến file vật lý thực sự trên đĩa.
   * **Bắt buộc file phải tồn tại trên đĩa!** Nếu file/thư mục không tồn tại, phương thức sẽ ném **`NoSuchFileException`** (hoặc `IOException`).
@@ -135,16 +135,16 @@ Hầu hết các phương thức trong `Files` đều là phương thức tĩnh 
 ---
 
 ### 2. Tạo, Di Chuyển & Xóa File/Thư Mục
-* **`Files.createDirectory(Path)`:** Tạo một thư mục đơn. Nếu thư mục cha chưa tồn tại $\rightarrow$ Ném ngoại lệ!
+* **`Files.createDirectory(Path)`:** Tạo một thư mục đơn. Nếu thư mục cha chưa tồn tại → Ném ngoại lệ!
 * **`Files.createDirectories(Path)`:** Tạo thư mục cùng tất cả các thư mục cha chưa tồn tại (tương tự `mkdir -p`).
 * **`Files.copy(Path source, Path target, CopyOption...)`:**
-  * Sao chép file/thư mục. Nếu `target` đã tồn tại mà không truyền `StandardCopyOption.REPLACE_EXISTING` $\rightarrow$ Ném `FileAlreadyExistsException`.
+  * Sao chép file/thư mục. Nếu `target` đã tồn tại mà không truyền `StandardCopyOption.REPLACE_EXISTING` → Ném `FileAlreadyExistsException`.
   * > [!IMPORTANT]
     > **Sao chép thư mục là sao chép nông (Shallow Copy):** Khi copy một thư mục, `Files.copy` chỉ tạo một thư mục mới cùng tên, **không hề sao chép các file và thư mục con bên trong**!
 * **`Files.move(Path source, Path target, CopyOption...)`:** Di chuyển hoặc đổi tên file/thư mục. Có thể truyền `StandardCopyOption.ATOMIC_MOVE` để đảm bảo thao tác di chuyển diễn ra nguyên tử.
 * **`Files.delete(Path)`:** Xóa file hoặc thư mục rỗng.
-  * Nếu file không tồn tại $\rightarrow$ Ném `NoSuchFileException`.
-  * Nếu thư mục **không rỗng** $\rightarrow$ Ném **`DirectoryNotEmptyException`**.
+  * Nếu file không tồn tại → Ném `NoSuchFileException`.
+  * Nếu thư mục **không rỗng** → Ném **`DirectoryNotEmptyException`**.
 * **`Files.deleteIfExists(Path)`:** Trả về `true` nếu xóa thành công, `false` nếu file không tồn tại (không ném ngoại lệ nếu thiếu file).
 
 ---
@@ -247,7 +247,7 @@ Tuần tự hóa (**Serialization**) là quá trình chuyển đổi một đồ
 ---
 
 ### 2. Hành Xử Của Trường `transient` & `static`
-* **Trường `static`:** Thuộc về lớp chứ không thuộc về đối tượng cá thể $\rightarrow$ **Không bao giờ được lưu** trong quá trình tuần tự hóa.
+* **Trường `static`:** Thuộc về lớp chứ không thuộc về đối tượng cá thể → **Không bao giờ được lưu** trong quá trình tuần tự hóa.
 * **Trường `transient`:** Bị bỏ qua khi tuần tự hóa. Khi giải tuần tự hóa (Deserialization), trường `transient` sẽ được khôi phục về **giá trị mặc định** của kiểu dữ liệu (`0`, `0.0`, `false`, `null`).
 
 ---
@@ -273,7 +273,7 @@ private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundE
 #### Đối với Lớp Thông Thường (Class):
 * Trong quá trình Deserialization, Java **KHÔNG HỀ GỌI BẤT KỲ CONSTRUCTOR NÀO** của lớp đang được giải tuần tự hóa!
 * Thay vào đó, Java sẽ đi ngược lên cây kế thừa và **gọi constructor không tham số (no-arg constructor) của LỚP CHA ĐẦU TIÊN KHÔNG IMPLEMENTS `Serializable`**!
-* Nếu lớp cha không implement `Serializable` mà lại thiếu no-arg constructor $\rightarrow$ Ném **`InvalidClassException`** lúc runtime!
+* Nếu lớp cha không implement `Serializable` mà lại thiếu no-arg constructor → Ném **`InvalidClassException`** lúc runtime!
 
 #### Đối với Bản Ghi (Record) trong Java:
 * Từ Java 14/16+, cơ chế tuần tự hóa Record được thiết kế an toàn hơn: Quá trình Deserialization của Record **BẮT BUỘC PHẢI GỌI CANONICAL CONSTRUCTOR** để khởi tạo đối tượng!
@@ -349,7 +349,7 @@ Tất cả các phương thức duyệt thư mục của `Files` đều trả v�
 * **`Files.list(Path dir)`:** Duyệt nông (Shallow listing - độ sâu đúng 1 cấp). Tương tự lệnh `dir` hoặc `ls`.
 * **`Files.walk(Path start, int maxDepth, FileVisitOption... options)`:** Duyệt sâu toàn bộ cây thư mục theo thuật toán Depth-First Search.
   * Mặc định, `Files.walk` **không đi theo Symbolic Links**.
-  * Nếu truyền cờ `FileVisitOption.FOLLOW_LINKS` vào một thư mục có liên kết tượng trưng vòng tròn (Circular symlink) $\rightarrow$ Ném **`FileSystemLoopException`**!
+  * Nếu truyền cờ `FileVisitOption.FOLLOW_LINKS` vào một thư mục có liên kết tượng trưng vòng tròn (Circular symlink) → Ném **`FileSystemLoopException`**!
 * **`Files.find(Path start, int maxDepth, BiPredicate<Path, BasicFileAttributes> matcher)`:** Duyệt cây thư mục và lọc trực tiếp dựa trên thuộc tính của từng file trong 1 thao tác duy nhất (hiệu năng cao hơn `walk().filter(...)`).
 
 ```java

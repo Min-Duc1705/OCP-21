@@ -59,7 +59,7 @@
 
 * **Đáp án đúng:** **C, E, F**
 * **Giải thích chuyên sâu:**
-  * **C không hợp lệ:** Phía sau từ khóa `new` bắt buộc phải là một kiểu dữ liệu hợp lệ (ví dụ `new String[6]`), nhưng ở đây lại dùng `beans` (vốn là tên biến) làm kiểu dữ liệu $\rightarrow$ Lỗi biên dịch.
+  * **C không hợp lệ:** Phía sau từ khóa `new` bắt buộc phải là một kiểu dữ liệu hợp lệ (ví dụ `new String[6]`), nhưng ở đây lại dùng `beans` (vốn là tên biến) làm kiểu dữ liệu → Lỗi biên dịch.
   * **E và F không hợp lệ:** Khi khởi tạo mảng đa chiều bằng từ khóa `new`, **chiều đầu tiên bắt buộc phải có kích thước xác định**. Java cho phép bỏ trống kích thước ở các chiều phía sau (như câu A: `new int[5][]`), nhưng tuyệt đối không được bỏ trống chiều đầu tiên. Do đó cả `new int[]` (câu E - thiếu kích thước và sai số chiều) và `new int[][]` (câu F - bỏ trống kích thước chiều đầu tiên) đều không biên dịch được.
   * **A hợp lệ:** Khai báo mảng 2 chiều hợp lệ với chiều thứ nhất có kích thước 5.
   * **B hợp lệ:** Khai báo mảng 3 chiều có kích thước hợp lệ (kích thước mảng bằng 0 vẫn hợp lệ trong Java).
@@ -91,7 +91,7 @@ var z = ZonedDateTime.of(date, time, zone);
 * **Đáp án đúng:** **A, C, D**
 * **Giải thích chuyên sâu:**
   * **B ném ngoại lệ:** Tháng 3 chỉ có tối đa 31 ngày, giá trị ngày 40 ném `DateTimeException`.
-  * **E ném ngoại lệ:** Năm 2029 không phải là năm nhuận (2029 không chia hết cho 4), tháng 2 chỉ có 28 ngày $\rightarrow$ ném `DateTimeException`.
+  * **E ném ngoại lệ:** Năm 2029 không phải là năm nhuận (2029 không chia hết cho 4), tháng 2 chỉ có 28 ngày → ném `DateTimeException`.
   * **F không biên dịch được:** Enum biểu diễn tháng trong gói `java.time` có tên là `Month`, không tồn tại enum nào tên là `MonthEnum`.
   * **D hợp lệ:** Ngày 6/11/2028 là một ngày bình thường, không liên quan đến chuyển đổi DST.
   * **A và C hợp lệ:** Đây là điểm nhấn thông minh của `java.time`: Vào ngày đổi giờ mùa xuân (12/3/2028), khoảng thời gian từ 2:00 AM đến 2:59 AM thực tế không tồn tại trên mặt đồng hồ địa phương. Tuy nhiên, phương thức `ZonedDateTime.of(...)` **không hề ném ngoại lệ**! Thay vào đó, nó tự động cuộn thời gian sang múi giờ mới và nhảy vọt về phía trước (cuộn thành 3:15 AM). Tương tự vào ngày lùi giờ mùa thu (5/11/2028), Java sẽ tự động chọn thời điểm trước khi lùi giờ mà không ném lỗi.
@@ -127,11 +127,11 @@ var z = ZonedDateTime.of(date, time, zone);
 * **Giải thích chuyên sâu:**
   * Dòng 3: `s` trỏ tới literal `"Hello"` trong String Pool.
   * Dòng 4: `t` được tạo bằng từ khóa `new String(s)`, tạo một đối tượng chuỗi độc lập mới ngoài Heap (khác tham chiếu với `s`).
-  * Dòng 5: `"Hello".equals(s)` so sánh nội dung ký tự $\rightarrow$ trả về `true` $\rightarrow$ in ra **`one`** (A đúng).
-  * Dòng 6: `t == s` so sánh tham chiếu. Vì `t` là đối tượng ngoài Heap còn `s` nằm trong String Pool $\rightarrow$ `false` (B sai).
-  * Dòng 7: `t.intern()` trả về tham chiếu chuẩn của `"Hello"` trong String Pool (chính là tham chiếu `s`) $\rightarrow$ `t.intern() == s` là `true` $\rightarrow$ in ra **`three`** (C đúng).
-  * Dòng 8: `"Hello" == s` so sánh hai tham chiếu cùng trỏ tới chuỗi literal trong String Pool $\rightarrow$ trả về `true` $\rightarrow$ in ra **`four`** (D đúng).
-  * Dòng 9: `"Hello".intern()` trả về tham chiếu từ String Pool, trong khi `t` là đối tượng ngoài Heap $\rightarrow$ so sánh `==` trả về `false` (E sai).
+  * Dòng 5: `"Hello".equals(s)` so sánh nội dung ký tự → trả về `true` → in ra **`one`** (A đúng).
+  * Dòng 6: `t == s` so sánh tham chiếu. Vì `t` là đối tượng ngoài Heap còn `s` nằm trong String Pool → `false` (B sai).
+  * Dòng 7: `t.intern()` trả về tham chiếu chuẩn của `"Hello"` trong String Pool (chính là tham chiếu `s`) → `t.intern() == s` là `true` → in ra **`three`** (C đúng).
+  * Dòng 8: `"Hello" == s` so sánh hai tham chiếu cùng trỏ tới chuỗi literal trong String Pool → trả về `true` → in ra **`four`** (D đúng).
+  * Dòng 9: `"Hello".intern()` trả về tham chiếu từ String Pool, trong khi `t` là đối tượng ngoài Heap → so sánh `==` trả về `false` (E sai).
 </details>
 
 ---
@@ -230,7 +230,7 @@ var z = ZonedDateTime.of(date, time, zone);
   * **Mốc 2:** `09:00` tại `GMT-06:00`  
     $\rightarrow 	ext{GMT} = 09:00 - (-06:00) = 09:00 + 06:00 =$ **`15:00 GMT`** ngày 28/08/2025.
   * So sánh trên trục thời gian GMT:
-    * `09:00 GMT` xảy ra sớm hơn `15:00 GMT` $\rightarrow$ **Mốc thứ nhất sớm hơn (A đúng)**.
+    * `09:00 GMT` xảy ra sớm hơn `15:00 GMT` → **Mốc thứ nhất sớm hơn (A đúng)**.
     * Chênh lệch thực tế: $15:00 - 09:00 =$ **6 tiếng (E đúng)**.
 </details>
 
@@ -315,7 +315,7 @@ var builder = new StringBuilder("12345");
   * Dòng 24: `Math.round(5.5)` nhận đối số `double` và trả về kiểu `long` (giá trị 6L), gán vào `long two` hoàn toàn chuẩn xác.
   * Dòng 25: `Math.floor(6.6)` nhận và trả về kiểu `double` (giá trị 6.0), gán vào `double three` hợp lệ.
   * Dòng 26: Mảng `double[]` có thể nhận các giá trị kiểu `int` (`one`) và `long` (`two`) nhờ cơ chế nới rộng kiểu ngầm định (*widening primitive conversion* sang `double`).
-  * Tất cả các dòng đều hợp lệ, do đó có 0 dòng lỗi $\rightarrow$ Chọn A.
+  * Tất cả các dòng đều hợp lệ, do đó có 0 dòng lỗi → Chọn A.
 </details>
 
 ---
@@ -376,9 +376,9 @@ System.out.println(numbers.substring(7));
   * Lệnh `"012345678".indent(1)` thêm 1 dấu cách vào đầu dòng và thêm `
 ` ở cuối dòng.
   * Lệnh kế tiếp `numbers = numbers.stripLeading();` xóa dấu cách ở đầu dòng, đưa chuỗi về lại bắt đầu bằng `"012345678..."`.
-  * `numbers.substring(1, 3)`: Cắt từ index 1 đến index 2 (dừng trước 3) $\rightarrow$ thu được `"12"` (A đúng).
-  * `numbers.substring(7, 7)`: Chỉ số bắt đầu và kết thúc bằng nhau $\rightarrow$ trả về chuỗi rỗng `""`. Lệnh `println("")` sẽ in ra một dòng trống (E đúng).
-  * `numbers.substring(7)`: Cắt từ index 7 đến hết chuỗi $\rightarrow$ thu được `"78"` (kèm theo ký tự ngắt dòng) (D đúng).
+  * `numbers.substring(1, 3)`: Cắt từ index 1 đến index 2 (dừng trước 3) → thu được `"12"` (A đúng).
+  * `numbers.substring(7, 7)`: Chỉ số bắt đầu và kết thúc bằng nhau → trả về chuỗi rỗng `""`. Lệnh `println("")` sẽ in ra một dòng trống (E đúng).
+  * `numbers.substring(7)`: Cắt từ index 7 đến hết chuỗi → thu được `"78"` (kèm theo ký tự ngắt dòng) (D đúng).
 </details>
 
 ---
@@ -476,15 +476,15 @@ System.out.println(Arrays.binarySearch(arr, "Pippa"));
 * **Đáp án đúng:** **C, E**
 * **Giải thích chuyên sâu:**
   * **Quy tắc sắp xếp "7Up":** Ký tự số xếp trước chữ cái, chữ in HOA xếp trước chữ thường.
-    * `"123"` bắt đầu bằng chữ số $\rightarrow$ đứng đầu tiên (index 0).
-    * `"PIG"` bắt đầu bằng chữ HOA `'P'` $\rightarrow$ đứng thứ hai (index 1).
-    * `"pig"` bắt đầu bằng chữ thường `'p'` $\rightarrow$ đứng cuối cùng (index 2).
-    * Mảng sau khi sort: `[123, PIG, pig]` $\rightarrow$ C đúng.
+    * `"123"` bắt đầu bằng chữ số → đứng đầu tiên (index 0).
+    * `"PIG"` bắt đầu bằng chữ HOA `'P'` → đứng thứ hai (index 1).
+    * `"pig"` bắt đầu bằng chữ thường `'p'` → đứng cuối cùng (index 2).
+    * Mảng sau khi sort: `[123, PIG, pig]` → C đúng.
   * **Tìm kiếm nhị phân `Arrays.binarySearch(arr, "Pippa")`:**
     * So sánh từ điển: `"123"` $<$ `"PIG"` $<$ `"Pippa"` $<$ `"pig"` (vì ký tự thứ hai của `"Pippa"` là `'i'` [mã ASCII 105], lớn hơn ký tự thứ hai của `"PIG"` là `'I'` [mã ASCII 73]).
     * Như vậy, chuỗi `"Pippa"` nếu được chèn vào mảng để bảo toàn thứ tự sắp xếp thì nó phải đứng giữa `"PIG"` và `"pig"`, tức tại vị trí **chỉ số 2 (insertion point = 2)**.
     * Áp dụng công thức: $$	ext{Result} = -	ext{insertion\_point} - 1 = -2 - 1 = -3$$
-    * Do đó trả về `-3` $\rightarrow$ E đúng.
+    * Do đó trả về `-3` → E đúng.
 </details>
 
 ---
@@ -558,11 +558,11 @@ var letters = new StringBuilder("abcdefg");
   * **Xử lý `s1`:**
     * Dòng 13–14: Text block `s1` chứa 4 ký tự `"purr"` (không có dấu xuống dòng ở cuối).
     * Dòng 17, 18, 19: Các lời gọi `toUpperCase()`, `trim()`, `substring(1, 3)` đều trả về `String` mới nhưng **không được gán lại vào `s1`**, do đó `s1` vẫn là `"purr"`.
-    * Dòng 20: `s1 += "two"` nối thêm 3 ký tự `"two"`, biến `s1` trở thành `"purrtwo"` có độ dài bằng **7** $\rightarrow$ Dòng 28 in ra **`7`** (C đúng).
+    * Dòng 20: `s1 += "two"` nối thêm 3 ký tự `"two"`, biến `s1` trở thành `"purrtwo"` có độ dài bằng **7** → Dòng 28 in ra **`7`** (C đúng).
   * **Xử lý `s2`:**
-    * Dòng 22–24: `s2 += 2` $\rightarrow$ `"2"`; `s2 += 'c'` $\rightarrow$ `"2c"`; `s2 += false` $\rightarrow$ `"2cfalse"`.
-    * Dòng 26: `s2 == "2cfalse"` so sánh tham chiếu. Vì `s2` được tạo từ các phép nối chuỗi runtime nên nó là một đối tượng mới trên Heap, không cùng tham chiếu với literal `"2cfalse"` trong String Pool $\rightarrow$ điều kiện `false`, không in ra `==` (E sai).
-    * Dòng 27: `s2.equals("2cfalse")` so sánh nội dung ký tự $\rightarrow$ trả về `true` $\rightarrow$ in ra **`equals`** (F đúng).
+    * Dòng 22–24: `s2 += 2` → `"2"`; `s2 += 'c'` → `"2c"`; `s2 += false` → `"2cfalse"`.
+    * Dòng 26: `s2 == "2cfalse"` so sánh tham chiếu. Vì `s2` được tạo từ các phép nối chuỗi runtime nên nó là một đối tượng mới trên Heap, không cùng tham chiếu với literal `"2cfalse"` trong String Pool → điều kiện `false`, không in ra `==` (E sai).
+    * Dòng 27: `s2.equals("2cfalse")` so sánh nội dung ký tự → trả về `true` → in ra **`equals`** (F đúng).
 </details>
 
 ---
@@ -590,10 +590,10 @@ System.out.println(Arrays.____________________________);
 
 * **Đáp án đúng:** **A, B, D**
 * **Giải thích chuyên sâu:**
-  * **A đúng:** `Arrays.compare(s1, s2)` so sánh từng phần tử. Tại index 0 cả hai đều là `"Camel"`. Tại index 1, `"Peacock"` so với `"Llama"`: chữ `'P'` đứng sau chữ `'L'` trong bảng chữ cái $\rightarrow$ `"Peacock"` lớn hơn `"Llama"` $\rightarrow$ mảng `s1` lớn hơn `s2`, trả về **số nguyên dương**.
-  * **B đúng:** `Arrays.mismatch(s1, s2)` tìm vị trí khác biệt đầu tiên. Index 0 giống nhau, index 1 khác nhau (`"Peacock"` vs `"Llama"`) $\rightarrow$ trả về chỉ số **`1`** (là một số nguyên dương).
-  * **C sai:** `s3` có độ dài 1, là tiền tố của `s4` (độ dài 2) $\rightarrow$ `s3` nhỏ hơn `s4`, phương thức trả về **số âm**.
-  * **D đúng:** `Arrays.mismatch(s3, s4)` khác biệt tại index 1 (vì `s3` không có phần tử tại index 1 còn `s4` có giá trị `null`) $\rightarrow$ trả về **`1`** (số nguyên dương).
+  * **A đúng:** `Arrays.compare(s1, s2)` so sánh từng phần tử. Tại index 0 cả hai đều là `"Camel"`. Tại index 1, `"Peacock"` so với `"Llama"`: chữ `'P'` đứng sau chữ `'L'` trong bảng chữ cái → `"Peacock"` lớn hơn `"Llama"` → mảng `s1` lớn hơn `s2`, trả về **số nguyên dương**.
+  * **B đúng:** `Arrays.mismatch(s1, s2)` tìm vị trí khác biệt đầu tiên. Index 0 giống nhau, index 1 khác nhau (`"Peacock"` vs `"Llama"`) → trả về chỉ số **`1`** (là một số nguyên dương).
+  * **C sai:** `s3` có độ dài 1, là tiền tố của `s4` (độ dài 2) → `s3` nhỏ hơn `s4`, phương thức trả về **số âm**.
+  * **D đúng:** `Arrays.mismatch(s3, s4)` khác biệt tại index 1 (vì `s3` không có phần tử tại index 1 còn `s4` có giá trị `null`) → trả về **`1`** (số nguyên dương).
   * **E sai:** So sánh hai mảng giống hệt nhau trả về **`0`**.
   * **F sai:** Hai mảng giống hệt nhau không có vị trí sai khác, `mismatch()` trả về **`-1`** (số âm).
 </details>
@@ -634,8 +634,8 @@ System.out.println("offset = " + offset);
   * Ban đầu `dateTime1` có thời gian là `01:30` múi giờ `US/Eastern` (offset là `-05:00`).
   * Thực hiện cộng thêm 1 giờ vật lý: `dateTime2 = dateTime1.plus(1, ChronoUnit.HOURS)`.
   * Khoảng cách thời gian thực tế giữa hai thời điểm là đúng 1 giờ: `diff = 1` (A đúng, B sai).
-  * Tuy nhiên, vì ngày 12/3/2028 là ngày đổi giờ mùa xuân, đồng hồ lúc 2:00 AM sẽ nhảy vọt lên 3:00 AM (khoảng 2:00 AM - 2:59 AM không tồn tại). Vì vậy, 1 giờ sau 1:30 AM sẽ hiển thị trên mặt đồng hồ là **3:30 AM** $\rightarrow$ `dateTime2.getHour()` trả về **`3`** (D đúng, C sai).
-  * Đồng thời, múi giờ chuyển từ giờ mùa đông (`-05:00`) sang giờ mùa hè (`-04:00`), do đó hai offset khác nhau $\rightarrow$ `offset = false` (E sai).
+  * Tuy nhiên, vì ngày 12/3/2028 là ngày đổi giờ mùa xuân, đồng hồ lúc 2:00 AM sẽ nhảy vọt lên 3:00 AM (khoảng 2:00 AM - 2:59 AM không tồn tại). Vì vậy, 1 giờ sau 1:30 AM sẽ hiển thị trên mặt đồng hồ là **3:30 AM** → `dateTime2.getHour()` trả về **`3`** (D đúng, C sai).
+  * Đồng thời, múi giờ chuyển từ giờ mùa đông (`-05:00`) sang giờ mùa hè (`-04:00`), do đó hai offset khác nhau → `offset = false` (E sai).
 </details>
 
 ---
@@ -663,9 +663,9 @@ System.out.println("offset = " + offset);
   * **A đúng:** Phương thức `puzzle.reverse()` đảo ngược chuỗi trực tiếp tại chỗ từ `"Java"` thành `"avaJ"`.
   * **B sai:** `substring(0, 4)` trả về một đối tượng `String` mới và **hoàn toàn không làm thay đổi** `StringBuilder`. Do đó `puzzle` sẽ mang giá trị `"JavavaJ$"`.
   * **C đúng (Từng bước phân tích):**
-    1. `puzzle.append("vaJ$")` $\rightarrow$ biến `puzzle` thành `"JavavaJ$"`.
-    2. `.delete(0, 3)` $\rightarrow$ xóa index 0, 1, 2 (`"Jav"`), chuỗi còn lại `"avaJ$"`.
-    3. `.deleteCharAt(puzzle.length() - 1)` $\rightarrow$ xóa ký tự cuối cùng (`'$'`), chuỗi còn lại `"avaJ"`.
+    1. `puzzle.append("vaJ$")` → biến `puzzle` thành `"JavavaJ$"`.
+    2. `.delete(0, 3)` → xóa index 0, 1, 2 (`"Jav"`), chuỗi còn lại `"avaJ$"`.
+    3. `.deleteCharAt(puzzle.length() - 1)` → xóa ký tự cuối cùng (`'$'`), chuỗi còn lại `"avaJ"`.
   * **D sai:** `deleteCharAt(puzzle.length())` cố gắng xóa ký tự tại vị trí bằng với độ dài chuỗi, vượt quá chỉ số tối đa hợp lệ (`length() - 1`), ném `StringIndexOutOfBoundsException`.
 </details>
 
@@ -729,10 +729,10 @@ System.out.println(result);
 * **Đáp án đúng:** **E (`2026-06-30T13:04`)**
 * **Giải thích chuyên sâu (Từng bước tính toán chuỗi phương thức):**
   1. `LocalDate.of(2025, Month.OCTOBER, 31)`: Khởi tạo ngày `2025-10-31`.
-  2. `.plusYears(1)`: Cộng 1 năm $\rightarrow$ `2026-10-31`.
-  3. `.plusMonths(-5)`: Trừ 5 tháng (tháng 10 trừ 5 là tháng 5 - May) $\rightarrow$ `2026-05-31`.
-  4. `.plusMonths(1)`: Cộng 1 tháng (từ tháng 5 sang tháng 6 - June). **Lưu ý bẫy ngày cuối tháng:** Tháng 6 chỉ có 30 ngày, Java tự động điều chỉnh ngày 31 thành ngày cuối cùng hợp lệ của tháng 6 là ngày 30 $\rightarrow$ `2026-06-30`.
-  5. `.withYear(2026)`: Thiết lập lại năm là 2026 (vốn đã là 2026) $\rightarrow$ giữ nguyên `2026-06-30`.
-  6. `.atTime(LocalTime.of(13, 4))`: Kết hợp với giờ `13:04` tạo thành `LocalDateTime` $\rightarrow$ `2026-06-30T13:04`.
+  2. `.plusYears(1)`: Cộng 1 năm → `2026-10-31`.
+  3. `.plusMonths(-5)`: Trừ 5 tháng (tháng 10 trừ 5 là tháng 5 - May) → `2026-05-31`.
+  4. `.plusMonths(1)`: Cộng 1 tháng (từ tháng 5 sang tháng 6 - June). **Lưu ý bẫy ngày cuối tháng:** Tháng 6 chỉ có 30 ngày, Java tự động điều chỉnh ngày 31 thành ngày cuối cùng hợp lệ của tháng 6 là ngày 30 → `2026-06-30`.
+  5. `.withYear(2026)`: Thiết lập lại năm là 2026 (vốn đã là 2026) → giữ nguyên `2026-06-30`.
+  6. `.atTime(LocalTime.of(13, 4))`: Kết hợp với giờ `13:04` tạo thành `LocalDateTime` → `2026-06-30T13:04`.
   7. In ra màn hình: `2026-06-30T13:04`.
 </details>

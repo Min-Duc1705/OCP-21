@@ -2,9 +2,9 @@
 <html lang="vi" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OCP Java 21 Quiz Master - Ôn Thi Trắc Nghiệm Oracle Certified Professional</title>
-  <meta name="description" content="Ứng dụng web ôn thi trắc nghiệm chứng chỉ Oracle Certified Professional Java SE 21 Developer (1Z0-830) với giải thích chuyên sâu và chế độ thi thử tính giờ.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>OCP Java 21 Quiz Master - Oracle Certified Professional (1Z0-830)</title>
+  <meta name="description" content="Ứng dụng web ôn thi trắc nghiệm chứng chỉ Oracle Certified Professional Java SE 21 Developer (1Z0-830) song ngữ Việt - Anh với giải thích chuyên sâu và chế độ thi thử tính giờ.">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,38 +13,39 @@
   
   <!-- CSS -->
   <link rel="stylesheet" href="lib/prism.css">
-  <link rel="stylesheet" href="css/styles.css?v=2.6.1">
+  <link rel="stylesheet" href="css/styles.css?v=3.0.0">
 </head>
 <body>
 
   <!-- Header -->
   <header>
     <div class="container nav-wrapper">
-      <a class="brand" id="brand-logo" href="#" title="Về trang chủ">
+      <a class="brand" id="brand-logo" href="#" title="Về trang chủ / Home">
         <div class="brand-icon">☕</div>
-        <div>
-          <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span class="brand-title">OCP 21 Quiz Master</span>
-            <span class="brand-badge">Java SE 21</span>
-          </div>
+        <div class="brand-text-wrap">
+          <span class="brand-title">OCP 21 Quiz Master</span>
+          <span class="brand-badge">1Z0-830</span>
         </div>
       </a>
 
       <div class="nav-actions">
-        <a href="https://github.com/Min-Duc1705/OCP-21/tree/main/enthuware" target="_blank" class="btn btn-secondary" title="Sổ tay giải đề & bẫy thi Enthuware" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
-          ⚡ <span class="hide-mobile">Đề Enthuware</span>
+        <a href="https://github.com/Min-Duc1705/OCP-21/tree/main/enthuware" target="_blank" rel="noopener noreferrer" class="btn btn-secondary nav-btn" id="nav-btn-enthuware" title="Sổ tay giải đề & bẫy thi Enthuware">
+          <span>⚡</span> <span class="nav-btn-label" data-i18n="nav.enthuware">Enthuware</span>
         </a>
-        <button class="btn btn-secondary" id="btn-open-theory" onclick="typeof openTheoryModal === 'function' && openTheoryModal(1)" title="Xem sổ tay lý thuyết trọn bộ 14 chương OCP 21">
-          📖 <span class="hide-mobile">14 Chương Lý Thuyết</span>
+        <button class="btn btn-secondary nav-btn" id="btn-open-theory" title="Xem sổ tay lý thuyết trọn bộ 14 chương OCP 21">
+          <span>📖</span> <span class="nav-btn-label" data-i18n="nav.theory">14 Chương Lý Thuyết</span>
         </button>
-        <button class="btn btn-secondary" id="btn-open-videos" title="Xem video bài giảng trọn bộ 14 chương OCP 21">
-          🎬 <span class="hide-mobile">14 Video Bài Giảng</span>
+        <button class="btn btn-secondary nav-btn" id="btn-open-videos" title="Xem video bài giảng trọn bộ 14 chương OCP 21">
+          <span>🎬</span> <span class="nav-btn-label" data-i18n="nav.videos">14 Video Bài Giảng</span>
         </button>
-        <button class="btn btn-secondary" id="btn-open-bookmarks" title="Xem các câu hỏi đã đánh dấu">
-          ⭐ <span class="hide-mobile">Đã lưu (<span id="bookmark-count-badge">0</span>)</span>
+        <button class="btn btn-secondary nav-btn" id="btn-open-bookmarks" title="Xem các câu hỏi đã đánh dấu">
+          <span>⭐</span> <span class="nav-btn-label"><span data-i18n="nav.saved">Đã lưu</span> (<span id="bookmark-count-badge">0</span>)</span>
         </button>
-        <button class="btn btn-secondary" id="btn-open-mistakes" title="Xem sổ tay câu hỏi làm sai">
-          ❌ <span class="hide-mobile">Câu sai (<span id="mistake-count-badge">0</span>)</span>
+        <button class="btn btn-secondary nav-btn" id="btn-open-mistakes" title="Xem sổ tay câu hỏi làm sai">
+          <span>❌</span> <span class="nav-btn-label"><span data-i18n="nav.mistakes">Câu sai</span> (<span id="mistake-count-badge">0</span>)</span>
+        </button>
+        <button class="btn btn-secondary nav-btn lang-switch-btn" id="btn-toggle-lang" title="Chuyển đổi ngôn ngữ VI / EN (Phím L)">
+          <span id="lang-toggle-flag">🇬🇧</span> <span id="lang-toggle-label">EN</span>
         </button>
         <button class="btn btn-icon" id="btn-toggle-theme" title="Chuyển chế độ Sáng / Tối">
           🌓
@@ -54,13 +55,14 @@
   </header>
 
   <!-- Main Content Container -->
-  <main class="container" style="flex: 1;">
+  <main class="container main-container">
 
     <!-- VIEW 1: DASHBOARD -->
     <section id="dashboard-view" class="view active">
       <div class="hero">
-        <h1>Ôn Luyện Trắc Nghiệm OCP Java 21</h1>
-        <p>Hệ thống ôn thi Oracle Certified Professional (Exam 1Z0-830) chuẩn hóa toàn diện 14 chương kiến thức trọng tâm (338 câu hỏi) kèm phân tích bẫy đề thi chi tiết.</p>
+        <div class="hero-pill" data-i18n="hero.badge">✨ Oracle Certified Professional • Java SE 21 (1Z0-830)</div>
+        <h1 data-i18n="hero.title">Ôn Luyện Trắc Nghiệm OCP Java 21</h1>
+        <p data-i18n="hero.subtitle">Hệ thống ôn thi chuẩn hóa toàn diện 14 chương kiến thức trọng tâm (338 câu hỏi song ngữ Anh - Việt) kèm phân tích bẫy đề thi chuyên sâu.</p>
       </div>
 
       <!-- Stats Ribbon -->
@@ -69,46 +71,46 @@
           <div class="stat-icon">📚</div>
           <div class="stat-content">
             <h3 id="stat-total-questions">338</h3>
-            <span>Tổng số câu hỏi</span>
+            <span data-i18n="stats.total">Tổng số câu hỏi</span>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-icon">🎯</div>
           <div class="stat-content">
             <h3 id="stat-attempted-questions">0</h3>
-            <span>Câu đã luyện tập</span>
+            <span data-i18n="stats.attempted">Câu đã luyện tập</span>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-icon">📈</div>
           <div class="stat-content">
             <h3 id="stat-accuracy-rate">0%</h3>
-            <span>Độ chính xác</span>
+            <span data-i18n="stats.accuracy">Độ chính xác</span>
           </div>
         </div>
         <div class="stat-card">
           <div class="stat-icon">🏆</div>
           <div class="stat-content">
             <h3 id="stat-exams-taken">0</h3>
-            <span>Đề thi đã làm</span>
+            <span data-i18n="stats.exams">Đề thi đã làm</span>
           </div>
         </div>
       </div>
 
       <!-- Quick Action: Comprehensive Mock Exam -->
-      <div style="background: var(--bg-card); border: 1px solid var(--border-highlight); border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; box-shadow: var(--shadow-sm);">
-        <div>
-          <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">🚀 Thử Sức Với Kỳ Thi Tổng Hợp (Tất cả các chương)</h2>
-          <p style="color: var(--text-secondary); font-size: 0.95rem;">Đề thi mô phỏng ngẫu nhiên từ toàn bộ 14 chương, tính giờ chuẩn Oracle với ngưỡng đỗ 68%.</p>
+      <div class="quick-exam-banner">
+        <div class="quick-exam-info">
+          <h2 data-i18n="banner.title">🚀 Thử Sức Với Kỳ Thi Tổng Hợp (Tất cả các chương)</h2>
+          <p data-i18n="banner.desc">Đề thi mô phỏng ngẫu nhiên từ toàn bộ 14 chương, tính giờ chuẩn Oracle với ngưỡng đỗ 68%.</p>
         </div>
-        <button class="btn btn-primary" id="btn-quick-full-exam" style="padding: 0.75rem 1.75rem; font-size: 1rem;">
+        <button class="btn btn-primary quick-exam-cta" id="btn-quick-full-exam" data-i18n="banner.cta">
           ⏱️ Bắt Đầu Thi Thử Ngay
         </button>
       </div>
 
       <!-- Chapters Section -->
       <div class="section-title">
-        <h2>Danh Sách 14 Chương Kiến Thức Toàn Diện (Study Chapters)</h2>
+        <h2 data-i18n="dashboard.chaptersTitle">Danh Sách 14 Chương Kiến Thức Toàn Diện (Study Chapters)</h2>
       </div>
 
       <div class="chapter-grid" id="chapter-cards-container">
@@ -120,31 +122,37 @@
     <section id="practice-view" class="view">
       <div class="quiz-header">
         <div class="quiz-meta">
-          <button class="btn btn-secondary" id="btn-practice-back">← Thoát về Dashboard</button>
-          <div>
-            <div id="practice-chapter-title" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Chapter 1</div>
-            <div style="font-size: 1.15rem; font-weight: 700;">Câu hỏi <span id="practice-current-index">1</span> / <span id="practice-total-count">23</span></div>
+          <button class="btn btn-secondary btn-sm" id="btn-practice-back" data-i18n="practice.back">← Dashboard</button>
+          <div class="quiz-meta-titles">
+            <div id="practice-chapter-title" class="quiz-chapter-sub">Chapter 1</div>
+            <div class="quiz-question-counter"><span data-i18n="common.question">Câu hỏi</span> <span id="practice-current-index">1</span> / <span id="practice-total-count">23</span></div>
           </div>
         </div>
 
-        <div style="display: flex; gap: 0.5rem; align-items: center;">
-          <button class="btn btn-secondary" id="btn-practice-theory" title="Đọc sổ tay lý thuyết của chương này">📖 Lý thuyết chương</button>
-          <button class="btn btn-secondary" id="btn-practice-video" title="Xem video bài giảng của chương này">🎬 Bài giảng chương</button>
-          <button class="btn btn-secondary" id="btn-practice-bookmark" title="Đánh dấu câu hỏi này (Phím B)">⭐ Lưu câu hỏi</button>
+        <div class="quiz-header-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-practice-theory" title="Đọc sổ tay lý thuyết của chương này">
+            📖 <span data-i18n="practice.theoryBtn">Lý thuyết</span>
+          </button>
+          <button class="btn btn-secondary btn-sm" id="btn-practice-video" title="Xem video bài giảng của chương này">
+            🎬 <span data-i18n="practice.videoBtn">Bài giảng</span>
+          </button>
+          <button class="btn btn-secondary btn-sm" id="btn-practice-bookmark" title="Đánh dấu câu hỏi này (Phím B)">
+            ⭐ <span data-i18n="practice.saveBtn">Lưu câu hỏi</span>
+          </button>
         </div>
       </div>
 
-      <!-- Sơ đồ câu hỏi (Question Navigator Bar) -->
+      <!-- Question Navigator Bar -->
       <div class="question-navigator-bar" id="practice-navigator-bar">
         <div class="navigator-header">
           <div class="navigator-title">
-            <span>🗺️ Sơ đồ chuyển nhanh câu hỏi:</span>
+            <span data-i18n="practice.navTitle">🗺️ Sơ đồ câu hỏi:</span>
           </div>
           <div class="navigator-stats" id="practice-navigator-stats">
-            <span class="navigator-stat-pill">⚪ Chưa làm: <strong id="stat-nav-unanswered">0</strong></span>
-            <span class="navigator-stat-pill" style="color: var(--success);">🟢 Đúng: <strong id="stat-nav-correct">0</strong></span>
-            <span class="navigator-stat-pill" style="color: var(--danger);">🔴 Sai: <strong id="stat-nav-wrong">0</strong></span>
-            <span class="navigator-stat-pill" style="color: var(--warning);">⭐ Đã lưu: <strong id="stat-nav-bookmarked">0</strong></span>
+            <span class="navigator-stat-pill">⚪ <span data-i18n="practice.unanswered">Chưa làm</span>: <strong id="stat-nav-unanswered">0</strong></span>
+            <span class="navigator-stat-pill" style="color: var(--success);">🟢 <span data-i18n="practice.correct">Đúng</span>: <strong id="stat-nav-correct">0</strong></span>
+            <span class="navigator-stat-pill" style="color: var(--danger);">🔴 <span data-i18n="practice.wrong">Sai</span>: <strong id="stat-nav-wrong">0</strong></span>
+            <span class="navigator-stat-pill" style="color: var(--warning);">⭐ <span data-i18n="practice.saved">Đã lưu</span>: <strong id="stat-nav-bookmarked">0</strong></span>
           </div>
         </div>
         <div class="navigator-scroll-container" id="practice-palette-pills">
@@ -152,17 +160,20 @@
         </div>
       </div>
 
-      <!-- 2-COLUMN SPLIT LAYOUT: TRÁI = ĐỀ & CODE | PHẢI = ĐÁP ÁN & GIẢI THÍCH -->
+      <!-- 2-COLUMN SPLIT LAYOUT -->
       <div class="split-layout-container">
-        <!-- CỘT TRÁI: ĐỀ BÀI & MÃ CODE JAVA -->
+        <!-- LEFT PANE: QUESTION & JAVA CODE -->
         <div class="split-left-pane">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+          <div class="pane-top-meta">
             <span class="badge badge-info" id="practice-type-badge">Chọn 1 đáp án</span>
-            <span style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono);" id="practice-question-id">ch1_q1</span>
+            <span class="question-id-tag" id="practice-question-id">ch1_q1</span>
           </div>
 
-          <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em;">
-            📋 Nội dung câu hỏi:
+          <div class="pane-sub-header">
+            <span class="pane-label" data-i18n="common.questionPrompt">📋 Nội dung câu hỏi:</span>
+            <button type="button" class="btn btn-secondary btn-sm btn-inline-lang-toggle" title="Đổi ngôn ngữ câu hỏi EN / VI (Phím L)">
+              🇬🇧 EN / VI
+            </button>
           </div>
 
           <div class="question-prompt" id="practice-prompt-text">
@@ -170,50 +181,48 @@
           </div>
 
           <!-- Code Snippet Area -->
-          <div id="practice-code-container" style="display: none; margin-top: 1rem;">
-            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.35rem;">
+          <div id="practice-code-container" class="code-snippet-wrap" style="display: none;">
+            <div class="pane-label" style="margin-bottom: 0.35rem;" data-i18n="common.javaCode">
               💻 Đoạn mã nguồn Java:
             </div>
             <pre><code class="language-java" id="practice-code-block"></code></pre>
           </div>
         </div>
 
-        <!-- CỘT PHẢI: LỰA CHỌN ĐÁP ÁN & GIẢI THÍCH CHUYÊN SÂU -->
+        <!-- RIGHT PANE: OPTIONS & EXPLANATION -->
         <div class="split-right-pane">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
-            <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">
-              ✏️ Chọn phương án trả lời:
-            </span>
-            <span style="font-size: 0.8rem; color: var(--text-muted);" id="practice-key-hint">Phím A, B, C... để chọn</span>
+          <div class="pane-top-meta">
+            <span class="pane-label" data-i18n="common.selectOptions">✏️ Chọn phương án trả lời:</span>
+            <span class="key-hint-label" id="practice-key-hint" data-i18n="common.keyHint">Phím A, B, C... để chọn</span>
           </div>
 
           <!-- Options List -->
-          <div class="options-list" id="practice-options-container" style="margin: 0.5rem 0 1.25rem;">
+          <div class="options-list" id="practice-options-container">
             <!-- Options rendered dynamically -->
           </div>
 
           <!-- Action Buttons Bar -->
-          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
-            <button class="btn btn-primary" id="btn-check-answer" style="flex: 2; padding: 0.65rem 1.25rem; font-size: 1rem;">
+          <div class="practice-action-bar">
+            <button class="btn btn-primary" id="btn-check-answer" style="flex: 2;">
               ✔️ Kiểm Tra Đáp Án (Enter)
             </button>
-            <button class="btn btn-secondary" id="btn-reset-practice-question" style="flex: 1;">
+            <button class="btn btn-secondary" id="btn-reset-practice-question" style="flex: 1;" data-i18n="practice.retry">
               🔄 Làm lại
             </button>
           </div>
 
           <!-- Explanation Card (Revealed after check) -->
-          <div class="explanation-card" id="practice-explanation-card" style="margin-top: 0; margin-bottom: 1.25rem;">
+          <div class="explanation-card" id="practice-explanation-card">
             <div class="explanation-title">
-              <span>💡 Giải Thích Chuyên Sâu & Phân Tích Bẫy Thi:</span>
+              <span data-i18n="common.explanationTitle">💡 Giải Thích Chuyên Sâu & Phân Tích Bẫy Thi:</span>
             </div>
             <div class="explanation-body" id="practice-explanation-text"></div>
           </div>
 
           <!-- Practice Navigation Footer -->
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color);">
-            <button class="btn btn-secondary" id="btn-practice-prev">← Câu trước (←)</button>
-            <button class="btn btn-primary" id="btn-practice-next">Câu tiếp theo (→) →</button>
+          <div class="pane-footer-nav">
+            <button class="btn btn-secondary" id="btn-practice-prev" data-i18n="common.prevBtn">← Câu trước</button>
+            <button class="btn btn-primary" id="btn-practice-next" data-i18n="common.nextBtn">Câu tiếp theo →</button>
           </div>
         </div>
       </div>
@@ -223,66 +232,82 @@
     <section id="exam-view" class="view">
       <div class="quiz-header">
         <div class="quiz-meta">
-          <button class="btn btn-secondary" id="btn-exam-quit">Thoát phòng thi</button>
-          <div>
-            <div id="exam-title-display" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Thi thử OCP Java 21</div>
-            <div style="font-size: 1.15rem; font-weight: 700;">Câu <span id="exam-current-index">1</span> / <span id="exam-total-count">25</span></div>
+          <button class="btn btn-secondary btn-sm" id="btn-exam-quit" data-i18n="exam.quit">← Thoát phòng thi</button>
+          <div class="quiz-meta-titles">
+            <div id="exam-title-display" class="quiz-chapter-sub" data-i18n="exam.roomTitle">Thi thử OCP Java 21</div>
+            <div class="quiz-question-counter"><span data-i18n="common.question">Câu hỏi</span> <span id="exam-current-index">1</span> / <span id="exam-total-count">25</span></div>
           </div>
         </div>
 
-        <button class="btn btn-secondary" id="btn-exam-flag">
-          🚩 Cắm cờ xem lại
-        </button>
+        <div class="quiz-header-actions">
+          <button class="btn btn-secondary btn-sm" id="btn-exam-flag">
+            🚩 Cắm cờ xem lại
+          </button>
+          <button class="btn btn-secondary btn-sm exam-mobile-palette-toggle" id="btn-toggle-exam-sidebar">
+            🗺️ <span data-i18n="exam.paletteBtn">Bảng câu hỏi</span>
+          </button>
+        </div>
       </div>
 
-      <div class="exam-layout">
-        <!-- Main Exam Question Area (Split into Left: Prompt & Code, Right: Options) -->
+      <div class="exam-layout" id="exam-layout">
+        <!-- Main Exam Question Area -->
         <div class="exam-main">
           <div class="split-layout-container" style="margin-bottom: 0;">
-            <!-- Cột Trái: Đề bài & Code Java -->
+            <!-- Left Pane: Prompt & Java Code -->
             <div class="split-left-pane">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+              <div class="pane-top-meta">
                 <span class="badge badge-info" id="exam-type-badge">Chọn tất cả đáp án đúng</span>
-                <span style="font-size: 0.85rem; color: var(--text-muted);" id="exam-chapter-indicator">Chapter 1</span>
+                <span class="question-id-tag" id="exam-chapter-indicator">Chapter 1</span>
               </div>
 
-              <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em;">
-                📋 Nội dung câu hỏi:
+              <div class="pane-sub-header">
+                <span class="pane-label" data-i18n="common.questionPrompt">📋 Nội dung câu hỏi:</span>
+                <button type="button" class="btn btn-secondary btn-sm btn-inline-lang-toggle" title="Đổi ngôn ngữ câu hỏi EN / VI (Phím L)">
+                  🇬🇧 EN / VI
+                </button>
               </div>
 
               <div class="question-prompt" id="exam-prompt-text"></div>
 
-              <div id="exam-code-container" style="display: none; margin-top: 1rem;">
-                <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.35rem;">
+              <div id="exam-code-container" class="code-snippet-wrap" style="display: none;">
+                <div class="pane-label" style="margin-bottom: 0.35rem;" data-i18n="common.javaCode">
                   💻 Đoạn mã nguồn Java:
                 </div>
                 <pre><code class="language-java" id="exam-code-block"></code></pre>
               </div>
             </div>
 
-            <!-- Cột Phải: Lựa chọn phương án -->
+            <!-- Right Pane: Options -->
             <div class="split-right-pane">
-              <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
-                ✏️ Chọn phương án trả lời:
+              <div class="pane-top-meta">
+                <span class="pane-label" data-i18n="common.selectOptions">✏️ Chọn phương án trả lời:</span>
               </div>
 
-              <div class="options-list" id="exam-options-container" style="margin: 0.5rem 0 1.25rem;"></div>
+              <div class="options-list" id="exam-options-container"></div>
 
-              <div class="quiz-footer" style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-color); margin-bottom: 0;">
-                <button class="btn btn-secondary" id="btn-exam-prev">← Câu trước</button>
-                <button class="btn btn-primary" id="btn-exam-next">Câu tiếp theo →</button>
+              <div class="pane-footer-nav">
+                <button class="btn btn-secondary" id="btn-exam-prev" data-i18n="common.prevBtn">← Câu trước</button>
+                <button class="btn btn-primary" id="btn-exam-next" data-i18n="common.nextBtn">Câu tiếp theo →</button>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- Mobile Backdrop for Exam Sidebar -->
+        <div class="sidebar-backdrop" id="exam-sidebar-backdrop"></div>
+
         <!-- Sidebar with Timer & Question Palette -->
-        <aside class="exam-sidebar">
+        <aside class="exam-sidebar" id="exam-sidebar">
+          <div class="exam-sidebar-mobile-header">
+            <span data-i18n="exam.paletteTitle">Bảng điều hướng câu hỏi</span>
+            <button class="btn-close-drawer" id="btn-close-exam-sidebar" aria-label="Close">&times;</button>
+          </div>
+
           <div class="timer-box" id="exam-timer-display" title="Thời gian làm bài còn lại">
             ⏱️ <span id="timer-digits">30:00</span>
           </div>
 
-          <div style="margin-bottom: 0.75rem; font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">
+          <div class="exam-palette-heading" data-i18n="exam.paletteTitle">
             Bảng điều hướng câu hỏi:
           </div>
 
@@ -290,19 +315,19 @@
             <!-- Palette buttons rendered dynamically -->
           </div>
 
-          <div style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span style="width: 12px; height: 12px; border-radius: 2px; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-primary); display: inline-block;"></span> Đã trả lời
+          <div class="palette-legend">
+            <div class="palette-legend-item">
+              <span class="legend-dot answered"></span> <span data-i18n="exam.legendAnswered">Đã trả lời</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span style="width: 12px; height: 12px; border-radius: 2px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); display: inline-block;"></span> Chưa làm
+            <div class="palette-legend-item">
+              <span class="legend-dot unanswered"></span> <span data-i18n="exam.legendUnanswered">Chưa làm</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span>🚩</span> Đã cắm cờ xem lại
+            <div class="palette-legend-item">
+              <span>🚩</span> <span data-i18n="exam.legendFlagged">Đã cắm cờ xem lại</span>
             </div>
           </div>
 
-          <button class="btn btn-primary" id="btn-exam-submit" style="width: 100%; padding: 0.75rem; font-size: 1rem;">
+          <button class="btn btn-primary" id="btn-exam-submit" style="width: 100%; padding: 0.75rem; font-size: 1rem;" data-i18n="exam.submitBtn">
             📝 Nộp Bài Thi
           </button>
         </aside>
@@ -316,40 +341,40 @@
           <!-- PASSED or FAILED -->
         </div>
 
-        <div style="font-size: 1.1rem; color: var(--text-secondary);">Điểm số của bạn:</div>
+        <div style="font-size: 1.1rem; color: var(--text-secondary);" data-i18n="result.yourScore">Điểm số của bạn:</div>
         <div class="score-badge" id="result-score-percent">85%</div>
 
-        <p style="font-size: 1.1rem; margin-bottom: 2rem;" id="result-summary-text">
-          Bạn trả lời đúng <strong id="result-correct-count">17</strong> / <strong id="result-total-count">20</strong> câu hỏi. Thời gian làm bài: <span id="result-time-spent">18 phút 42 giây</span>.
+        <p style="font-size: 1.05rem; margin-bottom: 2rem;" id="result-summary-text">
+          <span data-i18n="result.correctPrefix">Bạn trả lời đúng</span> <strong id="result-correct-count">17</strong> / <strong id="result-total-count">20</strong> <span data-i18n="result.questionsWord">câu hỏi</span>. <span data-i18n="result.timeSpentPrefix">Thời gian:</span> <span id="result-time-spent">18m 42s</span>.
         </p>
 
         <!-- Chapter Breakdown -->
-        <div style="max-width: 650px; margin: 0 auto 2.5rem; text-align: left; background: rgba(0,0,0,0.15); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 1rem;">Phân Tích Chi Tiết Theo Từng Chương:</h4>
+        <div class="result-breakdown-box">
+          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 1rem;" data-i18n="result.breakdownTitle">Phân Tích Chi Tiết Theo Từng Chương:</h4>
           <div id="result-chapter-breakdown" style="display: flex; flex-direction: column; gap: 0.75rem;">
             <!-- Rendered by JS -->
           </div>
         </div>
 
         <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-          <button class="btn btn-secondary" id="btn-result-home">🏠 Về Trang Chủ</button>
-          <button class="btn btn-primary" id="btn-result-review-all">🔍 Xem Lại Chi Tiết Toàn Bộ Đề</button>
+          <button class="btn btn-secondary" id="btn-result-home" data-i18n="result.homeBtn">🏠 Về Trang Chủ</button>
+          <button class="btn btn-primary" id="btn-result-review-all" data-i18n="result.reviewBtn">🔍 Xem Lại Chi Tiết Toàn Bộ Đề</button>
         </div>
       </div>
 
       <!-- Detailed Review Section -->
       <div id="exam-review-section" style="margin-top: 2rem;">
-        <div class="section-title">
-          <h2>Chi Tiết Từng Câu Hỏi & Đáp Án</h2>
-          <div style="display: flex; gap: 0.5rem;" id="review-filters">
-            <button class="btn btn-secondary btn-sm active" data-filter="all">Tất cả</button>
-            <button class="btn btn-secondary btn-sm" data-filter="wrong">❌ Câu làm sai</button>
-            <button class="btn btn-secondary btn-sm" data-filter="correct">✔️ Câu làm đúng</button>
-            <button class="btn btn-secondary btn-sm" data-filter="flagged">🚩 Đã cắm cờ</button>
+        <div class="section-title review-section-header">
+          <h2 data-i18n="result.detailedTitle">Chi Tiết Từng Câu Hỏi & Đáp Án</h2>
+          <div class="review-filters" id="review-filters">
+            <button class="btn btn-secondary btn-sm active" data-filter="all" data-i18n="result.filterAll">Tất cả</button>
+            <button class="btn btn-secondary btn-sm" data-filter="wrong" data-i18n="result.filterWrong">❌ Câu làm sai</button>
+            <button class="btn btn-secondary btn-sm" data-filter="correct" data-i18n="result.filterCorrect">✔️ Câu làm đúng</button>
+            <button class="btn btn-secondary btn-sm" data-filter="flagged" data-i18n="result.filterFlagged">🚩 Đã cắm cờ</button>
           </div>
         </div>
 
-        <div id="review-questions-list" style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem;">
+        <div id="review-questions-list" style="display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 3rem;">
           <!-- Review questions rendered dynamically -->
         </div>
       </div>
@@ -361,58 +386,58 @@
   <div class="modal-overlay" id="exam-setup-modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>⚙️ Thiết Lập Đề Thi Thử</h2>
+        <h2 data-i18n="modalExam.title">⚙️ Thiết Lập Đề Thi Thử</h2>
         <button class="close-modal-btn" id="btn-close-exam-modal">&times;</button>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
         <!-- Chapters selection -->
         <div>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-            <label style="font-weight: 600;">1. Chọn các chương muốn thi:</label>
-            <button class="btn btn-secondary" id="btn-toggle-all-chapters" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;">Bỏ chọn tất cả</button>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; gap: 0.5rem;">
+            <label style="font-weight: 600;" data-i18n="modalExam.selectChapters">1. Chọn các chương muốn thi:</label>
+            <button class="btn btn-secondary btn-sm" id="btn-toggle-all-chapters" style="padding: 0.25rem 0.65rem; font-size: 0.78rem;" data-i18n="modalExam.deselectAll">Bỏ chọn tất cả</button>
           </div>
-          <div id="modal-chapters-list" style="display: grid; grid-template-columns: 1fr; gap: 0.5rem; max-height: 180px; overflow-y: auto; padding: 0.5rem; background: rgba(0,0,0,0.15); border-radius: var(--radius-md);">
+          <div id="modal-chapters-list" class="modal-chapters-scroll">
             <!-- Chapter checkboxes -->
           </div>
         </div>
 
         <!-- Question count selection -->
         <div>
-          <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">2. Số lượng câu hỏi:</label>
-          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
-              <input type="radio" name="modal-q-count" value="15"> 15 câu (Nhanh)
+          <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;" data-i18n="modalExam.questionCount">2. Số lượng câu hỏi:</label>
+          <div class="modal-radio-group">
+            <label class="modal-radio-pill">
+              <input type="radio" name="modal-q-count" value="15"> <span data-i18n="modalExam.q15">15 câu (Nhanh)</span>
             </label>
-            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
-              <input type="radio" name="modal-q-count" value="25" checked> 25 câu (Tiêu chuẩn)
+            <label class="modal-radio-pill">
+              <input type="radio" name="modal-q-count" value="25" checked> <span data-i18n="modalExam.q25">25 câu (Tiêu chuẩn)</span>
             </label>
-            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
-              <input type="radio" name="modal-q-count" value="50"> 50 câu (Chuyên sâu)
+            <label class="modal-radio-pill">
+              <input type="radio" name="modal-q-count" value="50"> <span data-i18n="modalExam.q50">50 câu (Chuyên sâu)</span>
             </label>
-            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
-              <input type="radio" name="modal-q-count" value="all"> Toàn bộ câu hỏi
+            <label class="modal-radio-pill">
+              <input type="radio" name="modal-q-count" value="all"> <span data-i18n="modalExam.qAll">Toàn bộ câu hỏi</span>
             </label>
           </div>
         </div>
 
         <!-- Time limit selection -->
         <div>
-          <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">3. Thời gian làm bài:</label>
-          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
-              <input type="radio" name="modal-timer" value="standard" checked> Chuẩn Oracle (2.5 phút / câu)
+          <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;" data-i18n="modalExam.timeLimit">3. Thời gian làm bài:</label>
+          <div class="modal-radio-group">
+            <label class="modal-radio-pill">
+              <input type="radio" name="modal-timer" value="standard" checked> <span data-i18n="modalExam.tStandard">Chuẩn Oracle (2.5 phút/câu)</span>
             </label>
-            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
-              <input type="radio" name="modal-timer" value="speed"> Luyện tốc độ (1.5 phút / câu)
+            <label class="modal-radio-pill">
+              <input type="radio" name="modal-timer" value="speed"> <span data-i18n="modalExam.tSpeed">Tốc độ (1.5 phút/câu)</span>
             </label>
-            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
-              <input type="radio" name="modal-timer" value="unlimited"> Không giới hạn
+            <label class="modal-radio-pill">
+              <input type="radio" name="modal-timer" value="unlimited"> <span data-i18n="modalExam.tUnlimited">Không giới hạn</span>
             </label>
           </div>
         </div>
 
-        <button class="btn btn-primary" id="btn-start-exam-now" style="width: 100%; padding: 0.85rem; font-size: 1.05rem;">
+        <button class="btn btn-primary" id="btn-start-exam-now" style="width: 100%; padding: 0.85rem; font-size: 1.05rem;" data-i18n="modalExam.startBtn">
           🚀 Bắt Đầu Làm Bài Thi
         </button>
       </div>
@@ -443,11 +468,11 @@
   <div class="modal-overlay" id="video-modal">
     <div class="modal-content video-modal-content">
       <div class="modal-header">
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <span style="font-size: 1.5rem;">🎬</span>
-          <div>
-            <h2 id="video-modal-title" style="font-size: 1.15rem; margin: 0; line-height: 1.3;">Bài Giảng OCP Java SE 21</h2>
-            <div id="video-modal-subtitle" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Chương 1: Building Blocks</div>
+        <div style="display: flex; align-items: center; gap: 0.75rem; min-width: 0;">
+          <span style="font-size: 1.5rem; flex-shrink: 0;">🎬</span>
+          <div style="min-width: 0;">
+            <h2 id="video-modal-title" style="font-size: 1.1rem; margin: 0; line-height: 1.3;">Bài Giảng OCP Java SE 21</h2>
+            <div id="video-modal-subtitle" style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;">Chương 1: Building Blocks</div>
           </div>
         </div>
         <button class="close-modal-btn" id="btn-close-video-modal" title="Đóng bài giảng (Esc)">&times;</button>
@@ -462,7 +487,7 @@
 
       <!-- Video Chapter Selector Tabs -->
       <div class="video-playlist-bar">
-        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em;">
+        <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em;" data-i18n="video.playlistTitle">
           📑 Danh sách bài giảng theo chương:
         </div>
         <div class="video-chapter-tabs" id="video-chapter-tabs">
@@ -475,14 +500,14 @@
   <!-- MODAL: THEORY READER (MODERN DOCS LAYOUT) -->
   <div class="modal-overlay" id="theory-modal">
     <div class="modal-content theory-modal-content">
-      <!-- Top Bar: Minimal 56px height -->
+      <!-- Top Bar -->
       <div class="theory-top-bar">
         <div class="theory-top-left">
-          <button class="btn-sidebar-toggle" id="btn-toggle-theory-sidebar" title="Ẩn / Hiện thanh danh mục 14 chương">
+          <button class="btn-sidebar-toggle" id="btn-toggle-theory-sidebar" title="Ẩn / Hiện danh mục 14 chương" aria-label="Toggle Sidebar">
             ☰
           </button>
           <div class="theory-breadcrumb">
-            <span class="theory-brand-tag">📖 Sổ Tay Lý Thuyết</span>
+            <span class="theory-brand-tag" data-i18n="theory.handbook">📖 Lý Thuyết</span>
             <span class="theory-breadcrumb-sep">/</span>
             <span class="theory-breadcrumb-active" id="theory-modal-breadcrumb">Chương 1: Khối Xây Dựng Cơ Bản</span>
           </div>
@@ -491,16 +516,16 @@
         <div class="theory-top-center">
           <div class="theory-search-wrapper">
             <span class="theory-search-icon">🔍</span>
-            <input type="text" id="theory-search-input" placeholder="Tìm kiếm từ khóa trong chương..." autocomplete="off">
+            <input type="text" id="theory-search-input" data-i18n-placeholder="theory.searchPlaceholder" placeholder="Tìm kiếm từ khóa trong chương..." autocomplete="off">
             <span id="theory-search-count" class="theory-search-count" style="display: none;"></span>
           </div>
         </div>
 
         <div class="theory-top-right">
-          <a id="theory-github-link" href="https://github.com/Min-Duc1705/OCP-21" target="_blank" class="btn btn-secondary btn-sm" title="Mở file Markdown gốc trên GitHub" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
+          <a id="theory-github-link" href="https://github.com/Min-Duc1705/OCP-21" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="Mở file Markdown gốc trên GitHub" style="text-decoration: none;">
             🔗 <span class="hide-mobile">GitHub</span>
           </a>
-          <button class="btn btn-secondary btn-sm" id="btn-theory-video-link" title="Xem video bài giảng của chương này" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+          <button class="btn btn-secondary btn-sm" id="btn-theory-video-link" title="Xem video bài giảng của chương này">
             🎬 <span class="hide-mobile">Video</span>
           </button>
           <button class="close-modal-btn" id="btn-close-theory-modal" title="Đóng sổ tay lý thuyết (Esc)">&times;</button>
@@ -509,18 +534,24 @@
 
       <!-- Main Split Layout -->
       <div class="theory-main-layout" id="theory-main-layout">
+        <!-- Mobile Backdrop Overlay for Smooth Sidebar Closing -->
+        <div class="theory-sidebar-backdrop" id="theory-sidebar-backdrop"></div>
+
         <!-- Left Sidebar: 14 Chapters -->
         <aside class="theory-sidebar" id="theory-sidebar">
           <div class="theory-sidebar-header">
-            <span>📑 14 CHƯƠNG LÝ THUYẾT</span>
-            <span class="theory-sidebar-count">14</span>
+            <span class="theory-sidebar-header-title" data-i18n="theory.sidebarHeading">📑 14 CHƯƠNG LÝ THUYẾT</span>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span class="theory-sidebar-count">14</span>
+              <button type="button" class="btn-close-theory-drawer" id="btn-close-theory-drawer" title="Thu gọn danh mục" aria-label="Close sidebar">&times;</button>
+            </div>
           </div>
           <div class="theory-chapter-list" id="theory-chapter-tabs">
             <!-- Dynamically populated 14 items -->
           </div>
         </aside>
 
-        <!-- Right Content Area (Full screen reading experience) -->
+        <!-- Right Content Area -->
         <main class="theory-reader-container" id="theory-reader-container">
           <div class="theory-content-wrapper">
             <div id="theory-content-body" class="markdown-body">
@@ -535,11 +566,11 @@
   </div>
 
   <!-- Scripts -->
-  <script src="lib/prism.js?v=2.6.1"></script>
-  <script src="lib/marked.min.js?v=2.6.1"></script>
-  <script src="js/quiz-data.js?v=2.6.1"></script>
-  <script src="js/theory-data.js?v=2.6.1"></script>
-  <script src="js/storage.js?v=2.6.1"></script>
-  <script src="js/app.js?v=2.6.1"></script>
+  <script src="lib/prism.js?v=3.0.0"></script>
+  <script src="lib/marked.min.js?v=3.0.0"></script>
+  <script src="js/quiz-data.js?v=3.0.0"></script>
+  <script src="js/theory-data.js?v=3.0.0"></script>
+  <script src="js/storage.js?v=3.0.0"></script>
+  <script src="js/app.js?v=3.0.0"></script>
 </body>
 </html>

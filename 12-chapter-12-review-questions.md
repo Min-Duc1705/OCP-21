@@ -94,7 +94,7 @@ _________ zoo.animal.talks/zoo/animal/talks/Peacocks
   * Trong Java, cú pháp của cờ `-m` là `<moduleName>/<fullyQualifiedClassName>`.
   * Tên lớp đầy đủ (fully qualified class name) **bắt buộc phải phân tách bằng dấu chấm `.`**, ví dụ: `zoo.animal.talks.Peacocks`.
   * Trong đề bài, tên lớp lại viết bằng dấu gạch chéo `/` (`zoo/animal/talks/Peacocks`). Dấu gạch chéo `/` chỉ dùng duy nhất 1 lần để ngăn cách giữa **tên module** và **tên class**.
-  * Do đó, câu lệnh này hoàn toàn sai cú pháp và không thể chạy được $\rightarrow$ Đáp án đúng là **G (None of the above)**.
+  * Do đó, câu lệnh này hoàn toàn sai cú pháp và không thể chạy được → Đáp án đúng là **G (None of the above)**.
 </details>
 
 ---
@@ -142,7 +142,7 @@ _________ zoo.animal.talks/zoo/animal/talks/Peacocks
   * **Unnamed Module:** Đại diện cho tất cả các file JAR và class truyền thống được đặt trên **Classpath** (`-cp` / `--class-path`).
   * **Named Module:** File JAR đã được module hóa (có `module-info.java`) đặt trên **Module path** (`-p` / `--module-path`).
   * **Automatic Module:** File JAR cũ (không có `module-info.java`) nhưng được đặt trên **Module path** (`-p` / `--module-path`).
-  * Vế trước là classpath $\rightarrow$ phải là **unnamed module**. Vế sau là module path $\rightarrow$ có thể là **automatic** hoặc **named** module.
+  * Vế trước là classpath → phải là **unnamed module**. Vế sau là module path → có thể là **automatic** hoặc **named** module.
   * Do đó, cả **E** (`unnamed, automatic`) và **F** (`unnamed, named`) đều đúng.
 </details>
 
@@ -163,9 +163,9 @@ _________ zoo.animal.talks/zoo/animal/talks/Peacocks
 
 * **Đáp án đúng:** **A, F**
 * **Phân tích chi tiết:**
-  * Chỉ thị `opens` cho phép các framework truy cập sâu vào package thông qua Reflection tại runtime (kể cả gọi `setAccessible(true)` với thành phần private) $\rightarrow$ **A đúng**.
-  * Chỉ thị `uses` dùng trong Service Locator để khai báo rằng module này có nhu cầu nạp và tiêu dùng một Service Provider Interface $\rightarrow$ **F đúng**.
-  * Không có chỉ thị nào tên là `use` (thiếu `s`) $\rightarrow$ C và D sai.
+  * Chỉ thị `opens` cho phép các framework truy cập sâu vào package thông qua Reflection tại runtime (kể cả gọi `setAccessible(true)` với thành phần private) → **A đúng**.
+  * Chỉ thị `uses` dùng trong Service Locator để khai báo rằng module này có nhu cầu nạp và tiêu dùng một Service Provider Interface → **F đúng**.
+  * Không có chỉ thị nào tên là `use` (thiếu `s`) → C và D sai.
 </details>
 
 ---
@@ -187,10 +187,10 @@ _________ zoo.animal.talks/zoo/animal/talks/Peacocks
 * **Đáp án đúng:** **A, B, E**
 * **Phân tích chi tiết (Thuật toán đặt tên Automatic Module):**
   1. Loại bỏ đuôi `.jar`.
-  2. Loại bỏ thông tin phiên bản ở cuối tên (phần bắt đầu bằng dấu gạch ngang theo sau bởi số, ví dụ `-1.0.0` hay `-1.0.0-SNAPSHOT`) $\rightarrow$ `emily-1.0.0.jar` và `emily-1.0.0-SNAPSHOT.jar` đều cho ra `emily` $\rightarrow$ **A và B đúng**.
-  3. Thay thế tất cả các ký tự không phải chữ/số (như `_`, `-`, `$`) thành dấu chấm `.`. Với `emily_the_cat-1.0.0.jar`, sau khi bỏ version còn `emily_the_cat`, chuyển thành `emily.the.cat` (chứ không giữ nguyên `_` hay đổi thành `-`) $\rightarrow$ C và D sai.
+  2. Loại bỏ thông tin phiên bản ở cuối tên (phần bắt đầu bằng dấu gạch ngang theo sau bởi số, ví dụ `-1.0.0` hay `-1.0.0-SNAPSHOT`) → `emily-1.0.0.jar` và `emily-1.0.0-SNAPSHOT.jar` đều cho ra `emily` → **A và B đúng**.
+  3. Thay thế tất cả các ký tự không phải chữ/số (như `_`, `-`, `$`) thành dấu chấm `.`. Với `emily_the_cat-1.0.0.jar`, sau khi bỏ version còn `emily_the_cat`, chuyển thành `emily.the.cat` (chứ không giữ nguyên `_` hay đổi thành `-`) → C và D sai.
   4. Gộp các dấu chấm liền nhau (`..`) thành một dấu chấm đơn `.`.
-  5. Loại bỏ dấu chấm ở đầu hoặc cuối chuỗi. Với `emily.$.jar`, bỏ `.jar` còn `emily.$`, đổi `$` thành `.` thành `emily..`, gộp chấm thành `emily.`, bỏ chấm cuối còn `emily` $\rightarrow$ **E đúng**, F và G sai.
+  5. Loại bỏ dấu chấm ở đầu hoặc cuối chuỗi. Với `emily.$.jar`, bỏ `.jar` còn `emily.$`, đổi `$` thành `.` thành `emily..`, gộp chấm thành `emily.`, bỏ chấm cuối còn `emily` → **E đúng**, F và G sai.
 </details>
 
 ---
@@ -209,11 +209,11 @@ _________ zoo.animal.talks/zoo/animal/talks/Peacocks
 
 * **Đáp án đúng:** **A, D**
 * **Phân tích chi tiết:**
-  * JPMS cấm tuyệt đối phụ thuộc vòng giữa các module. Nếu module A requires B và B requires A (trực tiếp hoặc bắc cầu), trình biên dịch sẽ báo lỗi `cyclic dependence` $\rightarrow$ **A đúng**.
-  * Java hoàn toàn cho phép các package phụ thuộc lẫn nhau (Class trong package 1 gọi Class trong package 2 và ngược lại) $\rightarrow$ B sai.
-  * Phụ thuộc vòng có thể liên quan đến 2 module (`A -> B -> A`) hoặc nhiều hơn 2 module (`A -> B -> C -> A`), do đó phát biểu "luôn luôn chỉ đúng 2 module" là sai $\rightarrow$ C sai.
-  * Để tạo thành vòng lặp phụ thuộc khép kín thì phải có ít nhất 2 liên kết `requires` (ví dụ `A requires B` và `B requires A`) $\rightarrow$ **D đúng**.
-  * Unnamed module nằm trên classpath và không có tên, các module trên module path (kể cả automatic module) không thể khai báo `requires` unnamed module $\rightarrow$ Không thể tạo phụ thuộc vòng với unnamed module $\rightarrow$ E sai.
+  * JPMS cấm tuyệt đối phụ thuộc vòng giữa các module. Nếu module A requires B và B requires A (trực tiếp hoặc bắc cầu), trình biên dịch sẽ báo lỗi `cyclic dependence` → **A đúng**.
+  * Java hoàn toàn cho phép các package phụ thuộc lẫn nhau (Class trong package 1 gọi Class trong package 2 và ngược lại) → B sai.
+  * Phụ thuộc vòng có thể liên quan đến 2 module (`A -> B -> A`) hoặc nhiều hơn 2 module (`A -> B -> C -> A`), do đó phát biểu "luôn luôn chỉ đúng 2 module" là sai → C sai.
+  * Để tạo thành vòng lặp phụ thuộc khép kín thì phải có ít nhất 2 liên kết `requires` (ví dụ `A requires B` và `B requires A`) → **D đúng**.
+  * Unnamed module nằm trên classpath và không có tên, các module trên module path (kể cả automatic module) không thể khai báo `requires` unnamed module → Không thể tạo phụ thuộc vòng với unnamed module → E sai.
 </details>
 
 ---
@@ -248,7 +248,7 @@ public class Dragon implements Magic {
     `provides <Tên_Interface_Hoặc_Abstract_Class> with <Tên_Class_Cài_Đặt>;`
   * Ở đây, `Magic` là interface (SPI) và `Dragon` là class cài đặt (Provider).
   * Từ khóa đi kèm bắt buộc là **`with`** (không phải `by` hay `using`).
-  * Do đó, câu lệnh chính xác là: `provides magic.Magic with dragon.Dragon;` $\rightarrow$ **F đúng**.
+  * Do đó, câu lệnh chính xác là: `provides magic.Magic with dragon.Dragon;` → **F đúng**.
 </details>
 
 ---
@@ -272,9 +272,9 @@ module com.food.supplier {}
 
 * **Đáp án đúng:** **B, C**
 * **Phân tích chi tiết:**
-  * Một module hoàn toàn có thể để trống thân `{}` (không khai báo `exports` hay `requires` nào). File này biên dịch hoàn toàn hợp lệ $\rightarrow$ E và F sai.
-  * Mặc định trong JPMS, cơ chế đóng gói mạnh (strong encapsulation) được áp dụng: Nếu không có chỉ thị `exports` tường minh, **không có package nào được export ra ngoài** $\rightarrow$ **B đúng**, A sai.
-  * Việc export package chỉ nhằm mục đích cho phép các module khác truy cập mã nguồn lúc biên dịch/chạy. Nó **không bắt buộc** đối với việc chạy phương thức `main()` từ dòng lệnh bằng cờ `-m com.food.supplier/<className>` $\rightarrow$ **C đúng**, D sai.
+  * Một module hoàn toàn có thể để trống thân `{}` (không khai báo `exports` hay `requires` nào). File này biên dịch hoàn toàn hợp lệ → E và F sai.
+  * Mặc định trong JPMS, cơ chế đóng gói mạnh (strong encapsulation) được áp dụng: Nếu không có chỉ thị `exports` tường minh, **không có package nào được export ra ngoài** → **B đúng**, A sai.
+  * Việc export package chỉ nhằm mục đích cho phép các module khác truy cập mã nguồn lúc biên dịch/chạy. Nó **không bắt buộc** đối với việc chạy phương thức `main()` từ dòng lệnh bằng cờ `-m com.food.supplier/<className>` → **C đúng**, D sai.
 </details>
 
 ---
@@ -308,11 +308,11 @@ module puppy {
 
 * **Đáp án đúng:** **D, G, H**
 * **Phân tích chi tiết:**
-  * Các từ khóa `require` và `require transitive` (thiếu `s`) không tồn tại $\rightarrow$ Loại A, B, E, F.
-  * Để `puppy` đọc được `animal` gián tiếp thông qua `dog`, module `dog` bắt buộc phải chuyển tiếp quyền đọc bằng **`requires transitive animal;`** trên dòng S $\rightarrow$ **G đúng** (Nếu dòng S chỉ dùng `requires animal;` thì `puppy` sẽ không nhìn thấy `animal`).
+  * Các từ khóa `require` và `require transitive` (thiếu `s`) không tồn tại → Loại A, B, E, F.
+  * Để `puppy` đọc được `animal` gián tiếp thông qua `dog`, module `dog` bắt buộc phải chuyển tiếp quyền đọc bằng **`requires transitive animal;`** trên dòng S → **G đúng** (Nếu dòng S chỉ dùng `requires animal;` thì `puppy` sẽ không nhìn thấy `animal`).
   * Khi `dog` đã khai báo `requires transitive animal;`:
-    * Module `puppy` chỉ cần viết **`requires dog;`** trên dòng T là đủ để ngầm định đọc được `animal` $\rightarrow$ **D đúng**.
-    * Ngoài ra, nếu `puppy` dùng **`requires transitive dog;`** trên dòng T, nó vẫn đọc được `dog` (và cả `animal`) hoàn toàn bình thường, đồng thời chuyển tiếp tiếp cho các module sau $\rightarrow$ **H đúng**.
+    * Module `puppy` chỉ cần viết **`requires dog;`** trên dòng T là đủ để ngầm định đọc được `animal` → **D đúng**.
+    * Ngoài ra, nếu `puppy` dùng **`requires transitive dog;`** trên dòng T, nó vẫn đọc được `dog` (và cả `animal`) hoàn toàn bình thường, đồng thời chuyển tiếp tiếp cho các module sau → **H đúng**.
 </details>
 
 ---
@@ -333,13 +333,13 @@ module puppy {
 
 * **Đáp án đúng:** **A, B, C, F**
 * **Phân tích chi tiết:**
-  * `java.base`: Module gốc chứa `java.lang`, `java.util`, `java.io`, v.v. $\rightarrow$ **A đúng**.
-  * `java.desktop`: Module chứa AWT và Swing $\rightarrow$ **B đúng**.
-  * `java.logging`: Module chứa Logging API $\rightarrow$ **C đúng**.
-  * `java.util`: Là tên một **Package**, không phải tên Module $\rightarrow$ D sai.
-  * `jdk.base`: Tên không tồn tại (chỉ có `java.base`) $\rightarrow$ E sai.
-  * `jdk.compiler`: Module chứa trình biên dịch `javac` $\rightarrow$ **F đúng**.
-  * `jdk.xerces`: Tên module do tác giả bịa ra $\rightarrow$ G sai.
+  * `java.base`: Module gốc chứa `java.lang`, `java.util`, `java.io`, v.v. → **A đúng**.
+  * `java.desktop`: Module chứa AWT và Swing → **B đúng**.
+  * `java.logging`: Module chứa Logging API → **C đúng**.
+  * `java.util`: Là tên một **Package**, không phải tên Module → D sai.
+  * `jdk.base`: Tên không tồn tại (chỉ có `java.base`) → E sai.
+  * `jdk.compiler`: Module chứa trình biên dịch `javac` → **F đúng**.
+  * `jdk.xerces`: Tên module do tác giả bịa ra → G sai.
 </details>
 
 ---
@@ -386,10 +386,10 @@ List<Unicorn> all = ServiceLoader.load(Unicorn.class)
 
 * **Đáp án đúng:** **D**
 * **Phân tích chi tiết:**
-  * Lớp `ServiceLoader` không có phương thức nào tên là `getStream()` (chỉ có phương thức `stream()`) $\rightarrow$ Loại A và C.
+  * Lớp `ServiceLoader` không có phương thức nào tên là `getStream()` (chỉ có phương thức `stream()`) → Loại A và C.
   * Phương thức `stream()` của `ServiceLoader<S>` trả về `Stream<ServiceLoader.Provider<S>>` chứ không trả về trực tiếp `Stream<S>`.
-  * Do đó, nếu gọi `.stream().toList()` như ở lựa chọn B, kiểu trả về sẽ là `List<Provider<Unicorn>>`, không tương thích với `List<Unicorn>` $\rightarrow$ B lỗi biên dịch.
-  * Để lấy đối tượng dịch vụ thực sự từ `Provider`, ta phải gọi phương thức `.get()` thông qua hàm trung gian `.map(Provider::get)`. Đoạn code ở lựa chọn D biên dịch chính xác $\rightarrow$ **D đúng**.
+  * Do đó, nếu gọi `.stream().toList()` như ở lựa chọn B, kiểu trả về sẽ là `List<Provider<Unicorn>>`, không tương thích với `List<Unicorn>` → B lỗi biên dịch.
+  * Để lấy đối tượng dịch vụ thực sự từ `Provider`, ta phải gọi phương thức `.get()` thông qua hàm trung gian `.map(Provider::get)`. Đoạn code ở lựa chọn D biên dịch chính xác → **D đúng**.
 </details>
 
 ---
@@ -410,9 +410,9 @@ List<Unicorn> all = ServiceLoader.load(Unicorn.class)
 
 * **Đáp án đúng:** **C**
 * **Phân tích chi tiết:**
-  * `-p` chỉ là dạng viết tắt của `--module-path`. Không thể khai báo cả `--module-path` lẫn `-p` cho hai mục đích khác nhau trong cùng một câu lệnh $\rightarrow$ Loại B, D, F.
-  * Ký tự phân tách giữa tên module và tên class khi chạy bằng cờ `-m` bắt buộc phải là **dấu gạch chéo `/`** (`n/c`) $\rightarrow$ Loại A và E.
-  * Trong lựa chọn C, `x-x` là tên thư mục chứa module path (tên thư mục có dấu gạch ngang là hoàn toàn hợp lệ) và cú pháp `-m n/c` chuẩn xác $\rightarrow$ **C đúng**.
+  * `-p` chỉ là dạng viết tắt của `--module-path`. Không thể khai báo cả `--module-path` lẫn `-p` cho hai mục đích khác nhau trong cùng một câu lệnh → Loại B, D, F.
+  * Ký tự phân tách giữa tên module và tên class khi chạy bằng cờ `-m` bắt buộc phải là **dấu gạch chéo `/`** (`n/c`) → Loại A và E.
+  * Trong lựa chọn C, `x-x` là tên thư mục chứa module path (tên thư mục có dấu gạch ngang là hoàn toàn hợp lệ) và cú pháp `-m n/c` chuẩn xác → **C đúng**.
 </details>
 
 ---
@@ -456,7 +456,7 @@ List<Unicorn> all = ServiceLoader.load(Unicorn.class)
   * Đây chính là vẻ đẹp và sức mạnh của kiến trúc **Loose Coupling (Phụ thuộc lỏng lẻo)** trong JPMS Services!
   * Module Service Provider mới chỉ cần cài đặt SPI và khai báo `provides SPI with NewImplClass;`.
   * Consumer chỉ phụ thuộc vào Service Locator. Service Locator chỉ phụ thuộc vào SPI và dùng `ServiceLoader.load()` để quét động.
-  * Khi đặt module Provider mới lên module path lúc runtime, Service Locator sẽ tự động phát hiện ra nó mà **không cần biên dịch lại bất kỳ module nào trong số các module cũ** $\rightarrow$ **A đúng (Zero)**.
+  * Khi đặt module Provider mới lên module path lúc runtime, Service Locator sẽ tự động phát hiện ra nó mà **không cần biên dịch lại bất kỳ module nào trong số các module cũ** → **A đúng (Zero)**.
 </details>
 
 ---
@@ -478,7 +478,7 @@ List<Unicorn> all = ServiceLoader.load(Unicorn.class)
   * Đề bài hỏi: *"Một **Unnamed Module** tham chiếu đến automatic module này cần khai báo gì trong `module-info.java`?"*
   * Hãy nhớ lại định nghĩa: **Unnamed Module nằm trên Classpath và KHÔNG CÓ file `module-info.java`!** (Nếu có thì file này cũng bị JVM bỏ qua hoàn toàn).
   * Do đó, Unnamed Module không hề viết bất kỳ câu lệnh `requires` nào, nó chỉ đơn thuần sử dụng các class trong JAR như Java truyền thống.
-  * Câu hỏi đánh lừa thí sinh vào việc suy diễn tên module giữa `dog` hay `cat`, nhưng bản chất Unnamed Module không có `module-info.java` $\rightarrow$ Đáp án đúng là **E**.
+  * Câu hỏi đánh lừa thí sinh vào việc suy diễn tên module giữa `dog` hay `cat`, nhưng bản chất Unnamed Module không có `module-info.java` → Đáp án đúng là **E**.
 </details>
 
 ---
@@ -500,7 +500,7 @@ List<Unicorn> all = ServiceLoader.load(Unicorn.class)
 * **Phân tích chi tiết:**
   * Lệnh tạo tệp thực thi / bộ cài đặt nguyên bản của hệ điều hành (như file `.exe`, `.msi`, `.dmg`, `.deb`) là **`jpackage`**.
   * Lệnh tạo một thư mục chứa môi trường Java Runtime Image tùy biến tối giản (Custom JRE directory) là **`jlink`**.
-  * Đề bài hỏi *"tạo file .exe và một thư mục theo thứ tự tương ứng"* $\rightarrow$ **`jpackage` và `jlink`** $\rightarrow$ **F đúng**.
+  * Đề bài hỏi *"tạo file .exe và một thư mục theo thứ tự tương ứng"* → **`jpackage` và `jlink`** → **F đúng**.
   * (`jimage` là công cụ dùng để kiểm tra, xem nội dung các file jimage trong JDK, không dùng để build app).
 </details>
 
@@ -531,7 +531,7 @@ class dragon {
     `class dragon {`
   * Khai báo module bắt buộc phải dùng từ khóa **`module`**, ví dụ: `module dragon {`.
   * Dùng từ khóa `class` kèm các directive `exports` bên trong thân class sẽ gây ra **Lỗi biên dịch** ngay lập tức!
-  * Vì mã nguồn không thể biên dịch nên không có phát biểu nào về quyền truy cập ở trên là đúng $\rightarrow$ Đáp án đúng là **E**.
+  * Vì mã nguồn không thể biên dịch nên không có phát biểu nào về quyền truy cập ở trên là đúng → Đáp án đúng là **E**.
 </details>
 
 ---
@@ -584,7 +584,7 @@ class dragon {
     * **SPI:** Hoàn toàn độc lập, chỉ `exports` package của nó.
     * **Service Provider:** Cần `requires` SPI và `provides SPI with ImplClass;`.
   * **Tuyệt đối không có bất kỳ module nào khai báo `requires` lên Service Provider!**
-  * Nếu một module khai báo `requires` trực tiếp lên Service Provider thì tính chất "phụ thuộc lỏng lẻo" (Loose Coupling) sẽ bị phá vỡ hoàn toàn. Do đó không có module nào cần require Service Provider $\rightarrow$ Chọn **H**.
+  * Nếu một module khai báo `requires` trực tiếp lên Service Provider thì tính chất "phụ thuộc lỏng lẻo" (Loose Coupling) sẽ bị phá vỡ hoàn toàn. Do đó không có module nào cần require Service Provider → Chọn **H**.
 </details>
 
 ---
@@ -604,8 +604,8 @@ class dragon {
 
 * **Đáp án đúng:** **A, F**
 * **Phân tích chi tiết (TABLE 12.18):**
-  * **Automatic Module:** Nằm trên module path nhưng không có `module-info.java`. Để đảm bảo tương thích tối đa, JVM mặc định cho phép Automatic Module **export tất cả các package** của nó cho các named module truy cập $\rightarrow$ **A đúng**, B và C sai.
-  * **Unnamed Module:** Nằm trên classpath. Named module trên module path **không thể nhìn thấy và không thể truy cập** code trong Unnamed module. Do đó Unnamed module **không export bất kỳ package nào** cho named modules $\rightarrow$ **F đúng**, D và E sai.
+  * **Automatic Module:** Nằm trên module path nhưng không có `module-info.java`. Để đảm bảo tương thích tối đa, JVM mặc định cho phép Automatic Module **export tất cả các package** của nó cho các named module truy cập → **A đúng**, B và C sai.
+  * **Unnamed Module:** Nằm trên classpath. Named module trên module path **không thể nhìn thấy và không thể truy cập** code trong Unnamed module. Do đó Unnamed module **không export bất kỳ package nào** cho named modules → **F đúng**, D và E sai.
 </details>
 
 ---
@@ -638,7 +638,7 @@ class dragon {
   * Dòng 2 & 3: Cú pháp `exports` và qualified `exports ... to ...` đều hợp lệ.
   * Dòng 4: `requires skin;` là hợp lệ.
   * Dòng 5: `requires transitive skin;`. Trong JPMS, **một module không được phép xuất hiện nhiều hơn một lần trong các câu lệnh `requires`** của cùng một `module-info.java`.
-  * Vì `skin` đã được khai báo ở dòng 4, dòng 5 tiếp tục khai báo lại `skin` sẽ bị trình biên dịch từ chối: `duplicate requires: skin` $\rightarrow$ Lỗi biên dịch đầu tiên xuất hiện tại **Dòng 5 (Đáp án E)**.
+  * Vì `skin` đã được khai báo ở dòng 4, dòng 5 tiếp tục khai báo lại `skin` sẽ bị trình biên dịch từ chối: `duplicate requires: skin` → Lỗi biên dịch đầu tiên xuất hiện tại **Dòng 5 (Đáp án E)**.
 </details>
 
 ---
@@ -659,9 +659,9 @@ class dragon {
 * **Phân tích chi tiết:**
   * **Quy tắc vàng của JPMS:** Bất kỳ file JAR nào được đặt trên **Classpath (`-cp`)** đều được JVM coi là thuộc về **Unnamed Module**.
   * Khi nằm trên Classpath, file `module-info.java` (hoặc `module-info.class`) bên trong JAR đó sẽ bị **bỏ qua hoàn toàn**!
-  * Do hoạt động như cơ chế Java cũ trên Classpath, tất cả các class `public` trong package đó đều khả dụng cho mọi class/module khác trên Classpath $\rightarrow$ **A đúng**.
-  * Classpath không có cơ chế giới hạn quyền truy cập cho một module cụ thể hay giấu package đối với các class khác trên classpath $\rightarrow$ C và E sai.
-  * Các module trên Module path không thể đọc được mã nguồn trên Classpath $\rightarrow$ B và D sai.
+  * Do hoạt động như cơ chế Java cũ trên Classpath, tất cả các class `public` trong package đó đều khả dụng cho mọi class/module khác trên Classpath → **A đúng**.
+  * Classpath không có cơ chế giới hạn quyền truy cập cho một module cụ thể hay giấu package đối với các class khác trên classpath → C và E sai.
+  * Các module trên Module path không thể đọc được mã nguồn trên Classpath → B và D sai.
 </details>
 
 ---
@@ -680,6 +680,6 @@ class dragon {
 
 * **Đáp án đúng:** **A, C, D**
 * **Phân tích chi tiết:**
-  * **Consumer:** Cần gọi Service Locator để lấy dịch vụ, do đó Consumer **bắt buộc phải có `requires`** module chứa Service Locator (và SPI nếu dùng trực tiếp interface) $\rightarrow$ **A đúng**. Consumer không gọi `ServiceLoader.load()` nên không cần `uses` $\rightarrow$ B sai.
-  * **Service Locator:** Cần biết giao diện SPI để biên dịch phương thức tìm kiếm, do đó nó **bắt buộc phải có `requires`** module chứa SPI $\rightarrow$ **C đúng**. Đồng thời, để gọi `ServiceLoader.load(SPI.class)`, module của Service Locator **bắt buộc phải khai báo `uses SPI;`** $\rightarrow$ **D đúng**.
+  * **Consumer:** Cần gọi Service Locator để lấy dịch vụ, do đó Consumer **bắt buộc phải có `requires`** module chứa Service Locator (và SPI nếu dùng trực tiếp interface) → **A đúng**. Consumer không gọi `ServiceLoader.load()` nên không cần `uses` → B sai.
+  * **Service Locator:** Cần biết giao diện SPI để biên dịch phương thức tìm kiếm, do đó nó **bắt buộc phải có `requires`** module chứa SPI → **C đúng**. Đồng thời, để gọi `ServiceLoader.load(SPI.class)`, module của Service Locator **bắt buộc phải khai báo `uses SPI;`** → **D đúng**.
 </details>

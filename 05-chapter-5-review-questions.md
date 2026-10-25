@@ -78,7 +78,7 @@ public class Ant {
 * **Giải thích chuyên sâu:**
   * **A và D đúng:** Các từ khóa tùy chọn (*Optional Specifiers*) như `final` và `static` có thể xuất hiện theo **bất kỳ thứ tự nào** (`final static` hay `static final` đều hợp lệ), và cả hai đều đứng trước kiểu trả về `void` với phạm vi truy cập package-private.
   * **B và C sai:** Mỗi phương thức chỉ được phép có duy nhất một kiểu trả về. Ở câu B có cả `int` và `void`, câu C có cả `void` và `int`.
-  * **E và F sai:** Kiểu trả về (`void`) bắt buộc phải đứng **ngay trước tên phương thức**. Ở câu E, `void` lại đứng trước `final`; ở câu F, `void` lại đứng trước `public` $\rightarrow$ Đều gây lỗi cú pháp biên dịch.
+  * **E và F sai:** Kiểu trả về (`void`) bắt buộc phải đứng **ngay trước tên phương thức**. Ở câu E, `void` lại đứng trước `final`; ở câu F, `void` lại đứng trước `public` → Đều gây lỗi cú pháp biên dịch.
 </details>
 
 ---
@@ -106,7 +106,7 @@ final ______ song = 6;
   * **A hợp lệ:** Khớp chính xác kiểu nguyên thủy `int`.
   * **B hợp lệ:** Java tự động bao gói (*Autoboxing*) từ `int` sang `Integer`.
   * **C và E hợp lệ:** Java thực hiện nới rộng kiểu nguyên thủy (*Widening primitive conversion*): từ `int` có thể nới rộng ngầm định sang `long` (C) hoặc sang `double` (E).
-  * **D và F KHÔNG HỢP LỆ (Bẫy thi cực lớn):** Java **không bao giờ thực hiện đồng thời 2 bước chuyển đổi liên tiếp**! Literal `6` là `int`, để gán vào `Long` nó phải vừa nới rộng sang `long` vừa autobox sang `Long` $\rightarrow$ Trình biên dịch không hỗ trợ và báo lỗi `incompatible types: int cannot be converted to Long`. Tương tự với `Double`.
+  * **D và F KHÔNG HỢP LỆ (Bẫy thi cực lớn):** Java **không bao giờ thực hiện đồng thời 2 bước chuyển đổi liên tiếp**! Literal `6` là `int`, để gán vào `Long` nó phải vừa nới rộng sang `long` vừa autobox sang `Long` → Trình biên dịch không hỗ trợ và báo lỗi `incompatible types: int cannot be converted to Long`. Tương tự với `Double`.
 </details>
 
 ---
@@ -128,9 +128,9 @@ final ______ song = 6;
 * **Giải thích chuyên sâu:**
   * **A và C đúng:** Phương thức có kiểu trả về `void` có thể không có lệnh `return` (như câu C), hoặc có lệnh `return;` rỗng để thoát sớm (như câu A).
   * **D đúng:** Phương thức trả về kiểu `int`, giá trị trả về `9` khớp chính xác kiểu `int`.
-  * **B sai:** Giá trị `null` chỉ có thể gán hoặc trả về cho các kiểu đối tượng tham chiếu (*reference types*). Kiểu `int` là kiểu nguyên thủy nên không thể nhận `null` $\rightarrow$ Lỗi biên dịch.
-  * **E sai:** Giá trị `9.0` là kiểu số thực `double`, không thể tự động ép kiểu thu hẹp (*narrowing*) về kiểu số nguyên `int` mà không có ép kiểu tường minh `(int)` $\rightarrow$ Lỗi biên dịch.
-  * **F sai:** Phương thức khai báo trả về `int` bắt buộc phải trả về một giá trị số nguyên, không được dùng lệnh `return;` rỗng $\rightarrow$ Lỗi biên dịch.
+  * **B sai:** Giá trị `null` chỉ có thể gán hoặc trả về cho các kiểu đối tượng tham chiếu (*reference types*). Kiểu `int` là kiểu nguyên thủy nên không thể nhận `null` → Lỗi biên dịch.
+  * **E sai:** Giá trị `9.0` là kiểu số thực `double`, không thể tự động ép kiểu thu hẹp (*narrowing*) về kiểu số nguyên `int` mà không có ép kiểu tường minh `(int)` → Lỗi biên dịch.
+  * **F sai:** Phương thức khai báo trả về `int` bắt buộc phải trả về một giá trị số nguyên, không được dùng lệnh `return;` rỗng → Lỗi biên dịch.
 </details>
 
 ---
@@ -182,11 +182,11 @@ public int juggle(boolean b, boolean... b2) {
 * **Giải thích chuyên sâu:**
   * Phương thức nhận 1 tham số bắt buộc `boolean b` và theo sau là tham số biến đổi `boolean... b2`. Giá trị trả về chính là độ dài mảng `b2.length`.
   * **D đúng:** Đối số thứ nhất (`true`) gán cho `b`. Hai đối số tiếp theo (`true, true`) được gom vào mảng `b2`, do đó `b2.length == 2`.
-  * **F đúng:** Đối số thứ nhất gán cho `b`, đối số thứ hai truyền trực tiếp một mảng `new boolean[2]` có độ dài 2 $\rightarrow$ `b2.length == 2`.
+  * **F đúng:** Đối số thứ nhất gán cho `b`, đối số thứ hai truyền trực tiếp một mảng `new boolean[2]` có độ dài 2 → `b2.length == 2`.
   * **A sai:** Không biên dịch được vì thiếu tham số bắt buộc đầu tiên `b`.
-  * **B sai:** Truyền 1 đối số cho `b`, `b2` rỗng $\rightarrow$ `b2.length == 0`.
-  * **C sai:** Truyền 1 đối số cho `b`, 1 đối số cho `b2` $\rightarrow$ `b2.length == 1`.
-  * **E sai:** Cú pháp viết tắt `{true, true}` chỉ hợp lệ khi khai báo mảng đồng thời, không được dùng làm đối số trong lời gọi hàm mà phải viết là `new boolean[] {true, true}` $\rightarrow$ Lỗi biên dịch.
+  * **B sai:** Truyền 1 đối số cho `b`, `b2` rỗng → `b2.length == 0`.
+  * **C sai:** Truyền 1 đối số cho `b`, 1 đối số cho `b2` → `b2.length == 1`.
+  * **E sai:** Cú pháp viết tắt `{true, true}` chỉ hợp lệ khi khai báo mảng đồng thời, không được dùng làm đối số trong lời gọi hàm mà phải viết là `new boolean[] {true, true}` → Lỗi biên dịch.
 </details>
 
 ---
@@ -304,8 +304,8 @@ public class Classroom {
   * Trong lớp `Rope`: Dòng 3 khởi tạo `LENGTH = 5`. Ngay sau đó, khối `static { LENGTH = 10; }` chạy khi lớp được nạp và gán lại `LENGTH = 10`.
   * Trong lớp `Chimp`:
     * Dòng 2: `import static rope.Rope.*;` là cú pháp static import hợp lệ.
-    * Dòng 5: `Rope.swing()` gọi phương thức static qua tên lớp $\rightarrow$ in ra `"swing "`.
-    * Dòng 6: `new Rope().swing()` gọi phương thức static qua biến thể hiện $\rightarrow$ Java vẫn cho phép và dịch thành lời gọi static $\rightarrow$ in ra `"swing "`.
+    * Dòng 5: `Rope.swing()` gọi phương thức static qua tên lớp → in ra `"swing "`.
+    * Dòng 6: `new Rope().swing()` gọi phương thức static qua biến thể hiện → Java vẫn cho phép và dịch thành lời gọi static → in ra `"swing "`.
     * Dòng 7: `System.out.println(LENGTH)` in ra giá trị hiện tại của biến static `LENGTH` là `10`.
   * Kết quả hiển thị: `swing swing 10`.
 </details>
@@ -348,12 +348,12 @@ public class Classroom {
 
 * **Đáp án đúng:** **B, E**
 * **Giải thích chuyên sâu:**
-  * **Lỗi biên dịch tại dòng 10:** Phương thức `play()` là một `static method`. Một phương thức static **không thể gọi trực tiếp một instance method (`climb()`)** mà không có đối tượng cụ thể (`non-static method climb() cannot be referenced from a static context`). Vì chỉ có duy nhất dòng 10 lỗi $\rightarrow$ B đúng (và A, C sai).
+  * **Lỗi biên dịch tại dòng 10:** Phương thức `play()` là một `static method`. Một phương thức static **không thể gọi trực tiếp một instance method (`climb()`)** mà không có đối tượng cụ thể (`non-static method climb() cannot be referenced from a static context`). Vì chỉ có duy nhất dòng 10 lỗi → B đúng (và A, C sai).
   * **Phân tích luồng chạy sau khi xóa dòng 10:**
-    * Dòng 14: `rope.play()`: Dù gọi qua biến `rope`, nhưng vì `play()` là static nên Java gọi trực tiếp `Rope.play()` $\rightarrow$ gọi `swing()` in ra `"swing"`.
+    * Dòng 14: `rope.play()`: Dù gọi qua biến `rope`, nhưng vì `play()` là static nên Java gọi trực tiếp `Rope.play()` → gọi `swing()` in ra `"swing"`.
     * Dòng 16: In ra `"-"`.
     * Dòng 17: `rope2.play()`: **BẪY THI KINH ĐIỂN!** `rope2` có giá trị là `null`. Nhưng vì `play()` là phương thức `static`, trình biên dịch chỉ căn cứ vào kiểu của biến (`Rope`) và dịch thành `Rope.play()`. Do đó lệnh này **KHÔNG HỀ ném `NullPointerException`**, mà chạy bình thường và in ra `"swing"`.
-  * Toàn bộ output in ra là `swing-swing` $\rightarrow$ E đúng.
+  * Toàn bộ output in ra là `swing-swing` → E đúng.
 </details>
 
 ---
@@ -391,12 +391,12 @@ public class Classroom {
 * **Đáp án đúng:** **B (Có đúng 2 biến là effectively final: `giraffe` dòng 13 và `name` dòng 14)**
 * **Giải thích chuyên sâu:**
   * Một biến cục bộ là `effectively final` nếu nó không hề bị gán lại giá trị sau khi được khởi tạo lần đầu (thêm từ khóa `final` vào vẫn biên dịch được).
-  * `monkey` (dòng 11): Bị tăng giá trị ở dòng 13 (`monkey++`) $\rightarrow$ **Không phải** effectively final.
-  * `giraffe` (dòng 13): Khởi tạo một lần và không bị thay đổi ở đâu $\rightarrow$ **Effectively final (1)**.
-  * `name` (dòng 14–15): Nằm trong khối `{}` của `if`, chỉ được gán đúng 1 lần giá trị `"geoffrey"` $\rightarrow$ **Effectively final (2)**.
-  * `name` (dòng 17): Nằm ở phạm vi phương thức ngoài `if`, bị gán lại bằng `null` ở dòng 22 $\rightarrow$ **Không phải** effectively final.
-  * `food` (dòng 18): Bị gán lại bằng `0` ở dòng 20 trong vòng lặp $\rightarrow$ **Không phải** effectively final.
-  * Tổng cộng có đúng 2 biến thỏa mãn $\rightarrow$ Chọn B.
+  * `monkey` (dòng 11): Bị tăng giá trị ở dòng 13 (`monkey++`) → **Không phải** effectively final.
+  * `giraffe` (dòng 13): Khởi tạo một lần và không bị thay đổi ở đâu → **Effectively final (1)**.
+  * `name` (dòng 14–15): Nằm trong khối `{}` của `if`, chỉ được gán đúng 1 lần giá trị `"geoffrey"` → **Effectively final (2)**.
+  * `name` (dòng 17): Nằm ở phạm vi phương thức ngoài `if`, bị gán lại bằng `null` ở dòng 22 → **Không phải** effectively final.
+  * `food` (dòng 18): Bị gán lại bằng `0` ở dòng 20 trong vòng lặp → **Không phải** effectively final.
+  * Tổng cộng có đúng 2 biến thỏa mãn → Chọn B.
 </details>
 
 ---
@@ -489,7 +489,7 @@ public class Rope {
   * **Dòng 11 LỖI:** Biến `name` đã được gán tại dòng 5, cố tình gán lại lần thứ hai trong khối `static` (`cannot assign a value to final variable name`).
   * **Dòng 12 LỖI:** Biến `rightRope` đã được gán tại dòng 8, cố tình gán lại lần thứ hai ở dòng 12 (`cannot assign a value to final variable rightRope`).
   * **Dòng 15 LỖI:** Cố tình gán giá trị cho biến `static final bench` bên trong phương thức `main()` (biến `static final` tuyệt đối không được gán trong phương thức thường).
-  * Tổng cộng có đúng 4 dòng lỗi biên dịch $\rightarrow$ Chọn E.
+  * Tổng cộng có đúng 4 dòng lỗi biên dịch → Chọn E.
 </details>
 
 ---
@@ -567,9 +567,9 @@ public class Rope {
 
 * **Đáp án đúng:** **E (`int-Object-Object-`)**
 * **Giải thích chuyên sâu (Quy tắc phân giải Overloading):**
-  1. **Dòng 17 `t.print(s)`:** Đối số `s` có kiểu `short`. Không có phương thức nào nhận `short`. Java sẽ tìm kiểu nguyên thủy lớn hơn tiếp theo (*Widening primitive*): `short` $\rightarrow$ `int`. Phương thức `print(int)` (dòng 5) được chọn $\rightarrow$ in ra **`int-`**. (Lưu ý: `short` không thể tự thu hẹp về `byte`!).
-  2. **Dòng 18 `t.print(true)`:** Đối số mang giá trị `boolean`. Không có phương thức nhận `boolean`. Java thực hiện Autoboxing thành đối tượng `Boolean`. `Boolean` là một lớp con kế thừa từ `Object`, do đó phương thức `print(Object)` (dòng 11) được chọn $\rightarrow$ in ra **`Object-`**.
-  3. **Dòng 19 `t.print(6.789)`:** Giá trị `6.789` là một số thực dấu phẩy động kiểu `double`. Kiểu `double` không thể nới rộng sang `float` (vì `float` nhỏ hơn `double`). Java autobox `6.789` thành đối tượng `Double`. `Double` kế thừa từ `Object`, do đó phương thức `print(Object)` được chọn $\rightarrow$ in ra **`Object-`**.
+  1. **Dòng 17 `t.print(s)`:** Đối số `s` có kiểu `short`. Không có phương thức nào nhận `short`. Java sẽ tìm kiểu nguyên thủy lớn hơn tiếp theo (*Widening primitive*): `short` → `int`. Phương thức `print(int)` (dòng 5) được chọn → in ra **`int-`**. (Lưu ý: `short` không thể tự thu hẹp về `byte`!).
+  2. **Dòng 18 `t.print(true)`:** Đối số mang giá trị `boolean`. Không có phương thức nhận `boolean`. Java thực hiện Autoboxing thành đối tượng `Boolean`. `Boolean` là một lớp con kế thừa từ `Object`, do đó phương thức `print(Object)` (dòng 11) được chọn → in ra **`Object-`**.
+  3. **Dòng 19 `t.print(6.789)`:** Giá trị `6.789` là một số thực dấu phẩy động kiểu `double`. Kiểu `double` không thể nới rộng sang `float` (vì `float` nhỏ hơn `double`). Java autobox `6.789` thành đối tượng `Double`. `Double` kế thừa từ `Object`, do đó phương thức `print(Object)` được chọn → in ra **`Object-`**.
   * Kết quả ghép lại: `int-Object-Object-`.
 </details>
 
@@ -646,9 +646,9 @@ public class StringBuilders {
 * **Giải thích chuyên sâu (Pass-by-value với kiểu đối tượng):**
   * Trong phương thức `main`, `s1` trỏ tới `"s1"`, `s2` trỏ tới `"s2"`.
   * Khi gọi `work(s1, s2)`:
-    * Bản sao của tham chiếu `s1` được chuyển cho biến tham số `a`. Dòng `a = new StringBuilder("a");` trỏ biến cục bộ `a` sang một đối tượng mới trên Heap. Điều này **hoàn toàn không làm đổi biến `s1` của `main`**. Do đó `s1` vẫn là `"s1"` $\rightarrow$ **`s1 = s1` (B đúng)**.
-    * Bản sao của tham chiếu `s2` được chuyển cho biến tham số `b`. Dòng `b.append("b");` thao tác trực tiếp trên chính đối tượng mà `s2` đang cùng trỏ tới trên Heap, nối thêm `"b"`. Do đó `s2` bị biến đổi thành `"s2b"` $\rightarrow$ **`s2 = s2b` (D đúng)**.
-    * Phương thức trả về tham chiếu `a` (đối tượng `"a"` mới tạo) và được gán cho `s3` $\rightarrow$ **`s3 = a` (E đúng)**.
+    * Bản sao của tham chiếu `s1` được chuyển cho biến tham số `a`. Dòng `a = new StringBuilder("a");` trỏ biến cục bộ `a` sang một đối tượng mới trên Heap. Điều này **hoàn toàn không làm đổi biến `s1` của `main`**. Do đó `s1` vẫn là `"s1"` → **`s1 = s1` (B đúng)**.
+    * Bản sao của tham chiếu `s2` được chuyển cho biến tham số `b`. Dòng `b.append("b");` thao tác trực tiếp trên chính đối tượng mà `s2` đang cùng trỏ tới trên Heap, nối thêm `"b"`. Do đó `s2` bị biến đổi thành `"s2b"` → **`s2 = s2b` (D đúng)**.
+    * Phương thức trả về tham chiếu `a` (đối tượng `"a"` mới tạo) và được gán cho `s3` → **`s3 = a` (E đúng)**.
 </details>
 
 ---
@@ -683,12 +683,12 @@ public class StringBuilders {
 * **Giải thích chuyên sâu:**
   * Dòng 6 nằm trong **khối khởi tạo thể hiện (*Instance Initializer*)**:
     * Có quyền truy cập cả biến thể hiện lẫn biến tĩnh.
-    * Biến `value1` là `final` và đã được gán giá trị `"red"` tại dòng 2 $\rightarrow$ Không thể gán lại (A sai).
-    * `value2` là biến tĩnh, khối thể hiện có quyền sửa đổi nó $\rightarrow$ `value2 = "purple";` hợp lệ (B đúng).
-    * `value3` là biến thể hiện thông thường, khối thể hiện có quyền gán lại $\rightarrow$ `value3 = "orange";` hợp lệ (C đúng).
+    * Biến `value1` là `final` và đã được gán giá trị `"red"` tại dòng 2 → Không thể gán lại (A sai).
+    * `value2` là biến tĩnh, khối thể hiện có quyền sửa đổi nó → `value2 = "purple";` hợp lệ (B đúng).
+    * `value3` là biến thể hiện thông thường, khối thể hiện có quyền gán lại → `value3 = "orange";` hợp lệ (C đúng).
   * Dòng 9 nằm trong **khối khởi tạo tĩnh (*Static Initializer*)**:
     * Chỉ có quyền truy cập các thành phần tĩnh (`static`), **hoàn toàn KHÔNG THỂ truy cập các biến thể hiện (`value1`, `value3`)**. Do đó D và F đều báo lỗi biên dịch!
-    * `value2` là biến tĩnh, khối static có toàn quyền thay đổi nó $\rightarrow$ `value2 = "cyan";` hợp lệ (E đúng).
+    * `value2` là biến tĩnh, khối static có toàn quyền thay đổi nó → `value2 = "cyan";` hợp lệ (E đúng).
 </details>
 
 ---
@@ -732,14 +732,14 @@ public class Run {
 
 * **Đáp án đúng:** **A, E**
 * **Giải thích chuyên sâu:**
-  * **Lời gọi 1: `Run.execute(100)`:** Đối số `100` là kiểu `int`. Phương thức `execute(int num)` khớp chính xác kiểu dữ liệu (*Exact match*) nên được chọn đầu tiên $\rightarrow$ in ra **`2-`**.
-  * **Lời gọi 2: `Run.execute(100L)`:** Đối số `100L` là kiểu `long`. Trong các phương thức không có hàm nào nhận `long` hoặc kiểu nguyên thủy lớn hơn `long` (`float`, `double`). Java sẽ autobox `100L` thành đối tượng `Long`. `Long` không thể gán vào `Integer`, nhưng `Long` kế thừa từ `Object`, do đó phương thức `execute(Object num)` được gọi $\rightarrow$ in ra **`4-`**.
-  * Kết hợp lại in ra **`2-4-`** $\rightarrow$ A đúng.
+  * **Lời gọi 1: `Run.execute(100)`:** Đối số `100` là kiểu `int`. Phương thức `execute(int num)` khớp chính xác kiểu dữ liệu (*Exact match*) nên được chọn đầu tiên → in ra **`2-`**.
+  * **Lời gọi 2: `Run.execute(100L)`:** Đối số `100L` là kiểu `long`. Trong các phương thức không có hàm nào nhận `long` hoặc kiểu nguyên thủy lớn hơn `long` (`float`, `double`). Java sẽ autobox `100L` thành đối tượng `Long`. `Long` không thể gán vào `Integer`, nhưng `Long` kế thừa từ `Object`, do đó phương thức `execute(Object num)` được gọi → in ra **`4-`**.
+  * Kết hợp lại in ra **`2-4-`** → A đúng.
   * **Trường hợp xóa phương thức `execute(int num)`:**
-    * Khi gọi `execute(100)`, không còn hàm nhận `int`. Java sẽ tìm ưu tiên tiếp theo theo Bảng 5.6: Nới rộng primitive (không có) $\rightarrow$ **Autoboxing** $\rightarrow$ Varargs.
-    * Do Java ưu tiên Autoboxing hơn Varargs, đối số `100` được autobox thành `Integer` và gọi phương thức `execute(Integer num)` $\rightarrow$ in ra **`3-`**.
+    * Khi gọi `execute(100)`, không còn hàm nhận `int`. Java sẽ tìm ưu tiên tiếp theo theo Bảng 5.6: Nới rộng primitive (không có) → **Autoboxing** → Varargs.
+    * Do Java ưu tiên Autoboxing hơn Varargs, đối số `100` được autobox thành `Integer` và gọi phương thức `execute(Integer num)` → in ra **`3-`**.
     * Lời gọi `execute(100L)` vẫn gọi `execute(Object num)` in ra **`4-`**.
-    * Kết quả khi xóa hàm `execute(int)` là **`3-4-`** $\rightarrow$ E đúng.
+    * Kết quả khi xóa hàm `execute(int)` là **`3-4-`** → E đúng.
 </details>
 
 ---
@@ -768,7 +768,7 @@ public void moo(int m, int... n)
   * Phương thức gốc có chữ ký: `moo(int, int...)`.
   * **B đúng:** Cùng tên `moo`, tham số là `(char)` khác với danh sách ban đầu. Việc đổi kiểu trả về sang `int` là hoàn toàn hợp lệ.
   * **D đúng:** Cùng tên `moo`, tham số là `(int...)` (1 tham số varargs duy nhất, khác với phương thức gốc có 1 int thường và 1 int varargs). Việc đổi phạm vi sang `private` là hợp lệ.
-  * **A sai:** Chỉ đổi tên biến tham số từ `m, n` thành `a, b`, danh sách kiểu tham số vẫn là `(int, int...)` $\rightarrow$ Báo lỗi trùng lặp phương thức (*duplicate method*).
+  * **A sai:** Chỉ đổi tên biến tham số từ `m, n` thành `a, b`, danh sách kiểu tham số vẫn là `(int, int...)` → Báo lỗi trùng lặp phương thức (*duplicate method*).
   * **C và E sai:** Tên phương thức bị đổi thành `moooo` (thừa chữ o), đây là phương thức hoàn toàn mới chứ không phải nạp chồng phương thức `moo`.
   * **F và G sai:** Bản thân các khai báo F và G đều **không biên dịch được** do vi phạm cú pháp varargs: Tham số varargs phải đứng ở vị trí cuối cùng (câu F sai vị trí) và một phương thức chỉ được có tối đa 1 varargs (câu G có 2 varargs).
 </details>

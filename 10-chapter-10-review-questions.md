@@ -68,12 +68,12 @@ System.out.println(b1 + " " + b2);
   * `predicate` kiểm tra chuỗi có bắt đầu bằng chữ `"g"` hay không: `"growl!".startsWith("g")` luôn luôn trả về `true`.
   * **Với `stream1.anyMatch(predicate)`:**
     * Phương thức `anyMatch()` mang tính chất **ngắt mạch (short-circuiting)**. Nó dừng lại ngay lập tức khi tìm thấy **phần tử đầu tiên** thoả mãn điều kiện.
-    * Phần tử đầu tiên là `"growl!"` (bắt đầu bằng `"g"` $\rightarrow$ `true`), nên `anyMatch()` kết thúc ngay và gán `b1 = true`.
+    * Phần tử đầu tiên là `"growl!"` (bắt đầu bằng `"g"` → `true`), nên `anyMatch()` kết thúc ngay và gán `b1 = true`.
   * **Với `stream2.allMatch(predicate)`:**
     * Phương thức `allMatch()` chỉ có thể dừng sớm nếu gặp ít nhất **một phần tử vi phạm điều kiện (`false`)**.
     * Tuy nhiên, vì mọi phần tử trong `stream2` đều là `"growl!"` (luôn luôn là `true`), `allMatch()` không bao giờ tìm thấy phần tử `false` nào để dừng lại.
-    * Do luồng là vô hạn, `allMatch()` tiếp tục duyệt mãi mãi để kiểm tra các phần tử tiếp theo $\rightarrow$ **Chương trình bị treo vô tận (hangs)** tại dòng gán `b2`!
-  * Do đó, dòng in kết quả không bao giờ được chạm tới $\rightarrow$ Đáp án đúng là **F**.
+    * Do luồng là vô hạn, `allMatch()` tiếp tục duyệt mãi mãi để kiểm tra các phần tử tiếp theo → **Chương trình bị treo vô tận (hangs)** tại dòng gán `b2`!
+  * Do đó, dòng in kết quả không bao giờ được chạm tới → Đáp án đúng là **F**.
 * **Bẫy thi cần nhớ:** Trên luồng vô hạn:
   * `anyMatch()` kết thúc nếu tìm thấy `true`.
   * `noneMatch()` kết thúc nếu tìm thấy `true` (khiến kết quả thành `false`).
@@ -109,7 +109,7 @@ System.out.println(b1 + " " + b2);
   * Khởi tạo stream bằng `Stream.iterate("-", s -> !s.isEmpty(), s -> s + s)`:
     * `seed = "-"` (độ dài 1).
     * Mỗi bước tiếp theo nhân đôi chuỗi: `"--"`, `"----"`, `"--------"`...
-    * Điều kiện `!s.isEmpty()` luôn luôn đúng $\rightarrow$ Đây là luồng vô hạn.
+    * Điều kiện `!s.isEmpty()` luôn luôn đúng → Đây là luồng vô hạn.
   * Dòng gán `b1`: `stream.noneMatch(predicate)`:
     * `predicate`: kiểm tra độ dài chuỗi có lớn hơn 3 hay không.
     * Phần tử thứ ba `"----"` có độ dài là 4 ($> 3$). Do tìm thấy phần tử thoả mãn, `noneMatch()` ngắt mạch thành công và trả về `b1 = false`.
@@ -219,11 +219,11 @@ System.out.println(b1 + " " + b2);
   * **Điểm khác biệt 1: Chuyển đổi từ `LongStream` sang `IntStream`:**
     * Luồng nguồn là `LongStream` (chứa các số kiểu `long`).
     * Phương thức `mapToInt()` nhận một `LongToIntFunction`. Vì chuyển đổi từ `long` sang `int` là phép thu hẹp kiểu (narrowing primitive conversion), Java **bắt buộc phải có ép kiểu tường minh `(int) x`**.
-    * Lựa chọn **B** và **E** dùng `x -> x` (không ép kiểu) $\rightarrow$ **LỖI BIÊN DỊCH** tại `mapToInt()`.
+    * Lựa chọn **B** và **E** dùng `x -> x` (không ép kiểu) → **LỖI BIÊN DỊCH** tại `mapToInt()`.
   * **Điểm khác biệt 2: Gọi `collect()` trên Primitive Stream:**
     * Trên `IntStream`, phương thức `collect()` chỉ có dạng 3 tham số `collect(Supplier, ObjIntConsumer, BiConsumer)`. Nó **không có overload nhận 1 tham số `Collector`** như `Stream<T>` đối tượng!
     * Muốn dùng các bộ thu thập của lớp `Collectors` (như `Collectors.groupingBy`), bắt buộc phải chuyển từ `IntStream` sang `Stream<Integer>` bằng cách gọi **`.boxed()`**.
-    * Lựa chọn **A** và **D** thiếu `.boxed()` $\rightarrow$ **LỖI BIÊN DỊCH** tại lệnh gọi `collect(Collectors.groupingBy(...))`.
+    * Lựa chọn **A** và **D** thiếu `.boxed()` → **LỖI BIÊN DỊCH** tại lệnh gọi `collect(Collectors.groupingBy(...))`.
   * **Điểm khác biệt 3 giữa C và F:**
     * C dùng `groupingBy(x -> x)` trả về `Map<Integer, List<Integer>>`.
     * F dùng `groupingBy(x -> x, Collectors.toSet())` trả về `Map<Integer, Set<Integer>>`. Cả hai đều hoàn toàn hợp lệ!
@@ -264,7 +264,7 @@ System.out.println(match);
   * **Xét `anyMatch` và `noneMatch`:**
     * `anyMatch()`: Cần tìm ít nhất 1 phần tử thoả mãn `true` để dừng lại. Vì `"meow"` luôn cho ra `false`, `anyMatch()` không thể biết liệu trong tương lai có chuỗi rỗng nào xuất hiện hay không, nên nó sẽ **chạy vô tận và treo máy**.
     * `noneMatch()`: Cần tìm ít nhất 1 phần tử thoả mãn `true` để dừng lại và trả về `false`. Tương tự, nó cũng sẽ **chạy vô tận và treo máy**.
-  * Vì vậy, phương thức duy nhất có thể dừng lại và in ra `false` là **`allMatch`** $\rightarrow$ Đáp án đúng là **A**.
+  * Vì vậy, phương thức duy nhất có thể dừng lại và in ra `false` là **`allMatch`** → Đáp án đúng là **A**.
 * **Bẫy thi cần nhớ:** `allMatch()` ngắt mạch và trả về `false` ngay khi gặp phần tử không khớp.
 </details>
 
@@ -299,11 +299,11 @@ private static List<String> refactored(List<String> list) {
 
 * **Đáp án đúng:** **F**
 * **Phân tích chi tiết:**
-  * Trên giao diện `Stream<T>`, phương thức dùng để sắp xếp các phần tử là **`sorted(Comparator)`**. Không có phương thức nào trong `Stream` tên là `compare`, `compareTo` hay `sort` $\rightarrow$ Loại ngay các lựa chọn A, B, C, D.
+  * Trên giao diện `Stream<T>`, phương thức dùng để sắp xếp các phần tử là **`sorted(Comparator)`**. Không có phương thức nào trong `Stream` tên là `compare`, `compareTo` hay `sort` → Loại ngay các lựa chọn A, B, C, D.
   * Chỗ trống thứ nhất bắt buộc phải là `sorted`.
   * Chỗ trống thứ hai là thao tác kết thúc để thu thập luồng thành một `List<String>`.
-    * Lựa chọn E điền `collect()` không tham số $\rightarrow$ Bị lỗi biên dịch vì phương thức `collect()` trong `Stream` bắt buộc phải có tham số (`collect(Collector)` hoặc 3 tham số).
-    * Lựa chọn F điền `collect(Collectors.toList())` $\rightarrow$ Hoàn toàn chính xác, biên dịch và chạy đúng yêu cầu trả về `List<String>` đã sắp xếp giảm dần.
+    * Lựa chọn E điền `collect()` không tham số → Bị lỗi biên dịch vì phương thức `collect()` trong `Stream` bắt buộc phải có tham số (`collect(Collector)` hoặc 3 tham số).
+    * Lựa chọn F điền `collect(Collectors.toList())` → Hoàn toàn chính xác, biên dịch và chạy đúng yêu cầu trả về `List<String>` đã sắp xếp giảm dần.
 * **Bẫy thi cần nhớ:** Stream sắp xếp bằng phương thức `sorted()`. Lớp `Collections` mới dùng `sort()`.
 </details>
 
@@ -328,9 +328,9 @@ var is = IntStream.empty();
 
 * **Đáp án đúng:** **D, E**
 * **Phân tích chi tiết:**
-  * **Phương thức `average()`:** Trung bình cộng của các số nguyên hoàn toàn có thể là một số thập phân lẻ (ví dụ trung bình của 1 và 2 là 1.5). Do đó, trên `IntStream`, phương thức `average()` trả về kiểu **`OptionalDouble`** (chứ không phải `int` hay `OptionalInt`) $\rightarrow$ A và B sai.
-  * **Phương thức `findAny()`:** Vì stream có thể rỗng, phương thức tìm kiếm phần tử của `IntStream` phải trả về một đối tượng bao bọc kiểu nguyên thuỷ là **`OptionalInt`** $\rightarrow$ **D đúng**, C sai.
-  * **Phương thức `sum()`:** Tổng của một danh sách số nguyên chắc chắn là một số nguyên. Khi stream rỗng, tổng quy ước chuẩn trong toán học và Java là `0`. Do đó, Java thiết kế `sum()` trả về trực tiếp giá trị primitive **`int`** (chứ không trả về Optional) $\rightarrow$ **E đúng**, F sai.
+  * **Phương thức `average()`:** Trung bình cộng của các số nguyên hoàn toàn có thể là một số thập phân lẻ (ví dụ trung bình của 1 và 2 là 1.5). Do đó, trên `IntStream`, phương thức `average()` trả về kiểu **`OptionalDouble`** (chứ không phải `int` hay `OptionalInt`) → A và B sai.
+  * **Phương thức `findAny()`:** Vì stream có thể rỗng, phương thức tìm kiếm phần tử của `IntStream` phải trả về một đối tượng bao bọc kiểu nguyên thuỷ là **`OptionalInt`** → **D đúng**, C sai.
+  * **Phương thức `sum()`:** Tổng của một danh sách số nguyên chắc chắn là một số nguyên. Khi stream rỗng, tổng quy ước chuẩn trong toán học và Java là `0`. Do đó, Java thiết kế `sum()` trả về trực tiếp giá trị primitive **`int`** (chứ không trả về Optional) → **E đúng**, F sai.
 * **Bẫy thi cần nhớ:** 
   * `sum()` trên `IntStream` trả về `int` (rỗng trả về `0`).
   * `min()` và `max()` trả về `OptionalInt`.
@@ -374,13 +374,13 @@ var is = IntStream.empty();
 
 * **Đáp án đúng:** **B, D**
 * **Phân tích chi tiết:**
-  * Dòng 4–6: Khởi tạo `LongStream` với các giá trị `[1, 2, 3]`. Sau `map` nhân 10, luồng thành `[10, 20, 30]`. Sau `filter(n -> n < 5)`, không có phần tử nào thoả mãn $\rightarrow$ Luồng trở thành rỗng.
+  * Dòng 4–6: Khởi tạo `LongStream` với các giá trị `[1, 2, 3]`. Sau `map` nhân 10, luồng thành `[10, 20, 30]`. Sau `filter(n -> n < 5)`, không có phần tử nào thoả mãn → Luồng trở thành rỗng.
   * Lệnh `findFirst()` trên `LongStream` rỗng trả về một **`OptionalLong` rỗng** (`OptionalLong.empty()`).
-  * Đoạn mã từ dòng 4–6 hoàn toàn biên dịch và chạy thành công mà không ném ngoại lệ $\rightarrow$ Loại E và F.
-  * **Xét A:** `opt` là kiểu `OptionalLong`. Lớp `OptionalLong` **KHÔNG CÓ phương thức `get()`** (chỉ có `getAsLong()`) $\rightarrow$ Bị lỗi biên dịch!
-  * **Xét B:** Sử dụng `opt.getAsLong()` là cú pháp chuẩn của `OptionalLong`. Vì `opt.isPresent()` là `false`, khối lệnh `if` không được thực thi $\rightarrow$ Không in ra gì, thoả mãn đề bài $\rightarrow$ **B đúng**.
-  * **Xét C:** Cú pháp `System.out.println` thiếu dấu hai chấm kép `::` $\rightarrow$ Lỗi biên dịch.
-  * **Xét D:** `opt.ifPresent(System.out::println)` sử dụng method reference chuẩn. Vì `opt` rỗng, Consumer không được gọi $\rightarrow$ Không in ra gì, thoả mãn đề bài $\rightarrow$ **D đúng**.
+  * Đoạn mã từ dòng 4–6 hoàn toàn biên dịch và chạy thành công mà không ném ngoại lệ → Loại E và F.
+  * **Xét A:** `opt` là kiểu `OptionalLong`. Lớp `OptionalLong` **KHÔNG CÓ phương thức `get()`** (chỉ có `getAsLong()`) → Bị lỗi biên dịch!
+  * **Xét B:** Sử dụng `opt.getAsLong()` là cú pháp chuẩn của `OptionalLong`. Vì `opt.isPresent()` là `false`, khối lệnh `if` không được thực thi → Không in ra gì, thoả mãn đề bài → **B đúng**.
+  * **Xét C:** Cú pháp `System.out.println` thiếu dấu hai chấm kép `::` → Lỗi biên dịch.
+  * **Xét D:** `opt.ifPresent(System.out::println)` sử dụng method reference chuẩn. Vì `opt` rỗng, Consumer không được gọi → Không in ra gì, thoả mãn đề bài → **D đúng**.
 * **Bẫy thi cần nhớ:** `OptionalLong` có phương thức `getAsLong()`, không có `get()`. Method reference phải dùng cú pháp `ClassOrObject::methodName`.
 </details>
 
@@ -411,15 +411,15 @@ Stream.generate(() -> "1")
 * **Đáp án đúng:** **F (N, M)**
 * **Phân tích chi tiết:**
   * Nguồn là một luồng vô hạn liên tục sinh ra chuỗi `"1"` (có độ dài bằng 1).
-  * Trong bốn câu lệnh, **chỉ duy nhất câu lệnh M (`.forEach(...)`) là thao tác kết thúc (terminal operation)**. Bất kỳ phương án nào không kết thúc bằng M sẽ không kích hoạt pipeline và không in ra gì $\rightarrow$ Loại ngay A, B, D, G.
+  * Trong bốn câu lệnh, **chỉ duy nhất câu lệnh M (`.forEach(...)`) là thao tác kết thúc (terminal operation)**. Bất kỳ phương án nào không kết thúc bằng M sẽ không kích hoạt pipeline và không in ra gì → Loại ngay A, B, D, G.
   * **Xét C (L, N, M):**
     * Lệnh L (`filter(x -> x.length() > 1)`) đứng trước N (`limit(10)`).
     * Chuỗi `"1"` có độ dài là 1, nên điều kiện `length() > 1` luôn luôn là `false`.
-    * Filter không cho bất kỳ phần tử nào đi qua, do đó lệnh `limit(10)` không bao giờ đếm đủ 10 phần tử $\rightarrow$ Pipeline bị treo và chạy vô hạn! (Loại C).
+    * Filter không cho bất kỳ phần tử nào đi qua, do đó lệnh `limit(10)` không bao giờ đếm đủ 10 phần tử → Pipeline bị treo và chạy vô hạn! (Loại C).
   * **Xét E (L, O, M):** Không có thao tác giới hạn `limit()`, chương trình sẽ chạy vô hạn.
   * **Xét F (N, M):**
     * Nguồn vô hạn được ngắt ngay bằng N: `.limit(10)`, thu được một luồng hữu hạn chứa đúng 10 chuỗi `"1"`.
-    * Sau đó M: `.forEach(System.out::println)` duyệt qua và in ra đúng 10 dòng chữ `"1"` $\rightarrow$ Hoàn toàn thoả mãn!
+    * Sau đó M: `.forEach(System.out::println)` duyệt qua và in ra đúng 10 dòng chữ `"1"` → Hoàn toàn thoả mãn!
 * **Bẫy thi cần nhớ:** Trên luồng vô hạn, phải đặt `limit()` ở vị trí hợp lý để biến luồng vô hạn thành hữu hạn; nếu đặt sau một `filter` luôn trả về `false`, chương trình sẽ bị treo vĩnh viễn.
 </details>
 
@@ -450,14 +450,14 @@ Stream.iterate(1, x -> x++)
   1. **Lỗi toán tử tăng sau `x++`:**
      * Lambda `x -> x++` sử dụng post-increment: giá trị của biểu thức trả về là giá trị cũ của `x` trước khi tăng. Do đó, hàm này luôn trả về giá trị `1`.
      * Luồng sinh ra sẽ là chuỗi toàn số `1`: `[1, 1, 1, 1, 1]`.
-     * Cần đổi thành pre-increment **`x -> ++x`** để sinh ra dãy số tăng dần `1, 2, 3, 4, 5` $\rightarrow$ **Chọn C**.
+     * Cần đổi thành pre-increment **`x -> ++x`** để sinh ra dãy số tăng dần `1, 2, 3, 4, 5` → **Chọn C**.
   2. **Lỗi kiểu dữ liệu trong `Collectors.joining()`:**
      * Phương thức `Collectors.joining()` **bắt buộc luồng đầu vào phải là `Stream<CharSequence>` (hoặc `Stream<String>`)**.
      * Ở đây, `Stream.iterate(1, ...)` tạo ra một `Stream<Integer>`. Dòng `map(x -> x)` giữ nguyên kiểu `Integer`, khiến dòng `collect(Collectors.joining())` bị **LỖI BIÊN DỊCH**!
-     * Cần sửa đổi `map(x -> x)` thành **`map(x -> "" + x)`** để chuyển đổi từng `Integer` thành `String` $\rightarrow$ **Chọn B**.
+     * Cần sửa đổi `map(x -> x)` thành **`map(x -> "" + x)`** để chuyển đổi từng `Integer` thành `String` → **Chọn B**.
   3. **Lỗi thiếu lệnh in ra màn hình:**
      * Lệnh `collect(Collectors.joining())` là một thao tác kết thúc trả về một đối tượng `String`, nhưng giá trị này không được gán cho biến nào và không được in ra.
-     * Cần bao bọc toàn bộ biểu thức trong **`System.out.print(...)`** để in chuỗi thu được ra màn hình $\rightarrow$ **Chọn E**.
+     * Cần bao bọc toàn bộ biểu thức trong **`System.out.print(...)`** để in chuỗi thu được ra màn hình → **Chọn E**.
 * **Bẫy thi cần nhớ:** `Collectors.joining()` chỉ hoạt động trên `Stream<String>`. Toán tử `x++` trong lambda trả về giá trị trước khi tăng.
 </details>
 
@@ -533,7 +533,7 @@ Stream.of(x1, x2, x3).map(x -> x + 1)
   * Bước tiếp theo gọi: `.map(x -> x + 1)`.
     * Biến `x` ở đây đại diện cho từng phần tử trong luồng, tức là `x` có kiểu **`List<Integer>`**.
     * Trong ngôn ngữ Java, toán tử cộng số học `+` **hoàn toàn không được định nghĩa cho đối tượng `List`** (`List + int` là cú pháp không hợp lệ)!
-  * Vì vậy, dòng `.map(x -> x + 1)` bị **LỖI BIÊN DỊCH** $\rightarrow$ Đáp án đúng là **F**.
+  * Vì vậy, dòng `.map(x -> x + 1)` bị **LỖI BIÊN DỊCH** → Đáp án đúng là **F**.
   * *(Lưu ý: Nếu đảo ngược thứ tự gọi `flatMap(x -> x.stream())` trước rồi mới `map(x -> x + 1)`, thì đoạn mã mới hợp lệ và in ra `234567`).*
 * **Bẫy thi cần nhớ:** Luôn luôn theo dõi chặt chẽ kiểu dữ liệu của biến `x` tại từng bước trong pipeline. `Stream.of(list1, list2)` là Stream chứa các List.
 </details>
@@ -565,12 +565,12 @@ Stream.of(x1, x2, x3).map(x -> x + 1)
 * **Đáp án đúng:** **B, D**
 * **Phân tích chi tiết:**
   * Dòng 4: `Stream.of(1)` autobox số `1` thành `Integer`, tạo ra `Stream<Integer>` hợp lệ.
-  * **Dòng 5:** Biến `s` có kiểu `Stream<Integer>`. Phương thức `.boxed()` **chỉ tồn tại trên các Primitive Streams** (`IntStream`, `LongStream`, `DoubleStream`) để chuyển thành Stream đối tượng. Nó **không hề tồn tại** trên `Stream<T>` đối tượng $\rightarrow$ **Dòng 5 bị LỖI BIÊN DỊCH** (chọn **B**).
+  * **Dòng 5:** Biến `s` có kiểu `Stream<Integer>`. Phương thức `.boxed()` **chỉ tồn tại trên các Primitive Streams** (`IntStream`, `LongStream`, `DoubleStream`) để chuyển thành Stream đối tượng. Nó **không hề tồn tại** trên `Stream<T>` đối tượng → **Dòng 5 bị LỖI BIÊN DỊCH** (chọn **B**).
   * Dòng 6: `mapToDouble(x -> x)` trên `Stream<Integer>` unbox `Integer` thành `int` và tự động mở rộng (widening) thành `double`, trả về `DoubleStream` hợp lệ.
   * **Dòng 7:** Gặp 2 lỗi biên dịch cùng lúc:
     1. `ds` là `DoubleStream`. Biểu thức `x -> x` trả về `double`, không thể ngầm định gán cho `int` trong `mapToInt` mà thiếu ép kiểu tường minh `(int) x`.
     2. Phương thức `mapToInt()` trên `DoubleStream` trả về một **`IntStream`**, chứ không phải `Stream<Integer>`! Không thể gán `IntStream` cho biến `s2` có kiểu `Stream<Integer>`.
-    $\rightarrow$ **Dòng 7 bị LỖI BIÊN DỊCH** (chọn **D**).
+    → **Dòng 7 bị LỖI BIÊN DỊCH** (chọn **D**).
 * **Bẫy thi cần nhớ:** `.boxed()` dùng để đổi từ Primitive sang Object Stream. `mapToInt()` luôn trả về `IntStream`, muốn thành `Stream<Integer>` phải gọi `.boxed()`.
 </details>
 
@@ -593,12 +593,12 @@ Stream.of(x1, x2, x3).map(x -> x + 1)
 * **Phân tích chi tiết:**
   * Phương thức `partitioningBy` chia dữ liệu thành 2 nhánh dựa trên boolean:
     * **Khoá (Key) của Map luôn luôn bắt buộc phải là `Boolean` wrapper**.
-    * Lựa chọn A dùng primitive `boolean` làm generic type $\rightarrow$ Lỗi biên dịch (Generics không hỗ trợ kiểu nguyên thuỷ).
-    * Lựa chọn E có key là kiểu `Long` $\rightarrow$ Sai (chỉ có `groupingBy` mới cho phép key kiểu khác `Boolean`).
-  * Giao diện `Map` bắt buộc phải có 2 tham số kiểu `<K, V>`. Lựa chọn C khai báo `Map<String>` chỉ có 1 tham số kiểu $\rightarrow$ Lỗi cú pháp biên dịch.
+    * Lựa chọn A dùng primitive `boolean` làm generic type → Lỗi biên dịch (Generics không hỗ trợ kiểu nguyên thuỷ).
+    * Lựa chọn E có key là kiểu `Long` → Sai (chỉ có `groupingBy` mới cho phép key kiểu khác `Boolean`).
+  * Giao diện `Map` bắt buộc phải có 2 tham số kiểu `<K, V>`. Lựa chọn C khai báo `Map<String>` chỉ có 1 tham số kiểu → Lỗi cú pháp biên dịch.
   * **Giá trị (Value) của Map:** Có thể được tuỳ biến bằng downstream collector:
-    * Mặc định là `List<String>` $\rightarrow$ Khớp lựa chọn **B** (ví dụ downstream là `Collectors.toList()`).
-    * Có thể chuyển thành `Set<String>` $\rightarrow$ Khớp lựa chọn **D** (ví dụ downstream là `Collectors.toSet()`).
+    * Mặc định là `List<String>` → Khớp lựa chọn **B** (ví dụ downstream là `Collectors.toList()`).
+    * Có thể chuyển thành `Set<String>` → Khớp lựa chọn **D** (ví dụ downstream là `Collectors.toSet()`).
 * **Bẫy thi cần nhớ:** `partitioningBy` LUÔN LUÔN trả về `Map<Boolean, ...>`.
 </details>
 
@@ -636,15 +636,15 @@ Stream.of(x1, x2, x3).map(x -> x + 1)
 * **Đáp án đúng:** **B, C**
 * **Phân tích chi tiết:**
   * Dòng 23–24: `Stream.generate(() -> "").limit(10)` tạo ra một stream gồm 10 chuỗi rỗng `""`.
-  * Dòng 25: `.filter(notEmpty)` lọc các chuỗi không rỗng. Vì tất cả 10 chuỗi đều rỗng, không có phần tử nào lọt qua $\rightarrow$ Luồng trở thành luồng rỗng (`empty stream`).
+  * Dòng 25: `.filter(notEmpty)` lọc các chuỗi không rỗng. Vì tất cả 10 chuỗi đều rỗng, không có phần tử nào lọt qua → Luồng trở thành luồng rỗng (`empty stream`).
   * Dòng 26: Thu thập bằng `groupingBy` trên luồng rỗng sinh ra một `Map` rỗng `{}`.
   * Dòng 27–30: Lấy `entrySet().stream()` trên Map rỗng, chuyển đổi và `flatMap` lại tiếp tục cho ra một Stream rỗng.
   * **Tại dòng 31 (`partitioningBy(notEmpty)`):**
     * **Đặc tính độc nhất của `partitioningBy`:** Dù luồng đầu vào có rỗng hoàn toàn, `partitioningBy` **luôn luôn trả về một Map có đủ hai khoá `false` và `true`**, với giá trị liên kết tương ứng là hai danh sách rỗng `[]`!
-    * Do đó, `result` có giá trị là **`{false=[], true=[]}`** $\rightarrow$ **B đúng**.
+    * Do đó, `result` có giá trị là **`{false=[], true=[]}`** → **B đúng**.
   * **Xét kịch bản thay bằng `groupingBy(n -> n)` (Lựa chọn C & D):**
     * Không giống như `partitioningBy`, bộ thu thập `groupingBy()` **chỉ tạo ra các khoá thực sự có phần tử xuất hiện trong luồng**.
-    * Khi luồng đầu vào rỗng, `groupingBy` không tạo ra bất kỳ khoá nào và trả về Map rỗng **`{}`** $\rightarrow$ **C đúng**.
+    * Khi luồng đầu vào rỗng, `groupingBy` không tạo ra bất kỳ khoá nào và trả về Map rỗng **`{}`** → **C đúng**.
 * **Bẫy thi cần nhớ:** `partitioningBy` trên stream rỗng trả về `{false=[], true=[]}`. `groupingBy` trên stream rỗng trả về `{}`.
 </details>
 
@@ -671,15 +671,15 @@ s.peek(System.out::println).filter(x -> x > 2).count();
 
 * **Đáp án đúng:** **D (1.2 và 2.4)**
 * **Phân tích chi tiết:**
-  * Pipeline gồm: Nguồn `DoubleStream.of(1.2, 2.4)` $\rightarrow$ Thao tác trung gian `peek(...)` $\rightarrow$ Thao tác trung gian `filter(...)` $\rightarrow$ Thao tác kết thúc `count()`.
+  * Pipeline gồm: Nguồn `DoubleStream.of(1.2, 2.4)` → Thao tác trung gian `peek(...)` → Thao tác trung gian `filter(...)` → Thao tác kết thúc `count()`.
   * Vì có thao tác kết thúc `count()`, toàn bộ pipeline được kích hoạt chạy.
   * Dữ liệu từ nguồn được truyền tuần tự:
-    * Số `1.2` đi vào pipeline, đi qua `peek(System.out::println)` trước tiên $\rightarrow$ **In ra: `1.2`**.
+    * Số `1.2` đi vào pipeline, đi qua `peek(System.out::println)` trước tiên → **In ra: `1.2`**.
     * Sau đó `1.2` đi vào `filter(x -> x > 2)`: Vì $1.2 \le 2$, phần tử này bị loại bỏ.
-    * Tiếp theo, số `2.4` đi vào pipeline, đi qua `peek` $\rightarrow$ **In ra: `2.4`**.
+    * Tiếp theo, số `2.4` đi vào pipeline, đi qua `peek` → **In ra: `2.4`**.
     * Sau đó `2.4` đi vào `filter`: $2.4 > 2$ thoả mãn điều kiện, đi tiếp vào `count()`.
   * Thao tác `count()` đếm được 1 phần tử và trả về giá trị `1L`. Tuy nhiên, kết quả trả về của `count()` không được gán cho biến nào và không được in ra màn hình.
-  * Do đó, thứ duy nhất được xuất ra màn hình console là kết quả từ lệnh `peek`: `1.2` và `2.4` $\rightarrow$ Đáp án **D**.
+  * Do đó, thứ duy nhất được xuất ra màn hình console là kết quả từ lệnh `peek`: `1.2` và `2.4` → Đáp án **D**.
 * **Bẫy thi cần nhớ:** `peek()` nằm trước `filter()`, nên mọi phần tử của stream ban đầu đều đi qua `peek()` và được in ra trước khi bị `filter()` loại bỏ.
 </details>
 
@@ -732,12 +732,12 @@ s.peek(System.out::println).filter(x -> x > 2).count();
   * Dòng 27: `Stream.concat(monsters, people)` nối 2 stream lại thành một stream duy nhất gồm 2 phần tử: `[Elmo, Abby]`.
   * Dòng 28–32 sử dụng bộ thu thập **`Collectors.teeing()`** (tính năng từ Java 12):
     * **Collector nhánh 1:** `Collectors.filtering(s -> s.name().startsWith("E"), Collectors.toList())`  
-      Chỉ giữ lại các nhân vật có tên bắt đầu bằng `"E"`. Trong 2 nhân vật `[Elmo, Abby]`, chỉ có `Elmo` thoả mãn $\rightarrow$ Thu được danh sách: `[Elmo]`.
+      Chỉ giữ lại các nhân vật có tên bắt đầu bằng `"E"`. Trong 2 nhân vật `[Elmo, Abby]`, chỉ có `Elmo` thoả mãn → Thu được danh sách: `[Elmo]`.
     * **Collector nhánh 2:** `Collectors.counting()`  
-      Đếm tổng số phần tử đi qua stream. Cả 2 phần tử `Elmo` và `Abby` đều được đếm $\rightarrow$ Giá trị đếm là `2L`.
+      Đếm tổng số phần tử đi qua stream. Cả 2 phần tử `Elmo` và `Abby` đều được đếm → Giá trị đếm là `2L`.
     * **Hàm gộp Merger Function:** `(l, c) -> new Page(l, c)`  
       Gộp kết quả từ 2 nhánh: `l = [Elmo]` và `c = 2` thành đối tượng `Page(list=[Elmo], count=2)`.
-  * Dòng 33 in ra đối tượng record `page`, hiển thị: `Page[list=[Elmo], count=2]` $\rightarrow$ Đáp án đúng là **D**.
+  * Dòng 33 in ra đối tượng record `page`, hiển thị: `Page[list=[Elmo], count=2]` → Đáp án đúng là **D**.
 * **Bẫy thi cần nhớ:** `Collectors.teeing(c1, c2, merger)` duyệt luồng 1 lần duy nhất nhưng cho phép tính toán song song hai chỉ số độc lập và gộp kết quả lại với nhau.
 </details>
 
@@ -784,7 +784,7 @@ x.forEach(System.out::println);
     IntStream.range(1, 6).forEach(System.out::println);
     ```
     Phương thức này ngắn gọn nhất, hiệu năng cao nhất (không tốn bộ nhớ cấp phát cho List và Integer boxing).
-  * Lựa chọn C tuy chạy được nhưng vẫn bị dư thừa thao tác `.mapToObj()`. Đề bài yêu cầu *"simplest way"* $\rightarrow$ Lựa chọn **B** là tối ưu nhất.
+  * Lựa chọn C tuy chạy được nhưng vẫn bị dư thừa thao tác `.mapToObj()`. Đề bài yêu cầu *"simplest way"* → Lựa chọn **B** là tối ưu nhất.
 * **Bẫy thi cần nhớ:** Tránh việc thu thập dữ liệu vào `Collection` chỉ để duyệt in bằng `forEach`. Hãy gọi `forEach` trực tiếp trên `Stream`.
 </details>
 
@@ -808,10 +808,10 @@ x.forEach(System.out::println);
 * **Phân tích chi tiết:**
   * **A & B:** Khi `opt` rỗng, `orElse("")` và `orElseGet(() -> "")` sẽ trả về chuỗi rỗng `""` một cách an toàn mà không ném ra bất kỳ ngoại lệ nào.
   * **C đúng:** `orElseThrow()` không tham số sẽ ném **`NoSuchElementException`** khi Optional rỗng.
-  * **D sai cú pháp biên dịch:** `orElseThrow(Supplier)` nhận một Supplier **trả về đối tượng ngoại lệ** (`() -> new Exception()`). Cú pháp `() -> throw new Exception()` chứa từ khoá `throw` bên trong thân biểu thức lambda là sai cú pháp trong ngữ cảnh Supplier $\rightarrow$ Lỗi biên dịch!
+  * **D sai cú pháp biên dịch:** `orElseThrow(Supplier)` nhận một Supplier **trả về đối tượng ngoại lệ** (`() -> new Exception()`). Cú pháp `() -> throw new Exception()` chứa từ khoá `throw` bên trong thân biểu thức lambda là sai cú pháp trong ngữ cảnh Supplier → Lỗi biên dịch!
   * **E đúng:** `orElseThrow(RuntimeException::new)` sử dụng constructor reference hợp lệ của Supplier, khi Optional rỗng sẽ ném ra `RuntimeException`.
   * **F đúng:** `opt.get()` khi Optional rỗng sẽ ném ra **`NoSuchElementException`**.
-  * **G sai cú pháp:** Phương thức `get()` của `Optional` không nhận bất kỳ tham số nào $\rightarrow$ Lỗi biên dịch.
+  * **G sai cú pháp:** Phương thức `get()` của `Optional` không nhận bất kỳ tham số nào → Lỗi biên dịch.
 * **Bẫy thi cần nhớ:** `get()` và `orElseThrow()` ném `NoSuchElementException`. Trong lambda truyền vào `orElseThrow`, bạn chỉ trả về instance ngoại lệ (`() -> new MyException()`), KHÔNG viết từ khoá `throw`.
 </details>
 
@@ -845,13 +845,13 @@ split.tryAdvance(System.out::print);
     * Phương thức `.spliterator()` là một thao tác kết thúc (terminal operation), trả về một đối tượng `Spliterator<String>`.
   * Dòng 3: `spliterator.tryAdvance(System.out::print);`.
     * Phương thức `tryAdvance()` chỉ xử lý **duy nhất 1 phần tử** tiếp theo.
-    * Nó lấy ra một chữ `"x"` đầu tiên và in ra màn hình $\rightarrow$ Đã in: `x`.
+    * Nó lấy ra một chữ `"x"` đầu tiên và in ra màn hình → Đã in: `x`.
   * Dòng 4: `var split = spliterator.trySplit();`.
     * Phương thức `trySplit()` cố gắng chia tách luồng dữ liệu thành một nhánh mới `split`.
     * Vì đây là luồng vô hạn, `Spliterator` nhận biết được và tách ra một tập hợp con gồm nhiều phần tử cho `split`.
   * Dòng 5: `split.tryAdvance(System.out::print);`.
-    * Lại gọi `tryAdvance()` trên nhánh mới `split`, nó chỉ xử lý **đúng 1 phần tử** từ nhánh đó và in ra màn hình $\rightarrow$ In thêm: `x`.
+    * Lại gọi `tryAdvance()` trên nhánh mới `split`, nó chỉ xử lý **đúng 1 phần tử** từ nhánh đó và in ra màn hình → In thêm: `x`.
   * Tổng cộng có đúng 2 ký tự `"x"` được in ra màn hình: `xx`.
-  * Chương trình kết thúc bình thường mà không bị treo $\rightarrow$ Đáp án đúng là **B**.
+  * Chương trình kết thúc bình thường mà không bị treo → Đáp án đúng là **B**.
 * **Bẫy thi cần nhớ:** `tryAdvance()` chỉ xử lý duy nhất 1 phần tử đơn lẻ (an toàn trên luồng vô hạn). Tránh gọi `forEachRemaining()` trên luồng vô hạn vì sẽ gây treo máy!
 </details>

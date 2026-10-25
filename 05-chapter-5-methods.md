@@ -8,7 +8,7 @@
 > * Áp dụng và phân biệt 4 cấp độ truy cập (`private`, package-private, `protected`, `public`), đặc biệt là các quy tắc phức tạp của `protected` giữa các package khác nhau.
 > * Thiết kế và sử dụng thành phần tĩnh (*Static fields & Static methods*), quy tắc truy cập giữa static và instance, bẫy gọi static qua tham chiếu `null`, khối khởi tạo tĩnh và `static import`.
 > * Cơ chế truyền tham số trong Java (*Pass-by-value* cho cả kiểu nguyên thủy và kiểu tham chiếu).
-> * Nạp chồng phương thức (*Method Overloading*), thứ tự ưu tiên phân giải nạp chồng (Exact match $\rightarrow$ Widening primitive $\rightarrow$ Autoboxing $\rightarrow$ Varargs) và các bẫy biên dịch.
+> * Nạp chồng phương thức (*Method Overloading*), thứ tự ưu tiên phân giải nạp chồng (Exact match → Widening primitive → Autoboxing → Varargs) và các bẫy biên dịch.
 
 ---
 
@@ -96,7 +96,7 @@ public class ParkTrip {
    public var getNumber() { return 42; } // DOES NOT COMPILE!
    ```
 3. **Quy tắc lệnh `return`:**
-   * Phương thức `void`: Có thể không có lệnh `return`, hoặc có lệnh `return;` rỗng để thoát sớm. Tuyệt đối không được trả về giá trị (ví dụ `return 5;` $\rightarrow$ Lỗi biên dịch).
+   * Phương thức `void`: Có thể không có lệnh `return`, hoặc có lệnh `return;` rỗng để thoát sớm. Tuyệt đối không được trả về giá trị (ví dụ `return 5;` → Lỗi biên dịch).
    * Phương thức có kiểu trả về khác `void`: **Mọi luồng thực thi có thể xảy ra** đều bắt buộc phải kết thúc bằng một lệnh `return` mang giá trị có thể chuyển đổi ngầm định sang kiểu trả về đó.
 
 ```java
@@ -191,7 +191,7 @@ public class PolarBear {
 ```
 
 > [!CAUTION]
-> Nếu có bất kỳ constructor nào quên không gán giá trị cho biến `final name`, hoặc gán giá trị 2 lần $\rightarrow$ Trình biên dịch báo lỗi ngay lập tức!
+> Nếu có bất kỳ constructor nào quên không gán giá trị cho biến `final name`, hoặc gán giá trị 2 lần → Trình biên dịch báo lỗi ngay lập tức!
 
 ---
 
@@ -400,8 +400,8 @@ public static void main(String[] args) {
 #### 2. Truyền Kiểu Đối Tượng Tham Chiếu (Reference Types):
 Bản sao của **địa chỉ tham chiếu (pointer)** được truyền đi. Cả hai biến tham chiếu (ở `main` và trong tham số hàm) đều đang cùng trỏ tới một vùng nhớ đối tượng duy nhất trên Heap.
 
-* **Trường hợp 1 (Thay đổi trạng thái đối tượng):** Gọi phương thức làm biến đổi nội dung đối tượng (như `sb.append()`, `list.add()`) $\rightarrow$ **Đối tượng gốc trên Heap BỊ THAY ĐỔI**!
-* **Trường hợp 2 (Gán lại biến tham chiếu):** Dùng toán tử gán `=` trỏ biến tham số sang một đối tượng mới trên Heap $\rightarrow$ **Biến gốc ở phương thức gọi HOÀN TOÀN KHÔNG BỊ ẢNH HƯỞNG**!
+* **Trường hợp 1 (Thay đổi trạng thái đối tượng):** Gọi phương thức làm biến đổi nội dung đối tượng (như `sb.append()`, `list.add()`) → **Đối tượng gốc trên Heap BỊ THAY ĐỔI**!
+* **Trường hợp 2 (Gán lại biến tham chiếu):** Dùng toán tử gán `=` trỏ biến tham số sang một đối tượng mới trên Heap → **Biến gốc ở phương thức gọi HOÀN TOÀN KHÔNG BỊ ẢNH HƯỞNG**!
 
 ```java
 public static void modify(StringBuilder sb, String s) {
@@ -421,8 +421,8 @@ public static void main(String[] args) {
 ---
 
 ### 6.2. Autoboxing và Unboxing Trong Lời Gọi Hàm
-* **Autoboxing:** Java tự động chuyển kiểu nguyên thủy sang Wrapper tương ứng (`int` $\rightarrow$ `Integer`).
-* **Unboxing:** Chuyển từ Wrapper sang kiểu nguyên thủy (`Integer` $\rightarrow$ `int`).
+* **Autoboxing:** Java tự động chuyển kiểu nguyên thủy sang Wrapper tương ứng (`int` → `Integer`).
+* **Unboxing:** Chuyển từ Wrapper sang kiểu nguyên thủy (`Integer` → `int`).
 
 > [!WARNING]
 > **Bẫy `NullPointerException` khi Unboxing:**  
@@ -488,9 +488,9 @@ public class Glider {
 
 #### Bẫy 1: Java CẤM 2 Bước Chuyển Đổi Liên Tiếp!
 Java cho phép:
-* Widening primitive: `int` $\rightarrow$ `long`.
-* Autoboxing: `int` $\rightarrow$ `Integer`.
-* Widening reference: `Integer` $\rightarrow$ `Number` $\rightarrow$ `Object`.
+* Widening primitive: `int` → `long`.
+* Autoboxing: `int` → `Integer`.
+* Widening reference: `Integer` → `Number` → `Object`.
 
 **TUYỆT ĐỐI KHÔNG CHO PHÉP:** Widening rồi Autoboxing (hoặc ngược lại) trong cùng một đối số!
 ```java
@@ -529,7 +529,7 @@ public void fly(int... lengths) {} // DOES NOT COMPILE!
 2. **Nắm vững quy tắc biến `final` và `effectively final`:** Biến `final` không thể gán lại giá trị. Biến thể hiện `final` bắt buộc phải được khởi tạo đúng một lần tại khai báo, khối khởi tạo `{}` hoặc trong mọi constructor. Biến cục bộ được coi là *effectively final* nếu giá trị không bị đổi sau lần gán đầu tiên.
 3. **Quy tắc Varargs:** Tối đa 1 tham số varargs và bắt buộc phải nằm ở vị trí cuối cùng trong danh sách tham số.
 4. **Bảng phân quyền truy cập Access Modifiers:**
-   * `private` (cùng class) $\rightarrow$ Package-private (cùng package) $\rightarrow$ `protected` (cùng package + lớp con khác package) $\rightarrow$ `public` (mọi nơi).
+   * `private` (cùng class) → Package-private (cùng package) → `protected` (cùng package + lớp con khác package) → `public` (mọi nơi).
    * Lớp con ở package khác chỉ được truy cập thành viên `protected` thông qua cơ chế kế thừa, không được truy cập qua tham chiếu biến cha.
 5. **Đặc tính của thành phần tĩnh (`static`):**
    * Thuộc về lớp, chia sẻ giữa tất cả các instance.

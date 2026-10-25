@@ -80,11 +80,11 @@ ____ bananas = apples + oranges;
 
 * **Đáp án đúng:** **B, C, D, F**
 * **Giải thích chuyên sâu:**
-  * Code ban đầu không biên dịch được vì `2 * ear` là phép nhân giữa `int` và `long`, kết quả được thăng hạng lên `long`. Một giá trị `long` không thể tự động gán vào biến `int hearing` $\rightarrow$ **A sai**.
-  * **B đúng:** `2 * (int)ear` là phép nhân giữa `int` và `int` $\rightarrow$ kết quả là `int`, gán vào `hearing` hợp lệ.
-  * **C đúng:** Nếu `ear` là `short`, thì `2 * ear` (`int * short`) sẽ nâng `ear` lên `int`, kết quả ra `int` $\rightarrow$ gán cho `int hearing` hợp lệ.
-  * **D đúng:** Ép kiểu toàn bộ biểu thức `(int)(2 * ear)` biến kết quả thành `int` $\rightarrow$ hợp lệ.
-  * **F đúng:** Đổi kiểu `long hearing = 2 * ear;` $\rightarrow$ chứa vừa giá trị `long` $\rightarrow$ hợp lệ.
+  * Code ban đầu không biên dịch được vì `2 * ear` là phép nhân giữa `int` và `long`, kết quả được thăng hạng lên `long`. Một giá trị `long` không thể tự động gán vào biến `int hearing` → **A sai**.
+  * **B đúng:** `2 * (int)ear` là phép nhân giữa `int` và `int` → kết quả là `int`, gán vào `hearing` hợp lệ.
+  * **C đúng:** Nếu `ear` là `short`, thì `2 * ear` (`int * short`) sẽ nâng `ear` lên `int`, kết quả ra `int` → gán cho `int hearing` hợp lệ.
+  * **D đúng:** Ép kiểu toàn bộ biểu thức `(int)(2 * ear)` biến kết quả thành `int` → hợp lệ.
+  * **F đúng:** Đổi kiểu `long hearing = 2 * ear;` → chứa vừa giá trị `long` → hợp lệ.
   * **E sai:** Đổi sang `short` càng làm kiểu nhận nhỏ hơn `int`, gây lỗi biên dịch nghiêm trọng hơn.
 </details>
 
@@ -113,9 +113,9 @@ ____ bananas = apples + oranges;
 * **Đáp án đúng:** **B (`true, 20, false`)**
 * **Giải thích chuyên sâu:**
   * **Dòng 5:** Phân tích biểu thức `(teeth != 10) ^ (wolf = false)`:
-    * Vế trái: `teeth != 10` $\rightarrow$ `20 != 10` trả về `true`.
+    * Vế trái: `teeth != 10` → `20 != 10` trả về `true`.
     * Vế phải: `(wolf = false)` là một **phép gán**, gán giá trị `false` cho biến `wolf`, đồng thời biểu thức này trả về giá trị vừa gán là `false`.
-    * Phép toán XOR (`^`): `true ^ false` $\rightarrow$ Hai giá trị khác nhau thì XOR trả về `true`. Do đó `canine = true`.
+    * Phép toán XOR (`^`): `true ^ false` → Hai giá trị khác nhau thì XOR trả về `true`. Do đó `canine = true`.
   * Sau dòng 5:
     * `canine` là `true`.
     * `teeth` không hề bị thay đổi, vẫn là `20`.
@@ -142,10 +142,10 @@ ____ bananas = apples + oranges;
 * **Đáp án đúng:** **A, C**
 * **Giải thích chuyên sâu:**
   * Đề bài yêu cầu thứ tự **Tăng dần hoặc bằng nhau** (thấp đứng trước, cao đứng sau):
-  * **A đúng:** `+` (ưu tiên mức 5) $\rightarrow$ `*` và `%` (cùng mức 4) $\rightarrow$ `--` (tiền tố/hậu tố mức 1–2). Đi từ thấp lên cao $\rightarrow$ Tăng dần.
-  * **C đúng:** `=` (phép gán mức 15 - thấp nhất) $\rightarrow$ `==` (so sánh mức 8) $\rightarrow$ `!` (phủ định một ngôi mức 3). Đi từ thấp lên cao $\rightarrow$ Tăng dần.
-  * **B sai:** `++` (mức 1) $\rightarrow$ `(int)` (mức 3) $\rightarrow$ `*` (mức 4) $\rightarrow$ Đây là thứ tự **giảm dần**!
-  * **E sai:** `*`, `/`, `%` (mức 4) $\rightarrow$ `+` (mức 5) $\rightarrow$ `==` (mức 8) $\rightarrow$ Đây là thứ tự **giảm dần**!
+  * **A đúng:** `+` (ưu tiên mức 5) → `*` và `%` (cùng mức 4) → `--` (tiền tố/hậu tố mức 1–2). Đi từ thấp lên cao → Tăng dần.
+  * **C đúng:** `=` (phép gán mức 15 - thấp nhất) → `==` (so sánh mức 8) → `!` (phủ định một ngôi mức 3). Đi từ thấp lên cao → Tăng dần.
+  * **B sai:** `++` (mức 1) → `(int)` (mức 3) → `*` (mức 4) → Đây là thứ tự **giảm dần**!
+  * **E sai:** `*`, `/`, `%` (mức 4) → `+` (mức 5) → `==` (mức 8) → Đây là thứ tự **giảm dần**!
   * **D, F, G sai:** Thứ tự lộn xộn không tăng dần cũng không giảm dần.
 </details>
 
@@ -186,7 +186,7 @@ ____ bananas = apples + oranges;
     * Sau đó, biểu thức trở thành `(int) + vegetables` (`int + float`). Theo Quy tắc Thăng hạng Số học số 2, kết quả của phép cộng này được thăng hạng thành **`float`**.
     * Hàm `addCandy` khai báo kiểu trả về là **`long`**. Một giá trị kiểu `float` **không thể tự động chuyển đổi thành `long`** mà không ép kiểu tường minh!
     * Trình biên dịch báo lỗi tại dòng 3: `incompatible types: possible loss of precision from float to long`.
-  * Vì vậy chương trình không biên dịch được $\rightarrow$ **F là đáp án đúng**.
+  * Vì vậy chương trình không biên dịch được → **F là đáp án đúng**.
   * *(Nếu sửa dòng 3 thành `return (long)(fruit + vegetables);` thì chương trình sẽ in ra `3, 5, 6` tương ứng với đáp án B).*
 </details>
 
@@ -218,14 +218,14 @@ System.out.println(clear + "-" + safe + "-" + tasty);
 * **Đáp án đúng:** **D (`true-false-false`)**
 * **Giải thích chuyên sâu:**
   * **Biểu thức 1 (`clear`):**
-    `vis > 1 & (vis < 9 || ph < 2)` $\rightarrow$ `2 > 1 & (2 < 9 || 7 < 2)` $\rightarrow$ `true & (true || false)` $\rightarrow$ `true & true` $\rightarrow$ `true`.
+    `vis > 1 & (vis < 9 || ph < 2)` → `2 > 1 & (2 < 9 || 7 < 2)` → `true & (true || false)` → `true & true` → `true`.
   * **Biểu thức 2 (`safe`):**
-    `(vis > 2) && (ph++ > 1)` $\rightarrow$ Vế trái: `vis > 2` (`2 > 2`) là `false`.
+    `(vis > 2) && (ph++ > 1)` → Vế trái: `vis > 2` (`2 > 2`) là `false`.
     * Vì toán tử là `&&` (đoản mạch) và vế trái là `false`, JVM **bỏ qua hoàn toàn vế phải**!
-    * Lệnh `ph++` không được chạy $\rightarrow$ `ph` **vẫn giữ nguyên giá trị là 7**.
+    * Lệnh `ph++` không được chạy → `ph` **vẫn giữ nguyên giá trị là 7**.
     * `safe = false`.
   * **Biểu thức 3 (`tasty`):**
-    `7 <= --ph` $\rightarrow$ Toán tử tiền tố `--ph` giảm `ph` từ 7 xuống **6** ngay lập tức.
+    `7 <= --ph` → Toán tử tiền tố `--ph` giảm `ph` từ 7 xuống **6** ngay lập tức.
     * So sánh: `7 <= 6` là **`false`**.
     * `tasty = false`.
   * Kết quả in ra: `true-false-false`.
@@ -292,17 +292,17 @@ System.out.println(a > b ? b < c ? b : 2 : 1);
 
 * **Đáp án đúng:** **A, D, E (In ra các giá trị: 4, 5, 1)**
 * **Giải thích chuyên sâu:**
-  1. **Lệnh 1:** `a > 2 ? --c : b++` $\rightarrow$ `2 > 2` là `false`.
+  1. **Lệnh 1:** `a > 2 ? --c : b++` → `2 > 2` là `false`.
      * Nhánh `b++` được thực thi. Do là hậu tố, giá trị cũ của `b` là **`4`** được trả về và in ra màn hình (**In ra: 4**).
      * Sau đó `b` tăng lên thành `5`. Biến `c` không bị suy giảm vì chỉ có 1 nhánh được chạy (`c` vẫn là 2).
-  2. **Lệnh 2:** `b = (a != c ? a : b++)` $\rightarrow$ `a != c` (`2 != 2`) là `false`.
+  2. **Lệnh 2:** `b = (a != c ? a : b++)` → `a != c` (`2 != 2`) là `false`.
      * Nhánh `b++` được thực thi. Lúc này `b` đang là 5, hậu tố trả về giá trị **`5`**.
      * Phép gán `b = 5` gán đè lại giá trị 5 vào `b`. Màn hình **in ra: 5**.
   3. **Lệnh 3:** `a > b ? b < c ? b : 2 : 1`
      * Viết lại có ngoặc: `(a > b) ? (b < c ? b : 2) : 1`.
      * Điều kiện `a > b` (`2 > 5`) là `false`.
      * Nhánh sau cùng được chọn trả về trực tiếp giá trị **`1`** (**In ra: 1**). Biểu thức ba ngôi bên trong không hề bị đánh giá.
-  * Tập hợp các giá trị duy nhất in ra là: `{4, 5, 1}` $\rightarrow$ **Đáp án A, D, E**.
+  * Tập hợp các giá trị duy nhất in ra là: `{4, 5, 1}` → **Đáp án A, D, E**.
 </details>
 
 ---
@@ -364,10 +364,10 @@ System.out.println(giraffe);
 
 * **Đáp án đúng:** **D (`2, 0, 5`)**
 * **Giải thích chuyên sâu:**
-  * `sample1 = (2 * 4) % 3` $\rightarrow$ `8 % 3 = 2` (8 chia 3 được 2 dư 2).
+  * `sample1 = (2 * 4) % 3` → `8 % 3 = 2` (8 chia 3 được 2 dư 2).
   * `sample2 = 3 * 2 % -3`:
     * `*` và `%` cùng mức ưu tiên, tính từ trái sang phải: `3 * 2 = 6`.
-    * `6 % -3`: Phép chia dư với số âm bên phải thì dấu âm bị bỏ qua $\rightarrow$ tương đương `6 % 3 = 0`.
+    * `6 % -3`: Phép chia dư với số âm bên phải thì dấu âm bị bỏ qua → tương đương `6 % 3 = 0`.
   * `sample3 = 5 * (1 % 2)`:
     * `1 % 2 = 1` (1 chia 2 được 0 dư 1).
     * `5 * 1 = 5`.
@@ -424,14 +424,14 @@ System.out.println(goingToTheStore + "-" + goingToTheZoo + "-" + stayingHome);
   * **`goingToTheStore = sunny & raining ^ sunday;`**:
     * Thứ tự ưu tiên: Toán tử `&` (AND - mức 9) có độ ưu tiên cao hơn `^` (XOR - mức 10).
     * Thực hiện `sunny & raining` trước: `true & false = false`.
-    * Sau đó thực hiện XOR: `false ^ sunday` $\rightarrow$ `false ^ true = true`.
+    * Sau đó thực hiện XOR: `false ^ sunday` → `false ^ true = true`.
     * Vậy `goingToTheStore = true`.
   * **`goingToTheZoo = sunday && !raining;`**:
-    * `!raining` $\rightarrow$ `!false = true`.
-    * `sunday && true` $\rightarrow$ `true && true = true`.
+    * `!raining` → `!false = true`.
+    * `sunday && true` → `true && true = true`.
     * Vậy `goingToTheZoo = true`.
   * **`stayingHome = !(goingToTheStore && goingToTheZoo);`**:
-    * `!(true && true)` $\rightarrow$ `!true = false`.
+    * `!(true && true)` → `!true = false`.
   * Kết quả in ra: `true-true-false`.
 </details>
 
@@ -511,7 +511,7 @@ float symphony = (float)((song == 1_000f) ? song * 2L : song);
   * **Dòng 2 hợp lệ:** `note *= 2` trả về `int`, sau đó ép sang `double`, rồi ép sang `byte`. Cuối cùng gán `byte` cho `short melody` là mở rộng hợp lệ.
   * **Dòng 3 hợp lệ:** Gán `short` sang `double` là mở rộng tự nhiên.
   * **Dòng 4 hợp lệ:** Toán tử ba ngôi trả về kiểu số, sau đó được ép tường minh sang `(float)`.
-  * Tổng cộng: đúng 1 dòng lỗi $\rightarrow$ **Đáp án B**.
+  * Tổng cộng: đúng 1 dòng lỗi → **Đáp án B**.
 </details>
 
 ---
@@ -544,7 +544,7 @@ ticketsSold += (long)1;
   * **Dòng 3:** `ticketsSold += 1 + ticketsTaken++;`
     * `ticketsTaken++` là hậu tố: trả về giá trị cũ là `1`, sau đó `ticketsTaken` tăng lên thành `2`.
     * Vế phải: `1 + 1 = 2`.
-    * `ticketsSold += 2` $\rightarrow$ `ticketsSold = 3 + 2 = 5`.
+    * `ticketsSold += 2` → `ticketsSold = 3 + 2 = 5`.
   * **Dòng 4:** `ticketsTaken *= 2;`
     * `ticketsTaken = 2 * 2 = 4`.
   * **Dòng 5:** `ticketsSold += (long)1;`
@@ -602,7 +602,7 @@ ticketsSold += (long)1;
 * **Giải thích chuyên sâu:**
   * **Dòng 5:** `end += ++start;`
     * Tiền tố `++start` tăng `start` từ 7 lên `8` và trả về `8`.
-    * `end += 8` $\rightarrow$ `end = 4 + 8 = 12` (**Đáp án F**).
+    * `end += 8` → `end = 4 + 8 = 12` (**Đáp án F**).
   * **Dòng 6:** `start = (byte)(Byte.MAX_VALUE + 1);`
     * Hằng số `Byte.MAX_VALUE` có giá trị là `127`.
     * `127 + 1 = 128` (kiểu `int`).

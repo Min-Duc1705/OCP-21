@@ -28,10 +28,10 @@
 * **Đáp án đúng:** **A, C, D, E**
 * **Phân tích chi tiết:**
   * Phương thức khai báo `throws IOException` trên chữ ký:
-    * **Xét A:** Một phương thức khai báo ngoại lệ bằng `throws` **không bắt buộc** phải thực sự ném ra ngoại lệ đó. Việc thân hàm chỉ in ra chuỗi và kết thúc bình thường là hoàn toàn hợp lệ $\rightarrow$ **A đúng**.
-    * **Xét B:** `Exception` là lớp cha (rộng hơn) của `IOException`. Bạn không thể ném một checked exception rộng hơn loại đã khai báo trên chữ ký hàm nếu không xử lý nó $\rightarrow$ **B sai (Lỗi biên dịch)**.
-    * **Xét C & E:** `IllegalArgumentException` và `RuntimeException` là các **Unchecked Exceptions**. Một phương thức có thể ném bất kỳ unchecked exception nào vào bất cứ lúc nào mà không cần khai báo $\rightarrow$ **C và E đúng**.
-    * **Xét D:** Khớp chính xác với kiểu checked exception `IOException` đã được khai báo trên chữ ký $\rightarrow$ **D đúng**.
+    * **Xét A:** Một phương thức khai báo ngoại lệ bằng `throws` **không bắt buộc** phải thực sự ném ra ngoại lệ đó. Việc thân hàm chỉ in ra chuỗi và kết thúc bình thường là hoàn toàn hợp lệ → **A đúng**.
+    * **Xét B:** `Exception` là lớp cha (rộng hơn) của `IOException`. Bạn không thể ném một checked exception rộng hơn loại đã khai báo trên chữ ký hàm nếu không xử lý nó → **B sai (Lỗi biên dịch)**.
+    * **Xét C & E:** `IllegalArgumentException` và `RuntimeException` là các **Unchecked Exceptions**. Một phương thức có thể ném bất kỳ unchecked exception nào vào bất cứ lúc nào mà không cần khai báo → **C và E đúng**.
+    * **Xét D:** Khớp chính xác với kiểu checked exception `IOException` đã được khai báo trên chữ ký → **D đúng**.
 * **Bẫy thi cần nhớ:** Khai báo `throws` không bắt buộc phải ném; Unchecked exceptions có thể ném tự do ở bất kỳ đâu; Checked exception ném ra phải cùng kiểu hoặc là lớp con của kiểu đã khai báo.
 </details>
 
@@ -68,9 +68,9 @@
 * **Đáp án đúng:** **F (None of the above)**
 * **Phân tích chi tiết:**
   * Hãy quan sát kỹ các từ khoá:
-    * Dòng 6: `public static void connectToDatabase() throw Problem` $\rightarrow$ Sử dụng sai từ khoá! Trên chữ ký hàm phải dùng **`throws`** (có 's'), ở đây lại dùng `throw`.
-    * Dòng 7: `throws new YesProblem();` $\rightarrow$ Sử dụng sai từ khoá! Khi thực hiện hành động ném ngoại lệ trong thân hàm phải dùng **`throw`** (không có 's'), ở đây lại dùng `throws`.
-    * Dòng 9: `public static void main(String[] c) throw Exception` $\rightarrow$ Tiếp tục dùng sai `throw` thay vì `throws`.
+    * Dòng 6: `public static void connectToDatabase() throw Problem` → Sử dụng sai từ khoá! Trên chữ ký hàm phải dùng **`throws`** (có 's'), ở đây lại dùng `throw`.
+    * Dòng 7: `throws new YesProblem();` → Sử dụng sai từ khoá! Khi thực hiện hành động ném ngoại lệ trong thân hàm phải dùng **`throw`** (không có 's'), ở đây lại dùng `throws`.
+    * Dòng 9: `public static void main(String[] c) throw Exception` → Tiếp tục dùng sai `throw` thay vì `throws`.
   * Vì cả ba dòng 6, 7, và 9 đều bị lỗi cú pháp từ khoá, chương trình **không biên dịch được**.
   * Lựa chọn E sai vì việc hoán đổi tên lớp không khắc phục được lỗi sai từ khoá cú pháp (`throw` vs `throws`).
   * Do đó, đáp án đúng là **F**.
@@ -136,7 +136,7 @@
   * Khi bắt ngoại lệ, Java yêu cầu các khối `catch` phải được sắp xếp theo thứ tự **từ lớp con (hẹp) đến lớp cha (rộng)**.
   * Ở đoạn mã trên, dòng 5 bắt lớp cha `RuntimeException` TRƯỚC, sau đó dòng 7 mới bắt lớp con `ArithmeticException`.
   * Bất kỳ ngoại lệ `ArithmeticException` nào xảy ra đều đã bị dòng 5 tóm gọn, khiến cho khối `catch (ArithmeticException e)` ở dòng 7 trở thành **mã không bao giờ chạm tới (unreachable code)**.
-  * Trình biên dịch Java không chấp nhận unreachable code và báo **LỖI BIÊN DỊCH tại dòng 7** $\rightarrow$ Đáp án **E**.
+  * Trình biên dịch Java không chấp nhận unreachable code và báo **LỖI BIÊN DỊCH tại dòng 7** → Đáp án **E**.
 * **Bẫy thi cần nhớ:** Bắt lớp cha trước lớp con luôn gây lỗi biên dịch *unreachable catch block*.
 </details>
 
@@ -172,11 +172,11 @@ public void print(double t) {
 * **Phân tích chi tiết:**
   * Giá trị đầu vào: `t = 100_102.2`.
   * **Lệnh 1:** `NumberFormat.getCompactNumberInstance().format(t)`  
-    Khi không chỉ định tham số Style, `CompactNumberFormat` mặc định sử dụng kiểu thu gọn **`Style.SHORT`**. Với số khoảng 100 nghìn, nó rút gọn thành chuỗi **`100K`** $\rightarrow$ **Chọn C**.
-  * **Lệnh 2:** Chỉ định tường minh `Style.SHORT` và locale mặc định $\rightarrow$ Tiếp tục in ra **`100K`** (giống hệt lệnh 1).
+    Khi không chỉ định tham số Style, `CompactNumberFormat` mặc định sử dụng kiểu thu gọn **`Style.SHORT`**. Với số khoảng 100 nghìn, nó rút gọn thành chuỗi **`100K`** → **Chọn C**.
+  * **Lệnh 2:** Chỉ định tường minh `Style.SHORT` và locale mặc định → Tiếp tục in ra **`100K`** (giống hệt lệnh 1).
   * *(Ghi chú: Nếu dùng `Style.LONG`, nó mới in ra `100 thousand`)*.
   * **Lệnh 3:** `NumberFormat.getCurrencyInstance().format(t)`  
-    Định dạng tiền tệ theo locale hiện tại (dùng đồng đô-la $). Định dạng tiền tệ hiển thị đầy đủ các chữ số và làm tròn đến 2 chữ số thập phân $\rightarrow$ in ra **`$100,102.20`** $\rightarrow$ **Chọn F**.
+    Định dạng tiền tệ theo locale hiện tại (dùng đồng đô-la $). Định dạng tiền tệ hiển thị đầy đủ các chữ số và làm tròn đến 2 chữ số thập phân → in ra **`$100,102.20`** → **Chọn F**.
 * **Bẫy thi cần nhớ:** `getCompactNumberInstance()` mặc định là `Style.SHORT` (ví dụ `100K`, `7M`). Định dạng tiền tệ `getCurrencyInstance()` không thu gọn số mà hiển thị đầy đủ kèm 2 chữ số thập phân.
 </details>
 
@@ -207,7 +207,7 @@ System.out.println(date.getYear() + " "
   * Chuỗi đầu vào `"2025-04-30"` chỉ chứa thông tin ngày tháng, hoàn toàn không có thành phần giờ/phút/giây.
   * Nhưng formatter được truyền vào lại là **`DateTimeFormatter.ISO_LOCAL_DATE_TIME`** (formatter này yêu cầu chuỗi phải có cả ngày VÀ giờ, ví dụ `"2025-04-30T10:15:30"`).
   * Khi chạy, phương thức parse không thể tìm thấy thành phần thời gian (time component) để khớp với `ISO_LOCAL_DATE_TIME`, dẫn đến **`java.time.format.DateTimeParseException`** (một `RuntimeException`) được ném ra!
-  * Vì vậy, chương trình bị dừng do ngoại lệ tại thời điểm chạy $\rightarrow$ Đáp án **E**.
+  * Vì vậy, chương trình bị dừng do ngoại lệ tại thời điểm chạy → Đáp án **E**.
   * *(Lưu ý: Nếu dùng đúng `DateTimeFormatter.ISO_LOCAL_DATE`, kết quả sẽ in ra `2025 APRIL 30`)*.
 * **Bẫy thi cần nhớ:** `LocalDate` chỉ tương thích với các formatter ngày (Date formatters). Sử dụng Date-Time formatter cho chuỗi chỉ có ngày sẽ ném `DateTimeParseException`.
 </details>
@@ -245,10 +245,10 @@ System.out.println(date.getYear() + " "
 * **Đáp án đúng:** **E (Có từ ba dòng trở lên bị lỗi biên dịch)**
 * **Phân tích chi tiết:**
   * **Lỗi 1 (Dòng 12):** Trong câu lệnh `try-with-resources`, mỗi biến tài nguyên bắt buộc phải có khai báo kiểu dữ liệu riêng biệt và phải được **phân cách bằng dấu chấm phẩy (`;`)**, chứ không được dùng dấu phẩy (`,`) như khai báo biến mảng thông thường:
-    * `try (FileReader r = null, p = new FileReader(""))` $\rightarrow$ **LỖI BIÊN DỊCH DÒNG 12**!
-  * **Lỗi 2 (Dòng 15):** Tham số của phương thức đã khai báo biến `String s`. Trong khối catch lại khai báo tiếp `catch (Exception s)`. Điều này vi phạm quy tắc trùng tên biến trong cùng phạm vi (duplicate local variable `s`) $\rightarrow$ **LỖI BIÊN DỊCH DÒNG 15**!
-  * **Lỗi 3 (Dòng 17):** Dòng 17 ném `throw new FileNotFoundException()`. Đây là một **Checked Exception**. Phương thức `tryAgain()` không khai báo `throws FileNotFoundException` và cũng không có khối `try-catch` nào bao bọc để xử lý nó $\rightarrow$ Vi phạm quy tắc Handle or Declare $\rightarrow$ **LỖI BIÊN DỊCH DÒNG 17**!
-  * Có tổng cộng ít nhất 3 dòng bị lỗi biên dịch $\rightarrow$ Đáp án đúng là **E**.
+    * `try (FileReader r = null, p = new FileReader(""))` → **LỖI BIÊN DỊCH DÒNG 12**!
+  * **Lỗi 2 (Dòng 15):** Tham số của phương thức đã khai báo biến `String s`. Trong khối catch lại khai báo tiếp `catch (Exception s)`. Điều này vi phạm quy tắc trùng tên biến trong cùng phạm vi (duplicate local variable `s`) → **LỖI BIÊN DỊCH DÒNG 15**!
+  * **Lỗi 3 (Dòng 17):** Dòng 17 ném `throw new FileNotFoundException()`. Đây là một **Checked Exception**. Phương thức `tryAgain()` không khai báo `throws FileNotFoundException` và cũng không có khối `try-catch` nào bao bọc để xử lý nó → Vi phạm quy tắc Handle or Declare → **LỖI BIÊN DỊCH DÒNG 17**!
+  * Có tổng cộng ít nhất 3 dòng bị lỗi biên dịch → Đáp án đúng là **E**.
 * **Bẫy thi cần nhớ:** Tài nguyên trong `try-with-resources` ngăn cách bằng dấu `;`; biến trong `catch` không được trùng tên tham số phương thức; ném Checked Exception bắt buộc phải khai báo `throws`.
 </details>
 
@@ -278,11 +278,11 @@ System.out.println(date.getYear() + " "
   * Dòng 7 gọi `ResourceBundle.getBundle("Dolphins")` không truyền tham số Locale, do đó Java sẽ sử dụng **Locale mặc định của hệ thống** đã được thiết lập ở dòng 6 là: `en_US` (`language = en`, `country = US`).
   * Thứ tự tìm kiếm file của Java cho locale `en_US` với BaseName `"Dolphins"`:
     1. Khớp cả ngôn ngữ và quốc gia: `Dolphins_en_US.properties` (Không có trong danh sách đáp án).
-    2. Bỏ quốc gia, khớp ngôn ngữ: **`Dolphins_en.properties`** $\rightarrow$ Có trong lựa chọn **C**!
+    2. Bỏ quốc gia, khớp ngôn ngữ: **`Dolphins_en.properties`** → Có trong lựa chọn **C**!
     3. File gốc mặc định: `Dolphins.properties` (Chỉ dùng khi không tìm thấy file có mã ngôn ngữ).
   * Lựa chọn B (`Dolphins_US.properties`) là một file không hợp lệ về mặt quy chuẩn Locale (Java không bao giờ tìm kiếm file chỉ có quốc gia mà thiếu ngôn ngữ).
-  * Do đó, file được ưu tiên sử dụng là `Dolphins_en.properties` $\rightarrow$ Đáp án **C**.
-* **Bẫy thi cần nhớ:** Thứ tự tìm kiếm Locale luôn là: `Language + Country` $\rightarrow$ `Language` $\rightarrow$ `BaseName`. Không bao giờ có bước tìm kiếm chỉ theo `Country`.
+  * Do đó, file được ưu tiên sử dụng là `Dolphins_en.properties` → Đáp án **C**.
+* **Bẫy thi cần nhớ:** Thứ tự tìm kiếm Locale luôn là: `Language + Country` → `Language` → `BaseName`. Không bao giờ có bước tìm kiếm chỉ theo `Country`.
 </details>
 
 ---
@@ -311,16 +311,16 @@ System.out.println("<" + message + ">");
 * **Đáp án đúng:** **D (#,###,000.0#)**
 * **Phân tích chi tiết:**
   * Quan sát kết quả đầu ra mong muốn:
-    * `5.21` $\rightarrow$ `005.21` (Phần nguyên có ít nhất 3 chữ số với các số 0 đứng trước, phần thập phân có 2 chữ số).
-    * `8.49` $\rightarrow$ `008.49` (Tương tự, có tiền tố `00`).
-    * `1234` $\rightarrow$ `1,234.0` (Phần nguyên có dấu phẩy phân cách nhóm hàng nghìn; phần thập phân có ít nhất 1 chữ số 0).
+    * `5.21` → `005.21` (Phần nguyên có ít nhất 3 chữ số với các số 0 đứng trước, phần thập phân có 2 chữ số).
+    * `8.49` → `008.49` (Tương tự, có tiền tố `00`).
+    * `1234` → `1,234.0` (Phần nguyên có dấu phẩy phân cách nhóm hàng nghìn; phần thập phân có ít nhất 1 chữ số 0).
   * **Phân tích các ký hiệu của `DecimalFormat`:**
     * Ký hiệu `0`: Bắt buộc hiển thị chữ số (nếu thiếu số thì bù số 0).
     * Ký hiệu `#`: Tuỳ chọn (chỉ hiển thị nếu có giá trị khác 0).
   * Để phần nguyên luôn hiển thị ít nhất 3 chữ số, ta cần **`000`** trước dấu chấm thập phân.
   * Để hiển thị dấu phân cách hàng nghìn khi số lớn hơn 999, ta thêm **`#,###,`** ở phía trước.
-  * Ở phần thập phân: `1234` in ra `.0` (ít nhất 1 chữ số), nhưng `5.21` in ra `.21` (tối đa 2 chữ số) $\rightarrow$ Cần mẫu **`.0#`** (1 số 0 bắt buộc, 1 số # tuỳ chọn).
-  * Ghép lại, mẫu chính xác là: **`#,###,000.0#`** $\rightarrow$ Đáp án **D**.
+  * Ở phần thập phân: `1234` in ra `.0` (ít nhất 1 chữ số), nhưng `5.21` in ra `.21` (tối đa 2 chữ số) → Cần mẫu **`.0#`** (1 số 0 bắt buộc, 1 số # tuỳ chọn).
+  * Ghép lại, mẫu chính xác là: **`#,###,000.0#`** → Đáp án **D**.
 * **Bẫy thi cần nhớ:** Ký hiệu `0` bắt buộc hiển thị; ký hiệu `#` bỏ qua các số 0 vô nghĩa ở đầu/cuối.
 </details>
 
@@ -377,12 +377,12 @@ class Peach extends Throwable {}
   * Ngoại lệ bắt buộc phải xử lý hoặc khai báo (*Handle or Declare*) chính là **Checked Exception**.
   * **Định nghĩa Checked Exception:** Bất kỳ lớp nào kế thừa từ `Throwable` (hoặc `Exception`) mà **KHÔNG kế thừa từ `RuntimeException` hoặc `Error`**.
   * Phân tích từng lớp:
-    * `Apple`: Kế thừa `RuntimeException` $\rightarrow$ Unchecked.
-    * `Orange`: Kế thừa trực tiếp `Exception` $\rightarrow$ **Checked Exception** $\rightarrow$ **Chọn B**.
-    * `Banana`: Kế thừa `Error` $\rightarrow$ Unchecked Error.
-    * `Pear`: Kế thừa `Apple` (là con của `RuntimeException`) $\rightarrow$ Unchecked.
-    * `Tomato`: Kế thừa `Orange` (là con của `Exception`) $\rightarrow$ **Checked Exception** $\rightarrow$ **Chọn E**.
-    * `Peach`: Kế thừa trực tiếp `Throwable`. Vì nó không phải là `Error` và cũng không phải là `RuntimeException`, theo đặc tả Java, nó được đối xử như một **Checked Exception** $\rightarrow$ **Chọn F**.
+    * `Apple`: Kế thừa `RuntimeException` → Unchecked.
+    * `Orange`: Kế thừa trực tiếp `Exception` → **Checked Exception** → **Chọn B**.
+    * `Banana`: Kế thừa `Error` → Unchecked Error.
+    * `Pear`: Kế thừa `Apple` (là con của `RuntimeException`) → Unchecked.
+    * `Tomato`: Kế thừa `Orange` (là con của `Exception`) → **Checked Exception** → **Chọn E**.
+    * `Peach`: Kế thừa trực tiếp `Throwable`. Vì nó không phải là `Error` và cũng không phải là `RuntimeException`, theo đặc tả Java, nó được đối xử như một **Checked Exception** → **Chọn F**.
 * **Bẫy thi cần nhớ:** Bất kỳ lớp nào kế thừa trực tiếp từ `Throwable` đều là Checked Exception!
 </details>
 
@@ -419,8 +419,8 @@ class Peach extends Throwable {}
   * Phương thức `close()` của `StuckTurkeyCage` khai báo ném checked exception `IOException`.
   * Trong câu lệnh `try-with-resources` ở dòng 7, phương thức `close()` sẽ được ngầm định gọi khi khối `try` kết thúc.
   * Vì `close()` ném ra checked exception, phương thức `main` bao bọc nó bắt buộc phải tuân theo quy tắc **Handle or Declare**:
-    1. Khai báo ném ngoại lệ trên `main`: Thêm `throws Exception` (hoặc `throws IOException`) vào dòng 6 $\rightarrow$ **B đúng**.
-    2. Bắt ngoại lệ bằng khối `catch`: Thêm `catch (Exception e) {}` (hoặc `catch (IOException e) {}`) $\rightarrow$ **C đúng**.
+    1. Khai báo ném ngoại lệ trên `main`: Thêm `throws Exception` (hoặc `throws IOException`) vào dòng 6 → **B đúng**.
+    2. Bắt ngoại lệ bằng khối `catch`: Thêm `catch (Exception e) {}` (hoặc `catch (IOException e) {}`) → **C đúng**.
   * Lựa chọn A sai vì dòng 4 ném `FileNotFoundException` (checked exception), nếu dòng 3 bỏ `throws IOException` thì chính dòng 4 sẽ bị lỗi biên dịch.
   * Lựa chọn D sai vì khối `finally` không bắt ngoại lệ, nên checked exception vẫn chưa được xử lý.
 * **Bẫy thi cần nhớ:** Ngoại lệ ném ra bởi phương thức `close()` trong `try-with-resources` cũng bắt buộc phải được Handle hoặc Declare như một lệnh gọi hàm bình thường!
@@ -443,9 +443,9 @@ class Peach extends Throwable {}
 
 * **Đáp án đúng:** **A, B**
 * **Phân tích chi tiết:**
-  * **Với câu lệnh `try` truyền thống:** Bắt buộc phải có ít nhất một khối `catch` HOẶC một khối `finally`. Không thể đứng trơ trọi một mình $\rightarrow$ **A và B đúng**.
-  * **Với `try-with-resources`:** Cả hai khối `catch` và `finally` đều là **tuỳ chọn**, không khối nào là bắt buộc (vì bản thân câu lệnh đã tự động gọi `close()`) $\rightarrow$ D và E sai.
-  * **Về cặp dấu ngoặc nhọn `{}`:** Khác với `if`, `while`, `for`, các khối lệnh `try`, `catch`, `finally` **bắt buộc luôn luôn phải có cặp ngoặc nhọn `{}`**, dù bên trong chỉ có duy nhất 1 câu lệnh $\rightarrow$ C và F sai.
+  * **Với câu lệnh `try` truyền thống:** Bắt buộc phải có ít nhất một khối `catch` HOẶC một khối `finally`. Không thể đứng trơ trọi một mình → **A và B đúng**.
+  * **Với `try-with-resources`:** Cả hai khối `catch` và `finally` đều là **tuỳ chọn**, không khối nào là bắt buộc (vì bản thân câu lệnh đã tự động gọi `close()`) → D và E sai.
+  * **Về cặp dấu ngoặc nhọn `{}`:** Khác với `if`, `while`, `for`, các khối lệnh `try`, `catch`, `finally` **bắt buộc luôn luôn phải có cặp ngoặc nhọn `{}`**, dù bên trong chỉ có duy nhất 1 câu lệnh → C và F sai.
 * **Bẫy thi cần nhớ:** Khối `try` luôn luôn bắt buộc phải có ngoặc nhọn `{}`. `try-with-resources` không bắt buộc phải có cả `catch` lẫn `finally`.
 </details>
 
@@ -485,7 +485,7 @@ if (louie == huey.substring(dewey.intValue())) {
     * Biểu thức tham số là: `dewey.intValue()`.
     * Tại thời điểm này, biến `dewey` đang có giá trị là `null`. Việc gọi `.intValue()` trên `dewey` ngay lập tức làm phát sinh **`NullPointerException`**.
     * Vì ngoại lệ đã xảy ra ngay tại tham số, lời gọi `huey.substring()` chưa từng được thực hiện!
-  * Do đó, stack trace chỉ ra chính xác tên biến gây lỗi đầu tiên là **`dewey`** $\rightarrow$ Đáp án **C**.
+  * Do đó, stack trace chỉ ra chính xác tên biến gây lỗi đầu tiên là **`dewey`** → Đáp án **C**.
 * **Bẫy thi cần nhớ:** Tham số của phương thức luôn được đánh giá trước khi bản thân phương thức đó được gọi.
 </details>
 
@@ -571,7 +571,7 @@ System.out.println(f.format(___________________.now()));
     * Dấu nháy đơn `'` trong `'clock` bị lẻ (không có dấu đóng nháy đơn đối xứng).
   * Muốn in chữ `"o'clock"` dưới dạng văn bản nguyên bản, bạn bắt buộc phải bọc trong cặp nháy đơn và escape dấu nháy đơn: `"hh 'o''clock'"`.
   * Vì chuỗi pattern sai cú pháp, dòng 1 sẽ ném ra **`IllegalArgumentException` ngay tại thời điểm tạo formatter**, trước khi kịp format bất cứ đối tượng nào!
-  * Do đó, dù bạn có điền bất kỳ lớp nào vào chỗ trống ở dòng 2, chương trình vẫn luôn luôn bị ném ngoại lệ $\rightarrow$ Đáp án đúng là **F**.
+  * Do đó, dù bạn có điền bất kỳ lớp nào vào chỗ trống ở dòng 2, chương trình vẫn luôn luôn bị ném ngoại lệ → Đáp án đúng là **F**.
 * **Bẫy thi cần nhớ:** Chữ cái không phải symbol trong pattern của DateTimeFormatter phải được bọc trong cặp nháy đơn `'...'`. Dấu nháy đơn đơn lẻ sẽ ném `IllegalArgumentException`.
 </details>
 
@@ -643,17 +643,17 @@ public class FamilyCar {
 * **Đáp án đúng:** **C (TWDEF)**
 * **Phân tích chi tiết:**
   * Hai tài nguyên được khai báo trong `try`: `d` (Door) và `w` (Window).
-  * **Bước 1:** Khối `try` thực thi $\rightarrow$ In ra chữ **`T`**.
+  * **Bước 1:** Khối `try` thực thi → In ra chữ **`T`**.
   * **Bước 2: Tự động đóng tài nguyên theo thứ tự LIFO (ngược lại):**
-    * `w` (Window) được khai báo sau nên được gọi `close()` trước $\rightarrow$ In ra chữ **`W`**.
+    * `w` (Window) được khai báo sau nên được gọi `close()` trước → In ra chữ **`W`**.
     * Trong `Window.close()`, một `RuntimeException` được ném ra.
     * **Lưu ý cốt lõi:** Java vẫn đảm bảo **gọi tiếp phương thức `close()` cho các tài nguyên còn lại**!
-    * `d` (Door) được gọi `close()` $\rightarrow$ In ra chữ **`D`**.
+    * `d` (Door) được gọi `close()` → In ra chữ **`D`**.
   * **Bước 3: Xử lý ngoại lệ trong `catch`:**
-    * Ngoại lệ `RuntimeException` ném ra từ `Window.close()` được bắt bởi `catch (Exception e)` $\rightarrow$ In ra chữ **`E`**.
+    * Ngoại lệ `RuntimeException` ném ra từ `Window.close()` được bắt bởi `catch (Exception e)` → In ra chữ **`E`**.
   * **Bước 4: Khối `finally` thực thi:**
-    * Luôn luôn chạy cuối cùng $\rightarrow$ In ra chữ **`F`**.
-  * Kết hợp toàn bộ chuỗi in lại: **`TWDEF`** $\rightarrow$ Đáp án **C**.
+    * Luôn luôn chạy cuối cùng → In ra chữ **`F`**.
+  * Kết hợp toàn bộ chuỗi in lại: **`TWDEF`** → Đáp án **C**.
 * **Bẫy thi cần nhớ:** Tài nguyên đóng theo thứ tự LIFO; một tài nguyên ném lỗi khi close thì các tài nguyên trước đó VẪN ĐƯỢC ĐÓNG đầy đủ; ngoại lệ khi close vẫn được bắt bởi khối `catch` của câu lệnh `try`.
 </details>
 
@@ -707,7 +707,7 @@ name=Dolly
     * File `Dolphins.properties` có định nghĩa `age=0`. Do đó giá trị được lấy từ `Dolphins.properties`.
   * **Tại sao không lấy từ `Dolphins_en.properties`?**  
     Bởi vì một khi Java đã chọn được bundle của ngôn ngữ tiếng Pháp (`fr`), nhánh ngôn ngữ tiếng Anh (`en`) bị loại bỏ hoàn toàn, Java không bao giờ tìm kiếm sang ngôn ngữ mặc định!
-  * Vì vậy, thứ tự sử dụng là: `Dolphins_fr.properties` và `Dolphins.properties` $\rightarrow$ Đáp án **D**.
+  * Vì vậy, thứ tự sử dụng là: `Dolphins_fr.properties` và `Dolphins.properties` → Đáp án **D**.
 * **Bẫy thi cần nhớ:** Khi đã match được file ngôn ngữ yêu cầu, nếu thiếu key Java chỉ fallback về file Base gốc (`Base.properties`), TUYỆT ĐỐI KHÔNG fallback sang file ngôn ngữ mặc định.
 </details>
 
@@ -756,12 +756,12 @@ name=Dolly
 * **Phân tích chi tiết:**
   * Dòng 20 gọi `go()`: Dòng 3 in ra chữ **`A`**.
   * Dòng 5 gọi `stop()`: Dòng 14 in ra chữ **`E`**.
-  * Dòng 16: Gọi `x.toString()` trên tham chiếu `null` $\rightarrow$ Phát sinh **`NullPointerException`**.
+  * Dòng 16: Gọi `x.toString()` trên tham chiếu `null` → Phát sinh **`NullPointerException`**.
   * Phương thức `stop()` bị ngắt đột ngột (dòng 17 không chạy, không in `F`). Ngoại lệ bắn ngược về phương thức `go()`.
-  * Khối `catch` ở dòng 6 chỉ bắt `ArithmeticException`, không khớp với `NullPointerException` $\rightarrow$ Khối catch bị bỏ qua (không in `B`).
-  * Khối `finally` ở dòng 8 **luôn luôn thực thi** $\rightarrow$ Dòng 9 in ra chữ **`C`**.
+  * Khối `catch` ở dòng 6 chỉ bắt `ArithmeticException`, không khớp với `NullPointerException` → Khối catch bị bỏ qua (không in `B`).
+  * Khối `finally` ở dòng 8 **luôn luôn thực thi** → Dòng 9 in ra chữ **`C`**.
   * Sau khối `finally`, vì ngoại lệ `NullPointerException` chưa được xử lý, chương trình bị sập ngay tại đây (dòng 11 không chạy, không in `D`) và in stack trace ra màn hình console.
-  * Toàn bộ chuỗi in ra: `AEC` theo sau bởi stack trace của `NullPointerException` $\rightarrow$ Đáp án **G**.
+  * Toàn bộ chuỗi in ra: `AEC` theo sau bởi stack trace của `NullPointerException` → Đáp án **G**.
 * **Bẫy thi cần nhớ:** Ngoại lệ không được bắt trong `catch` thì khối `finally` vẫn chạy xong rồi chương trình mới bị dừng và xuất stack trace.
 </details>
 
@@ -801,7 +801,7 @@ name=Dolly
     * **Quy tắc cốt lõi của multi-catch:** Không được phép chứa hai ngoại lệ có quan hệ kế thừa (cha - con) với nhau, vì điều đó làm cho lớp con bị dư thừa (*redundant*).
     * Do đó, dòng 7 bị **LỖI BIÊN DỊCH**.
   * **Để sửa lỗi:**
-    * Nếu chọn **C**: Đổi thành `catch (SneezeException e)`. Vì `SneezeException` là lớp cha, nó có thể bắt hợp lệ ngoại lệ được ném ra từ dòng 6 (`new SneezeException()`) $\rightarrow$ Biên dịch thành công $\rightarrow$ **C đúng**.
+    * Nếu chọn **C**: Đổi thành `catch (SneezeException e)`. Vì `SneezeException` là lớp cha, nó có thể bắt hợp lệ ngoại lệ được ném ra từ dòng 6 (`new SneezeException()`) → Biên dịch thành công → **C đúng**.
     * Nếu chọn D: Đổi thành `catch (SniffleException e)`. Dòng 6 ném ra `SneezeException` (lớp cha), lớp con `SniffleException` không thể bắt được lớp cha, dẫn đến dòng 6 bị lỗi vì ném checked exception mà không được handle or declare.
   * Vì vậy, đáp án đúng duy nhất là **C**.
 * **Bẫy thi cần nhớ:** Multi-catch cấm các ngoại lệ có quan hệ thừa kế.
@@ -836,14 +836,14 @@ try {
 * **Phân tích chi tiết:**
   * Thời gian khởi tạo: Ngày 5 tháng 4 năm 2025, lúc 12 giờ 30 phút 20 giây (`LocalDateTime`).
   * **Lệnh 1:** `book.format(DateTimeFormatter.ofPattern("m"))`  
-    Ký tự `m` biểu diễn **phút (minute)**. Phút hiện tại là `30` $\rightarrow$ **In ra: `30`**.
+    Ký tự `m` biểu diễn **phút (minute)**. Phút hiện tại là `30` → **In ra: `30`**.
   * **Lệnh 2:** `book.format(DateTimeFormatter.ofPattern("z"))`  
     Ký tự `z` biểu diễn **múi giờ (time zone name)**.  
     Tuy nhiên, đối tượng `book` thuộc kiểu `LocalDateTime`, **hoàn toàn không có thông tin về múi giờ** (Time Zone)!  
     Do đó, dòng này ném ra ngoại lệ **`java.time.DateTimeException`** (UnsupportedTemporalTypeException)!
   * **Xử lý ngoại lệ:** Khối `catch (Throwable e) {}` bắt được ngoại lệ này và nuốt im lặng (không làm gì cả).
   * Lệnh in thứ 3 không bao giờ được chạm tới.
-  * Vì vậy, giá trị duy nhất kịp in ra màn hình là **`30`** $\rightarrow$ Đáp án **B**.
+  * Vì vậy, giá trị duy nhất kịp in ra màn hình là **`30`** → Đáp án **B**.
 * **Bẫy thi cần nhớ:** Format ký tự `z` (time zone) trên `LocalDateTime` sẽ ném ngoại lệ vì nó không có thông tin múi giờ.
 </details>
 
@@ -865,8 +865,8 @@ try {
 
 * **Đáp án đúng:** **A, E**
 * **Phân tích chi tiết:**
-  * Tài nguyên trong `try-with-resources` bắt buộc phải triển khai giao diện **`java.lang.AutoCloseable`** $\rightarrow$ **A đúng**.
-  * Giao diện `java.io.Closeable` (dành cho các luồng I/O) kế thừa từ `AutoCloseable`. Do đó, bất kỳ lớp nào triển khai **`Closeable`** cũng gián tiếp triển khai `AutoCloseable` và hoàn toàn được dùng trong `try-with-resources` $\rightarrow$ **E đúng**.
+  * Tài nguyên trong `try-with-resources` bắt buộc phải triển khai giao diện **`java.lang.AutoCloseable`** → **A đúng**.
+  * Giao diện `java.io.Closeable` (dành cho các luồng I/O) kế thừa từ `AutoCloseable`. Do đó, bất kỳ lớp nào triển khai **`Closeable`** cũng gián tiếp triển khai `AutoCloseable` và hoàn toàn được dùng trong `try-with-resources` → **E đúng**.
   * Các giao diện `Resource`, `AutomaticResource` không tồn tại trong thư viện chuẩn Java.
 * **Bẫy thi cần nhớ:** `AutoCloseable` (Java 7) và `Closeable` (kế thừa từ `AutoCloseable`) là 2 giao diện duy nhất được hỗ trợ trong `try-with-resources`.
 </details>
@@ -914,7 +914,7 @@ public class SnowStorm {
     ```
   * Biến `walk1` đã bị gán lại giá trị thành `null`. Do bị gán lại, biến `walk1` **KHÔNG CÒN LÀ effectively final nữa**!
   * Vì vi phạm quy tắc effectively final, trình biên dịch báo **LỖI BIÊN DỊCH ngay tại dòng khai báo `try (walk1; ...)`**!
-  * Chương trình không thể chạy được $\rightarrow$ Đáp án đúng là **G**.
+  * Chương trình không thể chạy được → Đáp án đúng là **G**.
   * *(Lưu ý: Nếu xoá dòng `walk1 = null;`, mã sẽ biên dịch và in ra `blizzard 2` do có 2 ngoại lệ bị nén từ 2 lần gọi close)*.
 * **Bẫy thi cần nhớ:** Biến đặt trong `try-with-resources` bắt buộc phải là `final` hoặc `effectively final`. Nếu có bất kỳ phép gán lại nào ở sau, code sẽ bị lỗi biên dịch ngay lập tức!
 </details>
@@ -963,7 +963,7 @@ public record Wallet(double money) {
     ```
   * Lời gọi này truyền vào một Locale tường minh là **`Locale.GERMANY`**!
   * Khi một Locale cụ thể được truyền vào factory method, Java sẽ **bỏ qua hoàn toàn Locale mặc định của hệ thống** và định dạng chính xác theo quy chuẩn của Locale được chỉ định (`GERMANY`).
-  * Ở Đức, số thập phân dùng dấu phẩy `,` và ký hiệu tiền tệ euro `€` đặt ở sau: `2,40 €` $\rightarrow$ Đáp án đúng là **A**.
+  * Ở Đức, số thập phân dùng dấu phẩy `,` và ký hiệu tiền tệ euro `€` đặt ở sau: `2,40 €` → Đáp án đúng là **A**.
 * **Bẫy thi cần nhớ:** Khi truyền Locale cụ thể vào `NumberFormat.getInstance(locale)`, các thiết lập `Locale.setDefault()` không còn bất kỳ tác dụng nào.
 </details>
 
@@ -998,10 +998,10 @@ public void transform(String c) {
   * Trong khối `try`, phương thức `rollOut()` chỉ ném `ClassCastException` (unchecked exception).
   * Xét các lựa chọn điền vào vị trí multi-catch:
     * **A (`IOException a`):** `IOException` là một checked exception. Vì trong `try` không có lệnh nào ném `IOException`, việc viết `catch (IOException)` sẽ bị **Lỗi biên dịch: Unreachable catch block**.
-    * **B (`Error b`):** `Error` là unchecked và không có quan hệ thừa kế với `IllegalArgumentException` $\rightarrow$ Hợp lệ về mặt cú pháp $\rightarrow$ **Chọn B**.
-    * **C (`NullPointerException c`):** Khai báo tên biến là `c`. Nhưng tham số của phương thức đã có `String c` $\rightarrow$ **Lỗi biên dịch: Trùng tên biến local**.
-    * **D (`RuntimeException d`):** `IllegalArgumentException` kế thừa từ `RuntimeException` $\rightarrow$ Vi phạm quy tắc Disjoint types của multi-catch $\rightarrow$ Lỗi biên dịch.
-    * **E (`NumberFormatException e`):** `NumberFormatException` kế thừa từ `IllegalArgumentException` $\rightarrow$ Tiếp tục vi phạm quy tắc Disjoint types $\rightarrow$ Lỗi biên dịch.
-    * **F (`ClassCastException f`):** `ClassCastException` là unchecked exception, không có quan hệ cha-con với `IllegalArgumentException`, tên biến `f` không bị trùng $\rightarrow$ **Hợp lệ hoàn toàn** $\rightarrow$ **Chọn F**.
+    * **B (`Error b`):** `Error` là unchecked và không có quan hệ thừa kế với `IllegalArgumentException` → Hợp lệ về mặt cú pháp → **Chọn B**.
+    * **C (`NullPointerException c`):** Khai báo tên biến là `c`. Nhưng tham số của phương thức đã có `String c` → **Lỗi biên dịch: Trùng tên biến local**.
+    * **D (`RuntimeException d`):** `IllegalArgumentException` kế thừa từ `RuntimeException` → Vi phạm quy tắc Disjoint types của multi-catch → Lỗi biên dịch.
+    * **E (`NumberFormatException e`):** `NumberFormatException` kế thừa từ `IllegalArgumentException` → Tiếp tục vi phạm quy tắc Disjoint types → Lỗi biên dịch.
+    * **F (`ClassCastException f`):** `ClassCastException` là unchecked exception, không có quan hệ cha-con với `IllegalArgumentException`, tên biến `f` không bị trùng → **Hợp lệ hoàn toàn** → **Chọn F**.
 * **Bẫy thi cần nhớ:** Multi-catch cấm các ngoại lệ có quan hệ thừa kế; không được trùng tên biến đã có trong scope; không được bắt checked exception không thể xảy ra.
 </details>

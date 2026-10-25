@@ -262,7 +262,7 @@ try {
 
 > [!CAUTION]
 > **Hai quy tắc vàng của `multi-catch` trong kỳ thi OCP:**
-> 1. **Biến ngoại lệ `e` là NGẦM ĐỊNH `final`:** Bạn không được phép gán lại giá trị cho `e` bên trong khối multi-catch (`e = new Exception();` $\rightarrow$ LỖI BIÊN DỊCH).
+> 1. **Biến ngoại lệ `e` là NGẦM ĐỊNH `final`:** Bạn không được phép gán lại giá trị cho `e` bên trong khối multi-catch (`e = new Exception();` → LỖI BIÊN DỊCH).
 > 2. **Quy tắc không quan hệ kế thừa (Disjoint Types):** Không được liệt kê hai ngoại lệ có quan hệ cha-con trong cùng một multi-catch:
 > ```java
 > catch (FileNotFoundException | IOException e) {} // LỖI BIÊN DỊCH!
@@ -460,9 +460,9 @@ System.out.println(formatDe.format(7_123_456));    // 7 Mio.
 ### 4. Định Dạng Ngày Giờ Với `DateTimeFormatter`
 
 #### Bảng 11.6: Các Ký Tự Quy Ước
-* `y`: Năm (`yyyy` $\rightarrow$ 2026, `yy` $\rightarrow$ 26)
-* `M`: Tháng (`M` $\rightarrow$ 1, `MM` $\rightarrow$ 01, `MMM` $\rightarrow$ Jan, `MMMM` $\rightarrow$ January)
-* `d`: Ngày trong tháng (`d` $\rightarrow$ 5, `dd` $\rightarrow$ 05)
+* `y`: Năm (`yyyy` → 2026, `yy` → 26)
+* `M`: Tháng (`M` → 1, `MM` → 01, `MMM` → Jan, `MMMM` → January)
+* `d`: Ngày trong tháng (`d` → 5, `dd` → 05)
 * `h`: Giờ định dạng 12 giờ (`1-12`); `H`: Giờ định dạng 24 giờ (`0-23`)
 * `m`: Phút; `s`: Giây
 * `a`: Ký hiệu sáng/chiều (am/pm)

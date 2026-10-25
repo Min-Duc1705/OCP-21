@@ -51,8 +51,8 @@ Cú pháp lambda rất linh hoạt vì nhiều thành phần có thể được 
    * **BẮT BUỘC CÓ** khi:
      * Có 0 tham số: `() -> true`.
      * Có từ 2 tham số trở lên: `(x, y) -> ...`.
-     * Có khai báo kiểu dữ liệu tường minh: `(Animal a) -> ...` (`Animal a -> ...` $\rightarrow$ **LỖI BIÊN DỊCH**).
-     * Sử dụng từ khoá `var`: `(var a) -> ...` (`var a -> ...` $\rightarrow$ **LỖI BIÊN DỊCH**).
+     * Có khai báo kiểu dữ liệu tường minh: `(Animal a) -> ...` (`Animal a -> ...` → **LỖI BIÊN DỊCH**).
+     * Sử dụng từ khoá `var`: `(var a) -> ...` (`var a -> ...` → **LỖI BIÊN DỊCH**).
 
 #### Quy tắc vế phải (Thân hàm):
 1. **Khi thân hàm là một biểu thức đơn (Single Expression):**
@@ -97,7 +97,7 @@ Cú pháp lambda rất linh hoạt vì nhiều thành phần có thể được 
 > ```java
 > var invalid = (Animal a) -> a.canHop(); // LỖI BIÊN DỊCH!
 > ```
-> Trình biên dịch không thể xác định được kiểu của biến `invalid` vì bản thân biểu thức lambda không mang kiểu cụ thể mà phải phụ thuộc vào ngữ cảnh đích (*target typing*). Ngược lại, `var` cũng dựa vào vế phải để suy luận kiểu $\rightarrow$ Hai bên đều không có đủ thông tin $\rightarrow$ Lỗi biên dịch.
+> Trình biên dịch không thể xác định được kiểu của biến `invalid` vì bản thân biểu thức lambda không mang kiểu cụ thể mà phải phụ thuộc vào ngữ cảnh đích (*target typing*). Ngược lại, `var` cũng dựa vào vế phải để suy luận kiểu → Hai bên đều không có đủ thông tin → Lỗi biên dịch.
 
 ---
 
@@ -177,7 +177,7 @@ public interface Hibernate {
 }
 ```
 * Phương thức `equals(Hibernate o)` không khớp với `equals(Object o)` của lớp `Object`. Do đó nó bị tính là một abstract method thông thường.
-* Interface `Hibernate` lúc này có 2 abstract method: `equals(Hibernate)` và `rest()` $\rightarrow$ **Vi phạm SAM $\rightarrow$ Báo lỗi biên dịch**!
+* Interface `Hibernate` lúc này có 2 abstract method: `equals(Hibernate)` và `rest()` → **Vi phạm SAM → Báo lỗi biên dịch**!
 
 ---
 
@@ -287,8 +287,8 @@ Predicate<String> otherEggs = egg.and(brown.negate());
 * `c1.andThen(c2)`: Chạy `c1` trước, sau đó chạy tiếp `c2` với cùng một dữ liệu đầu vào.
 
 #### 3. Các phương thức của `Function`:
-* `f1.andThen(f2)`: Thực thi `f1` trước, sau đó lấy kết quả truyền vào `f2` $\rightarrow$ $f2(f1(x))$.
-* `f1.compose(f2)`: Thực thi `f2` trước, sau đó lấy kết quả truyền vào `f1` $\rightarrow$ $f1(f2(x))$.
+* `f1.andThen(f2)`: Thực thi `f1` trước, sau đó lấy kết quả truyền vào `f2` → $f2(f1(x))$.
+* `f1.compose(f2)`: Thực thi `f2` trước, sau đó lấy kết quả truyền vào `f1` → $f1(f2(x))$.
 * `Function.identity()`: Trả về chính đối tượng đầu vào ($f(x) = x$).
 
 ```java

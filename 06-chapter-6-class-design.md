@@ -106,7 +106,7 @@ public class Test {
 ### 3.2. Gọi Constructor Nạp Chồng Bằng `this(...)`
 * Để gọi một constructor khác trong cùng một lớp, ta dùng cú pháp `this(...)`.
 * **Quy tắc bắt buộc:** Lời gọi `this(...)` **phải là câu lệnh đầu tiên** trong thân constructor!
-* **Bẫy đệ quy vòng tròn (*Circular / Recursive Constructor Invocation*):** Nếu constructor A gọi constructor B và constructor B lại gọi ngược lại constructor A $\rightarrow$ Trình biên dịch báo lỗi `recursive constructor invocation`.
+* **Bẫy đệ quy vòng tròn (*Circular / Recursive Constructor Invocation*):** Nếu constructor A gọi constructor B và constructor B lại gọi ngược lại constructor A → Trình biên dịch báo lỗi `recursive constructor invocation`.
 
 ```java
 public class Hamster {
@@ -226,15 +226,15 @@ Hãy cùng phân tích đoạn code thực tế từ trang 531–533 của sách
    * Chạy `static` của `Okapi`: Dòng 16 in ra **`F`**.
    * (Hoàn thành nạp lớp: Output tạm thời là `AF`).
 2. **Khởi tạo đối tượng 1: `new Okapi(1)` (Dòng 23):**
-   * Constructor `Okapi(int)` bắt đầu chạy $\rightarrow$ gặp dòng 18: `super("sugar")`.
+   * Constructor `Okapi(int)` bắt đầu chạy → gặp dòng 18: `super("sugar")`.
    * Chuyển lên lớp cha `GiraffeFamily`:
-     * Khối thể hiện `{ System.out.print("B"); }` (dòng 3) chạy $\rightarrow$ in ra **`B`**.
-     * Constructor `GiraffeFamily(String)` chạy $\rightarrow$ dòng 5: `this(1)` gọi sang `GiraffeFamily(int)`.
-     * Constructor `GiraffeFamily(int)` chạy $\rightarrow$ dòng 12 in ra **`E`**.
-     * Quay lại `GiraffeFamily(String)` $\rightarrow$ dòng 6 in ra **`C`**.
+     * Khối thể hiện `{ System.out.print("B"); }` (dòng 3) chạy → in ra **`B`**.
+     * Constructor `GiraffeFamily(String)` chạy → dòng 5: `this(1)` gọi sang `GiraffeFamily(int)`.
+     * Constructor `GiraffeFamily(int)` chạy → dòng 12 in ra **`E`**.
+     * Quay lại `GiraffeFamily(String)` → dòng 6 in ra **`C`**.
    * Quay lại lớp con `Okapi`:
-     * Khối thể hiện `{ System.out.print("H"); }` (dòng 21) chạy $\rightarrow$ in ra **`H`**.
-     * Thân constructor `Okapi(int)` tiếp tục $\rightarrow$ dòng 19 in ra **`G`**.
+     * Khối thể hiện `{ System.out.print("H"); }` (dòng 21) chạy → in ra **`H`**.
+     * Thân constructor `Okapi(int)` tiếp tục → dòng 19 in ra **`G`**.
    * Kết quả lần 1: **`AFBECHG`**.
 3. **Dòng 24:** In dấu xuống dòng `\n`.
 4. **Khởi tạo đối tượng 2: `new Okapi(2)` (Dòng 25):**
@@ -331,7 +331,7 @@ class Crow extends Bird {
 * Xảy ra khi cả lớp cha và lớp con cùng định nghĩa một phương thức **`static` có cùng chữ ký**.
 * Phương thức ẩn tuân thủ đầy đủ 4 quy tắc của Overriding, kèm theo **Quy tắc thứ 5**:
   * **Cả hai phương thức ở cha và con BẮT BUỘC PHẢI CÙNG LÀ `static`!**
-  * Nếu một bên là `static` còn bên kia là `instance` $\rightarrow$ **DOES NOT COMPILE!**
+  * Nếu một bên là `static` còn bên kia là `instance` → **DOES NOT COMPILE!**
 
 ```java
 class Bear {
@@ -391,7 +391,7 @@ public class Mouse extends Rodent {
 
 ### 6.1. Khái Niệm Lớp Trừu Tượng (`abstract class`)
 * Lớp trừu tượng được khai báo với từ khóa `abstract`.
-* **Không thể khởi tạo trực tiếp bằng từ khóa `new`** (`Animal a = new Animal();` $\rightarrow$ Lỗi biên dịch).
+* **Không thể khởi tạo trực tiếp bằng từ khóa `new`** (`Animal a = new Animal();` → Lỗi biên dịch).
 * Lớp trừu tượng có thể chứa: Biến thể hiện, biến static, constructor (dùng cho lớp con gọi thông qua `super()`), phương thức thông thường có thân hàm, và phương thức trừu tượng.
 
 ---
@@ -483,8 +483,8 @@ public final class Animal {
    * `this(...)` và `super(...)` bắt buộc phải là dòng lệnh đầu tiên trong constructor.
    * Compiler tự động chèn `super();` không tham số nếu không viết. Nếu lớp cha không có constructor không tham số, lớp con bắt buộc phải gọi `super(args)` tường minh.
 3. **Thứ tự khởi tạo (Order of Initialization):**
-   * Static của lớp cha $\rightarrow$ Static của lớp con (chỉ chạy 1 lần khi nạp lớp).
-   * Khối thể hiện `{ }` & biến instance của lớp cha $\rightarrow$ Constructor của lớp cha $\rightarrow$ Khối thể hiện `{ }` & biến instance của lớp con $\rightarrow$ Constructor của lớp con.
+   * Static của lớp cha → Static của lớp con (chỉ chạy 1 lần khi nạp lớp).
+   * Khối thể hiện `{ }` & biến instance của lớp cha → Constructor của lớp cha → Khối thể hiện `{ }` & biến instance của lớp con → Constructor của lớp con.
 4. **Bốn quy tắc ghi đè phương thức (Method Overriding):**
    * Cùng chữ ký (`signature`).
    * Access modifier rộng bằng hoặc rộng hơn.

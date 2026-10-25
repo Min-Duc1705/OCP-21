@@ -186,7 +186,7 @@ Một lỗi rất phổ biến khiến ứng dụng Java chạy mãi không dừ
 
 ## 3. Viết Mã An Toàn Đa Luồng (Thread-Safety)
 
-Khi nhiều luồng cùng đọc và ghi lên một vùng nhớ chung mà không có sự đồng bộ, sẽ xảy ra lỗi **Race Condition (Xung đột dữ liệu)** dẫn đến giá trị bị sai lệch. Thao tác tưởng như đơn giản `count++` thực chất gồm 3 bước riêng biệt: Đọc giá trị $\rightarrow$ Tăng lên 1 $\rightarrow$ Ghi lại giá trị. Nếu hai luồng cùng đọc một giá trị, cả hai sẽ ghi đè lên nhau (Lost Update).
+Khi nhiều luồng cùng đọc và ghi lên một vùng nhớ chung mà không có sự đồng bộ, sẽ xảy ra lỗi **Race Condition (Xung đột dữ liệu)** dẫn đến giá trị bị sai lệch. Thao tác tưởng như đơn giản `count++` thực chất gồm 3 bước riêng biệt: Đọc giá trị → Tăng lên 1 → Ghi lại giá trị. Nếu hai luồng cùng đọc một giá trị, cả hai sẽ ghi đè lên nhau (Lost Update).
 
 ### 1. Các Lớp Biến Nguyên Tử (Atomic Classes) (TABLE 13.9 & 13.10)
 Nằm trong package `java.util.concurrent.atomic`, sử dụng lệnh phần cứng ở mức CPU (Compare-And-Swap - CAS) để đảm bảo các thao tác đọc-ghi diễn ra nguyên tử (atomic), không thể bị ngắt quãng giữa chừng mà không cần khóa (lock-free):
@@ -392,8 +392,8 @@ Cú pháp 3 tham số của hàm `reduce()` khi chạy song song:
 > 1. **Phần tử đồng nhất (Identity):** Với mọi giá trị `u`, ta phải có: `combiner.apply(identity, u) == u`.
 > 2. **Tính kết hợp (Associative):** Thứ tự gom nhóm phép toán không được làm đổi kết quả:
 >    `(a op b) op c == a op (b op c)`.
->    * Phép cộng (`+`), nhân (`*`), tìm max/min có tính kết hợp $\rightarrow$ An toàn cho parallel stream.
->    * Phép trừ (`-`) và phép chia (`/`) **KHÔNG** có tính kết hợp $\rightarrow$ Cho kết quả sai lệch ngẫu nhiên khi chạy parallel stream!
+>    * Phép cộng (`+`), nhân (`*`), tìm max/min có tính kết hợp → An toàn cho parallel stream.
+>    * Phép trừ (`-`) và phép chia (`/`) **KHÔNG** có tính kết hợp → Cho kết quả sai lệch ngẫu nhiên khi chạy parallel stream!
 
 ---
 
@@ -422,10 +422,10 @@ Khi thực hiện gom nhóm trên Parallel Stream, thay vì mỗi luồng tạo 
 > 1. **Virtual Thread luôn là Daemon:** Cố tình gọi `builder.daemon(false)` trên virtual thread sẽ bị ném `IllegalArgumentException`.
 > 2. **Priority của Virtual Thread:** Luôn cố định là 5 (`NORM_PRIORITY`), không thể thay đổi.
 > 3. **Cú pháp `ReentrantLock.tryLock()`:** Trả về `boolean` ngay lập tức; không tự động giải phóng khóa. Bạn bắt buộc phải gọi `lock.unlock()` trong khối `finally` nếu `tryLock()` trả về `true`.
-> 4. **Quên gọi `unlock()`:** Gọi `tryLock()` hoặc `lock()` mà quên `unlock()` $\rightarrow$ Các luồng sau sẽ bị kẹt vĩnh viễn hoặc văng `IllegalMonitorStateException` nếu gọi `unlock()` khi chưa giữ khóa.
+> 4. **Quên gọi `unlock()`:** Gọi `tryLock()` hoặc `lock()` mà quên `unlock()` → Các luồng sau sẽ bị kẹt vĩnh viễn hoặc văng `IllegalMonitorStateException` nếu gọi `unlock()` khi chưa giữ khóa.
 > 5. **`CyclicBarrier` và số lượng luồng:** Kích thước thread pool nhỏ hơn số lượng bên đợi của `CyclicBarrier` sẽ khiến ứng dụng bị treo vĩnh viễn.
 > 6. **`ConcurrentHashMap` cấm `null`:** Khác với `HashMap` cho phép 1 key `null` và nhiều value `null`, `ConcurrentHashMap` sẽ ném **`NullPointerException`** ngay lập tức nếu put `null` key hoặc `null` value.
 > 7. **`CopyOnWriteArrayList` hiệu năng:** Thao tác đọc siêu nhanh, nhưng thao tác ghi (`add`/`remove`) rất tốn kém vì phải sao chép toàn bộ mảng.
 > 8. **Duyệt `Collections.synchronizedList()`:** Duyệt qua wrapper này bằng `Iterator` / `for-each` vẫn có thể văng `ConcurrentModificationException` nếu không tự bọc khối `synchronized(list)`.
-> 9. **Phép toán `reduce` song song:** Phép trừ `(a, b) -> a - b` không có tính kết hợp $\rightarrow$ chạy parallel stream sẽ ra kết quả sai lệch!
+> 9. **Phép toán `reduce` song song:** Phép trừ `(a, b) -> a - b` không có tính kết hợp → chạy parallel stream sẽ ra kết quả sai lệch!
 > 10. **Tắt `ExecutorService`:** Nếu không gọi `shutdown()` hoặc không dùng trong `try-with-resources`, ứng dụng sẽ chạy mãi không dừng vì các non-daemon threads của executor.

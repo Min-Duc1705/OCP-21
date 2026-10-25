@@ -65,17 +65,17 @@ public static void main(String[] args) {
    * Mảng `values = { 10, 30, 50 }` có `values.length = 3`.
    * Vòng lặp `while(x < 3)` lặp qua các giá trị: `x = 0, 1, 2` (khi `x = 3` thì dừng).
    * **Lần 1 (`val = 10`):**
-     * `x = 0` $\rightarrow$ In: `0 10`
-     * `x = 1` $\rightarrow$ In: `1 10`
-     * `x = 2` $\rightarrow$ In: `2 10`  *(Chứa số 2)*
+     * `x = 0` → In: `0 10`
+     * `x = 1` → In: `1 10`
+     * `x = 2` → In: `2 10`  *(Chứa số 2)*
    * **Lần 2 (`val = 30`):** `x` được reset về `0`!
-     * `x = 0` $\rightarrow$ In: `0 30`
-     * `x = 1` $\rightarrow$ In: `1 30`
-     * `x = 2` $\rightarrow$ In: `2 30`  *(Chứa số 2)*
+     * `x = 0` → In: `0 30`
+     * `x = 1` → In: `1 30`
+     * `x = 2` → In: `2 30`  *(Chứa số 2)*
    * **Lần 3 (`val = 50`):** `x` tiếp tục được reset về `0`!
-     * `x = 0` $\rightarrow$ In: `0 50`
-     * `x = 1` $\rightarrow$ In: `1 50`
-     * `x = 2` $\rightarrow$ In: `2 50`  *(Chứa số 2)*
+     * `x = 0` → In: `0 50`
+     * `x = 1` → In: `1 50`
+     * `x = 2` → In: `2 50`  *(Chứa số 2)*
 
    * Các phần tử trong mảng là `10, 30, 50` (không chứa ký tự/số `2`). Do đó số `2` chỉ xuất hiện ở cột giá trị của `x`.
    * Tổng cộng số `2` được in ra chính xác **3 lần**.

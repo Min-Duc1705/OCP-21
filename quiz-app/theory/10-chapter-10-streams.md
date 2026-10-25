@@ -83,10 +83,10 @@ Optional<Double> optSafe = Optional.ofNullable(score);
 
 | Phương Thức | Mục Đích & Hành Vi |
 | :--- | :--- |
-| `Optional<T> filter(Predicate<? super T> p)` | Nếu có giá trị và khớp với Predicate $\rightarrow$ giữ nguyên. Ngược lại $\rightarrow$ trả về `Optional.empty()`. |
-| `Optional<U> map(Function<? super T, ? extends U> f)` | Nếu có giá trị $\rightarrow$ áp dụng hàm chuyển đổi và bọc kết quả vào `Optional`. Nếu rỗng $\rightarrow$ trả về `Optional.empty()`. |
+| `Optional<T> filter(Predicate<? super T> p)` | Nếu có giá trị và khớp với Predicate → giữ nguyên. Ngược lại → trả về `Optional.empty()`. |
+| `Optional<U> map(Function<? super T, ? extends U> f)` | Nếu có giá trị → áp dụng hàm chuyển đổi và bọc kết quả vào `Optional`. Nếu rỗng → trả về `Optional.empty()`. |
 | `Optional<U> flatMap(Function<? super T, Optional<U>> f)` | Tương tự `map`, nhưng áp dụng khi hàm chuyển đổi **đã tự trả về một `Optional`** (giúp không bị lồng thành `Optional<Optional<U>>`). |
-| `Optional<T> or(Supplier<Optional<T>> s)` *(Java 9)* | Nếu có giá trị $\rightarrow$ trả về chính nó. Nếu rỗng $\rightarrow$ trả về một `Optional` khác do `Supplier` cung cấp. |
+| `Optional<T> or(Supplier<Optional<T>> s)` *(Java 9)* | Nếu có giá trị → trả về chính nó. Nếu rỗng → trả về một `Optional` khác do `Supplier` cung cấp. |
 
 ```java
 // Ví dụ thực tế: Tìm độ dài của chuỗi có 3 ký tự trở lên
@@ -157,7 +157,7 @@ Tác giả Jeanne Boyarsky & Scott Selikoff đưa ra hình tượng: Hãy tưở
 Người quản đốc thông minh điều hành nhà máy:
 * Khi bạn định nghĩa các thao tác trung gian (`filter`, `map`, `sorted`), người quản đốc **chưa cho dây chuyền chạy**. Họ chỉ đứng ghi chép các chỉ dẫn và yêu cầu công nhân đứng chờ.
 * Khi bạn gọi một thao tác kết thúc (`findFirst`, `count`, `forEach`), người quản đốc mới hô: *"Khởi động dây chuyền!"*.
-* Từng phần tử từ nguồn được kéo qua toàn bộ chuỗi mắt xích (filter $\rightarrow$ map $\rightarrow$ terminal) từng cái một, **chứ không phải xử lý xong cả danh sách ở filter rồi mới chuyển sang map**.
+* Từng phần tử từ nguồn được kéo qua toàn bộ chuỗi mắt xích (filter → map → terminal) từng cái một, **chứ không phải xử lý xong cả danh sách ở filter rồi mới chuyển sang map**.
 
 ---
 
@@ -345,8 +345,8 @@ IntStream range2 = IntStream.rangeClosed(1, 6); // [1, 2, 3, 4, 5, 6] (Bao gồm
 
 | Phương Thức | Kiểu Trả Về | Mô Tả |
 | :--- | :--- | :--- |
-| `sum()` | `int` / `long` / `double` | Tính tổng các phần tử. Nếu stream rỗng $\rightarrow$ trả về `0`. |
-| `average()` | `OptionalDouble` | Tính giá trị trung bình cộng. Nếu rỗng $\rightarrow$ trả về `OptionalDouble.empty()`. |
+| `sum()` | `int` / `long` / `double` | Tính tổng các phần tử. Nếu stream rỗng → trả về `0`. |
+| `average()` | `OptionalDouble` | Tính giá trị trung bình cộng. Nếu rỗng → trả về `OptionalDouble.empty()`. |
 | `min()` | `OptionalInt` / `OptionalLong` / `OptionalDouble` | Tìm giá trị nhỏ nhất (không cần truyền Comparator). |
 | `max()` | `OptionalInt` / `OptionalLong` / `OptionalDouble` | Tìm giá trị lớn nhất. |
 | `summaryStatistics()` | `IntSummaryStatistics` / `Long...` / `Double...` | Trả về một đối tượng tổng hợp duy nhất chứa: `count`, `sum`, `min`, `average`, `max`! |
@@ -420,7 +420,7 @@ Lớp `java.util.stream.Collectors` cung cấp hàng loạt các bộ thu thập
 
 #### 2. Thu Thập Dạng Ánh Xạ: `Collectors.toMap()`
 * Cú pháp 2 tham số: `toMap(Function keyMapper, Function valueMapper)`  
-  *Nếu gặp key trùng lặp $\rightarrow$ Ném `IllegalStateException`!*
+  *Nếu gặp key trùng lặp → Ném `IllegalStateException`!*
 * Cú pháp 3 tham số (Quy tắc xử lý trùng key):  
   `toMap(keyMapper, valueMapper, BinaryOperator mergeRule)`
 * Cú pháp 4 tham số:  
@@ -520,7 +520,7 @@ Một `Spliterator` (Split + Iterator) là công cụ nền tảng bên dưới 
 
 | Phương Thức Cốt Lõi | Mô Tả |
 | :--- | :--- |
-| `Spliterator<T> trySplit()` | Tách lấy lý tưởng là **một nửa dữ liệu** từ Spliterator hiện tại sang một Spliterator mới. Nếu không thể chia tách tiếp (hoặc đã hết) $\rightarrow$ trả về `null`. |
+| `Spliterator<T> trySplit()` | Tách lấy lý tưởng là **một nửa dữ liệu** từ Spliterator hiện tại sang một Spliterator mới. Nếu không thể chia tách tiếp (hoặc đã hết) → trả về `null`. |
 | `boolean tryAdvance(Consumer<? super T> action)` | Xử lý **duy nhất 1 phần tử** tiếp theo nếu còn. Trả về `true` nếu có phần tử được xử lý, `false` nếu đã hết dữ liệu. |
 | `void forEachRemaining(Consumer<? super T> action)` | Duyệt và thực thi Consumer trên **toàn bộ các phần tử còn lại** trong Spliterator hiện tại. |
 | `long estimateSize()` | Ước tính số lượng phần tử còn lại cần xử lý. |

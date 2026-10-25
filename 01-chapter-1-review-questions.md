@@ -51,7 +51,7 @@ Cho 3 câu lệnh sau:
 
 * **Đáp án đúng:** **C, D, E**
 * **Giải thích chuyên sâu:**
-  * Quy tắc cấu trúc file Java là **P - I - C**: `Package` $\rightarrow$ `Import` $\rightarrow$ `Class`.
+  * Quy tắc cấu trúc file Java là **P - I - C**: `Package` → `Import` → `Class`.
   * Cả `package` và `import` đều là **tùy chọn (optional)**:
     * Nếu có cả 3: Bắt buộc theo thứ tự `Z, Y, X` (**Đáp án C**).
     * Nếu không khai báo `package` (sử dụng default package): Thứ tự là `Y, X` (**Đáp án D**).
@@ -156,8 +156,8 @@ public class Bunny {
 * **Đáp án đúng:** **A, D, F**
 * **Giải thích chuyên sâu:**
   * **F đúng, E sai:** Phương thức `System.gc()` chỉ là một lời đề xuất tới JVM, không có gì đảm bảo Garbage Collector sẽ chạy ngay lập tức.
-  * **A đúng:** Đối tượng tạo ở dòng 9 chỉ có duy nhất biến tham chiếu `brownBear` trỏ tới. Đến dòng 13 khi `brownBear = null`, đối tượng này không còn tham chiếu nào $\rightarrow$ đủ điều kiện GC sau dòng 13.
-  * **D đúng, C sai:** Đối tượng tạo ở dòng 10 được trỏ bởi `polarBear` VÀ đồng thời được trường `brownBear.pandaBear` trỏ tới (sau dòng 11). Khi dòng 12 gán `polarBear = null`, đối tượng này vẫn còn sống thông qua `brownBear.pandaBear`. Chỉ sau dòng 13 khi `brownBear = null`, toàn bộ chuỗi tham chiếu bị đứt $\rightarrow$ đủ điều kiện GC sau dòng 13.
+  * **A đúng:** Đối tượng tạo ở dòng 9 chỉ có duy nhất biến tham chiếu `brownBear` trỏ tới. Đến dòng 13 khi `brownBear = null`, đối tượng này không còn tham chiếu nào → đủ điều kiện GC sau dòng 13.
+  * **D đúng, C sai:** Đối tượng tạo ở dòng 10 được trỏ bởi `polarBear` VÀ đồng thời được trường `brownBear.pandaBear` trỏ tới (sau dòng 11). Khi dòng 12 gán `polarBear = null`, đối tượng này vẫn còn sống thông qua `brownBear.pandaBear`. Chỉ sau dòng 13 khi `brownBear = null`, toàn bộ chuỗi tham chiếu bị đứt → đủ điều kiện GC sau dòng 13.
 </details>
 
 ---
@@ -199,16 +199,16 @@ public class Bunny {
 * **Đáp án đúng:** **F (7 biến)**
 * **Giải thích chuyên sâu:**
   Để giải câu này, ta lần lượt kiểm tra các biến và dấu ngoặc nhọn `{}`:
-  1. `hairs` (dòng 2): Đã ra khỏi khối initializer block $\rightarrow$ **Hết scope**.
-  2. `water` (dòng 3): Instance variable $\rightarrow$ **Còn trong scope (1)**.
-  3. `air` (dòng 3): Instance variable $\rightarrow$ **Còn trong scope (2)**.
-  4. `twoHumps` (dòng 4): Instance variable $\rightarrow$ **Còn trong scope (3)**.
-  5. `distance` (dòng 5): Tham số của hàm `spit` $\rightarrow$ **Còn trong scope (4)**.
-  6. `path` (dòng 6): Biến cục bộ của hàm `spit` $\rightarrow$ **Còn trong scope (5)**.
-  7. `teeth` (dòng 7): Nằm trong khối ngoặc nhọn riêng `{}` đã đóng $\rightarrow$ **Hết scope**.
-  8. `age` (dòng 9): Biến cục bộ trong vòng lặp `while` $\rightarrow$ **Còn trong scope (6)**.
-  9. `i` (dòng 10): Khai báo trước vòng `for`, nằm trong `while` $\rightarrow$ **Còn trong scope (7)**.
-  10. `Private` (dòng 12): Khai báo trong vòng `for`, khi vòng for kết thúc thì đã ra khỏi scope $\rightarrow$ **Hết scope**.
+  1. `hairs` (dòng 2): Đã ra khỏi khối initializer block → **Hết scope**.
+  2. `water` (dòng 3): Instance variable → **Còn trong scope (1)**.
+  3. `air` (dòng 3): Instance variable → **Còn trong scope (2)**.
+  4. `twoHumps` (dòng 4): Instance variable → **Còn trong scope (3)**.
+  5. `distance` (dòng 5): Tham số của hàm `spit` → **Còn trong scope (4)**.
+  6. `path` (dòng 6): Biến cục bộ của hàm `spit` → **Còn trong scope (5)**.
+  7. `teeth` (dòng 7): Nằm trong khối ngoặc nhọn riêng `{}` đã đóng → **Hết scope**.
+  8. `age` (dòng 9): Biến cục bộ trong vòng lặp `while` → **Còn trong scope (6)**.
+  9. `i` (dòng 10): Khai báo trước vòng `for`, nằm trong `while` → **Còn trong scope (7)**.
+  10. `Private` (dòng 12): Khai báo trong vòng `for`, khi vòng for kết thúc thì đã ra khỏi scope → **Hết scope**.
   * **Tổng cộng: đúng 7 biến**.
 </details>
 
@@ -595,9 +595,9 @@ System.out.print(blocky);
 * **Đáp án đúng:** **D, F, G**
 * **Giải thích chuyên sâu:**
   * Chương trình biên dịch và chạy bình thường:
-    * `empty` là trường kiểu nguyên thủy `boolean` $\rightarrow$ giá trị mặc định là `false` (**D đúng**).
-    * `brand` là trường kiểu tham chiếu `String` $\rightarrow$ giá trị mặc định là `null` (**F đúng**).
-    * `code` là trường tĩnh kiểu `float` $\rightarrow$ giá trị mặc định là `0.0` (**G đúng**). Khi in số thực ra màn hình, Java không in hậu tố `f` (nên H sai).
+    * `empty` là trường kiểu nguyên thủy `boolean` → giá trị mặc định là `false` (**D đúng**).
+    * `brand` là trường kiểu tham chiếu `String` → giá trị mặc định là `null` (**F đúng**).
+    * `code` là trường tĩnh kiểu `float` → giá trị mặc định là `0.0` (**G đúng**). Khi in số thực ra màn hình, Java không in hậu tố `f` (nên H sai).
 </details>
 
 ---
@@ -649,9 +649,9 @@ System.out.println(Integer.max(num1, num2));
 
 * **Đáp án đúng:** **A, D**
 * **Giải thích chuyên sâu:**
-  * `Integer.parseInt("11")`: Trả về kiểu nguyên thủy `int` có giá trị là 11 $\rightarrow$ **D đúng** (`num1` là kiểu primitive `int`).
-  * `Integer.valueOf("B", 16)`: Chuyển đổi ký tự `"B"` trong hệ thập lục phân (cơ số 16) sang số nguyên. Trong hệ 16: A=10, B=11. Phương thức `valueOf` trả về đối tượng Wrapper `Integer` có giá trị là 11 $\rightarrow$ **E sai** (`num2` là kiểu reference).
-  * `Integer.max(num1, num2)`: Nhận hai số `11` và `11`, trả về số lớn nhất là `11` $\rightarrow$ **A đúng**.
+  * `Integer.parseInt("11")`: Trả về kiểu nguyên thủy `int` có giá trị là 11 → **D đúng** (`num1` là kiểu primitive `int`).
+  * `Integer.valueOf("B", 16)`: Chuyển đổi ký tự `"B"` trong hệ thập lục phân (cơ số 16) sang số nguyên. Trong hệ 16: A=10, B=11. Phương thức `valueOf` trả về đối tượng Wrapper `Integer` có giá trị là 11 → **E sai** (`num2` là kiểu reference).
+  * `Integer.max(num1, num2)`: Nhận hai số `11` và `11`, trả về số lớn nhất là `11` → **A đúng**.
 </details>
 
 ---
@@ -699,7 +699,7 @@ System.out.println(Integer.max(num1, num2));
   * Khi gọi `new PoliceBox()`, Java gọi constructor mặc định ngầm định của compiler, phương thức `PoliceBox()` ở dòng 4 không hề được gọi.
   * Vì vậy, ban đầu cả `p` và `q` đều có giá trị mặc định: `color = null`, `age = 0L`.
   * Dòng 11, 12 gán cho đối tượng của `p`: `color = "green"`, `age = 1400`.
-  * Đến dòng 13: `p = q;` $\rightarrow$ biến `p` đổi sang trỏ vào đối tượng của `q` (đối tượng có giá trị mặc định `null` và `0L`).
+  * Đến dòng 13: `p = q;` → biến `p` đổi sang trỏ vào đối tượng của `q` (đối tượng có giá trị mặc định `null` và `0L`).
   * Do đó khi in ra:
     * `Q1=null`, `Q2=0`
     * `P1=null`, `P2=0`
@@ -745,12 +745,12 @@ System.out.println(Integer.max(num1, num2));
   Thứ tự thực thi từng bước:
   1. Chương trình bắt đầu tại hàm `main()`: dòng 10 in ra `7-`.
   2. Dòng 11 tạo đối tượng `new Salmon()`. Trước khi chạy constructor, các khối **Instance Initializer** sẽ chạy theo thứ tự từ trên xuống:
-     * Dòng 3: in ra giá trị hiện tại của `count`. Do là instance field kiểu `int`, giá trị mặc định ban đầu là `0` $\rightarrow$ in tiếp `0-`.
+     * Dòng 3: in ra giá trị hiện tại của `count`. Do là instance field kiểu `int`, giá trị mặc định ban đầu là `0` → in tiếp `0-`.
      * Dòng 4: `count++` tăng lên thành `1`.
   3. Sau khi khối initializer chạy xong, Constructor `Salmon()` mới được thực thi:
      * Dòng 6: gán `count = 4`.
      * Dòng 7: in tiếp `2-`.
-  4. Quay lại hàm `main()`, dòng 12 in giá trị của `s.count` (hiện đang là 4) $\rightarrow$ in tiếp `4-`.
+  4. Quay lại hàm `main()`, dòng 12 in giá trị của `s.count` (hiện đang là 4) → in tiếp `4-`.
   * Ghép toàn bộ chuỗi lại: `7-0-2-4-`.
 </details>
 
@@ -785,7 +785,7 @@ public class Price {
   * **C đúng:** `0xE` là số hệ thập lục phân (giá trị 14), gán cho `int` hợp lệ.
   * **F đúng:** `0b101` là số hệ nhị phân (giá trị 5), gán cho `int` hợp lệ.
   * **G đúng:** `9_2.1_2` có dấu `_` nằm hợp lệ giữa các chữ số, kiểu `double` hợp lệ.
-  * **A sai:** Tên biến khai báo là `Amount` (chữ A hoa), trong khi dòng sau in ra `amount` (chữ a thường) $\rightarrow$ lỗi biên dịch `cannot find symbol: variable amount`.
+  * **A sai:** Tên biến khai báo là `Amount` (chữ A hoa), trong khi dòng sau in ra `amount` (chữ a thường) → lỗi biên dịch `cannot find symbol: variable amount`.
   * **B sai:** `9L` là kiểu `long`, không thể tự động gán cho biến kiểu `int`.
   * **D sai:** `1_2.0` là số thực `double`, không thể gán cho biến `int`.
   * **E và H sai:** Dấu `_` nằm ngay cạnh dấu chấm thập phân (`_.` hoặc `._`).
@@ -830,5 +830,5 @@ public class Price {
 * **Đáp án đúng:** **A, D**
 * **Giải thích chuyên sâu:**
   * **A đúng (Lỗi dòng 3):** `50.0` mặc định là kiểu `double`. Muốn gán cho `float`, bắt buộc phải có hậu tố `f` hoặc `F` (`50.0f`).
-  * **D đúng (Lỗi dòng 10):** Biến `depth` được khai báo bên trong vòng lặp `for` (dòng 6), do đó phạm vi sống của nó chỉ nằm trong vòng `for`. Ra ngoài vòng `for` ở dòng 10, biến `depth` không còn tồn tại $\rightarrow$ lỗi biên dịch `cannot find symbol: variable depth`. (Chú ý: ở dòng 2 có biến `Depth` viết hoa chữ D, nhưng Java phân biệt hoa thường nên không thể thay thế cho `depth`).
+  * **D đúng (Lỗi dòng 10):** Biến `depth` được khai báo bên trong vòng lặp `for` (dòng 6), do đó phạm vi sống của nó chỉ nằm trong vòng `for`. Ra ngoài vòng `for` ở dòng 10, biến `depth` không còn tồn tại → lỗi biên dịch `cannot find symbol: variable depth`. (Chú ý: ở dòng 2 có biến `Depth` viết hoa chữ D, nhưng Java phân biệt hoa thường nên không thể thay thế cho `depth`).
 </details>

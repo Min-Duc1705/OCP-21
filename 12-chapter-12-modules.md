@@ -74,13 +74,13 @@ public class Task {
 
 > [!WARNING]
 > **Bẫy thi Oracle:**
-> 1. Tên file mô tả module bắt buộc phải là **`module-info.java`** (có dấu gạch ngang `-`). Nếu đề thi viết `module_info.java` hoặc `ModuleInfo.java` $\rightarrow$ **Lỗi biên dịch**.
+> 1. Tên file mô tả module bắt buộc phải là **`module-info.java`** (có dấu gạch ngang `-`). Nếu đề thi viết `module_info.java` hoặc `ModuleInfo.java` → **Lỗi biên dịch**.
 > 2. File `module-info.java` nằm ở thư mục root (default package), **không bao giờ** được chứa dòng khai báo `package ...;`.
 > 3. Cụm khai báo module kết thúc bằng dấu ngoặc nhọn `{ }`, **không có** dấu chấm phẩy `;` sau ngoặc nhọn đóng.
 
 ---
 
-### Quy Trình Dòng Lệnh: Compile $\rightarrow$ Package $\rightarrow$ Run
+### Quy Trình Dòng Lệnh: Compile → Package → Run
 
 #### 1. Biên dịch với `javac`
 ```bash
@@ -122,8 +122,8 @@ java -p mods -m zoo.animal.feeding/zoo.animal.feeding.Task
 Để minh họa sự tương tác giữa các module, giáo trình OCP 21 xây dựng hệ thống quản lý sở thú gồm 4 module:
 1. `zoo.animal.feeding`: Cung cấp thức ăn (`exports zoo.animal.feeding;`).
 2. `zoo.animal.care`: Chăm sóc y tế. Có 2 package:
-   - `zoo.animal.care.medical`: Chứa lớp `Diet`, là API công khai $\rightarrow$ **được export**.
-   - `zoo.animal.care.details`: Chứa lớp `HippoBirthday`, là dữ liệu nội bộ $\rightarrow$ **không export** (được giấu kín).
+   - `zoo.animal.care.medical`: Chứa lớp `Diet`, là API công khai → **được export**.
+   - `zoo.animal.care.details`: Chứa lớp `HippoBirthday`, là dữ liệu nội bộ → **không export** (được giấu kín).
    - Khai báo:
      ```java
      module zoo.animal.care {
@@ -473,14 +473,14 @@ Khi nâng cấp ứng dụng cũ sang JPMS, Oracle đề xuất 2 chiến lượ
 
 ### Bottom-Up Migration (Từ Dưới Lên)
 * **Quy trình:** Bắt đầu chuyển đổi từ các module ở tầng thấp nhất (các thư viện không phụ thuộc vào bất kỳ thư viện nào khác).
-  1. Thêm `module-info.java` cho các thư viện tầng dưới và đặt chúng lên **Module path** $\rightarrow$ Chúng trở thành **Named Modules**.
-  2. Các module tầng trên (chưa nâng cấp) vẫn giữ nguyên trên **Classpath** $\rightarrow$ Chúng hoạt động như **Unnamed Module**.
+  1. Thêm `module-info.java` cho các thư viện tầng dưới và đặt chúng lên **Module path** → Chúng trở thành **Named Modules**.
+  2. Các module tầng trên (chưa nâng cấp) vẫn giữ nguyên trên **Classpath** → Chúng hoạt động như **Unnamed Module**.
   3. Vì Unnamed Module có thể đọc mọi thứ trên Module path, toàn bộ ứng dụng vẫn biên dịch và hoạt động bình thường trong suốt quá trình chuyển đổi.
 * **Ưu điểm:** Cấu trúc chặt chẽ, kiểm soát hoàn toàn mã nguồn từ gốc.
 
 ### Top-Down Migration (Từ Trên Xuống)
 * **Quy trình:** Bắt đầu chuyển đổi từ module ứng dụng cấp cao nhất (ví dụ Main/UI Application).
-  1. Đưa tất cả các thư viện tầng dưới cũ (chưa có `module-info.java`) lên **Module path** $\rightarrow$ Chúng tự động trở thành **Automatic Modules**.
+  1. Đưa tất cả các thư viện tầng dưới cũ (chưa có `module-info.java`) lên **Module path** → Chúng tự động trở thành **Automatic Modules**.
   2. Thêm `module-info.java` cho module cấp cao nhất, khai báo `requires` tên của các Automatic Module.
   3. Dần dần bổ sung `module-info.java` cho từng Automatic Module để biến chúng thành Named Module hoàn chỉnh.
 * **Ưu điểm:** Phù hợp khi ứng dụng phụ thuộc vào nhiều thư viện bên thứ ba (Third-party JARs) chưa được tác giả module hóa.
@@ -523,7 +523,7 @@ Dùng khi chạy hoặc kiểm thử ứng dụng mà không muốn sửa đổi
 >    - Sau `uses`: Luôn là **INTERFACE / ABSTRACT CLASS NAME**.
 >    - Sau `provides`: Luôn là **INTERFACE / ABSTRACT CLASS**, theo sau bởi `with` rồi đến **IMPLEMENTATION CLASS**.
 > 3. **Open Module:** Trong `open module`, **TUYỆT ĐỐI CẤM** dùng chỉ thị `opens` bên trong khối `{ }` (gây lỗi biên dịch: redundant opens).
-> 4. **Service Locator:** Quên khai báo `uses` trong `module-info.java` khi gọi `ServiceLoader.load()` $\rightarrow$ Vẫn biên dịch thành công nhưng ném **`ServiceConfigurationError`** lúc runtime!
+> 4. **Service Locator:** Quên khai báo `uses` trong `module-info.java` khi gọi `ServiceLoader.load()` → Vẫn biên dịch thành công nhưng ném **`ServiceConfigurationError`** lúc runtime!
 > 5. **Service Provider Constructor:** Class Provider bắt buộc phải có **`public` no-arg constructor** hoặc phương thức static `provider()`.
 > 6. **Giới hạn của `jlink`:** `jlink` chỉ hỗ trợ **Named Modules**; không thể đóng gói Automatic Module hoặc Unnamed Module.
 > 7. **Lệnh `jmod`:** File `.jmod` **không thể** chạy trực tiếp bằng lệnh `java`.

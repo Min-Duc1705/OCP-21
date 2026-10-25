@@ -74,9 +74,9 @@ Khi một biểu thức phức tạp không có dấu ngoặc đơn `()`, Java s
 * **Toán tử `~` (Bitwise Complement):** Chỉ áp dụng cho các kiểu số nguyên (`byte`, `short`, `char`, `int`, `long`).
   * Cơ chế: Đảo toàn bộ bit từ `0` thành `1` và ngược lại.
   * 💡 **Công thức phản xạ thi cử:** `~x = -x - 1` (hoặc `~x = -(x + 1)`)
-    * `~3` $\rightarrow$ `-4`
-    * `~0` $\rightarrow$ `-1`
-    * `~(-5)` $\rightarrow$ `4`
+    * `~3` → `-4`
+    * `~0` → `-1`
+    * `~(-5)` → `4`
   ❌ *Cấm tuyệt đối:* Áp dụng `~` cho kiểu `boolean` hoặc số thực `float`/`double`.
 
 ### 2.2. Dấu Dương (`+`) & Dấu Âm (`-`) Số Học
@@ -98,9 +98,9 @@ System.out.println("tiger=" + tiger); // tiger=5
 ```
 * **Các bước phân tích của JVM:**
   1. `++lion`: `lion` tăng từ 3 lên 4. Giá trị trả về của `++lion` là `4`. (Biểu thức thành: `4 * 5 / lion--`).
-  2. `4 * 5`: Thực hiện nhân $\rightarrow$ `20`. (Biểu thức thành: `20 / lion--`).
+  2. `4 * 5`: Thực hiện nhân → `20`. (Biểu thức thành: `20 / lion--`).
   3. `lion--`: Lấy giá trị hiện tại của `lion` là `4` đưa vào phép chia. Sau đó `lion` mới giảm xuống `3`.
-  4. `20 / 4`: Thực hiện chia $\rightarrow$ `5`. Gán `tiger = 5`.
+  4. `20 / 4`: Thực hiện chia → `5`. Gán `tiger = 5`.
   5. Kết thúc: `tiger = 5`, `lion = 3`.
 
 ---
@@ -119,16 +119,16 @@ Bao gồm: Cộng (`+`), Trừ (`-`), Nhân (`*`), Chia (`/`), và Chia lấy d�
 
 ### 3.2. Phép Chia Lấy Dư (`%` - Modulus / Remainder)
 Toán tử `%` trả về phần dư của phép chia:
-* `9 % 3` $\rightarrow$ `0` (chia hết)
-* `11 % 3` $\rightarrow$ `2` (11 = 3 * 3 + 2)
+* `9 % 3` → `0` (chia hết)
+* `11 % 3` → `2` (11 = 3 * 3 + 2)
 
 #### Quy tắc dấu trong phép Modulus (`%`) (Rất hay lừa!):
 * **Dấu của số chia (bên phải `%`) hoàn toàn bị bỏ qua:**
-  * `7 % 5` $\rightarrow$ `2`
-  * `7 % -5` $\rightarrow$ `2` (dấu âm bên phải không ảnh hưởng đến kết quả)
+  * `7 % 5` → `2`
+  * `7 % -5` → `2` (dấu âm bên phải không ảnh hưởng đến kết quả)
 * **Dấu của số bị chia (bên trái `%`) quyết định dấu của kết quả:**
-  * `-7 % 5` $\rightarrow$ `-2`
-  * `-7 % -5` $\rightarrow$ `-2`
+  * `-7 % 5` → `-2`
+  * `-7 % -5` → `-2`
 
 ### 3.3. Phép Chia Cho Số 0 (Division by Zero)
 Trong Java, có sự khác biệt rất lớn giữa số nguyên và số thực khi chia cho 0:
@@ -166,10 +166,10 @@ Trong Java, có sự khác biệt rất lớn giữa số nguyên và số thự
 Bất cứ khi nào hai toán hạng tham gia vào một toán tử hai ngôi số học (`+`, `-`, `*`, `/`, `%`), Java tuân thủ nghiêm ngặt **4 quy tắc sau theo đúng thứ tự**:
 
 1. **Quy tắc 1 (Khác kiểu dữ liệu):** Nếu 2 toán hạng có kiểu dữ liệu khác nhau, Java sẽ tự động thăng hạng (*promote*) toán hạng có kiểu nhỏ hơn lên kiểu lớn hơn của toán hạng kia.
-   * Ví dụ: `int + long` $\rightarrow$ Cả hai được nâng lên thành `long` $\rightarrow$ Kết quả là `long`.
+   * Ví dụ: `int + long` → Cả hai được nâng lên thành `long` → Kết quả là `long`.
 2. **Quy tắc 2 (Nguyên kết hợp với Số thực):** Nếu một trong các toán hạng là số nguyên (*integral*) và toán hạng kia là số thực (*floating-point*), Java sẽ tự động thăng hạng toán hạng số nguyên lên thành kiểu số thực.
-   * Ví dụ: `int * float` $\rightarrow$ `float * float` $\rightarrow$ Kết quả là `float`.
-   * Ví dụ: `long + double` $\rightarrow$ `double + double` $\rightarrow$ Kết quả là `double`.
+   * Ví dụ: `int * float` → `float * float` → Kết quả là `float`.
+   * Ví dụ: `long + double` → `double + double` → Kết quả là `double`.
 3. **Quy tắc 3 (Các kiểu nhỏ hơn `int` luôn bị ép lên `int` trước):**
    * Các kiểu dữ liệu nhỏ gồm: `byte`, `short`, và `char` **LUÔN LUÔN được tự động thăng hạng lên thành `int`** ngay khi chúng xuất hiện trong bất kỳ toán tử hai ngôi số học nào, kể cả khi cả hai toán hạng đều là `short` hoặc `byte`!
    ```java
@@ -188,8 +188,8 @@ double c = 30;
 var result = a * b / c;
 ```
 * **Hỏi: Kiểu dữ liệu của `result` là gì?**
-  1. `a` là `short`, gặp phép nhân `*` $\rightarrow$ Quy tắc 3: `a` thăng hạng lên `int`.
-  2. Phép tính `a * b` là `int * float` $\rightarrow$ Quy tắc 2: `int` thăng hạng lên `float`. Kết quả của `a * b` là kiểu `float`.
+  1. `a` là `short`, gặp phép nhân `*` → Quy tắc 3: `a` thăng hạng lên `int`.
+  2. Phép tính `a * b` là `int * float` → Quy tắc 2: `int` thăng hạng lên `float`. Kết quả của `a * b` là kiểu `float`.
   3. Biểu thức còn lại: `(float) / c`. Do `c` là `double`, theo Quy tắc 1: `float` thăng hạng lên `double`.
   4. Kết quả cuối cùng của `result` là kiểu `double`.
 
@@ -221,7 +221,7 @@ Khi bạn ép một số quá lớn vào một kiểu dữ liệu có giới h�
 byte b = (byte) 130;
 System.out.println(b); // In ra: -126 (bị tràn từ cực dương sang cực âm)
 ```
-* Giá trị cực đại của `byte` là `127`. Khi gán `128` $\rightarrow$ thành `-128`; `129` $\rightarrow$ `-127`; `130` $\rightarrow$ `-126`.
+* Giá trị cực đại của `byte` là `127`. Khi gán `128` → thành `-128`; `129` → `-127`; `130` → `-126`.
 
 ### 5.3. Bẫy Ép Kiểu Phép Tính
 Casting là một toán tử một ngôi có độ ưu tiên cao hơn phép nhân chia cộng trừ:
@@ -295,7 +295,7 @@ System.out.println(coyote); // 3
 
 ### 7.1. Toán Tử Quan Hệ (`<`, `<=`, `>`, `>=`)
 * Chỉ áp dụng cho các kiểu dữ liệu **số nguyên và số thực** (`byte`, `short`, `char`, `int`, `long`, `float`, `double`).
-* ❌ Không thể áp dụng cho `boolean` hay kiểu tham chiếu `Object` (`true < false` $\rightarrow$ Lỗi biên dịch).
+* ❌ Không thể áp dụng cho `boolean` hay kiểu tham chiếu `Object` (`true < false` → Lỗi biên dịch).
 
 ### 7.2. Toán Tử So Sánh Bằng (`==`) & Khác Bằng (`!=`)
 * **Với kiểu nguyên thủy:** So sánh **giá trị** thực sự của dữ liệu. Nếu khác kiểu, Java tự thăng hạng trước khi so sánh (`5 == 5.0` là `true`).
@@ -377,8 +377,8 @@ Mặc dù Oracle không hỏi sâu về việc tính nhẩm các phép dịch bi
 ### 8.4. Sự Khác Biệt Giữa Logic (`&`, `|`) vs Đoản Mạch (`&&`, `||`)
 * **Toán tử Logic thuần (`&`, `|`):** **LUÔN LUÔN đánh giá cả 2 vế** (trái và phải), bất kể vế trái là gì.
 * **Toán tử Đoản Mạch (`&&`, `||` - Short-Circuit Operators):**
-  * Với `&&`: Nếu vế trái là `false`, kết quả chắc chắn là `false` $\rightarrow$ **JVM dừng lại ngay, không thèm chạy vế phải!**
-  * Với `||`: Nếu vế trái là `true`, kết quả chắc chắn là `true` $\rightarrow$ **JVM dừng lại ngay, không thèm chạy vế phải!**
+  * Với `&&`: Nếu vế trái là `false`, kết quả chắc chắn là `false` → **JVM dừng lại ngay, không thèm chạy vế phải!**
+  * Với `||`: Nếu vế trái là `true`, kết quả chắc chắn là `true` → **JVM dừng lại ngay, không thèm chạy vế phải!**
 
 ### 8.5. Bẫy Tác Dụng Phụ Chưa Được Thực Thi (Unperformed Side Effects)
 Trong đề thi OCP, Oracle rất thích lồng toán tử tăng giảm (`++`, `--`) vào vế bên phải của toán tử đoản mạch:
@@ -389,7 +389,7 @@ boolean bunny = (rabbit >= 6) || (++rabbit <= 7);
 System.out.println(rabbit); // In ra bao nhiêu?
 ```
 * **Phân tích:**
-  1. Vế trái: `rabbit >= 6` $\rightarrow$ `6 >= 6` là `true`.
+  1. Vế trái: `rabbit >= 6` → `6 >= 6` là `true`.
   2. Vì toán tử là `||` (đoản mạch) và vế trái đã là `true`, JVM **bỏ qua hoàn toàn vế phải**!
   3. Lệnh `++rabbit` **không bao giờ được thực thi**.
   4. Kết quả in ra: `rabbit = 6` (không phải 7!).
@@ -402,8 +402,8 @@ System.out.println(rabbit); // In ra bao nhiêu?
 ```java
 booleanExpression ? expression1 : expression2
 ```
-* Nếu `booleanExpression` là `true` $\rightarrow$ thực thi và trả về giá trị của `expression1`.
-* Nếu `booleanExpression` là `false` $\rightarrow$ thực thi và trả về giá trị của `expression2`.
+* Nếu `booleanExpression` là `true` → thực thi và trả về giá trị của `expression1`.
+* Nếu `booleanExpression` là `false` → thực thi và trả về giá trị của `expression2`.
 * Đánh giá từ **Phải sang Trái**.
 
 ### 9.2. Tác Dụng Phụ Chưa Thực Thi Trong Toán Tử Ba Ngôi
@@ -442,7 +442,7 @@ Khi gặp toán tử ba ngôi lồng nhau, hãy luôn bổ sung dấu ngoặc đ
 | **1** | Phép toán trên `short`, `byte`, `char` (ví dụ `short c = a + b;`) | **Lỗi biên dịch** vì chúng tự động bị nâng lên `int`. Bắt buộc phải cast: `(short)(a + b)`. |
 | **2** | Compound Assignment (ví dụ `y += x;`) | **Luôn tự động ép kiểu ngầm định**, không bao giờ bị lỗi mất độ chính xác kiểu số. |
 | **3** | Chia số nguyên cho 0 (`10 / 0`) vs Chia số thực cho 0 (`10.0 / 0`) | Số nguyên ném ngoại lệ `ArithmeticException`. Số thực in ra `Infinity` (không có lỗi). |
-| **4** | Phép gán trong điều kiện `if` (ví dụ `if (flag = true)`) | Luôn gán giá trị và trả về `true` $\rightarrow$ Khối `if` luôn chạy! |
+| **4** | Phép gán trong điều kiện `if` (ví dụ `if (flag = true)`) | Luôn gán giá trị và trả về `true` → Khối `if` luôn chạy! |
 | **5** | Đảo bit `~x` | Áp dụng công thức phản xạ nhanh: `~x = -x - 1`. |
 | **6** | Đoản mạch (`&&`, `||`) bỏ qua vế phải | Chú ý các biến có `++` hoặc `--` ở vế phải có thể không bao giờ được tăng/giảm. |
 | **7** | `null instanceof Anything` | Luôn luôn trả về `false`. Không bao giờ quăng ngoại lệ `NullPointerException`. |

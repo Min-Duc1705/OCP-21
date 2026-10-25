@@ -439,11 +439,11 @@ ROW_LOOP: for (int row = 1; row <= 3; row++) {
 System.out.println(count);
 ```
 * **Diễn giải luồng chạy:**
-  1. `row = 1, col = 1`: `1 * 1 % 2 == 0` là `false` $\rightarrow$ `count++` thành **1**.
-  2. `row = 1, col = 2`: `1 * 2 % 2 == 0` là `true` $\rightarrow$ `continue ROW_LOOP` $\rightarrow$ Ngắt ngay vòng lặp `col`, nhảy thẳng sang `row = 2`.
-  3. `row = 2, col = 1`: `2 * 1 % 2 == 0` là `true` $\rightarrow$ `continue ROW_LOOP` $\rightarrow$ Nhảy sang `row = 3`.
-  4. `row = 3, col = 1`: `3 * 1 % 2 == 0` là `false` $\rightarrow$ `count++` thành **2**.
-  5. `row = 3, col = 2`: `3 * 2 % 2 == 0` là `true` $\rightarrow$ `continue ROW_LOOP` $\rightarrow$ Kết thúc `row = 3`.
+  1. `row = 1, col = 1`: `1 * 1 % 2 == 0` là `false` → `count++` thành **1**.
+  2. `row = 1, col = 2`: `1 * 2 % 2 == 0` là `true` → `continue ROW_LOOP` → Ngắt ngay vòng lặp `col`, nhảy thẳng sang `row = 2`.
+  3. `row = 2, col = 1`: `2 * 1 % 2 == 0` là `true` → `continue ROW_LOOP` → Nhảy sang `row = 3`.
+  4. `row = 3, col = 1`: `3 * 1 % 2 == 0` là `false` → `count++` thành **2**.
+  5. `row = 3, col = 2`: `3 * 2 % 2 == 0` là `true` → `continue ROW_LOOP` → Kết thúc `row = 3`.
   * **Kết quả in ra:** `count = 2`.
 
 ---

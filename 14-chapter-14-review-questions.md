@@ -22,7 +22,7 @@
 
 * **Đáp án đúng:** **C**
 * **Phân tích chi tiết:**
-  * Yêu cầu của đề bài là đọc dữ liệu từ một tập tin nhị phân và tái tạo lại thành một đối tượng Java có cấu trúc (**Deserialization** - giải tuần tự hóa). Lớp chịu trách nhiệm cho việc này trong thư viện I/O của Java chính là **`ObjectInputStream`** (thông qua phương thức `readObject()`) $\rightarrow$ **C đúng**.
+  * Yêu cầu của đề bài là đọc dữ liệu từ một tập tin nhị phân và tái tạo lại thành một đối tượng Java có cấu trúc (**Deserialization** - giải tuần tự hóa). Lớp chịu trách nhiệm cho việc này trong thư viện I/O của Java chính là **`ObjectInputStream`** (thông qua phương thức `readObject()`) → **C đúng**.
   * `ObjectOutputStream` (E) là lớp I/O dùng để **tuần tự hóa** (serialize/ghi) đối tượng ra stream, chứ không phải để đọc.
   * `FileReader` (B) là character stream dùng để đọc ký tự từ file văn bản text, không phải nhị phân.
   * Các lớp `BufferedStream`, `ObjectReader`, `ObjectWriter` (A, D, F) là các tên giả mạo, **không hề tồn tại** trong gói `java.io`.
@@ -46,7 +46,7 @@
 
 * **Đáp án đúng:** **A, F**
 * **Phân tích chi tiết:**
-  * Đường dẫn bắt đầu bằng dấu `/` (root directory) là đường dẫn tuyệt đối $\rightarrow$ **A đúng**, C sai.
+  * Đường dẫn bắt đầu bằng dấu `/` (root directory) là đường dẫn tuyệt đối → **A đúng**, C sai.
   * B sai vì `/home/parrot` hoàn toàn có thể là một file thông thường (không có phần mở rộng). Java và OS không bắt buộc file phải có đuôi mở rộng.
   * D sai vì việc khởi tạo `new File(...)` hay `Path.of(...)` chỉ tạo một đối tượng tham chiếu trong bộ nhớ, **không kiểm tra** sự tồn tại vật lý trên đĩa và không ném ngoại lệ nếu file/thư mục chưa tồn tại.
   * E sai vì phương thức `delete()` của `File` trả về kiểu `boolean`: trả về `false` nếu không xóa được (hoặc file không tồn tại), chứ **không ném ngoại lệ**. (Khác với `Files.delete(path)` của NIO.2 ném `NoSuchFileException`).
@@ -85,8 +85,8 @@ public static void main(String[] args) throws IOException {
 
 * **Đáp án đúng:** **B, D**
 * **Phân tích chi tiết:**
-  * Nếu chương trình được chạy trong môi trường không có text console tương tác (ví dụ chạy trong IDE như Eclipse/IntelliJ hoặc chạy dưới dạng background service/daemon), `System.console()` sẽ trả về `null`. Khi đó, dòng `c.writer()` sẽ lập tức ném ra **`NullPointerException`** $\rightarrow$ **D đúng** (E và F sai).
-  * Nếu chạy từ dòng lệnh (Terminal/Command Prompt) có console tương tác: `c` khác null, `c.readLine(...)` hiển thị lời nhắc và đọc chuỗi người dùng gõ vào, sau đó `w.append(line)` ghi chuỗi đó ra console writer và `w.flush()` đẩy ký tự ra màn hình $\rightarrow$ **B đúng** (A sai).
+  * Nếu chương trình được chạy trong môi trường không có text console tương tác (ví dụ chạy trong IDE như Eclipse/IntelliJ hoặc chạy dưới dạng background service/daemon), `System.console()` sẽ trả về `null`. Khi đó, dòng `c.writer()` sẽ lập tức ném ra **`NullPointerException`** → **D đúng** (E và F sai).
+  * Nếu chạy từ dòng lệnh (Terminal/Command Prompt) có console tương tác: `c` khác null, `c.readLine(...)` hiển thị lời nhắc và đọc chuỗi người dùng gõ vào, sau đó `w.append(line)` ghi chuỗi đó ra console writer và `w.flush()` đẩy ký tự ra màn hình → **B đúng** (A sai).
   * C sai vì các phương thức của `Writer` (`append`, `flush`, `close`) khai báo ném checked exception `IOException`. Nếu bỏ `throws IOException` khỏi khai báo `main`, mã sẽ không biên dịch được.
 </details>
 
@@ -116,7 +116,7 @@ public void removeBadFile(Path path) {
 * **Đáp án đúng:** **F**
 * **Phân tích chi tiết:**
   * **Bẫy kinh điển OCP:** Hầu hết các phương thức thao tác file trong lớp `java.nio.file.Files` (đặc biệt là các phương thức chỉnh sửa/xóa/đọc như `delete()`, `deleteIfExists()`, `copy()`, `move()`) đều khai báo ném checked exception **`IOException`**.
-  * Trong đoạn mã trên, phương thức `removeBadFile` **không** khai báo `throws IOException` và cũng **không** bọc lời gọi `Files.deleteIfExists(path)` trong khối `try-catch` $\rightarrow$ Trình biên dịch báo lỗi ngay tại dòng gọi `Files.deleteIfExists` $\rightarrow$ **F đúng**.
+  * Trong đoạn mã trên, phương thức `removeBadFile` **không** khai báo `throws IOException` và cũng **không** bọc lời gọi `Files.deleteIfExists(path)` trong khối `try-catch` → Trình biên dịch báo lỗi ngay tại dòng gọi `Files.deleteIfExists` → **F đúng**.
 </details>
 
 ---
@@ -149,7 +149,7 @@ try (var z = Files.walk(path)) {
   * Phương thức `Files.walk(path)` trả về một `Stream<Path>`.
   * Trên interface `Stream<T>`, phương thức `.filter(...)` nhận vào một `Predicate<T>` (chỉ nhận đúng **1 tham số** `T`).
   * Ở dòng `x`, lambda được truyền vào là `(p, a) -> ...` có **2 tham số** (dạng `BiPredicate`), cú pháp này là của phương thức `Files.find(Path, int, BiPredicate)` chứ không phải `Files.walk`!
-  * Do đó, trình biên dịch báo lỗi tại dòng `x` vì không thể khớp `BiPredicate` với `Predicate<Path>` $\rightarrow$ **C đúng**.
+  * Do đó, trình biên dịch báo lỗi tại dòng `x` vì không thể khớp `BiPredicate` với `Predicate<Path>` → **C đúng**.
 </details>
 
 ---
@@ -199,7 +199,7 @@ public class Eagle extends Bird implements Serializable {
     1. Khi giải tuần tự hóa một đối tượng, JVM **không gọi** bất kỳ constructor nào của các lớp có implement `Serializable` (ở đây là `Eagle`). Do đó, cả block khởi tạo `{ this.name = "Olivia"; }` và constructor `Eagle()` đều **không chạy**!
     2. Thay vào đó, JVM sẽ tìm lớp cha đầu tiên trong cây kế thừa **không implement Serializable** (ở đây là `Bird`) và gọi **no-argument constructor** của lớp cha đó để khởi tạo trạng thái kế thừa!
     3. Trong constructor `Bird()`, lệnh `this.name = "Matt";` được thực thi.
-  * Vì vậy, sau khi deserialize, giá trị của `name` là `"Matt"` $\rightarrow$ **C đúng**.
+  * Vì vậy, sau khi deserialize, giá trị của `name` là `"Matt"` → **C đúng**.
 </details>
 
 ---
@@ -227,8 +227,8 @@ if(Files.isDirectory(path) && Files.isSymbolicLink(path))
 * **Phân tích chi tiết:**
   * Theo mặc định trong NIO.2, `Files.isDirectory(path)` đi theo symbolic link để kiểm tra đối tượng đích (`/mammal/kangaroo`). Vì đích là thư mục nên trả về `true`. Đồng thời `Files.isSymbolicLink(path)` kiểm tra bản thân `/kang` là symbolic link nên cũng trả về `true`.
   * Biểu thức `path.resolve("joey")` trả về `/kang/joey`. Khi gọi `Files.createDirectory(...)`:
-    * Nếu thư mục `/mammal/kangaroo/joey` chưa tồn tại, nó sẽ được tạo mới thành công $\rightarrow$ **B đúng** (A sai vì nếu đã tồn tại sẵn thì sẽ ném `FileAlreadyExistsException`).
-    * Vì `/kang` là link trỏ tới `/mammal/kangaroo`, thư mục mới tạo sẽ nằm thực tế tại `/mammal/kangaroo/joey` và đồng thời truy cập được thông qua symlink tại `/kang/joey` $\rightarrow$ **C đúng** (D sai vì phải là `/mammal/kangaroo/joey`, không phải `/mammal/joey`).
+    * Nếu thư mục `/mammal/kangaroo/joey` chưa tồn tại, nó sẽ được tạo mới thành công → **B đúng** (A sai vì nếu đã tồn tại sẵn thì sẽ ném `FileAlreadyExistsException`).
+    * Vì `/kang` là link trỏ tới `/mammal/kangaroo`, thư mục mới tạo sẽ nằm thực tế tại `/mammal/kangaroo/joey` và đồng thời truy cập được thông qua symlink tại `/kang/joey` → **C đúng** (D sai vì phải là `/mammal/kangaroo/joey`, không phải `/mammal/joey`).
 </details>
 
 ---
@@ -267,7 +267,7 @@ void printData(Path path) throws IOException {
 * **Phân tích chi tiết:**
   * Phương thức `Files.readAllLines(path)` trả về một **`List<String>`**, chứ **không phải** một `Stream<String>`.
   * Trên interface `List` (hoặc `Collection`), **không có** phương thức `flatMap(...)`! Phương thức `flatMap` chỉ tồn tại trên `Stream`.
-  * Do đó, dòng `r2` cố gắng gọi `.flatMap(...)` trực tiếp trên đối tượng `List<String>` dẫn đến lỗi biên dịch $\rightarrow$ **B đúng**.
+  * Do đó, dòng `r2` cố gắng gọi `.flatMap(...)` trực tiếp trên đối tượng `List<String>` dẫn đến lỗi biên dịch → **B đúng**.
   * *(Lưu ý: Nếu đề dùng `Files.lines(path)`, nó mới trả về `Stream<String>` và mã sẽ chạy in ra từng từ viết hoa).*
 </details>
 
@@ -310,9 +310,9 @@ public void copyFile(File file1, File file2) throws Exception {
 * **Phân tích chi tiết:**
   * **Lỗi logic khi đọc buffer:**
     * File gốc có 6 ký tự: `ABCDEF`.
-    * Lần lặp 1: `reader.read(buffer)` đọc 5 ký tự đầu $\rightarrow$ `buffer` chứa `['A', 'B', 'C', 'D', 'E']`. Ghi toàn bộ buffer vào file $\rightarrow$ file có `ABCDE`.
+    * Lần lặp 1: `reader.read(buffer)` đọc 5 ký tự đầu → `buffer` chứa `['A', 'B', 'C', 'D', 'E']`. Ghi toàn bộ buffer vào file → file có `ABCDE`.
     * Lần lặp 2: `reader.read(buffer)` đọc 1 ký tự còn lại là `'F'` ghi đè vào vị trí `buffer[0]`. 4 vị trí còn lại trong buffer vẫn giữ nguyên giá trị cũ `['B', 'C', 'D', 'E']`. Lệnh `writer.write(buffer)` ghi toàn bộ mảng 5 ký tự `['F', 'B', 'C', 'D', 'E']`.
-    * Tổng nội dung ghi ra `file2`: `ABCDEFBCDE` $\rightarrow$ **D đúng**. (Để đúng, phải dùng `writer.write(buffer, 0, length)`).
+    * Tổng nội dung ghi ra `file2`: `ABCDEFBCDE` → **D đúng**. (Để đúng, phải dùng `writer.write(buffer, 0, length)`).
   * **F đúng**: `FileWriter` sử dụng bộ đệm (buffering). Dữ liệu có thể vẫn nằm trong bộ đệm của OS/Stream và chưa được flush/sync xuống đĩa vật lý, do đó file có thể vẫn rỗng khi kiểm tra giữa chừng.
   * **H đúng**: `reader` được mở trước khối try nhưng **không** được đưa vào try-with-resources và cũng không được gọi `.close()`, gây rò rỉ tài nguyên (resource leak).
 </details>
@@ -333,11 +333,11 @@ public void copyFile(File file1, File file2) throws Exception {
 
 * **Đáp án đúng:** **C, D, E**
 * **Phân tích chi tiết:**
-  * `Path` là một **interface**, không thể khởi tạo trực tiếp bằng toán tử `new` $\rightarrow$ A sai.
-  * Trên interface `Path`, phương thức factory tĩnh là `Path.of(...)`, không có `Path.get(...)` $\rightarrow$ B sai.
-  * Lớp `java.io.File` có phương thức `.toPath()` để chuyển đổi sang `Path` $\rightarrow$ **C đúng**.
-  * Lớp tiện ích `java.nio.file.Paths` có phương thức tĩnh `Paths.get(...)` $\rightarrow$ **D đúng**.
-  * Phương thức tiện ích hiện đại `Path.of(...)` (từ Java 11) dùng để tạo `Path` $\rightarrow$ **E đúng**.
+  * `Path` là một **interface**, không thể khởi tạo trực tiếp bằng toán tử `new` → A sai.
+  * Trên interface `Path`, phương thức factory tĩnh là `Path.of(...)`, không có `Path.get(...)` → B sai.
+  * Lớp `java.io.File` có phương thức `.toPath()` để chuyển đổi sang `Path` → **C đúng**.
+  * Lớp tiện ích `java.nio.file.Paths` có phương thức tĩnh `Paths.get(...)` → **D đúng**.
+  * Phương thức tiện ích hiện đại `Path.of(...)` (từ Java 11) dùng để tạo `Path` → **E đúng**.
 </details>
 
 ---
@@ -366,8 +366,8 @@ try (wrapper) {}
 * **Phân tích chi tiết:**
   * Biến `wrapper` có kiểu khai báo là `InputStream`, do đó lớp cần điền phải kế thừa từ `InputStream`. Ta lập tức loại `BufferedReader`, `BufferedWriter` (kế thừa từ `Reader`/`Writer`) và `ObjectOutputStream` (kế thừa từ `OutputStream`).
   * Lớp cần điền nhận vào tham số là một `InputStream` khác (`is`), nghĩa là nó phải là một **High-Level Stream** (Decorator pattern):
-    * `BufferedInputStream` có constructor nhận `InputStream` $\rightarrow$ **A đúng** (hoàn toàn hợp lệ khi bọc một `BufferedInputStream` bên ngoài một `BufferedInputStream` khác).
-    * `ObjectInputStream` có constructor nhận `InputStream` $\rightarrow$ **E đúng**.
+    * `BufferedInputStream` có constructor nhận `InputStream` → **A đúng** (hoàn toàn hợp lệ khi bọc một `BufferedInputStream` bên ngoài một `BufferedInputStream` khác).
+    * `ObjectInputStream` có constructor nhận `InputStream` → **E đúng**.
   * `FileInputStream` (D) là một **Low-Level Stream**, constructor của nó nhận `File`, `String` (path) hoặc `FileDescriptor`, chứ không nhận `InputStream`.
 </details>
 
@@ -397,8 +397,8 @@ try (wrapper) {}
 
 * **Đáp án đúng:** **C, E**
 * **Phân tích chi tiết:**
-  * Ở dòng 6: Lớp `Files` **không có** phương thức nào tên là `mkdir()`. Tên phương thức chuẩn trong NIO.2 là `Files.createDirectory()` hoặc `Files.createDirectories()`. (`mkdir()` là phương thức của lớp cũ `java.io.File`). Do đó dòng 6 không biên dịch được $\rightarrow$ **C đúng**.
-  * Ở dòng 8: `BasicFileAttributes` là interface **chỉ đọc (read-only)** các thuộc tính. Để sửa đổi thời gian (set file times), ta phải dùng view tương ứng là `BasicFileAttributeView` thông qua `Files.getFileAttributeView(...)`. Đối tượng `BasicFileAttributes` không có phương thức `setTimes()` $\rightarrow$ Dòng 8 không biên dịch được $\rightarrow$ **E đúng**.
+  * Ở dòng 6: Lớp `Files` **không có** phương thức nào tên là `mkdir()`. Tên phương thức chuẩn trong NIO.2 là `Files.createDirectory()` hoặc `Files.createDirectories()`. (`mkdir()` là phương thức của lớp cũ `java.io.File`). Do đó dòng 6 không biên dịch được → **C đúng**.
+  * Ở dòng 8: `BasicFileAttributes` là interface **chỉ đọc (read-only)** các thuộc tính. Để sửa đổi thời gian (set file times), ta phải dùng view tương ứng là `BasicFileAttributeView` thông qua `Files.getFileAttributeView(...)`. Đối tượng `BasicFileAttributes` không có phương thức `setTimes()` → Dòng 8 không biên dịch được → **E đúng**.
 </details>
 
 ---
@@ -419,8 +419,8 @@ try (wrapper) {}
 
 * **Đáp án đúng:** **A, G**
 * **Phân tích chi tiết:**
-  * Để một class có thể serialize được, nó phải `implements Serializable` $\rightarrow$ **G đúng** (F sai vì `Serializable` là interface, không phải class).
-  * Trong quá trình serialization, mọi trường instance không phải `transient` và không phải `static` đều phải là kiểu tuần tự hóa được (nếu trỏ tới một object không serializable sẽ ném `NotSerializableException` tại runtime) $\rightarrow$ **A đúng**.
+  * Để một class có thể serialize được, nó phải `implements Serializable` → **G đúng** (F sai vì `Serializable` là interface, không phải class).
+  * Trong quá trình serialization, mọi trường instance không phải `transient` và không phải `static` đều phải là kiểu tuần tự hóa được (nếu trỏ tới một object không serializable sẽ ném `NotSerializableException` tại runtime) → **A đúng**.
   * B sai vì ngay cả `record` cũng bắt buộc phải khai báo `implements Serializable` mới được phép serialize.
   * C sai vì chuyển đổi byte/data thành Java object gọi là **Deserialization** (giải tuần tự hóa).
   * D sai vì `java.io.Serializable` là một **Marker Interface** (interface rỗng, không chứa bất kỳ phương thức nào, do đó không phải functional interface).
@@ -457,12 +457,12 @@ try (wrapper) {}
 
 * **Đáp án đúng:** **B, D, E**
 * **Phân tích chi tiết:**
-  * **Phần 1 (dòng 22-24):** `Path` là đối tượng **bất biến (immutable)**. Dòng 23 gọi `p1.normalize().relativize(...)` nhưng **không gán lại** kết quả cho `p1`. Do đó `p1` giữ nguyên giá trị ban đầu là `/zoo/./bear/../food.txt` $\rightarrow$ **B đúng**.
+  * **Phần 1 (dòng 22-24):** `Path` là đối tượng **bất biến (immutable)**. Dòng 23 gọi `p1.normalize().relativize(...)` nhưng **không gán lại** kết quả cho `p1`. Do đó `p1` giữ nguyên giá trị ban đầu là `/zoo/./bear/../food.txt` → **B đúng**.
   * **Phần 2 (dòng 26-27):** Các phần tử của `p2` gồm: `[0]=zoo`, `[1]=animals`, `[2]=bear`, `[3]=koala`, `[4]=food.txt`.
-    * `p2.subpath(1, 3)` lấy từ index 1 đến trước index 3 $\rightarrow$ trả về relative path `animals/bear`.
+    * `p2.subpath(1, 3)` lấy từ index 1 đến trước index 3 → trả về relative path `animals/bear`.
     * Trên đường dẫn `animals/bear`, index `[0]` là `animals`, index `[1]` là `bear`.
-    * Do đó `.getName(1)` trả về `bear` $\rightarrow$ **D đúng**.
-  * **Phần 3 (dòng 29-31):** Quy tắc của phương thức `resolve()`: Nếu đối tượng truyền vào là một **đường dẫn tuyệt đối (absolute path)**, thì `resolve()` sẽ trả về chính đường dẫn tuyệt đối đó! Ở đây `p3` bắt đầu bằng `/` nên là đường dẫn tuyệt đối $\rightarrow$ `p4.resolve(p3)` trả về chính `p3` là `/pets/../cat.txt` $\rightarrow$ **E đúng**.
+    * Do đó `.getName(1)` trả về `bear` → **D đúng**.
+  * **Phần 3 (dòng 29-31):** Quy tắc của phương thức `resolve()`: Nếu đối tượng truyền vào là một **đường dẫn tuyệt đối (absolute path)**, thì `resolve()` sẽ trả về chính đường dẫn tuyệt đối đó! Ở đây `p3` bắt đầu bằng `/` nên là đường dẫn tuyệt đối → `p4.resolve(p3)` trả về chính `p3` là `/pets/../cat.txt` → **E đúng**.
 </details>
 
 ---
@@ -521,10 +521,10 @@ private void echo() throws IOException {
 
 * **Đáp án đúng:** **A, D**
 * **Phân tích chi tiết:**
-  * Cú pháp try-with-resources cho phép đưa biến `o` đã khai báo trước đó vào danh sách tài nguyên quản lý (từ Java 9) $\rightarrow$ Mã biên dịch hoàn toàn hợp lệ (E sai).
-  * Trong khối `try`: Lệnh `o.write(b.readLine())` đọc dòng đầu tiên của `zoo-data.txt` và ghi vào `new-zoo.txt` $\rightarrow$ File mới được tạo với 1 dòng văn bản $\rightarrow$ **A đúng**.
+  * Cú pháp try-with-resources cho phép đưa biến `o` đã khai báo trước đó vào danh sách tài nguyên quản lý (từ Java 9) → Mã biên dịch hoàn toàn hợp lệ (E sai).
+  * Trong khối `try`: Lệnh `o.write(b.readLine())` đọc dòng đầu tiên của `zoo-data.txt` và ghi vào `new-zoo.txt` → File mới được tạo với 1 dòng văn bản → **A đúng**.
   * Khi khối `try` kết thúc, try-with-resources sẽ tự động gọi `.close()` trên tất cả các tài nguyên theo thứ tự ngược lại, bao gồm cả biến `o` (`FileWriter`).
-  * Ngay sau khối try, lệnh `o.write("")` cố gắng ghi vào một `Writer` đã bị đóng $\rightarrow$ Ném ra ngoại lệ **`IOException: Stream closed`** tại runtime $\rightarrow$ **D đúng**.
+  * Ngay sau khối try, lệnh `o.write("")` cố gắng ghi vào một `Writer` đã bị đóng → Ném ra ngoại lệ **`IOException: Stream closed`** tại runtime → **D đúng**.
   * F sai vì `FileReader`, `BufferedReader`, `FileWriter` đều là **character streams** (kế thừa từ `Reader`/`Writer`), không phải byte stream.
 </details>
 
@@ -587,15 +587,15 @@ System.out.println(sb.toString());
 * **Đáp án đúng:** **C**
 * **Phân tích chi tiết:**
   * Dòng dữ liệu: `P E A C O C K S`
-  * `sb.append((char)reader.read())`: Đọc ký tự đầu tiên `'P'` $\rightarrow$ `sb = "P"`. Vị trí con trỏ hiện tại đang đứng trước `'E'`.
+  * `sb.append((char)reader.read())`: Đọc ký tự đầu tiên `'P'` → `sb = "P"`. Vị trí con trỏ hiện tại đang đứng trước `'E'`.
   * `reader.mark(10)`: Đánh dấu vị trí hiện tại (ngay trước ký tự `'E'`).
   * Vòng lặp `for`:
-    * Lần 1 (`i = 0`): Đọc `'E'` $\rightarrow$ `sb = "PE"`. Sau đó `skip(2)` bỏ qua `'A'` và `'C'`. Con trỏ đứng trước `'O'`.
-    * Lần 2 (`i = 1`): Đọc `'O'` $\rightarrow$ `sb = "PEO"`. Sau đó `skip(2)` bỏ qua `'C'` và `'K'`. Con trỏ đứng trước `'S'`.
+    * Lần 1 (`i = 0`): Đọc `'E'` → `sb = "PE"`. Sau đó `skip(2)` bỏ qua `'A'` và `'C'`. Con trỏ đứng trước `'O'`.
+    * Lần 2 (`i = 1`): Đọc `'O'` → `sb = "PEO"`. Sau đó `skip(2)` bỏ qua `'C'` và `'K'`. Con trỏ đứng trước `'S'`.
   * `reader.reset()`: Quay con trỏ đọc về vị trí đã đánh dấu bởi `mark(10)` (ngay trước ký tự `'E'`).
   * `reader.skip(0)`: Không bỏ qua ký tự nào.
-  * `sb.append((char)reader.read())`: Đọc ký tự tiếp theo tại vị trí reset là `'E'` $\rightarrow$ `sb = "PEOE"`.
-  * **Tại sao là C mà không phải G?** Phương thức `mark()` và `reset()` không được hỗ trợ bởi mọi stream. Nếu stream không hỗ trợ `markSupported()`, lời gọi `reset()` sẽ ném ngoại lệ tại runtime. Do đó kết quả là **"Mã có thể in ra PEOE" (The code may print PEOE)** $\rightarrow$ **C đúng** (G sai).
+  * `sb.append((char)reader.read())`: Đọc ký tự tiếp theo tại vị trí reset là `'E'` → `sb = "PEOE"`.
+  * **Tại sao là C mà không phải G?** Phương thức `mark()` và `reset()` không được hỗ trợ bởi mọi stream. Nếu stream không hỗ trợ `markSupported()`, lời gọi `reset()` sẽ ném ngoại lệ tại runtime. Do đó kết quả là **"Mã có thể in ra PEOE" (The code may print PEOE)** → **C đúng** (G sai).
 </details>
 
 ---
@@ -627,10 +627,10 @@ System.out.print(Files.mismatch(p1,p2));
 
 * **Đáp án đúng:** **C**
 * **Phân tích chi tiết:**
-  * **1. `Files.isSameFile(p1, p2)`:** Phương thức này truy cập vào hệ thống tập tin vật lý và chuẩn hóa các ký hiệu dư thừa (`.` và `..`). Cả `p1` (`/lizard/./walking.txt`) và `p2` (`/lizard/././actions/../walking.txt`) đều trỏ đến cùng một tập tin thực tế `/lizard/walking.txt` $\rightarrow$ Trả về **`true`**.
-  * **2. `p1.equals(p2)`:** Phương thức `equals()` của `Path` chỉ so sánh chuỗi ký tự biểu diễn đường dẫn thuần túy (syntactically) mà **không chuẩn hóa** các dấu vết `.` hay `..`. Do chuỗi biểu diễn của `p1` và `p2` khác nhau $\rightarrow$ Trả về **`false`**.
-  * **3. `Files.mismatch(p1, p2)`:** Phương thức so sánh nội dung từng byte của hai tập tin. Vì hai path trỏ tới cùng một file vật lý, nội dung của chúng giống hệt nhau $\rightarrow$ Trả về **`-1`** (quy ước giống nhau hoàn toàn trả về -1; nếu khác nhau trả về vị trí byte đầu tiên bị lệch).
-  * Kết hợp lại in ra: `true false -1` $\rightarrow$ **C đúng**.
+  * **1. `Files.isSameFile(p1, p2)`:** Phương thức này truy cập vào hệ thống tập tin vật lý và chuẩn hóa các ký hiệu dư thừa (`.` và `..`). Cả `p1` (`/lizard/./walking.txt`) và `p2` (`/lizard/././actions/../walking.txt`) đều trỏ đến cùng một tập tin thực tế `/lizard/walking.txt` → Trả về **`true`**.
+  * **2. `p1.equals(p2)`:** Phương thức `equals()` của `Path` chỉ so sánh chuỗi ký tự biểu diễn đường dẫn thuần túy (syntactically) mà **không chuẩn hóa** các dấu vết `.` hay `..`. Do chuỗi biểu diễn của `p1` và `p2` khác nhau → Trả về **`false`**.
+  * **3. `Files.mismatch(p1, p2)`:** Phương thức so sánh nội dung từng byte của hai tập tin. Vì hai path trỏ tới cùng một file vật lý, nội dung của chúng giống hệt nhau → Trả về **`-1`** (quy ước giống nhau hoàn toàn trả về -1; nếu khác nhau trả về vị trí byte đầu tiên bị lệch).
+  * Kết hợp lại in ra: `true false -1` → **C đúng**.
 </details>
 
 ---
@@ -690,7 +690,7 @@ try (var m =
   * Hãy chú ý tham số thứ hai của `Files.find(f, 0, ...)`: **`maxDepth = 0`**!
   * Tham số độ sâu bằng `0` có nghĩa là `Files.find` **chỉ kiểm tra duy nhất bản thân đường dẫn gốc bắt đầu** (chính là `/monkeys`), nó không hề đi sâu vào bất kỳ file hay thư mục con nào bên trong.
   * Bản thân `/monkeys` là một thư mục thông thường, do đó điều kiện `a.isSymbolicLink()` trả về `false`.
-  * Vì vậy, Stream `m` trả về hoàn toàn rỗng. Khi xử lý tiếp và in ra, không có phần tử nào được in $\rightarrow$ **C đúng**.
+  * Vì vậy, Stream `m` trả về hoàn toàn rỗng. Khi xử lý tiếp và in ra, không có phần tử nào được in → **C đúng**.
 </details>
 
 ---
@@ -737,7 +737,7 @@ try (var m =
   * Tuy nhiên, hãy nhìn vào dòng 8: `private Object stripes = new Object();`.
   * `stripes` là một trường instance **không được đánh dấu `transient`**, và kiểu dữ liệu của nó là `java.lang.Object`.
   * Bản thân lớp `java.lang.Object` **không hề implement `Serializable`**! (Nếu `Object` implement `Serializable` thì mọi class trong Java đều tự động serializable).
-  * Khi gọi `ObjectOutputStream.writeObject(zebra)`, JVM duyệt qua các trường instance và phát hiện đối tượng `stripes` không tuần tự hóa được, lập tức ném ra **`java.io.NotSerializableException`** tại runtime $\rightarrow$ **G đúng**.
+  * Khi gọi `ObjectOutputStream.writeObject(zebra)`, JVM duyệt qua các trường instance và phát hiện đối tượng `stripes` không tuần tự hóa được, lập tức ném ra **`java.io.NotSerializableException`** tại runtime → **G đúng**.
   * *(Lưu ý: Nếu bỏ trường `stripes` đi, khi deserialize thành công thì các trường `transient` như `name` và `age` sẽ nhận giá trị mặc định là `null`).*
 </details>
 
@@ -767,9 +767,9 @@ Files.walk(x.toRealPath().getParent())       // u1
 * **Đáp án đúng:** **A, D**
 * **Phân tích chi tiết:**
   * Mã biên dịch hoàn toàn bình thường (E, F sai).
-  * Phương thức `toRealPath()` thực hiện chuẩn hóa đường dẫn trên đĩa thực tế: `/animals/fluffy/..` trở thành `/animals`. Nếu đường dẫn này không tồn tại trong hệ thống file thực, nó sẽ lập tức ném ra `NoSuchFileException` (một checked exception con của `IOException`) $\rightarrow$ **D đúng**.
+  * Phương thức `toRealPath()` thực hiện chuẩn hóa đường dẫn trên đĩa thực tế: `/animals/fluffy/..` trở thành `/animals`. Nếu đường dẫn này không tồn tại trong hệ thống file thực, nó sẽ lập tức ném ra `NoSuchFileException` (một checked exception con của `IOException`) → **D đúng**.
   * Nếu `/animals` tồn tại, `getParent()` của `/animals` chính là thư mục gốc `/`.
-  * `Files.walk(/)` sẽ duyệt đệ quy qua toàn bộ cây thư mục bắt đầu từ thư mục gốc. Biểu thức `.filter(s -> s.endsWith(".java"))` lọc ra các file có đuôi `.java`. Nó sẽ in ra các file `.java` tìm thấy (chứ không phải in tất cả mọi file, vì các file không đuôi `.java` bị bỏ qua) $\rightarrow$ **A đúng** (B sai).
+  * `Files.walk(/)` sẽ duyệt đệ quy qua toàn bộ cây thư mục bắt đầu từ thư mục gốc. Biểu thức `.filter(s -> s.endsWith(".java"))` lọc ra các file có đuôi `.java`. Nó sẽ in ra các file `.java` tìm thấy (chứ không phải in tất cả mọi file, vì các file không đuôi `.java` bị bỏ qua) → **A đúng** (B sai).
   * C sai vì `Files.walk` theo mặc định **không đi theo symbolic links** (chỉ đi theo khi truyền tùy chọn `FileVisitOption.FOLLOW_LINKS`), do đó không thể gây ra vòng lặp vô tận `FileSystemLoopException`.
 </details>
 
@@ -801,9 +801,9 @@ void copyIntoFlipDirectory(Path source) throws IOException {
 * **Đáp án đúng:** **B**
 * **Phân tích chi tiết:**
   * Lệnh `Files.createDirectories(...)` không ném ngoại lệ nếu thư mục đích đã tồn tại sẵn (khác với `createDirectory`).
-  * Trong lệnh `Files.copy(source, target)`, tham số `target` phải là **đường dẫn đầy đủ của file đích**, chứ không thể là đường dẫn của thư mục cha. Do đó `target` phải là `dolphinDir.resolve(n)` (tương đương `/flip/sounds.txt`) $\rightarrow$ Loại A và C.
+  * Trong lệnh `Files.copy(source, target)`, tham số `target` phải là **đường dẫn đầy đủ của file đích**, chứ không thể là đường dẫn của thư mục cha. Do đó `target` phải là `dolphinDir.resolve(n)` (tương đương `/flip/sounds.txt`) → Loại A và C.
   * Vì đề bài nêu rõ file `/flip/sounds.txt` **đã tồn tại từ trước**, nếu không cung cấp tùy chọn `StandardCopyOption.REPLACE_EXISTING`, phương thức `Files.copy` sẽ ném ngoại lệ `FileAlreadyExistsException` tại runtime (do đó D sai).
-  * Vì vậy, cú pháp đầy đủ và chính xác bắt buộc phải là `dolphinDir.resolve(n), StandardCopyOption.REPLACE_EXISTING` $\rightarrow$ **B đúng**.
+  * Vì vậy, cú pháp đầy đủ và chính xác bắt buộc phải là `dolphinDir.resolve(n), StandardCopyOption.REPLACE_EXISTING` → **B đúng**.
 </details>
 
 ---
@@ -830,5 +830,5 @@ void copyIntoFlipDirectory(Path source) throws IOException {
     ```java
     var reader = new BufferedReader(new FileReader("large-file.txt"));
     ```
-  * Do đó, hai lớp cần chọn là **`BufferedReader`** và **`FileReader`** $\rightarrow$ **B, D đúng**.
+  * Do đó, hai lớp cần chọn là **`BufferedReader`** và **`FileReader`** → **B, D đúng**.
 </details>

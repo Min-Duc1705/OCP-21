@@ -27,9 +27,9 @@ var p = ________________;
 
 * **Đáp án đúng:** **D, F**
 * **Phân tích chi tiết:**
-  * Trong Java API, **không hề tồn tại** lớp nào tên là `ParallelStream` $\rightarrow$ Loại A và E.
-  * Đối với một đối tượng thuộc họ `Collection` (như `List`, `Set`), phương thức để tạo parallel stream là **`collection.parallelStream()`** $\rightarrow$ **D đúng**. (Phương thức `.parallel()` không nằm trên interface `Collection` $\rightarrow$ B sai).
-  * Đối với một đối tượng đã là `Stream` hoặc primitive stream (như `DoubleStream` trả về từ `doubles()`), phương thức chuyển đổi sang stream song song là **`stream.parallel()`** $\rightarrow$ **F đúng**. (Phương thức `parallelStream()` không tồn tại trên interface `Stream` $\rightarrow$ C sai).
+  * Trong Java API, **không hề tồn tại** lớp nào tên là `ParallelStream` → Loại A và E.
+  * Đối với một đối tượng thuộc họ `Collection` (như `List`, `Set`), phương thức để tạo parallel stream là **`collection.parallelStream()`** → **D đúng**. (Phương thức `.parallel()` không nằm trên interface `Collection` → B sai).
+  * Đối với một đối tượng đã là `Stream` hoặc primitive stream (như `DoubleStream` trả về từ `doubles()`), phương thức chuyển đổi sang stream song song là **`stream.parallel()`** → **F đúng**. (Phương thức `parallelStream()` không tồn tại trên interface `Stream` → C sai).
 </details>
 
 ---
@@ -70,8 +70,8 @@ var p = ________________;
 * **Phân tích chi tiết (Bẫy thi `tryLock()` kinh điển!):**
   * Phương thức `vault.tryLock()` là phương thức không chặn (non-blocking): Nó thử lấy khóa, nếu khóa đã bị luồng khác giữ, nó lập tức trả về `false` mà **không chờ đợi**.
   * Ở dòng 8, mã nguồn **không kiểm tra giá trị boolean trả về** từ `tryLock()`. Do đó, ngay cả khi không lấy được khóa, luồng vẫn lao vào thực thi dòng 9 và sau đó nhảy vào khối `finally` ở dòng 10.
-  * Khi luồng không nắm giữ khóa mà lại gọi `vault.unlock()`, máy ảo JVM sẽ ném ngay lập tức ngoại lệ **`IllegalMonitorStateException`** lúc runtime $\rightarrow$ **D đúng**.
-  * Trong một số lần chạy hiếm hoi (khi các luồng không hề xung đột thời gian và mỗi lần gọi `tryLock()` đều may mắn trả về `true`), toàn bộ 9 số sẽ được cộng thành công và in ra **45** $\rightarrow$ **A đúng**.
+  * Khi luồng không nắm giữ khóa mà lại gọi `vault.unlock()`, máy ảo JVM sẽ ném ngay lập tức ngoại lệ **`IllegalMonitorStateException`** lúc runtime → **D đúng**.
+  * Trong một số lần chạy hiếm hoi (khi các luồng không hề xung đột thời gian và mỗi lần gọi `tryLock()` đều may mắn trả về `true`), toàn bộ 9 số sẽ được cộng thành công và in ra **45** → **A đúng**.
   * Lựa chọn B không thể xảy ra vì nếu có luồng thất bại khi lấy khóa thì ngoại lệ ở dòng 10 đã làm gián đoạn chương trình trước khi kịp in ra tổng cuối cùng.
 </details>
 
@@ -95,10 +95,10 @@ var p = ________________;
   * Chữ ký phương thức:
     * `Runnable`: `public void run()`
     * `Callable<V>`: `public V call() throws Exception`
-  * `Runnable` trả về `void`, còn `Callable` trả về kiểu dữ liệu generic `V` $\rightarrow$ **F đúng**, A và D sai.
-  * Mọi phương thức trong Java đều có thể ném Unchecked Exception (Runtime Exception) $\rightarrow$ **B đúng**.
-  * Chỉ có `Callable` mới khai báo `throws Exception` (Checked Exception); `Runnable` không thể ném checked exception $\rightarrow$ E sai.
-  * Cả hai đều là Functional Interface (có đúng 1 phương thức trừu tượng) nên đều có thể dùng với biểu thức Lambda $\rightarrow$ **C đúng**.
+  * `Runnable` trả về `void`, còn `Callable` trả về kiểu dữ liệu generic `V` → **F đúng**, A và D sai.
+  * Mọi phương thức trong Java đều có thể ném Unchecked Exception (Runtime Exception) → **B đúng**.
+  * Chỉ có `Callable` mới khai báo `throws Exception` (Checked Exception); `Runnable` không thể ném checked exception → E sai.
+  * Cả hai đều là Functional Interface (có đúng 1 phương thức trừu tượng) nên đều có thể dùng với biểu thức Lambda → **C đúng**.
 </details>
 
 ---
@@ -135,7 +135,7 @@ try (ExecutorService service =         // w1
   * **Lỗi 1 (Dòng w1):** `Executors.newSingleThreadScheduledExecutor()` trả về một `ScheduledExecutorService`. Tuy nhiên, biến được gán lại có kiểu tham chiếu là `ExecutorService`. Interface cha `ExecutorService` **không có** phương thức `scheduleWithFixedDelay()`. Do đó dòng w1 phải sửa kiểu biến thành `ScheduledExecutorService` (hoặc dùng `var service = ...`).
   * **Lỗi 2 (Dòng w2):** Phương thức `scheduleWithFixedDelay()` chỉ chấp nhận tham số là một **`Runnable`**, không hỗ trợ `Callable`. Một biểu thức Lambda kiểu Runnable không được phép trả về giá trị (`return null;` là không hợp lệ trong Runnable lambda). Cần xóa bỏ dòng `return null;`.
   * Dòng w3 hợp lệ vì `submit(Runnable)` có sẵn trên `ExecutorService`.
-  * Do đó, hai dòng cần sửa là **w1 và w2** $\rightarrow$ **D đúng**.
+  * Do đó, hai dòng cần sửa là **w1 và w2** → **D đúng**.
 </details>
 
 ---
@@ -166,10 +166,10 @@ System.out.println(value1 + " " + value2[0]);
 
 * **Đáp án đúng:** **C**
 * **Phân tích chi tiết:**
-  * Đoạn mã biên dịch và chạy bình thường không ném lỗi hay lặp vô tận $\rightarrow$ D, E, F sai.
-  * Biến `value1` là đối tượng `AtomicLong`. Phương thức `incrementAndGet()` thực hiện thao tác tăng nguyên tử trên phần cứng (CAS), đảm bảo an toàn tuyệt đối khi chạy song song qua 100 phần tử $\rightarrow$ `value1` chắc chắn luôn bằng **100**.
+  * Đoạn mã biên dịch và chạy bình thường không ném lỗi hay lặp vô tận → D, E, F sai.
+  * Biến `value1` là đối tượng `AtomicLong`. Phương thức `incrementAndGet()` thực hiện thao tác tăng nguyên tử trên phần cứng (CAS), đảm bảo an toàn tuyệt đối khi chạy song song qua 100 phần tử → `value1` chắc chắn luôn bằng **100**.
   * Tuy nhiên, `++value2[0]` là một toán tử tăng không nguyên tử (non-atomic). Khi 100 tác vụ song song cùng đọc - tăng - ghi đè lên phần tử mảng `value2[0]`, sẽ xảy ra hiện tượng **Lost Update (xung đột dữ liệu / race condition)**.
-  * Kết quả của `value2[0]` sẽ là một số ngẫu nhiên dao động từ 1 đến 100, không thể đoán trước được $\rightarrow$ **C đúng**.
+  * Kết quả của `value2[0]` sẽ là một số ngẫu nhiên dao động từ 1 đến 100, không thể đoán trước được → **C đúng**.
 </details>
 
 ---
@@ -199,8 +199,8 @@ data.stream().parallel()
 * **Đáp án đúng:** **C, E**
 * **Phân tích chi tiết:**
   * Đoạn stream được chuyển sang song song bằng `.parallel()`.
-  * Phương thức `peek()` là một thao tác trung gian được thực thi song song độc lập trên các luồng con, do đó thứ tự in của `peek()` là **hoàn toàn ngẫu nhiên và không thể đoán trước** $\rightarrow$ **C đúng**, A và B sai.
-  * Phương thức kết thúc `forEachOrdered()` có nhiệm vụ ép buộc việc xử lý và xuất kết quả theo **đúng thứ tự gốc của stream** (encounter order), tức thứ tự ban đầu trong danh sách `List.of(2, 5, 1, 9, 8)` là `25198` $\rightarrow$ **E đúng**, D và F sai (lưu ý stream không hề gọi `.sorted()`).
+  * Phương thức `peek()` là một thao tác trung gian được thực thi song song độc lập trên các luồng con, do đó thứ tự in của `peek()` là **hoàn toàn ngẫu nhiên và không thể đoán trước** → **C đúng**, A và B sai.
+  * Phương thức kết thúc `forEachOrdered()` có nhiệm vụ ép buộc việc xử lý và xuất kết quả theo **đúng thứ tự gốc của stream** (encounter order), tức thứ tự ban đầu trong danh sách `List.of(2, 5, 1, 9, 8)` là `25198` → **E đúng**, D và F sai (lưu ý stream không hề gọi `.sorted()`).
 </details>
 
 ---
@@ -222,7 +222,7 @@ data.stream().parallel()
 * **Phân tích chi tiết:**
   * **Livelock (Tắc nghẽn động):** Các luồng liên tục hoạt động (active, không bị BLOCKED) và phản ứng với nhau nhưng không bao giờ đạt được tiến triển công việc (bị kẹt vĩnh viễn về mặt logic).
   * **Race condition (Xung đột dữ liệu):** Xảy ra khi nhiều luồng truy cập và sửa đổi dữ liệu chung đồng thời mà thiếu đồng bộ, dẫn đến dữ liệu bị sai lệch hoặc không nhất quán.
-  * Do đó cặp khái niệm chính xác là **Livelock và Race conditions** $\rightarrow$ **D đúng**.
+  * Do đó cặp khái niệm chính xác là **Livelock và Race conditions** → **D đúng**.
 </details>
 
 ---
@@ -262,7 +262,7 @@ public class Flavors {
     `.unstarted(task).run()`
   * Trong Java, gọi phương thức **`run()`** trực tiếp trên một đối tượng `Thread` sẽ thực thi phương thức đó một cách **tuần tự (synchronous) ngay trên luồng hiện tại**, chứ **KHÔNG HỀ** khởi chạy một luồng mới chạy ngầm! (Muốn chạy đa luồng thì phải gọi `.start()`).
   * Vì `LongStream.range(0, 500)` là một sequential stream (không gọi `.parallel()`), 500 lần lặp sẽ lần lượt gọi `task.run()` nối tiếp nhau trên luồng chính, tăng biến `counter` từ 0 lên 500 mà không hề có xung đột dữ liệu.
-  * Do đó, chương trình luôn luôn in ra chính xác **500** $\rightarrow$ **B đúng**.
+  * Do đó, chương trình luôn luôn in ra chính xác **500** → **B đúng**.
 </details>
 
 ---
@@ -282,9 +282,9 @@ public class Flavors {
 
 * **Đáp án đúng:** **B, D**
 * **Phân tích chi tiết:**
-  * Khi các luồng trong Thread Pool đều đang bận, phương thức `submit()` hoặc `execute()` vẫn trả về ngay lập tức; tác vụ mới được lưu vào hàng đợi (BlockingQueue) nội bộ của executor để chờ luồng rảnh xử lý $\rightarrow$ **B đúng**, A và C sai.
+  * Khi các luồng trong Thread Pool đều đang bận, phương thức `submit()` hoặc `execute()` vẫn trả về ngay lập tức; tác vụ mới được lưu vào hàng đợi (BlockingQueue) nội bộ của executor để chờ luồng rảnh xử lý → **B đúng**, A và C sai.
   * Platform Thread có chi phí khởi tạo và bộ nhớ cao nên cần cơ chế gom nhóm (Thread Pool) để tái sử dụng luồng (`newFixedThreadPool`, `newCachedThreadPool`).
-  * Virtual Thread siêu nhẹ (~vài KB), chi phí tạo mới không đáng kể và được thiết kế theo triết lý "mỗi tác vụ một luồng ảo", do đó chúng **không bao giờ được đưa vào pool** (như trong `Executors.newVirtualThreadPerTaskExecutor()`) $\rightarrow$ **D đúng**, E và F sai.
+  * Virtual Thread siêu nhẹ (~vài KB), chi phí tạo mới không đáng kể và được thiết kế theo triết lý "mỗi tác vụ một luồng ảo", do đó chúng **không bao giờ được đưa vào pool** (như trong `Executors.newVirtualThreadPerTaskExecutor()`) → **D đúng**, E và F sai.
 </details>
 
 ---
@@ -315,7 +315,7 @@ System.out.println(lions.size() + " " + tigers.size() + " " + bears.size());
 
 * **Đáp án đúng:** **A**
 * **Phân tích chi tiết:**
-  * Đoạn mã biên dịch hoàn toàn hợp lệ từ Java 21 (sử dụng interface `SequencedCollection`) $\rightarrow$ D sai.
+  * Đoạn mã biên dịch hoàn toàn hợp lệ từ Java 21 (sử dụng interface `SequencedCollection`) → D sai.
   * **Vòng lặp x1 trên `tigers` (`CopyOnWriteArrayList`):**
     * Ban đầu có 3 phần tử `[1, 2, 3]`.
     * Khi bắt đầu duyệt, Iterator chụp một bản snapshot gồm đúng 3 phần tử ban đầu. Vòng lặp chạy đúng 3 lần. Mỗi lần thêm một số 4 vào danh sách thực tế.
@@ -325,7 +325,7 @@ System.out.println(lions.size() + " " + tigers.size() + " " + bears.size());
     * Vòng lặp duyệt qua các phần tử và gọi `bears.add(5)`. Vì `bears` là một `Set` (tập hợp không chứa phần tử trùng lặp), số 5 chỉ được thêm vào một lần duy nhất dù `add(5)` được gọi nhiều lần.
     * Kích thước của `bears` sau vòng lặp là $3 + 1 = 4$.
   * Danh sách gốc `lions` hoàn toàn độc lập nên kích thước vẫn là 3.
-  * Kết quả in ra là `3 6 4` $\rightarrow$ **A đúng**.
+  * Kết quả in ra là `3 6 4` → **A đúng**.
 </details>
 
 ---
@@ -357,11 +357,11 @@ synchronized(i1) { // y1
 
 * **Đáp án đúng:** **F**
 * **Phân tích chi tiết:**
-  * Đoạn mã biên dịch và chạy bình thường $\rightarrow$ Loại C, D, E, G.
+  * Đoạn mã biên dịch và chạy bình thường → Loại C, D, E, G.
   * Khối `synchronized(i1)` chỉ khóa trên đối tượng `i1`, hoàn toàn không ảnh hưởng đến việc xử lý stream bên trong.
   * Phương thức **`findAny()`** trên stream (kể cả serial stream hay parallel stream) có quyền trả về **bất kỳ phần tử nào** mà luồng đầu tiên tìm thấy, không có bất kỳ cam kết nào về việc phải trả về phần tử đầu tiên (muốn chắc chắn phần tử đầu tiên phải dùng `findFirst()`).
   * Gọi `.sorted()` trên parallel stream cũng không ép `findAny()` phải trả về phần tử nhỏ nhất `6`.
-  * Do đó, cả `i1` và `i2` đều là các giá trị ngẫu nhiên trong danh sách của chúng $\rightarrow$ Đầu ra không thể xác định trước $\rightarrow$ **F đúng**.
+  * Do đó, cả `i1` và `i2` đều là các giá trị ngẫu nhiên trong danh sách của chúng → Đầu ra không thể xác định trước → **F đúng**.
 </details>
 
 ---
@@ -408,11 +408,11 @@ public void refactored() {
 * **Phân tích chi tiết:**
   * **Với phương thức `shutdown()`:**
     * 3 tác vụ chạy trên nhóm 4 luồng nên chúng chạy song song cùng lúc (mỗi tác vụ mất 5 giây).
-    * Lệnh `service.awaitTermination(2, TimeUnit.SECONDS)` chỉ chờ tối đa 2 giây. Sau 2 giây, dù các tác vụ chưa kết thúc, `awaitTermination()` vẫn trả về `false` và chương trình lập tức thực thi dòng tiếp theo để in `DONE!` $\rightarrow$ Mất khoảng **2 giây** $\rightarrow$ **A đúng**, B và C sai.
+    * Lệnh `service.awaitTermination(2, TimeUnit.SECONDS)` chỉ chờ tối đa 2 giây. Sau 2 giây, dù các tác vụ chưa kết thúc, `awaitTermination()` vẫn trả về `false` và chương trình lập tức thực thi dòng tiếp theo để in `DONE!` → Mất khoảng **2 giây** → **A đúng**, B và C sai.
   * **Với phương thức `refactored()`:**
     * Phương thức sử dụng khối `try-with-resources` với `ExecutorService`.
     * Khi thoát khỏi khối `try`, phương thức `service.close()` được tự động gọi. Theo tài liệu đặc tả của Java 19+, `close()` sẽ phát lệnh `shutdown()` và **chờ đợi cho đến khi tất cả các tác vụ đang thực thi hoàn tất** (tương đương `awaitTermination` vô hạn).
-    * Vì 3 tác vụ chạy song song trên 4 luồng và mất 5 giây, khối `try` sẽ chờ đúng 5 giây cho các tác vụ xong rồi mới in `DONE!` $\rightarrow$ Mất khoảng **5 giây** $\rightarrow$ **E đúng**, D và F sai.
+    * Vì 3 tác vụ chạy song song trên 4 luồng và mất 5 giây, khối `try` sẽ chờ đúng 5 giây cho các tác vụ xong rồi mới in `DONE!` → Mất khoảng **5 giây** → **E đúng**, D và F sai.
 </details>
 
 ---
@@ -447,7 +447,7 @@ System.out.print(List.of("duck","flamingo","pelican")
     * `c1` có kiểu là `Integer` (kiểu tích lũy `U`).
     * `c2` có kiểu là `String` (kiểu phần tử `T`).
   * Trên dòng q2, biểu thức lại viết `c1.length() + c2.length()`. Lớp `Integer` **không hề có phương thức `length()`**!
-  * Trình biên dịch sẽ báo lỗi: `cannot find symbol: method length() on Integer` $\rightarrow$ Lỗi biên dịch tại **dòng q2 (Đáp án C)**.
+  * Trình biên dịch sẽ báo lỗi: `cannot find symbol: method length() on Integer` → Lỗi biên dịch tại **dòng q2 (Đáp án C)**.
   * (Lưu ý: Dòng q1 gọi `.parallel()` trên một stream đã song song là hoàn toàn hợp lệ).
 </details>
 
@@ -489,9 +489,9 @@ try (var service = Executors.newFixedThreadPool(2)) {
 * **Đáp án đúng:** **C, E**
 * **Phân tích chi tiết:**
   * Hai tác vụ được gửi đồng thời vào nhóm 2 luồng. Tác vụ 1 yêu cầu khóa `o1` rồi đến `o2`. Tác vụ 2 yêu cầu khóa `o2` rồi đến `o1`.
-  * Đây là ví dụ kinh điển về **Deadlock (Bế tắc)**: Nếu luồng 1 giành được khóa `o1` trong khi luồng 2 cùng lúc giành được khóa `o2`, cả hai luồng sẽ chờ nhau nhả khóa còn lại vô thời hạn $\rightarrow$ Chương trình bị treo (Deadlock) $\rightarrow$ **E đúng**.
-  * Trong trường hợp một luồng chạy nhanh và giành được cả hai khóa trước luồng kia, luồng đó sẽ in trước. Do hai luồng chạy song song, thứ tự in (nếu có) là không thể xác định trước $\rightarrow$ **C đúng**.
-  * Cả hai luồng bị kẹt ở trạng thái `BLOCKED` (chờ khóa) chứ không phải đang hoạt động liên tục thay đổi trạng thái, do đó đây không phải là Livelock $\rightarrow$ F sai. Khi Deadlock xảy ra, JVM không ném ngoại lệ $\rightarrow$ G sai.
+  * Đây là ví dụ kinh điển về **Deadlock (Bế tắc)**: Nếu luồng 1 giành được khóa `o1` trong khi luồng 2 cùng lúc giành được khóa `o2`, cả hai luồng sẽ chờ nhau nhả khóa còn lại vô thời hạn → Chương trình bị treo (Deadlock) → **E đúng**.
+  * Trong trường hợp một luồng chạy nhanh và giành được cả hai khóa trước luồng kia, luồng đó sẽ in trước. Do hai luồng chạy song song, thứ tự in (nếu có) là không thể xác định trước → **C đúng**.
+  * Cả hai luồng bị kẹt ở trạng thái `BLOCKED` (chờ khóa) chứ không phải đang hoạt động liên tục thay đổi trạng thái, do đó đây không phải là Livelock → F sai. Khi Deadlock xảy ra, JVM không ném ngoại lệ → G sai.
 </details>
 
 ---
@@ -522,12 +522,12 @@ try (var service = Executors.newFixedThreadPool(2)) {
 
 * **Đáp án đúng:** **A**
 * **Phân tích chi tiết:**
-  * Đoạn mã biên dịch và chạy song song hoàn toàn hợp lệ $\rightarrow$ C, D, E, F sai.
+  * Đoạn mã biên dịch và chạy song song hoàn toàn hợp lệ → C, D, E, F sai.
   * Phép gom nhóm `groupingByConcurrent` phân chia các chuỗi theo điều kiện:
     `s -> !s.startsWith("p")`
     * Nhóm có key là `false`: Nghĩa là `!s.startsWith("p") == false`, tương đương với các con vật **BẮT ĐẦU bằng chữ 'p'**: `"puma"`, `"panda"`, `"polar"`. Có tất cả **3** con vật.
     * Nhóm có key là `true`: Nghĩa là các con vật **KHÔNG bắt đầu bằng chữ 'p'**: `"leopard"`, `"lynx"`, `"ocelot"`, `"grizzly"`. Có tất cả **4** con vật.
-  * Dòng 8 và 9 in `data.get(false).size()` theo sau bởi `data.get(true).size()` $\rightarrow$ In ra **`3 4`** $\rightarrow$ **A đúng**.
+  * Dòng 8 và 9 in `data.get(false).size()` theo sau bởi `data.get(true).size()` → In ra **`3 4`** → **A đúng**.
 </details>
 
 ---
@@ -547,9 +547,9 @@ try (var service = Executors.newFixedThreadPool(2)) {
 
 * **Đáp án đúng:** **A, D, E**
 * **Phân tích chi tiết:**
-  * Trong lớp `Executors`, hầu hết các phương thức factory truyền thống như `newCachedThreadPool()`, `newFixedThreadPool()`, `newSingleThreadExecutor()` đều tạo ra các Platform Thread $\rightarrow$ **A đúng**. (Không có phương thức nào tên là `newPlatformThreadPool()` hay `newPlatformThreadPerTaskExecutor()` $\rightarrow$ B và C sai).
-  * Hàm dựng truyền thống `new Thread()` tạo ra một Platform Thread $\rightarrow$ **D đúng**.
-  * Phương thức factory trong Java 21 là `Thread.ofPlatform()` trả về builder để cấu hình và tạo Platform Thread $\rightarrow$ **E đúng**. (Không có phương thức nào tên là `Thread.ofPlatformThread()` $\rightarrow$ F sai).
+  * Trong lớp `Executors`, hầu hết các phương thức factory truyền thống như `newCachedThreadPool()`, `newFixedThreadPool()`, `newSingleThreadExecutor()` đều tạo ra các Platform Thread → **A đúng**. (Không có phương thức nào tên là `newPlatformThreadPool()` hay `newPlatformThreadPerTaskExecutor()` → B và C sai).
+  * Hàm dựng truyền thống `new Thread()` tạo ra một Platform Thread → **D đúng**.
+  * Phương thức factory trong Java 21 là `Thread.ofPlatform()` trả về builder để cấu hình và tạo Platform Thread → **E đúng**. (Không có phương thức nào tên là `Thread.ofPlatformThread()` → F sai).
 </details>
 
 ---
@@ -569,10 +569,10 @@ try (var service = Executors.newFixedThreadPool(2)) {
 
 * **Đáp án đúng:** **F**
 * **Phân tích chi tiết:**
-  * `lock()` sẽ chặn luồng và chờ đợi vô thời hạn cho đến khi lấy được khóa $\rightarrow$ A sai.
-  * Các phương thức tên `testLock()` hay `attemptLock()` không hề tồn tại trong Java (tên đúng là `tryLock()`) $\rightarrow$ B và C sai.
-  * Mặc định, tính công bằng (fairness) của `ReentrantLock` là `false` (Non-fair lock để tối ưu thông lượng). Muốn kích hoạt fair lock phải gọi hàm tạo `new ReentrantLock(true)` $\rightarrow$ D sai.
-  * Nếu một luồng đã gọi `lock()` hoặc `tryLock()` thành công $N$ lần (tính chất tái nhập - reentrancy), nó bắt buộc phải gọi `unlock()` đủ $N$ lần thì khóa mới thực sự được giải phóng hoàn toàn cho luồng khác $\rightarrow$ E sai.
+  * `lock()` sẽ chặn luồng và chờ đợi vô thời hạn cho đến khi lấy được khóa → A sai.
+  * Các phương thức tên `testLock()` hay `attemptLock()` không hề tồn tại trong Java (tên đúng là `tryLock()`) → B và C sai.
+  * Mặc định, tính công bằng (fairness) của `ReentrantLock` là `false` (Non-fair lock để tối ưu thông lượng). Muốn kích hoạt fair lock phải gọi hàm tạo `new ReentrantLock(true)` → D sai.
+  * Nếu một luồng đã gọi `lock()` hoặc `tryLock()` thành công $N$ lần (tính chất tái nhập - reentrancy), nó bắt buộc phải gọi `unlock()` đủ $N$ lần thì khóa mới thực sự được giải phóng hoàn toàn cho luồng khác → E sai.
   * Do đó, đáp án đúng là **F (None of the above)**.
 </details>
 
@@ -596,10 +596,10 @@ try (var service = Executors.newFixedThreadPool(2)) {
 * **Phân tích chi tiết:**
   * Giao diện `Callable<V>` có phương thức duy nhất: `V call() throws Exception`.
   * Đặc điểm: **Không nhận tham số đầu vào `()`** và **bắt buộc phải trả về một giá trị**.
-  * A và F nhận tham số đầu vào (`a -> ...` và `(int count) -> ...`) $\rightarrow$ Sai cú pháp Callable.
-  * B có thân hàm rỗng không trả về giá trị (tương đương `void`, là Runnable) $\rightarrow$ Sai.
-  * D thiếu dấu chấm phẩy `;` sau `return null` bên trong khối `{}` $\rightarrow$ Lỗi cú pháp biên dịch.
-  * C (`() -> 5`), E (`() -> "The" + "Zoo"`), và G (`() -> { ... return 10;}`) đều không nhận tham số và trả về giá trị hợp lệ $\rightarrow$ **C, E, G đúng**.
+  * A và F nhận tham số đầu vào (`a -> ...` và `(int count) -> ...`) → Sai cú pháp Callable.
+  * B có thân hàm rỗng không trả về giá trị (tương đương `void`, là Runnable) → Sai.
+  * D thiếu dấu chấm phẩy `;` sau `return null` bên trong khối `{}` → Lỗi cú pháp biên dịch.
+  * C (`() -> 5`), E (`() -> "The" + "Zoo"`), và G (`() -> { ... return 10;}`) đều không nhận tham số và trả về giá trị hợp lệ → **C, E, G đúng**.
 </details>
 
 ---
@@ -633,9 +633,9 @@ public class PrintConstants {
 
 * **Đáp án đúng:** **E, G**
 * **Phân tích chi tiết:**
-  * Đoạn mã biên dịch hoàn toàn hợp lệ $\rightarrow$ B, C, D sai.
-  * Dù `DoubleStream` là tuần tự, nhưng các tác vụ in được gửi vào `ExecutorService` để chạy trên các luồng ảo song song độc lập. Các tác vụ này có thể hoàn thành theo bất kỳ thứ tự nào, do đó đầu ra không thể đoán trước $\rightarrow$ **E đúng**, A sai.
-  * **Điểm mấu chốt thứ hai:** Đối tượng `ExecutorService` được tạo ra nhưng **không hề được gọi lệnh `shutdown()`** và cũng không nằm trong khối `try-with-resources`. Do đó, JVM duy trì executor và tiến trình sẽ chạy mãi mãi mà **không bao giờ tự kết thúc** $\rightarrow$ **G đúng**.
+  * Đoạn mã biên dịch hoàn toàn hợp lệ → B, C, D sai.
+  * Dù `DoubleStream` là tuần tự, nhưng các tác vụ in được gửi vào `ExecutorService` để chạy trên các luồng ảo song song độc lập. Các tác vụ này có thể hoàn thành theo bất kỳ thứ tự nào, do đó đầu ra không thể đoán trước → **E đúng**, A sai.
+  * **Điểm mấu chốt thứ hai:** Đối tượng `ExecutorService` được tạo ra nhưng **không hề được gọi lệnh `shutdown()`** và cũng không nằm trong khối `try-with-resources`. Do đó, JVM duy trì executor và tiến trình sẽ chạy mãi mãi mà **không bao giờ tự kết thúc** → **G đúng**.
 </details>
 
 ---
@@ -680,7 +680,7 @@ public class PrintCounter {
 * **Phân tích chi tiết (Bẫy kiểu trả về của `execute()`):**
   * Phương thức **`service.execute(Runnable)`** có kiểu trả về là **`void`**.
   * Tại dòng n1: `r.add(service.execute(...))`. Danh sách `r` là một `ArrayList<Future<?>>`. Bạn không thể truyền giá trị `void` vào phương thức `add()` của một danh sách!
-  * Trình biên dịch sẽ báo lỗi: `'void' type not allowed here` $\rightarrow$ Lỗi biên dịch tại **dòng n1 (Đáp án F)**.
+  * Trình biên dịch sẽ báo lỗi: `'void' type not allowed here` → Lỗi biên dịch tại **dòng n1 (Đáp án F)**.
   * (Nếu dòng n1 đổi thành `service.submit(...)`, mã nguồn sẽ biên dịch thành công và in ra `null null null null null` vì `submit(Runnable)` trả về `Future<?>` và gọi `.get()` trên đó luôn trả về `null`).
 </details>
 
@@ -711,8 +711,8 @@ data._______________  // p1
 
 * **Đáp án đúng:** **A, D**
 * **Phân tích chi tiết:**
-  * Phương thức **`findFirst()`** được đặc tả để **luôn luôn đảm bảo trả về phần tử đầu tiên** theo thứ tự xuất hiện của stream, bất kể stream đó là tuần tự (`stream()`) hay song song (`parallelStream()`) $\rightarrow$ **A và D đúng**.
-  * Ngược lại, phương thức **`findAny()`** không cam kết trả về phần tử đầu tiên (đặc biệt trên parallel stream nó trả về phần tử của luồng nào hoàn thành trước ngẫu nhiên) $\rightarrow$ B và C sai.
+  * Phương thức **`findFirst()`** được đặc tả để **luôn luôn đảm bảo trả về phần tử đầu tiên** theo thứ tự xuất hiện của stream, bất kể stream đó là tuần tự (`stream()`) hay song song (`parallelStream()`) → **A và D đúng**.
+  * Ngược lại, phương thức **`findAny()`** không cam kết trả về phần tử đầu tiên (đặc biệt trên parallel stream nó trả về phần tử của luồng nào hoàn thành trước ngẫu nhiên) → B và C sai.
 </details>
 
 ---
@@ -758,7 +758,7 @@ public class BedTime {
     `Executors.newSingleThreadExecutor()`
   * Executor này **chỉ có duy nhất một luồng thực thi**. Tất cả 100 tác vụ được xếp hàng đợi và chạy **lần lượt tuần tự từng tác vụ một**, hoàn toàn không có hai tác vụ nào chạy đồng thời!
   * Do không có sự can thiệp đồng thời giữa các luồng, biến nguyên thủy `s2++` không hề bị xung đột dữ liệu (no race conditions).
-  * Cả `s1` và `s2` đều được tăng chính xác 100 lần $\rightarrow$ Chương trình luôn luôn in ra kết quả nhất quán là **`100 100`** $\rightarrow$ **B đúng**.
+  * Cả `s1` và `s2` đều được tăng chính xác 100 lần → Chương trình luôn luôn in ra kết quả nhất quán là **`100 100`** → **B đúng**.
   * (Lưu ý: Nếu ở đây dùng pool nhiều luồng như `newFixedThreadPool(4)`, thì `s2` sẽ bị race condition và đáp án khi đó mới là C).
 </details>
 
@@ -796,7 +796,7 @@ public class StockRoomTracker {
 * **Phân tích chi tiết (Bẫy giới hạn của `CyclicBarrier`):**
   * Đối tượng `CyclicBarrier` được khởi tạo với giới hạn là **10** luồng: `new CyclicBarrier(10, ...)`. Nghĩa là rào chắn chỉ mở khi có đủ 10 luồng cùng gọi `await()`.
   * Tuy nhiên, dòng j3 giới hạn stream chỉ tạo ra tối đa **9** phần tử (`limit(9)`). Do đó, chỉ có tối đa 9 lần gọi `cb.await()`.
-  * Rào chắn không bao giờ nhận đủ 10 luồng tập kết, khiến cả 9 luồng đều rơi vào trạng thái chờ vô thời hạn $\rightarrow$ Chương trình bị **treo vĩnh viễn (waits forever / hang)** $\rightarrow$ **F đúng**.
+  * Rào chắn không bao giờ nhận đủ 10 luồng tập kết, khiến cả 9 luồng đều rơi vào trạng thái chờ vô thời hạn → Chương trình bị **treo vĩnh viễn (waits forever / hang)** → **F đúng**.
 </details>
 
 ---
@@ -834,10 +834,10 @@ public final class TicketManager {
 
 * **Đáp án đúng:** **A, F**
 * **Phân tích chi tiết:**
-  * Lớp biên dịch hoàn toàn hợp lệ $\rightarrow$ **A đúng**, B và C sai.
-  * Dòng k1 là phương thức `static synchronized`, nó sử dụng khóa trên đối tượng lớp: **`TicketManager.class`**. Dòng k4 đồng bộ hóa trên đối tượng thực thể: **`this`**. Hai khóa này là hai đối tượng hoàn toàn khác nhau $\rightarrow$ D sai.
-  * Phương thức `addTickets()` ở dòng k3 **không hề được đồng bộ hóa** (không có `synchronized`). Một luồng có thể gọi `sellTickets()` trong khi luồng khác gọi `addTickets()`, dẫn đến xung đột dữ liệu $\rightarrow$ Lớp không an toàn đa luồng $\rightarrow$ E sai.
-  * Vì hàm dựng là `private` và phương thức `getInstance()` được đồng bộ hóa tĩnh (`static synchronized`), luồng đầu tiên truy cập sẽ khởi tạo `instance`, các luồng sau sẽ dùng chung thể hiện đó (mô hình Singleton an toàn) $\rightarrow$ Tối đa chỉ có 1 instance được tạo $\rightarrow$ **F đúng**.
+  * Lớp biên dịch hoàn toàn hợp lệ → **A đúng**, B và C sai.
+  * Dòng k1 là phương thức `static synchronized`, nó sử dụng khóa trên đối tượng lớp: **`TicketManager.class`**. Dòng k4 đồng bộ hóa trên đối tượng thực thể: **`this`**. Hai khóa này là hai đối tượng hoàn toàn khác nhau → D sai.
+  * Phương thức `addTickets()` ở dòng k3 **không hề được đồng bộ hóa** (không có `synchronized`). Một luồng có thể gọi `sellTickets()` trong khi luồng khác gọi `addTickets()`, dẫn đến xung đột dữ liệu → Lớp không an toàn đa luồng → E sai.
+  * Vì hàm dựng là `private` và phương thức `getInstance()` được đồng bộ hóa tĩnh (`static synchronized`), luồng đầu tiên truy cập sẽ khởi tạo `instance`, các luồng sau sẽ dùng chung thể hiện đó (mô hình Singleton an toàn) → Tối đa chỉ có 1 instance được tạo → **F đúng**.
 </details>
 
 ---
@@ -885,7 +885,7 @@ public class CountZooAnimals {
 * **Phân tích chi tiết:**
   * Phương thức `performCount(int)` có kiểu trả về là `void`.
   * Khi truyền biểu thức Lambda `() -> performCount(animal)` vào `s.submit()`, compiler hiểu đây là một **`Runnable`**.
-  * Khi gửi một `Runnable` vào `submit()`, kiểu trả về là `Future<?>`. Gọi phương thức `.get()` trên `Future` của Runnable luôn luôn trả về **`null`** khi hoàn thành thành công. Do đó nếu các tác vụ đều chạy bình thường, chương trình sẽ in ra `null` 10 lần $\rightarrow$ **C đúng**, A và B sai.
-  * Nếu phần thân của `performCount()` ném ra một Runtime Exception trong mỗi lần gọi, lệnh `f.get()` sẽ bọc exception đó trong một `ExecutionException` và ném ra, bị bắt bởi khối `catch` và in ra `Exception!` 10 lần $\rightarrow$ **D đúng**.
-  * Cả hai dòng o1 và o2 đều biên dịch hoàn toàn hợp lệ $\rightarrow$ E và F sai.
+  * Khi gửi một `Runnable` vào `submit()`, kiểu trả về là `Future<?>`. Gọi phương thức `.get()` trên `Future` của Runnable luôn luôn trả về **`null`** khi hoàn thành thành công. Do đó nếu các tác vụ đều chạy bình thường, chương trình sẽ in ra `null` 10 lần → **C đúng**, A và B sai.
+  * Nếu phần thân của `performCount()` ném ra một Runtime Exception trong mỗi lần gọi, lệnh `f.get()` sẽ bọc exception đó trong một `ExecutionException` và ném ra, bị bắt bởi khối `catch` và in ra `Exception!` 10 lần → **D đúng**.
+  * Cả hai dòng o1 và o2 đều biên dịch hoàn toàn hợp lệ → E và F sai.
 </details>

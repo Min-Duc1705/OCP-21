@@ -95,8 +95,8 @@ Một **`Set`** là tập hợp **không cho phép phần tử trùng lặp (no 
 
 #### Khởi tạo Set bất biến:
 * `Set.of("a", "b", "c")` hoặc `Set.copyOf(collection)`:
-  * Nếu truyền phần tử trùng lặp vào `Set.of("a", "a")` $\rightarrow$ **Ném `IllegalArgumentException` ngay tại thời điểm chạy!**
-  * Chứa `null` $\rightarrow$ Ném `NullPointerException`.
+  * Nếu truyền phần tử trùng lặp vào `Set.of("a", "a")` → **Ném `IllegalArgumentException` ngay tại thời điểm chạy!**
+  * Chứa `null` → Ném `NullPointerException`.
 
 ---
 
@@ -367,7 +367,7 @@ Ký tự đại diện `?` biểu thị một kiểu dữ liệu chưa xác đ�
 List<String> strings = new ArrayList<>();
 List<Object> objects = strings; // LỖI BIÊN DỊCH!
 ```
-* *Giải thích:* Nếu Java cho phép dòng trên, bạn có thể gọi `objects.add(10)` (thêm số int vào danh sách). Khi đó, danh sách `strings` sẽ chứa số nguyên $\rightarrow$ Phá vỡ cam kết an toàn kiểu của Java!
+* *Giải thích:* Nếu Java cho phép dòng trên, bạn có thể gọi `objects.add(10)` (thêm số int vào danh sách). Khi đó, danh sách `strings` sẽ chứa số nguyên → Phá vỡ cam kết an toàn kiểu của Java!
 * Để nhận danh sách của bất kỳ kiểu nào, ta phải dùng **Unbounded Wildcard**: `List<?>`.
 
 #### 2. Upper-Bounded Wildcard (`<? extends T>`) - Ràng Buộc Trên
@@ -394,11 +394,11 @@ list.add(new FileNotFoundException()); // HỢP LỆ! (vì là lớp con của I
 ### 4. Những Điều Cấm Kỵ Của Generics (Do Cơ Chế Type Erasure)
 
 Tại thời điểm biên dịch, Java sẽ thực hiện cơ chế **xoá kiểu (Type Erasure)**, biến các tham số `<T>` thành `Object` (hoặc upper bound của nó). Do đó:
-1. ❌ **Không thể khởi tạo trực tiếp instance của kiểu T:** `new T()` $\rightarrow$ Lỗi biên dịch.
-2. ❌ **Không thể tạo mảng của kiểu generic:** `new T[10]` $\rightarrow$ Lỗi biên dịch.
-3. ❌ **Không thể dùng kiểu nguyên thuỷ với generics:** `List<int>` $\rightarrow$ Lỗi biên dịch (phải dùng `List<Integer>`).
-4. ❌ **Không thể tạo biến `static` có kiểu T:** `private static T member;` $\rightarrow$ Lỗi biên dịch (vì biến static được chia sẻ cho toàn bộ class, không gắn với type parameter của từng instance).
-5. ❌ **Không thể dùng `instanceof` với generic type:** `list instanceof ArrayList<String>` $\rightarrow$ Lỗi biên dịch (chỉ được kiểm tra `list instanceof ArrayList<?>`).
+1. ❌ **Không thể khởi tạo trực tiếp instance của kiểu T:** `new T()` → Lỗi biên dịch.
+2. ❌ **Không thể tạo mảng của kiểu generic:** `new T[10]` → Lỗi biên dịch.
+3. ❌ **Không thể dùng kiểu nguyên thuỷ với generics:** `List<int>` → Lỗi biên dịch (phải dùng `List<Integer>`).
+4. ❌ **Không thể tạo biến `static` có kiểu T:** `private static T member;` → Lỗi biên dịch (vì biến static được chia sẻ cho toàn bộ class, không gắn với type parameter của từng instance).
+5. ❌ **Không thể dùng `instanceof` với generic type:** `list instanceof ArrayList<String>` → Lỗi biên dịch (chỉ được kiểm tra `list instanceof ArrayList<?>`).
 
 ---
 

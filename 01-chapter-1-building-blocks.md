@@ -27,7 +27,7 @@
 ### 1.1. JDK vs JRE trong kỷ nguyên mới
 * **JDK (Java Development Kit):** Cung cấp đầy đủ công cụ để viết, biên dịch (`javac`), chạy (`java`), đóng gói (`jar`), phân tích (`javap`, `jdeps`), và debug Java.
 * **JRE (Java Runtime Environment):** Chỉ cung cấp môi trường thực thi (JVM + thư viện chuẩn).
-* ⚠️ **Bẫy thi:** Kể từ **Java 11**, Oracle **không còn cung cấp bản cài đặt JRE độc lập**. Nếu một câu hỏi trắc nghiệm phát biểu rằng *"Lập trình viên cần tải bản JRE riêng lẻ từ website của Oracle để chạy ứng dụng Java 21"* $\rightarrow$ **Sai hoàn toàn**.
+* ⚠️ **Bẫy thi:** Kể từ **Java 11**, Oracle **không còn cung cấp bản cài đặt JRE độc lập**. Nếu một câu hỏi trắc nghiệm phát biểu rằng *"Lập trình viên cần tải bản JRE riêng lẻ từ website của Oracle để chạy ứng dụng Java 21"* → **Sai hoàn toàn**.
 
 ### 1.2. Tính năng chạy file đơn trực tiếp (Single-File Source Code)
 Từ Java 11+, bạn có thể chạy một file mã nguồn Java trực tiếp mà không cần dùng lệnh `javac` trước:
@@ -95,7 +95,7 @@ Trong một file mã nguồn `.java`:
 public static void main(String[] args)
 ```
 Các quy tắc thi bắt buộc phải thuộc:
-1. **Bắt buộc có `public`:** Nếu là `private`, `protected`, hoặc mặc định $\rightarrow$ Code biên dịch được nhưng khi chạy sẽ văng lỗi runtime: `Main method not found in class`.
+1. **Bắt buộc có `public`:** Nếu là `private`, `protected`, hoặc mặc định → Code biên dịch được nhưng khi chạy sẽ văng lỗi runtime: `Main method not found in class`.
 2. **Bắt buộc có `static`:** JVM không cần tạo instance của class để gọi `main`.
 3. **Bắt buộc có kiểu trả về `void`:** `main()` không được trả về `int` hay `boolean`.
 4. **Tên phương thức bắt buộc là `main`** (chữ thường).
@@ -114,10 +114,10 @@ Giả sử ta thực thi lệnh:
 ```bash
 java Zoo "San Diego Zoo" Bronx 100
 ```
-* `args[0]` $\rightarrow$ `"San Diego Zoo"` (dấu ngoặc kép gom chuỗi có khoảng trắng thành 1 phần tử).
-* `args[1]` $\rightarrow$ `"Bronx"`
-* `args[2]` $\rightarrow$ `"100"` (kiểu `String`, không phải kiểu `int`!).
-* `args.length` $\rightarrow$ `3`.
+* `args[0]` → `"San Diego Zoo"` (dấu ngoặc kép gom chuỗi có khoảng trắng thành 1 phần tử).
+* `args[1]` → `"Bronx"`
+* `args[2]` → `"100"` (kiểu `String`, không phải kiểu `int`!).
+* `args.length` → `3`.
 
 > ⚠️ **Bẫy thi cực kỳ phổ biến:**
 > Nếu chạy `java Zoo` (không truyền tham số nào):
@@ -148,11 +148,11 @@ public class Lion {
     // code
 }
 ```
-* ❌ Đảo ngược thứ tự `import` trước `package` $\rightarrow$ **Compiler Error**.
-* ❌ Khai báo field/method bên ngoài thân `class` $\rightarrow$ **Compiler Error**.
+* ❌ Đảo ngược thứ tự `import` trước `package` → **Compiler Error**.
+* ❌ Khai báo field/method bên ngoài thân `class` → **Compiler Error**.
 
 ### 4.2. Cơ chế Wildcard (`*`)
-* `import java.util.*;` $\rightarrow$ Import tất cả các class nằm trực tiếp trong package `java.util`.
+* `import java.util.*;` → Import tất cả các class nằm trực tiếp trong package `java.util`.
 * ⚠️ **Wildcard không import đệ quy các sub-package:**
   * `import java.util.*;` **KHÔNG** import các class trong `java.util.concurrent.*`. Muốn dùng `AtomicInteger`, bạn phải viết thêm `import java.util.concurrent.*;`.
 
@@ -258,17 +258,17 @@ Java có đúng **8 kiểu dữ liệu nguyên thủy**:
 > **Nguyên tắc vàng duy nhất:** Dấu gạch dưới `_` **CHỈ ĐƯỢC PHÉP ĐỨNG GIỮA HAI CHỮ SỐ** (*between two digits*) thuộc hệ cơ số tương ứng. Mọi vị trí khác đều không hợp lệ.
 
 #### 1. Các vị trí BỊ CẤM (Compile Error & Bẫy thi OCP)
-* ❌ **Đầu số:** `_100` $\rightarrow$ Trình biên dịch xem đây là tên biến/định danh (identifier), không phải số. Sẽ báo lỗi `cannot find symbol: variable _100`.
-* ❌ **Cuối số:** `100_` $\rightarrow$ Lỗi biên dịch (`illegal underscore`).
-* ❌ **Cạnh dấu chấm thập phân (`.`):** `3._14` hay `3_.14` $\rightarrow$ Lỗi biên dịch (vì `.` không phải chữ số).
-* ❌ **Cạnh hậu tố chỉ kiểu (`L`, `F`, `D`):** `100_L` hay `2.5_F` $\rightarrow$ Lỗi biên dịch (vì ký tự hậu tố không phải chữ số).
-* ❌ **Cạnh tiền tố hệ đếm (`0b`, `0x`):** `0b_10`, `0_b10`, `0x_52`, `0_x52` $\rightarrow$ Lỗi biên dịch (vì `b`, `x` không phải chữ số).
-* ❌ **Cạnh ký hiệu số mũ khoa học (`e`, `E`):** `1_e2` hay `1e_2` $\rightarrow$ Lỗi biên dịch (vì `e`/`E` không phải chữ số).
+* ❌ **Đầu số:** `_100` → Trình biên dịch xem đây là tên biến/định danh (identifier), không phải số. Sẽ báo lỗi `cannot find symbol: variable _100`.
+* ❌ **Cuối số:** `100_` → Lỗi biên dịch (`illegal underscore`).
+* ❌ **Cạnh dấu chấm thập phân (`.`):** `3._14` hay `3_.14` → Lỗi biên dịch (vì `.` không phải chữ số).
+* ❌ **Cạnh hậu tố chỉ kiểu (`L`, `F`, `D`):** `100_L` hay `2.5_F` → Lỗi biên dịch (vì ký tự hậu tố không phải chữ số).
+* ❌ **Cạnh tiền tố hệ đếm (`0b`, `0x`):** `0b_10`, `0_b10`, `0x_52`, `0_x52` → Lỗi biên dịch (vì `b`, `x` không phải chữ số).
+* ❌ **Cạnh ký hiệu số mũ khoa học (`e`, `E`):** `1_e2` hay `1e_2` → Lỗi biên dịch (vì `e`/`E` không phải chữ số).
 
 #### 2. Các trường hợp HỢP LỆ đặc biệt (Rất hay xuất hiện trong đề thi)
-* ✅ **Nhiều dấu `_` liên tiếp:** `1___000` $\rightarrow$ Hợp lệ (vì toàn bộ dấu `_` đều nằm giữa hai chữ số `1` và `0`).
-* ✅ **Chữ số trong hệ Thập lục phân (A–F):** `0x1_F`, `0xCA_FE` $\rightarrow$ Hợp lệ (vì `A`–`F` chính là các chữ số hợp lệ của hệ 16).
-* ✅ **Hệ bát phân (Octal):** `0_17` $\rightarrow$ **Hợp lệ** (in ra `15`). *Lưu ý:* `0` và `1` đều là chữ số, nên dấu `_` ở đây hoàn toàn hợp lệ, không bị lỗi như `0b_` hay `0x_`.
+* ✅ **Nhiều dấu `_` liên tiếp:** `1___000` → Hợp lệ (vì toàn bộ dấu `_` đều nằm giữa hai chữ số `1` và `0`).
+* ✅ **Chữ số trong hệ Thập lục phân (A–F):** `0x1_F`, `0xCA_FE` → Hợp lệ (vì `A`–`F` chính là các chữ số hợp lệ của hệ 16).
+* ✅ **Hệ bát phân (Octal):** `0_17` → **Hợp lệ** (in ra `15`). *Lưu ý:* `0` và `1` đều là chữ số, nên dấu `_` ở đây hoàn toàn hợp lệ, không bị lỗi như `0b_` hay `0x_`.
 
 
 ---
@@ -350,8 +350,8 @@ Tên của biến, phương thức, class phải tuân thủ:
   * Được JVM **tự động gán giá trị mặc định** ngay khi tạo đối tượng (`0`, `0.0`, `false`, `null`).
 * **Local variables (Biến cục bộ trong hàm / block):**
   * **KHÔNG CÓ GIÁ TRỊ MẶC ĐỊNH**.
-  * Phải được gán giá trị rõ ràng trước khi đọc/sử dụng. Nếu cố tình đọc một biến cục bộ chưa khởi tạo $\rightarrow$ **Lỗi biên dịch: variable might not have been initialized**.
-  * Nếu khai báo mà không bao giờ dùng đến $\rightarrow$ Hoàn toàn hợp lệ, không bị lỗi.
+  * Phải được gán giá trị rõ ràng trước khi đọc/sử dụng. Nếu cố tình đọc một biến cục bộ chưa khởi tạo → **Lỗi biên dịch: variable might not have been initialized**.
+  * Nếu khai báo mà không bao giờ dùng đến → Hoàn toàn hợp lệ, không bị lỗi.
 
 ### 9.2. Quy tắc bất biến khi dùng `var` (Local Variable Type Inference)
 Từ Java 10+, từ khóa `var` cho phép compiler tự suy luận kiểu dữ liệu dựa trên giá trị khởi tạo.
@@ -426,7 +426,7 @@ Một đối tượng trên Heap đủ điều kiện để GC thu hồi khi:
 Có 2 cách phổ biến khiến object đủ điều kiện GC:
 1. Tất cả biến tham chiếu trỏ đến nó bị gán thành `null` hoặc trỏ sang đối tượng khác.
 2. Biến tham chiếu đi ra khỏi phạm vi (scope) khi hàm kết thúc.
-3. **Đảo cô lập (Island of Isolation):** Hai đối tượng tham chiếu chéo lẫn nhau, nhưng không còn bất kỳ biến ngoài nào trỏ vào nhóm đó $\rightarrow$ Cả hai đều đủ điều kiện thu gom rác!
+3. **Đảo cô lập (Island of Isolation):** Hai đối tượng tham chiếu chéo lẫn nhau, nhưng không còn bất kỳ biến ngoài nào trỏ vào nhóm đó → Cả hai đều đủ điều kiện thu gom rác!
 
 ### 11.3. Phương thức `System.gc()`
 * Lệnh `System.gc()` chỉ đóng vai trò là một **lời đề xuất (suggestion)** tới JVM.
@@ -440,7 +440,7 @@ Có 2 cách phổ biến khiến object đủ điều kiện GC:
 | # | Bẫy thường gặp trong đề thi | Kết quả / Cách nhận diện |
 | :---: | :--- | :--- |
 | **1** | Constructor có khai báo kiểu trả về (ví dụ `void MyClass()`) | Là **method**, không phải constructor! |
-| **2** | Đổi chỗ `import` trước `package` | **Lỗi biên dịch** (thứ tự đúng: Package $\rightarrow$ Import $\rightarrow$ Class). |
+| **2** | Đổi chỗ `import` trước `package` | **Lỗi biên dịch** (thứ tự đúng: Package → Import → Class). |
 | **3** | Hai file `.java` có nhiều hơn 1 class `public` | **Lỗi biên dịch** (tối đa 1 class `public` và phải trùng tên file). |
 | **4** | Không truyền tham số dòng lệnh mà gọi `args[0]` | Ném ngoại lệ `ArrayIndexOutOfBoundsException` tại runtime. |
 | **5** | Đọc biến cục bộ chưa khởi tạo giá trị | **Lỗi biên dịch** (`variable might not have been initialized`). |

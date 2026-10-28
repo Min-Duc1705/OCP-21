@@ -57,7 +57,7 @@
 }
 
 .btn-secondary.active {
-  background: rgba(56, 189, 248, 0.15);
+  background: var(--accent-soft);
   border-color: var(--accent-primary);
   color: var(--accent-primary);
 }
@@ -90,8 +90,8 @@
 }
 
 .badge-info {
-  background: rgba(56, 189, 248, 0.14);
-  border: 1px solid rgba(56, 189, 248, 0.28);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
   color: var(--accent-primary);
 }
 
@@ -173,15 +173,15 @@
 }
 
 .chapter-icon-box {
-  width: 1.85rem;
-  height: 1.85rem;
-  border-radius: 8px;
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.25);
+  width: 1.95rem;
+  height: 1.95rem;
+  border-radius: 9px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
 }
 
 .chapter-title {
@@ -258,13 +258,13 @@
 }
 
 .btn-open-theory-ch {
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
   color: var(--accent-primary);
 }
 
 .btn-open-theory-ch:hover {
-  background: rgba(56, 189, 248, 0.22);
+  background: var(--accent-soft-hover);
   border-color: var(--accent-primary);
   color: #fff;
 }
@@ -276,8 +276,8 @@
   font-size: 0.78rem;
   padding: 0.32rem 0.68rem;
   border-radius: var(--radius-xs);
-  background: rgba(99, 102, 241, 0.14);
-  border: 1px solid rgba(99, 102, 241, 0.35);
+  background: var(--accent-secondary-soft);
+  border: 1px solid var(--accent-secondary-border);
   color: var(--accent-secondary);
   cursor: pointer;
   font-weight: 700;
@@ -286,7 +286,8 @@
 }
 
 .btn-chapter-video:hover {
-  background: rgba(99, 102, 241, 0.28);
+  background: var(--accent-gradient);
+  border-color: transparent;
   color: #fff;
 }
 
@@ -420,7 +421,7 @@
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 2px var(--accent-primary);
   color: var(--accent-primary);
-  background: rgba(56, 189, 248, 0.16);
+  background: var(--accent-soft);
 }
 
 .nav-pill.correct {
@@ -523,7 +524,7 @@
 
 .question-prompt code {
   color: var(--accent-primary);
-  background: rgba(56, 189, 248, 0.12);
+  background: var(--accent-soft);
   padding: 0.12rem 0.38rem;
   border-radius: 4px;
   font-family: var(--font-mono);
@@ -587,7 +588,7 @@
 }
 
 .btn-copy-snippet:hover {
-  background: rgba(56, 189, 248, 0.22);
+  background: var(--accent-soft-hover);
   border-color: var(--accent-primary);
   color: #fff;
 }
@@ -625,15 +626,15 @@
 }
 
 .option-item:hover {
-  background: rgba(56, 189, 248, 0.07);
+  background: var(--accent-soft);
   border-color: var(--border-highlight);
   transform: translateX(2px);
 }
 
 .option-item.selected {
-  background: rgba(56, 189, 248, 0.13);
+  background: var(--accent-soft-hover);
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.25);
+  box-shadow: 0 0 0 1px var(--accent-border);
 }
 
 .option-item.correct {
@@ -881,7 +882,7 @@
 }
 
 .palette-btn.answered {
-  background: rgba(56, 189, 248, 0.2);
+  background: var(--accent-soft);
   color: var(--accent-primary);
   border-color: var(--accent-primary);
 }
@@ -917,7 +918,7 @@
 }
 
 .legend-dot.answered {
-  background: rgba(56, 189, 248, 0.22);
+  background: var(--accent-soft-hover);
   border: 1px solid var(--accent-primary);
 }
 

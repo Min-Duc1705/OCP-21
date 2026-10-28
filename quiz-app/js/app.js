@@ -1144,9 +1144,32 @@
       });
     }
 
-    // 1. Theme & Language
+    // 1. Theme, Palette & Language
     const savedTheme = QuizStorage.getTheme();
     document.documentElement.setAttribute('data-theme', savedTheme);
+
+    const savedPalette = (typeof localStorage !== 'undefined' && localStorage.getItem('ocp21_color_palette')) || 'amber';
+    if (savedPalette && savedPalette !== 'amber') {
+      document.documentElement.setAttribute('data-palette', savedPalette);
+    } else {
+      document.documentElement.removeAttribute('data-palette');
+    }
+    document.querySelectorAll('#palette-switcher .palette-dot').forEach(dot => {
+      dot.classList.toggle('active', dot.dataset.palette === savedPalette);
+      dot.addEventListener('click', () => {
+        const chosen = dot.dataset.palette || 'amber';
+        if (chosen === 'amber') {
+          document.documentElement.removeAttribute('data-palette');
+        } else {
+          document.documentElement.setAttribute('data-palette', chosen);
+        }
+        try { localStorage.setItem('ocp21_color_palette', chosen); } catch (e) {}
+        document.querySelectorAll('#palette-switcher .palette-dot').forEach(d => {
+          d.classList.toggle('active', d.dataset.palette === chosen);
+        });
+      });
+    });
+
     applyI18nToDOM();
 
     document.getElementById('btn-toggle-lang').addEventListener('click', toggleQuestionLang);

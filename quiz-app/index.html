@@ -13,11 +13,11 @@
   
   <!-- Modular CSS -->
   <link rel="stylesheet" href="lib/prism.css">
-  <link rel="stylesheet" href="css/variables.css?v=3.1.0">
-  <link rel="stylesheet" href="css/layout.css?v=3.1.0">
-  <link rel="stylesheet" href="css/components.css?v=3.1.0">
-  <link rel="stylesheet" href="css/modals.css?v=3.1.0">
-  <link rel="stylesheet" href="css/responsive.css?v=3.1.0">
+  <link rel="stylesheet" href="css/variables.css?v=3.3.0">
+  <link rel="stylesheet" href="css/layout.css?v=3.3.0">
+  <link rel="stylesheet" href="css/components.css?v=3.3.0">
+  <link rel="stylesheet" href="css/modals.css?v=3.3.0">
+  <link rel="stylesheet" href="css/responsive.css?v=3.3.0">
 </head>
 <body>
 
@@ -51,11 +51,16 @@
         <button class="btn btn-secondary nav-btn" id="btn-open-mistakes" title="Xem sổ tay câu hỏi làm sai">
           <span>❌</span> <span class="nav-btn-label"><span data-i18n="nav.mistakes">Câu sai</span> (<span id="mistake-count-badge">0</span>)</span>
         </button>
+        <div class="palette-switcher" id="palette-switcher" title="Đổi tông màu giao diện (Vàng Hổ Phách / Xanh Ngọc Lục Bảo / Hồng Tím)">
+          <button type="button" class="palette-dot palette-dot-amber active" data-palette="amber" aria-label="Solar Amber Theme" title="Vàng Hổ Phách & Đỏ Cam (Java Duke)"></button>
+          <button type="button" class="palette-dot palette-dot-emerald" data-palette="emerald" aria-label="Emerald Mint Theme" title="Xanh Ngọc Lục Bảo & Mint"></button>
+          <button type="button" class="palette-dot palette-dot-rose" data-palette="rose" aria-label="Rose Amethyst Theme" title="Hồng Nhung & Tím Hoàng Gia"></button>
+        </div>
         <button class="lang-segmented-btn" id="btn-toggle-lang" title="Chuyển đổi ngôn ngữ VI / EN (Phím L)">
           <span class="lang-seg-opt" id="lang-seg-en">🇬🇧 EN</span>
           <span class="lang-seg-opt" id="lang-seg-vi">🇻🇳 VI</span>
         </button>
-        <button class="btn btn-icon" id="btn-toggle-theme" title="Chuyển chế độ Sáng / Tối">
+        <button class="btn btn-icon" id="btn-toggle-theme" title="Chuyển chế độ Sáng (Kem Ấm) / Tối (Obsidian)">
           🌓
         </button>
       </div>

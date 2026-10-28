@@ -541,6 +541,12 @@
         </div>
 
         <div class="theory-top-right">
+          <button type="button" class="btn btn-primary btn-sm" id="btn-theory-voice-toggle" title="Nghe AI Cloned đọc lý thuyết chương này (Hỗ trợ nghe khi ngủ)">
+            🔊 <span class="hide-mobile">Nghe Lý Thuyết</span>
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-theory-voice-select" title="Chọn 4 giọng đọc Cloned AI & Hẹn giờ ngủ">
+            🎙️ <span class="hide-mobile">4 Giọng Clone</span>
+          </button>
           <a id="theory-github-link" href="https://github.com/Min-Duc1705/OCP-21" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="Mở file Markdown gốc trên GitHub" style="text-decoration: none;">
             🔗 <span class="hide-mobile">GitHub</span>
           </a>
@@ -548,6 +554,39 @@
             🎬 <span class="hide-mobile">Video</span>
           </button>
           <button class="close-modal-btn" id="btn-close-theory-modal" title="Đóng sổ tay lý thuyết (Esc)">&times;</button>
+        </div>
+      </div>
+
+      <!-- AI CLONED VOICE & SLEEP PLAYER CONTROL BAR -->
+      <div class="ocp-voice-control-bar" id="ocp-voice-control-bar" style="display: none;">
+        <div class="voice-bar-left">
+          <div class="voice-bar-meta-row">
+            <span class="voice-live-pill" id="voice-bar-speaker">🎙️ Giọng Clone AI</span>
+            <strong class="voice-bar-title" id="voice-bar-title">Chương 1</strong>
+            <span class="voice-bar-counter" id="voice-bar-counter">Đoạn 1 / 10</span>
+            <span class="voice-sleep-badge" id="voice-sleep-countdown" style="display: none;">🌙 Tắt sau 30:00</span>
+          </div>
+          <div class="voice-bar-snippet" id="voice-bar-snippet">"..."</div>
+          <div class="voice-bar-progress-track" id="voice-bar-progress-track" title="Nhấn để tua tới đoạn bất kỳ">
+            <div class="voice-bar-progress-fill" id="voice-bar-progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="voice-bar-controls">
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-voice-bar-prev" title="Đoạn trước">⏮</button>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-voice-bar-pause" title="Tạm dừng / Tiếp tục">⏸ Tạm dừng</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-voice-bar-next" title="Đoạn tiếp">⏭</button>
+          <button type="button" class="btn btn-secondary btn-sm active" id="btn-voice-bar-autonext" title="Tự động chuyển sang chương tiếp theo khi đọc xong để nghe lúc ngủ">🔁 Tự qua chương: BẬT</button>
+          <select id="voice-bar-speed-select" class="voice-speed-select" title="Tốc độ đọc">
+            <option value="0.85">0.85x (Ngủ)</option>
+            <option value="0.95">0.95x</option>
+            <option value="1">1.0x</option>
+            <option value="1.15">1.15x</option>
+            <option value="1.25">1.25x</option>
+            <option value="1.5">1.5x</option>
+          </select>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-voice-bar-settings" title="Cấu hình 4 giọng Clone & Hẹn giờ ngủ">🎙️ Đổi giọng / Hẹn giờ</button>
+          <button type="button" class="btn btn-danger btn-sm" id="btn-voice-bar-stop" title="Dừng đọc">⏹</button>
         </div>
       </div>
 
@@ -578,14 +617,94 @@
     </div>
   </div>
 
+  <!-- MODAL: 4 CLONED AI VOICES & SLEEP MODE CONFIG -->
+  <div class="modal-overlay" id="voice-selector-modal" style="z-index: 1200;">
+    <div class="modal-content voice-modal-content">
+      <div class="modal-header">
+        <div>
+          <h2 style="margin: 0; font-size: 1.15rem;">🎙️ 4 Giọng Đọc Clone AI & Chế Độ Nghe Khi Ngủ</h2>
+          <p style="margin: 0.25rem 0 0; font-size: 0.82rem; color: var(--text-muted);">
+            Chỉ giữ 4 giọng đọc Clone tuyển chọn (Microservices, JobHub AI, Nam/Nữ Podcast Angular) tối ưu nghe thấm kiến thức lúc ngủ.
+          </p>
+        </div>
+        <button class="close-modal-btn" id="btn-close-voice-modal" title="Đóng">&times;</button>
+      </div>
+
+      <!-- Sleep & Podcast Toggles -->
+      <div class="voice-config-section">
+        <label class="voice-toggle-row">
+          <div>
+            <strong>🎭 Chế độ Podcast 2 Giọng Đọc Luân Phiên (Nam ⇄ Nữ)</strong>
+            <span>Đổi giọng tự nhiên sau mỗi đoạn lý thuyết như nghe radio/podcast đêm khuya</span>
+          </div>
+          <input type="checkbox" id="chk-voice-dual-mode">
+        </label>
+
+        <label class="voice-toggle-row">
+          <div>
+            <strong>🔁 Nghe liên tục tự động chuyển chương khi ngủ (CH1 → CH14)</strong>
+            <span>Đọc hết chương hiện tại sẽ tự mở chương kế tiếp và đọc liên tục không ngắt quãng</span>
+          </div>
+          <input type="checkbox" id="chk-voice-auto-next" checked>
+        </label>
+
+        <label class="voice-toggle-row">
+          <div>
+            <strong>🌙 Bỏ qua đọc chi tiết ký tự Code khi ngủ</strong>
+            <span>Chỉ đọc khái niệm lý thuyết, quy tắc biên dịch và bẫy thi để dễ nghe nhắm mắt</span>
+          </div>
+          <input type="checkbox" id="chk-voice-skip-code" checked>
+        </label>
+      </div>
+
+      <!-- 4 Cloned Voices Cards Grid -->
+      <div class="cloned-voices-grid" id="cloned-voices-grid"></div>
+
+      <!-- Sleep Timer & Playback Speed -->
+      <div class="voice-bottom-bars">
+        <div class="voice-pill-group">
+          <span class="voice-group-label">🌙 Hẹn giờ tắt khi ngủ:</span>
+          <div class="voice-pills-row">
+            <button type="button" class="sleep-timer-pill active" data-minutes="0">Không tắt</button>
+            <button type="button" class="sleep-timer-pill" data-minutes="15">15 phút</button>
+            <button type="button" class="sleep-timer-pill" data-minutes="30">30 phút</button>
+            <button type="button" class="sleep-timer-pill" data-minutes="45">45 phút</button>
+            <button type="button" class="sleep-timer-pill" data-minutes="60">60 phút</button>
+            <button type="button" class="sleep-timer-pill" data-minutes="90">90 phút</button>
+          </div>
+        </div>
+
+        <div class="voice-pill-group">
+          <span class="voice-group-label">⚡ Tốc độ giọng đọc:</span>
+          <div class="voice-pills-row">
+            <button type="button" class="voice-speed-pill" data-speed="0.85">0.85x (Êm dịu dễ ngủ)</button>
+            <button type="button" class="voice-speed-pill" data-speed="0.95">0.95x</button>
+            <button type="button" class="voice-speed-pill active" data-speed="1">1.0x (Chuẩn)</button>
+            <button type="button" class="voice-speed-pill" data-speed="1.15">1.15x</button>
+            <button type="button" class="voice-speed-pill" data-speed="1.25">1.25x</button>
+            <button type="button" class="voice-speed-pill" data-speed="1.5">1.5x</button>
+          </div>
+        </div>
+
+        <div class="voice-server-row">
+          <label for="voice-custom-server-input" style="font-size: 0.76rem; color: var(--text-muted);">
+            🔌 Máy chủ VieNeu Cloned TTS (mặc định tự nhận <code>127.0.0.1:8000</code> hoặc <code>127.0.0.1:45678</code>; nhập IP LAN nếu nghe trên điện thoại):
+          </label>
+          <input type="text" id="voice-custom-server-input" class="voice-server-input" placeholder="Ví dụ: http://127.0.0.1:8000 (Để trống sẽ tự động dò cổng Local)">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Modular Scripts -->
-  <script src="lib/prism.js?v=3.1.0"></script>
-  <script src="lib/marked.min.js?v=3.1.0"></script>
-  <script src="js/quiz-data.js?v=3.1.0"></script>
-  <script src="js/theory-data.js?v=3.1.0"></script>
-  <script src="js/storage.js?v=3.1.0"></script>
-  <script src="js/i18n.js?v=3.1.0"></script>
-  <script src="js/theory-viewer.js?v=3.1.0"></script>
-  <script src="js/app.js?v=3.1.0"></script>
+  <script src="lib/prism.js?v=3.2.0"></script>
+  <script src="lib/marked.min.js?v=3.2.0"></script>
+  <script src="js/quiz-data.js?v=3.2.0"></script>
+  <script src="js/theory-data.js?v=3.2.0"></script>
+  <script src="js/storage.js?v=3.2.0"></script>
+  <script src="js/i18n.js?v=3.2.0"></script>
+  <script src="js/voice-narrator.js?v=3.2.0"></script>
+  <script src="js/theory-viewer.js?v=3.2.0"></script>
+  <script src="js/app.js?v=3.2.0"></script>
 </body>
 </html>

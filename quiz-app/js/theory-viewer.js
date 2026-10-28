@@ -193,6 +193,19 @@
 
       const numMatch = rawText.match(/^(\d+(?:\.\d+)*)/i) || rawText.match(/^phần\s+(\d+)/i);
       if (numMatch) h.setAttribute('data-section-num', numMatch[1]);
+
+      if ((h.tagName === 'H2' || h.tagName === 'H3') && root.VoiceNarrator && !h.querySelector('.btn-speak-heading')) {
+        const speakBtn = document.createElement('button');
+        speakBtn.type = 'button';
+        speakBtn.className = 'btn-speak-heading';
+        speakBtn.title = 'Nghe AI Cloned đọc từ mục này';
+        speakBtn.innerHTML = '🔊';
+        speakBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          speakFromHeading(h, rawText);
+        });
+        h.appendChild(speakBtn);
+      }
     });
 
     bodyEl.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -237,7 +250,47 @@
     });
   }
 
+  function speakFromHeading(headingEl, sectionTitle) {
+    if (!root.VoiceNarrator || !root.THEORY_DATA || !root.THEORY_DATA[currentChapterId]) return;
+    const rawMd = root.THEORY_DATA[currentChapterId].content || '';
+    const cleanHeading = sectionTitle.replace(/🔊/g, '').trim();
+    const idx = rawMd.indexOf(cleanHeading);
+    const sliceMd = idx >= 0 ? rawMd.slice(idx) : rawMd;
+    root.VoiceNarrator.speakText(sliceMd, `CH${currentChapterId} · ${cleanHeading}`);
+  }
+
+  function startChapterNarration(chapterId = currentChapterId) {
+    if (!root.VoiceNarrator || !root.THEORY_DATA || !root.THEORY_DATA[chapterId]) return;
+    const data = root.THEORY_DATA[chapterId];
+    const metaMap = (root.AppI18n && root.AppI18n.CHAPTER_METADATA) || {};
+    const meta = metaMap[chapterId] || { vi: data.title, en: data.title };
+    const title = `Chương ${chapterId}: ${meta.vi || data.title}`;
+    root.VoiceNarrator.speakText(data.content || '', title);
+  }
+
+  function toggleChapterNarration() {
+    if (!root.VoiceNarrator) return;
+    if (root.VoiceNarrator.state.isPlaying) {
+      root.VoiceNarrator.stopSpeaking();
+    } else {
+      startChapterNarration(currentChapterId);
+    }
+  }
+
+  function advanceToNextChapterAndRead() {
+    if (!root.THEORY_DATA) return;
+    const keys = Object.keys(root.THEORY_DATA).map(Number).sort((a, b) => a - b);
+    if (!keys.length) return;
+    const currIdx = keys.indexOf(Number(currentChapterId));
+    const nextChapterId = keys[(currIdx + 1) % keys.length];
+    renderTheoryChapter(nextChapterId);
+    startChapterNarration(nextChapterId);
+  }
+
   function closeTheoryModal() {
+    if (root.VoiceNarrator && root.VoiceNarrator.state.isPlaying) {
+      root.VoiceNarrator.stopSpeaking();
+    }
     const modal = document.getElementById('theory-modal');
     if (modal) modal.classList.remove('show');
   }
@@ -366,6 +419,9 @@
     handleTheorySearch,
     openVideoModal,
     closeVideoModal,
+    toggleChapterNarration,
+    startChapterNarration,
+    advanceToNextChapterAndRead,
     getCurrentChapterId: () => currentChapterId
   };
 })(typeof window !== 'undefined' ? window : this);

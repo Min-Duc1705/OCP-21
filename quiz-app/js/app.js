@@ -1201,6 +1201,17 @@
       window.TheoryViewer.openVideoModal(chId);
     });
 
+    const btnVoiceToggle = document.getElementById('btn-theory-voice-toggle');
+    if (btnVoiceToggle) {
+      btnVoiceToggle.addEventListener('click', () => window.TheoryViewer.toggleChapterNarration());
+    }
+
+    if (window.VoiceNarrator) {
+      window.VoiceNarrator.bindEvents({
+        onChapterAdvance: () => window.TheoryViewer.advanceToNextChapterAndRead()
+      });
+    }
+
     const scrollTopBtn = document.getElementById('btn-theory-scroll-top');
     const theoryReader = document.getElementById('theory-reader-container');
     if (scrollTopBtn && theoryReader) {

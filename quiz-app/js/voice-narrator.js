@@ -1,6 +1,7 @@
 // ==========================================================================
 // OCP 21 Study Guide - AI Cloned Voice Narrator & Sleep Podcast Engine
-// Ported from drive-video-player (4 Curated Cloned Voices + DOM Highlight/Scroll)
+// Supports Pre-Rendered Static Cloned .MP3 + Cue Sync (100% Offline Mobile)
+// & Live Local VieNeu TTS Server + Exact DOM Highlight & Auto-Scroll
 // ==========================================================================
 
 (function(root) {
@@ -102,7 +103,8 @@
     isPlaying: false,
     isPaused: false,
     isLoadingAudio: false,
-    // Each chunk is { text: string, blockId: string | null }
+    activeChapterId: 1,
+    isStaticMp3Mode: false,
     chunks: [],
     currentChunkIdx: 0,
     activeTitle: '',
@@ -116,6 +118,7 @@
   let sleepIntervalId = null;
   let onChapterAdvanceCallback = null;
   const audioBlobCache = new Map();
+  const manifestCache = new Map();
 
   function cleanTextForSpeech(rawText) {
     if (!rawText) return '';
@@ -179,12 +182,94 @@
     return parts.filter(c => c.length > 1);
   }
 
-  // Build chunks directly mapped to rendered DOM elements in #theory-content-body
-  // so every chunk highlights and scrolls to its exact DOM element!
+  // Fetch pre-rendered static MP3 manifest from assets/theory_audio/ch{id}_{voice}.json
+  async function fetchPreRenderedManifest(chapterId, voiceId) {
+    const validVoice = CLONED_VOICES.some(v => v.id === voiceId) ? voiceId : DEFAULT_PRIMARY_VOICE;
+    const key = `ch${chapterId}_${validVoice}`;
+    if (manifestCache.has(key)) {
+      return manifestCache.get(key);
+    }
+    try {
+      const res = await fetch(`assets/theory_audio/${key}.json`);
+      if (res && res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.cues) && data.cues.length > 0) {
+          manifestCache.set(key, data);
+          return data;
+        }
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  // Bind manifest cues directly to DOM headings/blocks in #theory-content-body
+  function mapManifestCuesToDom(bodyEl, cues, startFromEl = null) {
+    if (!bodyEl || !Array.isArray(cues)) return { mappedCues: cues || [], startIdx: 0 };
+
+    bodyEl.querySelectorAll('[data-voice-block-id]').forEach(el => {
+      el.removeAttribute('data-voice-block-id');
+      el.classList.remove('voice-reading-active');
+    });
+
+    const headings = Array.from(bodyEl.querySelectorAll('h1, h2, h3'));
+    let startIdx = 0;
+
+    const mapped = cues.map((cue, idx) => {
+      const blockId = `vb-static-${idx}`;
+      const normAnchor = (cue.anchorText || '').toLowerCase().replace(/🔊/g, '').trim();
+
+      let matchedEl = null;
+      if (normAnchor) {
+        matchedEl = headings.find(h => {
+          const hTxt = h.textContent.toLowerCase().replace(/🔊/g, '').trim();
+          return hTxt === normAnchor || hTxt.includes(normAnchor) || normAnchor.includes(hTxt);
+        });
+      }
+      if (!matchedEl && headings[idx]) {
+        matchedEl = headings[idx];
+      }
+
+      if (matchedEl) {
+        matchedEl.setAttribute('data-voice-block-id', blockId);
+        if (startFromEl && (matchedEl === startFromEl || matchedEl.contains(startFromEl) || startFromEl.contains(matchedEl))) {
+          startIdx = idx;
+        }
+        if (!matchedEl.dataset.voiceStaticClickBound) {
+          matchedEl.dataset.voiceStaticClickBound = '1';
+          matchedEl.addEventListener('click', (e) => {
+            if (!state.isPlaying) return;
+            if (e.target.closest('a, .btn-copy-code')) return;
+            jumpToChunk(idx);
+          });
+        }
+      }
+
+      return {
+        ...cue,
+        index: idx,
+        blockId
+      };
+    });
+
+    // If startFromEl was a H3 inside a H2 section, find the closest preceding H2 cue
+    if (startFromEl && startIdx === 0) {
+      let prev = startFromEl;
+      while (prev) {
+        const bid = prev.getAttribute && prev.getAttribute('data-voice-block-id');
+        if (bid && bid.startsWith('vb-static-')) {
+          startIdx = parseInt(bid.replace('vb-static-', ''), 10) || 0;
+          break;
+        }
+        prev = prev.previousElementSibling || prev.parentElement;
+      }
+    }
+
+    return { mappedCues: mapped, startIdx };
+  }
+
   function buildDomMappedChunks(bodyEl, startFromEl = null) {
     if (!bodyEl) return [];
 
-    // Clear old block attributes
     bodyEl.querySelectorAll('[data-voice-block-id]').forEach(el => {
       el.removeAttribute('data-voice-block-id');
       el.classList.remove('voice-reading-active');
@@ -194,20 +279,11 @@
       bodyEl.querySelectorAll('h1, h2, h3, h4, h5, h6, p, li, tr, pre')
     );
 
-    // Filter out container elements that already have child candidates (e.g. <li> containing <p> or nested <li>)
     const leafBlocks = candidates.filter(el => {
-      if (el.tagName === 'PRE') {
-        return !state.skipCodeInSleep;
-      }
+      if (el.tagName === 'PRE') return !state.skipCodeInSleep;
       if (el.closest('pre')) return false;
-      if (el.tagName === 'TR') {
-        // Skip markdown table separator rows if any
-        return el.textContent.trim().length > 2;
-      }
-      if (el.tagName === 'LI') {
-        const hasChildBlock = el.querySelector('p, ul, ol');
-        if (hasChildBlock) return false;
-      }
+      if (el.tagName === 'TR') return el.textContent.trim().length > 2;
+      if (el.tagName === 'LI') return !el.querySelector('p, ul, ol');
       return true;
     });
 
@@ -234,7 +310,6 @@
         const cells = Array.from(el.querySelectorAll('th, td')).map(c => c.innerText.trim()).filter(Boolean);
         rawText = cells.join(', ');
       } else {
-        // Clone node without action buttons (🔊 or copy)
         const clone = el.cloneNode(true);
         clone.querySelectorAll('.btn-speak-heading, .btn-copy-code, pre, ul, ol').forEach(n => n.remove());
         rawText = clone.textContent || '';
@@ -246,26 +321,20 @@
       const blockId = `vb-${blockCounter++}`;
       el.setAttribute('data-voice-block-id', blockId);
 
-      // Click any block while listening to jump directly to it
       if (!el.dataset.voiceClickBound) {
         el.dataset.voiceClickBound = '1';
         el.addEventListener('click', (e) => {
-          if (!state.isPlaying) return;
+          if (!state.isPlaying || state.isStaticMp3Mode) return;
           if (e.target.closest('a, button, pre, code')) return;
           const targetBlockId = el.getAttribute('data-voice-block-id');
           if (!targetBlockId) return;
           const foundIdx = state.chunks.findIndex(c => c.blockId === targetBlockId);
-          if (foundIdx >= 0) {
-            jumpToChunk(foundIdx);
-          }
+          if (foundIdx >= 0) jumpToChunk(foundIdx);
         });
       }
 
       for (const part of sentenceParts) {
-        mappedChunks.push({
-          text: part,
-          blockId
-        });
+        mappedChunks.push({ text: part, blockId });
       }
     }
 
@@ -281,7 +350,6 @@
     return idx % 2 === 0 ? state.primaryVoice : state.secondaryVoice;
   }
 
-  // Synthesize speech via Cloned AI Backend (Port 45678 or Port 8000 or Custom LAN URL)
   async function fetchClonedSpeechBlob(text, voiceId) {
     const validVoice = CLONED_VOICES.some(v => v.id === voiceId) ? voiceId : DEFAULT_PRIMARY_VOICE;
     const cacheKey = `${validVoice}_${text}`;
@@ -303,13 +371,11 @@
       }
     }
 
-    // 1. Drive Video Player local server (port 45678)
     endpoints.push({
       type: 'get',
       url: `http://127.0.0.1:45678/tts?text=${encodeURIComponent(text)}&lang=vi&voice=${encodeURIComponent(validVoice)}&speed=1.0`
     });
 
-    // 2. Direct VieNeu Cloned TTS FastAPI server (port 8000)
     endpoints.push({
       type: 'post',
       url: 'http://127.0.0.1:8000/v1/audio/speech',
@@ -349,15 +415,13 @@
             return objUrl;
           }
         }
-      } catch (e) {
-        // Try next endpoint
-      }
+      } catch (e) {}
     }
     return null;
   }
 
   function prefetchChunk(idx) {
-    if (idx < 0 || idx >= state.chunks.length) return;
+    if (state.isStaticMp3Mode || idx < 0 || idx >= state.chunks.length) return;
     const item = state.chunks[idx];
     const text = typeof item === 'string' ? item : item.text;
     const voice = getVoiceForChunk(idx);
@@ -384,7 +448,17 @@
       targetEl = bodyEl.querySelector(`[data-voice-block-id="${chunkObj.blockId}"]`);
     }
 
-    // Fallback text search if DOM was re-rendered
+    if (!targetEl && chunkObj.anchorText) {
+      const normAnchor = chunkObj.anchorText.toLowerCase().trim();
+      const headings = bodyEl.querySelectorAll('h1, h2, h3');
+      for (const h of headings) {
+        if (h.textContent.toLowerCase().includes(normAnchor)) {
+          targetEl = h;
+          break;
+        }
+      }
+    }
+
     if (!targetEl && chunkObj.text) {
       const snippet = chunkObj.text.slice(0, 32).trim().toLowerCase();
       if (snippet.length > 5) {
@@ -404,7 +478,7 @@
         const containerRect = container.getBoundingClientRect();
         const targetRect = targetEl.getBoundingClientRect();
         const relativeTop = targetRect.top - containerRect.top + container.scrollTop;
-        const desiredTop = relativeTop - (containerRect.height * 0.32);
+        const desiredTop = relativeTop - (containerRect.height * 0.28);
         container.scrollTo({
           top: Math.max(0, desiredTop),
           behavior: 'smooth'
@@ -420,6 +494,7 @@
     if (audioRef) {
       try {
         audioRef.pause();
+        audioRef.ontimeupdate = null;
         audioRef.onended = null;
         audioRef.onerror = null;
         audioRef.src = '';
@@ -456,8 +531,143 @@
     } catch (e) {}
   }
 
+  // Play Pre-Rendered Static Cloned .MP3 (100% Offline Mobile & Lock-Screen Friendly)
+  async function playStaticMp3AtCue(idx, sessionId) {
+    if (sessionId !== sessionCounter) return;
+
+    if (idx >= state.chunks.length) {
+      clearActiveHighlight();
+      if (state.autoNextChapter && typeof onChapterAdvanceCallback === 'function') {
+        onChapterAdvanceCallback();
+        return;
+      }
+      state.isPlaying = false;
+      state.isPaused = false;
+      state.isLoadingAudio = false;
+      state.currentChunkIdx = 0;
+      updateUI();
+      return;
+    }
+
+    const chosenVoice = getVoiceForChunk(idx);
+    const manifest = await fetchPreRenderedManifest(state.activeChapterId, chosenVoice);
+    if (sessionId !== sessionCounter || !manifest || !manifest.cues[idx]) return;
+
+    const cue = manifest.cues[idx];
+    state.currentChunkIdx = idx;
+    state.activeSpeakerVoice = chosenVoice;
+    state.isLoadingAudio = false;
+    updateUI();
+    highlightAndScrollToChunk(state.chunks[idx]);
+    updateMediaSession();
+
+    const targetAudioUrl = manifest.audioUrl;
+
+    // In Single-Voice mode, play 1 continuous MP3 for the entire chapter and sync via ontimeupdate!
+    if (!state.dualVoiceMode) {
+      if (audioRef && audioRef.dataset.staticUrl === targetAudioUrl) {
+        audioRef.playbackRate = state.playbackSpeed;
+        audioRef.currentTime = cue.start;
+        if (audioRef.paused && !state.isPaused) {
+          audioRef.play().catch(() => {});
+        }
+        return;
+      }
+
+      if (audioRef) {
+        audioRef.pause();
+        audioRef.ontimeupdate = null;
+        audioRef.onended = null;
+      }
+
+      state.isLoadingAudio = true;
+      updateUI();
+
+      const audio = new Audio(targetAudioUrl);
+      audio.dataset.staticUrl = targetAudioUrl;
+      audio.playbackRate = state.playbackSpeed;
+      audioRef = audio;
+
+      audio.onloadedmetadata = () => {
+        if (sessionId !== sessionCounter) return;
+        audio.currentTime = cue.start;
+        audio.playbackRate = state.playbackSpeed;
+        state.isLoadingAudio = false;
+        updateUI();
+      };
+
+      audio.ontimeupdate = () => {
+        if (sessionId !== sessionCounter || !audioRef) return;
+        const t = audioRef.currentTime;
+        const activeIdx = state.chunks.findIndex(c => t >= c.start && t <= c.end + 0.35);
+        if (activeIdx >= 0 && activeIdx !== state.currentChunkIdx) {
+          state.currentChunkIdx = activeIdx;
+          updateUI();
+          highlightAndScrollToChunk(state.chunks[activeIdx]);
+          updateMediaSession();
+        }
+      };
+
+      audio.onended = () => {
+        if (sessionId !== sessionCounter) return;
+        playStaticMp3AtCue(state.chunks.length, sessionId);
+      };
+
+      try {
+        await audio.play();
+        audio.playbackRate = state.playbackSpeed;
+        state.isLoadingAudio = false;
+        updateUI();
+      } catch (e) {}
+      return;
+    }
+
+    // In Dual-Voice Podcast mode, alternate cue slices between Speaker A MP3 and Speaker B MP3!
+    if (audioRef) {
+      audioRef.pause();
+      audioRef.ontimeupdate = null;
+      audioRef.onended = null;
+    }
+
+    const audio = new Audio(targetAudioUrl);
+    audio.playbackRate = state.playbackSpeed;
+    audioRef = audio;
+
+    audio.onloadedmetadata = () => {
+      if (sessionId !== sessionCounter) return;
+      audio.currentTime = cue.start;
+      audio.playbackRate = state.playbackSpeed;
+    };
+
+    let advanced = false;
+    audio.ontimeupdate = () => {
+      if (sessionId !== sessionCounter || advanced) return;
+      if (audio.currentTime >= cue.end) {
+        advanced = true;
+        audio.pause();
+        playStaticMp3AtCue(idx + 1, sessionId);
+      }
+    };
+
+    audio.onended = () => {
+      if (sessionId !== sessionCounter || advanced) return;
+      advanced = true;
+      playStaticMp3AtCue(idx + 1, sessionId);
+    };
+
+    try {
+      await audio.play();
+      audio.playbackRate = state.playbackSpeed;
+    } catch (e) {}
+  }
+
   async function playChunkAtIndex(idx, sessionId) {
     if (sessionId !== sessionCounter) return;
+
+    if (state.isStaticMp3Mode) {
+      await playStaticMp3AtCue(idx, sessionId);
+      return;
+    }
 
     if (idx >= state.chunks.length) {
       clearActiveHighlight();
@@ -484,11 +694,9 @@
     highlightAndScrollToChunk(chunkItem);
     updateMediaSession();
 
-    // Pre-fetch next 2 chunks in background for gapless cloned playback
     prefetchChunk(idx + 1);
     prefetchChunk(idx + 2);
 
-    // 1. Try fetched Blob from local Cloned TTS (8000 / 45678)
     const blobUrl = await fetchClonedSpeechBlob(chunkText, chosenVoice);
     if (sessionId !== sessionCounter) return;
 
@@ -514,7 +722,7 @@
         };
         audio.onerror = () => {
           if (sessionId !== sessionCounter) return;
-          playDirectStreamOrFallback(chunkText, idx, sessionId, chosenVoice);
+          playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice);
         };
         await audio.play();
         audio.playbackRate = state.playbackSpeed;
@@ -526,48 +734,7 @@
       }
     }
 
-    // 2. Try direct <audio> stream to 127.0.0.1:45678/tts (bypasses CORS preflight on https pages)
-    playDirectStreamOrFallback(chunkText, idx, sessionId, chosenVoice);
-  }
-
-  function playDirectStreamOrFallback(chunkText, idx, sessionId, chosenVoice) {
-    if (sessionId !== sessionCounter) return;
-
-    try {
-      const streamUrl = `http://127.0.0.1:45678/tts?text=${encodeURIComponent(chunkText)}&lang=vi&voice=${encodeURIComponent(chosenVoice)}&speed=${encodeURIComponent(state.playbackSpeed)}`;
-      const audio = new Audio(streamUrl);
-      audio.playbackRate = state.playbackSpeed;
-      audioRef = audio;
-
-      let settled = false;
-      audio.oncanplay = () => {
-        if (sessionId !== sessionCounter) return;
-        settled = true;
-        state.isLoadingAudio = false;
-        audio.playbackRate = state.playbackSpeed;
-        updateUI();
-      };
-      audio.onended = () => {
-        if (sessionId !== sessionCounter) return;
-        playChunkAtIndex(idx + 1, sessionId);
-      };
-      audio.onerror = () => {
-        if (sessionId !== sessionCounter || settled) return;
-        settled = true;
-        playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice);
-      };
-
-      const playPromise = audio.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {
-          if (sessionId !== sessionCounter || settled) return;
-          settled = true;
-          playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice);
-        });
-      }
-    } catch (e) {
-      playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice);
-    }
+    playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice);
   }
 
   function playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice) {
@@ -587,7 +754,6 @@
       utter.lang = 'vi-VN';
       utter.rate = state.playbackSpeed;
 
-      // Distinct pitch per cloned voice profile if running in browser fallback
       const pitchMap = {
         cloned_microservices_female: 1.05,
         cloned_jobhub_female: 0.96,
@@ -618,43 +784,51 @@
     }
   }
 
-  // Primary entry point: reads directly from the rendered DOM inside #theory-content-body
-  function speakFromTheoryDom(title = 'Lý thuyết chương', startFromEl = null) {
+  // Primary entry point: checks static pre-rendered Cloned .MP3 first, then falls back to live TTS
+  async function speakFromTheoryDom(title = 'Lý thuyết chương', startFromEl = null, chapterId = 1) {
     stopAudioInternal();
-    const bodyEl = document.getElementById('theory-content-body');
-    const domChunks = buildDomMappedChunks(bodyEl, startFromEl);
-    if (domChunks.length === 0) return;
-
+    state.activeChapterId = Number(chapterId) || 1;
     const currentSession = sessionCounter;
-    state.chunks = domChunks;
+    const bodyEl = document.getElementById('theory-content-body');
+
     state.activeTitle = title;
-    state.currentChunkIdx = 0;
     state.isPlaying = true;
     state.isPaused = false;
+    state.isLoadingAudio = true;
     updateUI();
 
+    // 1. Check if static pre-rendered Cloned AI .MP3 + .JSON manifest exists for this chapter
+    const manifest = await fetchPreRenderedManifest(state.activeChapterId, state.primaryVoice);
+    if (currentSession !== sessionCounter) return;
+
+    if (manifest && Array.isArray(manifest.cues) && manifest.cues.length > 0) {
+      state.isStaticMp3Mode = true;
+      const { mappedCues, startIdx } = mapManifestCuesToDom(bodyEl, manifest.cues, startFromEl);
+      state.chunks = mappedCues;
+      state.currentChunkIdx = startIdx;
+      updateUI();
+      await playStaticMp3AtCue(startIdx, currentSession);
+      return;
+    }
+
+    // 2. Otherwise use live DOM block chunks
+    state.isStaticMp3Mode = false;
+    const domChunks = buildDomMappedChunks(bodyEl, startFromEl);
+    if (domChunks.length === 0) {
+      state.isPlaying = false;
+      state.isLoadingAudio = false;
+      updateUI();
+      return;
+    }
+
+    state.chunks = domChunks;
+    state.currentChunkIdx = 0;
+    updateUI();
     playChunkAtIndex(0, currentSession);
   }
 
-  function speakText(rawMarkdownText, title = 'Lý thuyết chương', startFromEl = null) {
-    const bodyEl = document.getElementById('theory-content-body');
-    if (bodyEl && bodyEl.children.length > 0) {
-      speakFromTheoryDom(title, startFromEl);
-      return;
-    }
-    stopAudioInternal();
-    const parts = splitBlockTextIntoSentences(rawMarkdownText, 220).map(t => ({ text: t, blockId: null }));
-    if (parts.length === 0) return;
-
-    const currentSession = sessionCounter;
-    state.chunks = parts;
-    state.activeTitle = title;
-    state.currentChunkIdx = 0;
-    state.isPlaying = true;
-    state.isPaused = false;
-    updateUI();
-
-    playChunkAtIndex(0, currentSession);
+  function speakText(rawMarkdownText, title = 'Lý thuyết chương', startFromEl = null, chapterId = 1) {
+    speakFromTheoryDom(title, startFromEl, chapterId);
   }
 
   function togglePause() {
@@ -683,17 +857,23 @@
   function skipChunk(delta) {
     if (!state.isPlaying || state.chunks.length === 0) return;
     const nextIdx = Math.max(0, Math.min(state.chunks.length - 1, state.currentChunkIdx + delta));
-    stopAudioInternal();
-    state.isPlaying = true;
-    state.isPaused = false;
-    playChunkAtIndex(nextIdx, sessionCounter);
+    jumpToChunk(nextIdx);
   }
 
   function jumpToChunk(idx) {
     if (!state.isPlaying || idx < 0 || idx >= state.chunks.length) return;
+    state.isPaused = false;
+    if (state.isStaticMp3Mode && !state.dualVoiceMode && audioRef && state.chunks[idx]) {
+      state.currentChunkIdx = idx;
+      audioRef.currentTime = state.chunks[idx].start || 0;
+      audioRef.playbackRate = state.playbackSpeed;
+      if (audioRef.paused) audioRef.play().catch(() => {});
+      updateUI();
+      highlightAndScrollToChunk(state.chunks[idx]);
+      return;
+    }
     stopAudioInternal();
     state.isPlaying = true;
-    state.isPaused = false;
     playChunkAtIndex(idx, sessionCounter);
   }
 
@@ -835,7 +1015,6 @@
     state.playbackSpeed = num;
     try { localStorage.setItem(STORAGE_KEYS.speed, String(num)); } catch (e) {}
 
-    // Apply immediately to active HTML5 Audio without interrupting Cloned Voice playback!
     if (audioRef) {
       try { audioRef.playbackRate = num; } catch (e) {}
     } else if (state.isPlaying && !state.isPaused) {
@@ -913,7 +1092,7 @@
 
     const chunkCounterEl = document.getElementById('voice-bar-counter');
     if (chunkCounterEl) {
-      chunkCounterEl.textContent = `Đoạn ${state.currentChunkIdx + 1} / ${state.chunks.length}`;
+      chunkCounterEl.textContent = `Mục ${state.currentChunkIdx + 1} / ${state.chunks.length}`;
     }
 
     const currentChunkObj = state.chunks[state.currentChunkIdx];
@@ -1081,7 +1260,6 @@
       });
     }
 
-    // Control bar events
     const btnPause = document.getElementById('btn-voice-bar-pause');
     if (btnPause) btnPause.addEventListener('click', togglePause);
 
@@ -1122,7 +1300,6 @@
       });
     }
 
-    // Modal checkboxes & pills
     const chkDual = document.getElementById('chk-voice-dual-mode');
     if (chkDual) {
       chkDual.addEventListener('change', (e) => setDualVoiceMode(e.target.checked));

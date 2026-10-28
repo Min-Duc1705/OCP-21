@@ -1,0 +1,64 @@
+{
+  "chapterId": 1,
+  "voiceId": "cloned_jobhub_female",
+  "audioUrl": "assets/theory_audio/ch1_cloned_jobhub_female.mp3",
+  "duration": 74.45,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 17.04,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "Chương 1: Khối Xây Dựng Cơ Bản (Building Blocks) - OCP Java SE 21 (1Z0-830)",
+      "text": "Chương 1: Khối Xây Dựng Cơ Bản , Building Blocks,  - OCP Java SE 21 , 1Z0-830, , Tài liệu tham chiếu: OCP Oracle Certified Professional Java SE 21 Developer Study Guide Exam 1Z0-830 — Jeanne."
+    },
+    {
+      "index": 1,
+      "start": 17.39,
+      "end": 23.71,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "Cách truyền thống (tạo ra file Zoo.class trên ổ đĩa):",
+      "text": "Cách truyền thống , tạo ra file Zoo, class trên ổ đĩa, :, javac Zoo, java java Zoo Bronx Zoo."
+    },
+    {
+      "index": 2,
+      "start": 24.06,
+      "end": 33.34,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "2. Cấu Trúc Lớp (Class Structure) & Quy Tắc File Source Code",
+      "text": "2,  Cấu Trúc Lớp , Class Structure,  & Quy Tắc File Source Code, Mọi chương trình Java đều được xây dựng từ các Class hoặc Interface, Record, Enum."
+    },
+    {
+      "index": 3,
+      "start": 33.69,
+      "end": 43.37,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "4. Khai Báo Package & Cơ Chế Import",
+      "text": "4,  Khai Báo Package & Cơ Chế Import, 4, 1, Thứ tự khai báo trong 1 file mã nguồn Mọi file Java phải tuân thủ nghiêm ngặt theo thứ tự P - I - C : 1."
+    },
+    {
+      "index": 4,
+      "start": 43.72,
+      "end": 54.84,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "6. Kiểu Dữ Liệu Nguyên Thủy (Primitives) & Hằng Số (Literals)",
+      "text": "6,  Kiểu Dữ Liệu Nguyên Thủy , Primitives,  & Hằng Số , Literals, , Java có đúng 8 kiểu dữ liệu nguyên thủy : Kiểu dữ liệu Số bit Giá trị mặc định khi là field Miền giá trị Ghi chú."
+    },
+    {
+      "index": 5,
+      "start": 55.19,
+      "end": 63.99,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "8. Khai Báo Biến & Quy Tắc Đặt Tên (Identifiers)",
+      "text": "8,  Khai Báo Biến & Quy Tắc Đặt Tên , Identifiers, , 8, 1, Quy tắc đặt tên định danh hợp lệ Tên của biến, phương thức, class phải tuân thủ: 1."
+    },
+    {
+      "index": 6,
+      "start": 64.34,
+      "end": 74.1,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "10. Quản Lý Phạm Vi Biến (Variable Scope)",
+      "text": "10,  Quản Lý Phạm Vi Biến , Variable Scope, , 1, Local variables: Bắt đầu từ dòng khai báo và kết thúc tại dấu đóng ngoặc nhọn } của khối lệnh chứa nó, 2."
+    }
+  ]
+}

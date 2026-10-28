@@ -253,7 +253,7 @@
   function speakFromHeading(headingEl, sectionTitle) {
     if (!root.VoiceNarrator || !root.THEORY_DATA || !root.THEORY_DATA[currentChapterId]) return;
     const cleanHeading = sectionTitle.replace(/🔊/g, '').trim();
-    root.VoiceNarrator.speakFromTheoryDom(`CH${currentChapterId} · ${cleanHeading}`, headingEl);
+    root.VoiceNarrator.speakFromTheoryDom(`CH${currentChapterId} · ${cleanHeading}`, headingEl, currentChapterId);
   }
 
   function startChapterNarration(chapterId = currentChapterId) {
@@ -262,7 +262,7 @@
     const metaMap = (root.AppI18n && root.AppI18n.CHAPTER_METADATA) || {};
     const meta = metaMap[chapterId] || { vi: data.title, en: data.title };
     const title = `Chương ${chapterId}: ${meta.vi || data.title}`;
-    root.VoiceNarrator.speakFromTheoryDom(title, null);
+    root.VoiceNarrator.speakFromTheoryDom(title, null, chapterId);
   }
 
   function toggleChapterNarration() {

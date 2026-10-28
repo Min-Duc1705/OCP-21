@@ -14,8 +14,8 @@
       shortName: 'Nữ Hệ Thống (Clone)',
       gender: 'Nữ',
       accent: 'Miền Nam',
-      tag: '🔥 Giọng Mẫu Clone AI',
-      desc: 'Giọng thuyết minh công nghệ cuốn hút, rõ chữ, clone từ video Microservices',
+      tag: 'Clone AI',
+      desc: 'Giọng thuyết minh công nghệ cuốn hút, clone từ video Microservices',
       sampleUrl: 'assets/cloned_voices/microservices_female.wav'
     },
     {
@@ -24,8 +24,8 @@
       shortName: 'Nữ JobHub AI (Clone)',
       gender: 'Nữ',
       accent: 'Miền Nam',
-      tag: '🔥 Giọng Mẫu Clone AI',
-      desc: 'Giọng nữ thuyết minh công nghệ JobHub AI & Microservices êm dịu, dễ nghe khi ngủ',
+      tag: 'Clone AI',
+      desc: 'Giọng nữ thuyết minh công nghệ JobHub AI & Microservices tuyển dụng',
       sampleUrl: 'assets/cloned_voices/jobhub_female.wav'
     },
     {
@@ -34,7 +34,7 @@
       shortName: 'Nam Angular (Clone)',
       gender: 'Nam',
       accent: 'Miền Nam',
-      tag: '🎙️ Giọng Nam Podcast AI',
+      tag: 'Clone AI',
       desc: 'Giọng nam podcast NotebookLM trầm ấm, phong thái thảo luận kỹ thuật tự nhiên',
       sampleUrl: 'assets/cloned_voices/angular_male.wav'
     },
@@ -44,7 +44,7 @@
       shortName: 'Nữ Angular (Clone)',
       gender: 'Nữ',
       accent: 'Miền Nam',
-      tag: '🎙️ Giọng Nữ Podcast AI',
+      tag: 'Clone AI',
       desc: 'Giọng nữ podcast NotebookLM hoạt ngôn, biểu cảm đối đáp sinh động',
       sampleUrl: 'assets/cloned_voices/angular_female.wav'
     }
@@ -961,57 +961,52 @@
         const isPreviewing = state.previewingVoiceId === v.id;
 
         const card = document.createElement('div');
-        card.className = `cloned-voice-card ${isPrimary ? 'selected-primary' : ''} ${isSecondary ? 'selected-secondary' : ''}`;
+        card.className = `cloned-voice-row ${isPrimary ? 'selected-primary' : ''} ${isSecondary ? 'selected-secondary' : ''}`;
         card.innerHTML = `
-          <div class="cloned-voice-card-top">
+          <div class="cloned-voice-row-left">
             <div class="cloned-voice-avatar ${v.gender === 'Nam' ? 'male' : 'female'}">
-              ${v.gender === 'Nam' ? '👨‍💻' : '👩‍💼'}
+              ${v.gender === 'Nam' ? '👱‍♂️' : '👱‍♀️'}
             </div>
             <div class="cloned-voice-info">
               <div class="cloned-voice-name-row">
-                <strong>${v.name}</strong>
-                ${isPrimary ? '<span class="voice-role-badge primary">Giọng chính</span>' : ''}
-                ${isSecondary ? '<span class="voice-role-badge secondary">Giọng phụ #2</span>' : ''}
+                <strong class="cloned-voice-title">${v.name}</strong>
+                ${isPrimary ? '<span class="voice-speaker-badge speaker-a">SPEAKER A</span>' : ''}
+                ${isSecondary ? '<span class="voice-speaker-badge speaker-b">SPEAKER B</span>' : ''}
+                <span class="voice-clone-ai-badge">${v.tag}</span>
+                <span class="voice-accent-badge">${v.accent}</span>
               </div>
-              <div class="cloned-voice-badges">
-                <span class="voice-meta-pill">${v.tag}</span>
-                <span class="voice-meta-pill">${v.gender} · ${v.accent}</span>
-              </div>
+              <p class="cloned-voice-desc">${v.desc}</p>
             </div>
           </div>
-          <p class="cloned-voice-desc">${v.desc}</p>
-          <div class="cloned-voice-actions">
-            <button type="button" class="btn btn-sm ${isPreviewing ? 'btn-danger' : 'btn-secondary'} btn-preview-voice" data-voice="${v.id}">
-              ${isPreviewing ? '⏹ Dừng nghe thử' : '🔊 Nghe thử mẫu giọng'}
-            </button>
-            <button type="button" class="btn btn-sm ${isPrimary ? 'btn-primary' : 'btn-secondary'} btn-pick-primary" data-voice="${v.id}">
-              ${isPrimary ? '✓ Đang dùng chính' : 'Chọn làm giọng chính'}
-            </button>
-            ${state.dualVoiceMode ? `
-              <button type="button" class="btn btn-sm ${isSecondary ? 'btn-primary' : 'btn-secondary'} btn-pick-secondary" data-voice="${v.id}">
-                ${isSecondary ? '✓ Giọng #2' : 'Chọn làm giọng #2'}
+          <div class="cloned-voice-row-actions">
+            ${state.dualVoiceMode && !isPrimary ? `
+              <button type="button" class="btn-voice-slot-b ${isSecondary ? 'active' : ''}" data-voice="${v.id}" title="Đặt làm Speaker B (Giọng #2)">
+                ${isSecondary ? '✓ Speaker B' : '+ Speaker B'}
               </button>
             ` : ''}
+            <button type="button" class="btn-voice-preview ${isPreviewing ? 'playing' : ''}" data-voice="${v.id}">
+              ${isPreviewing ? '⏹ Dừng' : '▶ Nghe thử'}
+            </button>
+            <button type="button" class="btn-voice-radio ${isPrimary ? 'checked' : ''}" data-voice="${v.id}" title="Chọn làm giọng đọc chính (Speaker A)">
+              ${isPrimary ? '✓' : ''}
+            </button>
           </div>
         `;
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.btn-voice-preview, .btn-voice-slot-b')) return;
+          setPrimaryVoice(v.id);
+        });
         listEl.appendChild(card);
       });
 
-      listEl.querySelectorAll('.btn-preview-voice').forEach(btn => {
+      listEl.querySelectorAll('.btn-voice-preview').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           previewClonedVoice(btn.dataset.voice);
         });
       });
 
-      listEl.querySelectorAll('.btn-pick-primary').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          setPrimaryVoice(btn.dataset.voice);
-        });
-      });
-
-      listEl.querySelectorAll('.btn-pick-secondary').forEach(btn => {
+      listEl.querySelectorAll('.btn-voice-slot-b').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           setSecondaryVoice(btn.dataset.voice);

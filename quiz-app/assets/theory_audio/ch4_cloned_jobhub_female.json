@@ -1,0 +1,64 @@
+{
+  "chapterId": 4,
+  "voiceId": "cloned_jobhub_female",
+  "audioUrl": "assets/theory_audio/ch4_cloned_jobhub_female.mp3",
+  "duration": 75.01,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 12.64,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "Chương 4: Core APIs (Các API Cốt Lõi)",
+      "text": "Chương 4: Core APIs , Các API Cốt Lõi, , Tài liệu tham khảo chính: OCP Oracle Certified Professional Java SE 21 Developer Study Guide Exam 1Z0-830 — Jeanne."
+    },
+    {
+      "index": 1,
+      "start": 12.99,
+      "end": 23.15,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "1. Tạo và Thao Tác Chuỗi (Creating and Manipulating Strings)",
+      "text": "1,  Tạo và Thao Tác Chuỗi , Creating and Manipulating Strings, , 1, 1, Bản Chất của Lớp String Trong Java, String là một chuỗi ký tự được bọc trong cặp nháy kép."
+    },
+    {
+      "index": 2,
+      "start": 23.5,
+      "end": 32.22,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "2. Lớp StringBuilder (Using the StringBuilder Class)",
+      "text": "2,  Lớp StringBuilder , Using the StringBuilder Class, , 2, 1, Tại Sao Cần StringBuilder , Khi thực hiện các vòng lặp nối chuỗi liên tục."
+    },
+    {
+      "index": 3,
+      "start": 32.57,
+      "end": 43.93,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "3. Bản Chất So Sánh Bằng (Understanding Equality)",
+      "text": "3,  Bản Chất So Sánh Bằng , Understanding Equality, , 3, 1, Toán Tử == vs Phương Thức equals Toán tử == : Luôn luôn so sánh đẳng thức tham chiếu reference equality."
+    },
+    {
+      "index": 4,
+      "start": 44.28,
+      "end": 52.76,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "4. Mảng (Understanding Arrays)",
+      "text": "4,  Mảng , Understanding Arrays, , 4, 1, Khởi Tạo và Cú Pháp Khai Báo Mảng Mảng là một đối tượng có kích thước cố định fixed size trên Heap."
+    },
+    {
+      "index": 5,
+      "start": 53.11,
+      "end": 65.11,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "5. Tính Toán Với Các API Math (Calculating with Math APIs)",
+      "text": "5,  Tính Toán Với Các API Math , Calculating with Math APIs, , Lớp java, lang, Math cung cấp các phương thức tĩnh phục vụ tính toán toán học, Mọi phương thức đều là static , 5."
+    },
+    {
+      "index": 6,
+      "start": 65.46,
+      "end": 74.66,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "6. Làm Việc Với Ngày và Giờ (Working with Dates and Times)",
+      "text": "6,  Làm Việc Với Ngày và Giờ , Working with Dates and Times, , Từ Java 8, gói java, time, cung cấp hệ thống API ngày giờ hiện đại."
+    }
+  ]
+}

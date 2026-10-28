@@ -1,0 +1,64 @@
+{
+  "chapterId": 10,
+  "voiceId": "cloned_jobhub_female",
+  "audioUrl": "assets/theory_audio/ch10_cloned_jobhub_female.mp3",
+  "duration": 96.53,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 12.08,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "Sổ Tay Chuyên Sâu: Chapter 10 - Streams",
+      "text": "Sổ Tay Chuyên Sâu: Chapter 10 - Streams, Tài liệu tham chiếu chuẩn OCP Java SE 21: Sách: OCP Oracle Certified Professional Java SE 21 Developer Study Guide."
+    },
+    {
+      "index": 1,
+      "start": 12.43,
+      "end": 19.07,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "🗺️ Bản Đồ Kiến Thức Chương 10 (Chapter Overview)",
+      "text": "🗺️ Bản Đồ Kiến Thức Chương 10 , Chapter Overview, , Trong Chương 8 Lambdas và Chương 9 Collections & Generics."
+    },
+    {
+      "index": 2,
+      "start": 19.42,
+      "end": 30.94,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 1: BẢN CHẤT CỦA Optional<T> & CÁC THAO TÁC CỐT LÕI",
+      "text": "PHẦN 1: BẢN CHẤT CỦA Optional<T> & CÁC THAO TÁC CỐT LÕI, Một Optional<T là một đối tượng bao bọc wrapper chứa một giá trị khác null , hoặc rỗng empty."
+    },
+    {
+      "index": 3,
+      "start": 31.29,
+      "end": 47.53,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 2: KIẾN TRÚC STREAM PIPELINE & CƠ CHẾ ĐÁNH GIÁ TRỄ (LAZY EVALUATION)",
+      "text": "PHẦN 2: KIẾN TRÚC STREAM PIPELINE & CƠ CHẾ ĐÁNH GIÁ TRỄ , LAZY EVALUATION, , 1, Khái Niệm Stream & Mô Hình Dây Chuyền Sản Xuất Assembly Line Một Stream trong Java là một chuỗi các phần tử dữ."
+    },
+    {
+      "index": 4,
+      "start": 47.88,
+      "end": 59.16,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 4: CÁC THAO TÁC TRUNG GIAN PHỔ BIẾN (INTERMEDIATE OPERATIONS)",
+      "text": "PHẦN 4: CÁC THAO TÁC TRUNG GIAN PHỔ BIẾN , INTERMEDIATE OPERATIONS, , Thao tác trung gian luôn nhận vào một Stream và trả về một Stream mới."
+    },
+    {
+      "index": 5,
+      "start": 59.51,
+      "end": 78.79,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 5: PRIMITIVE STREAMS & PRIMITIVE OPTIONALS",
+      "text": "PHẦN 5: PRIMITIVE STREAMS & PRIMITIVE OPTIONALS, Xử lý luồng với các kiểu đóng gói Stream<Integer , Stream<Double gây tiêu tốn bộ nhớ và giảm hiệu năng đáng kể do."
+    },
+    {
+      "index": 6,
+      "start": 79.14,
+      "end": 96.18,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 6: PIPELINE NÂNG CAO, BỘ THU THẬP COLLECTORS & SPLITERATOR",
+      "text": "PHẦN 6: PIPELINE NÂNG CAO, BỘ THU THẬP COLLECTORS & SPLITERATOR, 1, Sự Phụ Thuộc Giữa Stream & Cấu Trúc Dữ Liệu Gốc Vì Stream áp dụng cơ chế đánh giá trễ lazy evaluation."
+    }
+  ]
+}

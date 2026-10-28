@@ -1,0 +1,64 @@
+{
+  "chapterId": 2,
+  "voiceId": "cloned_microservices_female",
+  "audioUrl": "assets/theory_audio/ch2_cloned_microservices_female.mp3",
+  "duration": 91.41,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 18.64,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "Chương 2: Toán Tử Trong Java (Operators) - OCP Java SE 21 (1Z0-830)",
+      "text": "Chương 2: Toán Tử Trong Java , Operators,  - OCP Java SE 21 , 1Z0-830, , Tài liệu tham chiếu: OCP Oracle Certified Professional Java SE 21 Developer Study Guide Exam 1Z0-830 — Jeanne."
+    },
+    {
+      "index": 1,
+      "start": 18.99,
+      "end": 29.31,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "1. Tổng Quan Về Toán Tử & Bảng Thứ Tự Ưu Tiên (Operator Precedence)",
+      "text": "1,  Tổng Quan Về Toán Tử & Bảng Thứ Tự Ưu Tiên , Operator Precedence, , Toán tử trong Java là các ký hiệu đặc biệt dùng để thực hiện phép toán trên 1."
+    },
+    {
+      "index": 2,
+      "start": 29.66,
+      "end": 40.06,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "3. Toán Tử Số Học Hai Ngôi (Binary Arithmetic Operators)",
+      "text": "3,  Toán Tử Số Học Hai Ngôi , Binary Arithmetic Operators, , Bao gồm: Cộng + , Trừ - , Nhân , Chia / , và Chia lấy dư % , 3, 1."
+    },
+    {
+      "index": 3,
+      "start": 40.41,
+      "end": 49.21,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "4. 4 Quy Tắc Thăng Hạng Kiểu Số Học (Numeric Promotion Rules)",
+      "text": "4,  4 Quy Tắc Thăng Hạng Kiểu Số Học , Numeric Promotion Rules, , Quan trọng: Đây là một trong những phần quan trọng nhất của Chapter 2."
+    },
+    {
+      "index": 4,
+      "start": 49.56,
+      "end": 62.76,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "6. Toán Tử Gán Phức Hợp (Compound Assignment) & Ép Kiểu Ngầm Định",
+      "text": "6,  Toán Tử Gán Phức Hợp , Compound Assignment,  & Ép Kiểu Ngầm Định, Java hỗ trợ các toán tử gán kết hợp: += , -= , = , /= , %= , v, v, 6, 1."
+    },
+    {
+      "index": 5,
+      "start": 63.11,
+      "end": 78.15,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "7. Toán Tử So Sánh (Relational & Equality) & Toán Tử instanceof",
+      "text": "7,  Toán Tử So Sánh , Relational & Equality,  & Toán Tử instanceof, 7, 1, Toán Tử Quan Hệ < , <= , , = Chỉ áp dụng cho các kiểu dữ liệu số nguyên và số thực byte , short , char."
+    },
+    {
+      "index": 6,
+      "start": 78.5,
+      "end": 91.06,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "9. Toán Tử Ba Ngôi (Ternary Operator ? :)",
+      "text": "9,  Toán Tử Ba Ngôi , Ternary Operator ,  :, , 9, 1, Cú Pháp & Chiều Đánh Giá Nếu booleanExpression là true → thực thi và trả về giá trị của expression1."
+    }
+  ]
+}

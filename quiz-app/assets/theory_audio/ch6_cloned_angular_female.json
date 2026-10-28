@@ -1,0 +1,64 @@
+{
+  "chapterId": 6,
+  "voiceId": "cloned_angular_female",
+  "audioUrl": "assets/theory_audio/ch6_cloned_angular_female.mp3",
+  "duration": 73.33,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 11.36,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "Chương 6: Class Design (Thiết Kế Lớp)",
+      "text": "Chương 6: Class Design , Thiết Kế Lớp, , Tài liệu tham khảo chính: OCP Oracle Certified Professional Java SE 21 Developer Study Guide Exam 1Z0-830 — Jeanne."
+    },
+    {
+      "index": 1,
+      "start": 11.71,
+      "end": 23.07,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "1. Hiểu Về Kế Thừa (Understanding Inheritance)",
+      "text": "1,  Hiểu Về Kế Thừa , Understanding Inheritance, , 1, 1, Kế Thừa Đơn Trong Java Kế thừa Inheritance là cơ chế cho phép một lớp con subclass / child class tái sử dụng."
+    },
+    {
+      "index": 2,
+      "start": 23.42,
+      "end": 33.74,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "2. Tạo Lớp và Sử Dụng this / super (Creating Classes)",
+      "text": "2,  Tạo Lớp và Sử Dụng this / super , Creating Classes, , 2, 1, Phân Biệt Tham Chiếu this và super Từ khóa this : Đại diện cho thể hiện của lớp hiện tại."
+    },
+    {
+      "index": 3,
+      "start": 34.09,
+      "end": 42.33,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "3. Khai Báo Constructor (Declaring Constructors)",
+      "text": "3,  Khai Báo Constructor , Declaring Constructors, , 3, 1, Cấu Trúc Constructor và Constructor Mặc Định Quy tắc constructor: 1."
+    },
+    {
+      "index": 4,
+      "start": 42.68,
+      "end": 53.32,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "5. Kế Thừa Thành Viên & Ghi Đè Phương Thức (Inheriting Members)",
+      "text": "5,  Kế Thừa Thành Viên & Ghi Đè Phương Thức , Inheriting Members, , 5, 1, Bốn Quy Tắc Vàng Của Ghi Đè Phương Thức Method Overriding Khi lớp con định nghĩa một phương thức có cùng chữ."
+    },
+    {
+      "index": 5,
+      "start": 53.67,
+      "end": 62.47,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "6. Lớp Trừu Tượng (Creating Abstract Classes)",
+      "text": "6,  Lớp Trừu Tượng , Creating Abstract Classes, , 6, 1, Khái Niệm Lớp Trừu Tượng abstract class Lớp trừu tượng được khai báo với từ khóa abstract."
+    },
+    {
+      "index": 6,
+      "start": 62.82,
+      "end": 72.98,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "7. Thiết Kế Lớp Bất Biến (Creating Immutable Objects)",
+      "text": "7,  Thiết Kế Lớp Bất Biến , Creating Immutable Objects, , Lớp bất biến Immutable Class là lớp mà trạng thái bên trong của đối tượng một khi đã được tạo trên Heap thì không."
+    }
+  ]
+}

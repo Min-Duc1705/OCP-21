@@ -1,0 +1,64 @@
+{
+  "chapterId": 3,
+  "voiceId": "cloned_jobhub_female",
+  "audioUrl": "assets/theory_audio/ch3_cloned_jobhub_female.mp3",
+  "duration": 77.81,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 17.44,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "Chương 3: Đưa Ra Quyết Định (Making Decisions) - OCP Java SE 21 (1Z0-830)",
+      "text": "Chương 3: Đưa Ra Quyết Định , Making Decisions,  - OCP Java SE 21 , 1Z0-830, , Tài liệu tham chiếu: OCP Oracle Certified Professional Java SE 21 Developer Study Guide Exam 1Z0-830 — Jeanne."
+    },
+    {
+      "index": 1,
+      "start": 17.79,
+      "end": 26.43,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "1. Cấu Trúc Điều Kiện if-else & Bẫy Dangling Else",
+      "text": "1,  Cấu Trúc Điều Kiện if-else & Bẫy Dangling Else, 1, 1, Cú pháp cơ bản & Câu lệnh đơn vs Khối lệnh {} Biểu thức điều kiện trong if."
+    },
+    {
+      "index": 2,
+      "start": 26.78,
+      "end": 35.26,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "2. Khớp Mẫu Với instanceof (Pattern Matching with instanceof)",
+      "text": "2,  Khớp Mẫu Với instanceof , Pattern Matching with instanceof, , Tính năng Khớp mẫu Pattern Matching được đưa vào chính thức từ Java 16."
+    },
+    {
+      "index": 3,
+      "start": 35.61,
+      "end": 45.77,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "3. Câu Lệnh switch Truyền Thống vs Biểu Thức switch Hiện Đại",
+      "text": "3,  Câu Lệnh switch Truyền Thống vs Biểu Thức switch Hiện Đại, 3, 1, Các Kiểu Dữ Liệu Được switch Hỗ Trợ Trong cú pháp switch truyền thống không dùng Pattern Matching : Kiểu số."
+    },
+    {
+      "index": 4,
+      "start": 46.12,
+      "end": 55.56,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "5. Vòng Lặp while & do-while",
+      "text": "5,  Vòng Lặp while & do-while, 5, 1, Cú pháp & Sự khác biệt cốt tử while loop: Kiểm tra điều kiện trước, Nếu điều kiện false ngay từ đầu."
+    },
+    {
+      "index": 5,
+      "start": 55.91,
+      "end": 64.87,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "6. Vòng Lặp for Cơ Bản & for-each Nâng Cao",
+      "text": "6,  Vòng Lặp for Cơ Bản & for-each Nâng Cao, 6, 1, Cấu Trúc 3 Phần Của for Cơ Bản Quy tắc thi cử: 1, Cả 3 phần đều là tùy chọn optional."
+    },
+    {
+      "index": 6,
+      "start": 65.22,
+      "end": 77.46,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "7. Rẽ Nhánh Luồng: Nhãn (Labels), break, continue, return",
+      "text": "7,  Rẽ Nhánh Luồng: Nhãn , Labels, , break, continue, return, 7, 1, Đặt Nhãn Cho Câu Lệnh Labeled Statements Nhãn là một định danh hợp lệ theo sau bởi dấu hai chấm : đặt trước."
+    }
+  ]
+}

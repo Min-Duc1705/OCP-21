@@ -1,0 +1,64 @@
+{
+  "chapterId": 12,
+  "voiceId": "cloned_angular_female",
+  "audioUrl": "assets/theory_audio/ch12_cloned_angular_female.mp3",
+  "duration": 80.77,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 12.4,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "Hướng Dẫn Ôn Tập OCP Java SE 21 - Chương 12: Modules (JPMS & CLI Tools)",
+      "text": "Hướng Dẫn Ôn Tập OCP Java SE 21 - Chương 12: Modules , JPMS & CLI Tools, , Mục tiêu trọng tâm kỳ thi 1Z0-830 Exam Objectives : Hiểu động lực."
+    },
+    {
+      "index": 1,
+      "start": 12.75,
+      "end": 23.07,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "1. Tổng Quan Về Java Platform Module System (JPMS)",
+      "text": "1,  Tổng Quan Về Java Platform Module System , JPMS, , Trước Java 9, toàn bộ mã nguồn ứng dụng và các thư viện phụ thuộc JARs đều được nạp chung vào một không gian phẳng."
+    },
+    {
+      "index": 2,
+      "start": 23.42,
+      "end": 33.34,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "2. Xây Dựng & Vận Hành Chương Trình Modular Đầu Tiên",
+      "text": "2,  Xây Dựng & Vận Hành Chương Trình Modular Đầu Tiên, Cấu Trúc Thư Mục Chuẩn Directory Structure Mỗi module bắt buộc phải có một file mô tả mang tên module-info."
+    },
+    {
+      "index": 3,
+      "start": 33.69,
+      "end": 46.17,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "3. Quản Lý Nhiều Module & Đầy Đủ Directives Trong module-info.java",
+      "text": "3,  Quản Lý Nhiều Module & Đầy Đủ Directives Trong module-info, java, Để minh họa sự tương tác giữa các module, giáo trình OCP 21 xây dựng hệ thống quản lý sở thú gồm 4 module: 1, zoo."
+    },
+    {
+      "index": 4,
+      "start": 46.52,
+      "end": 59.08,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "5. Khám Phá Module & Các Công Cụ CLI (Command-Line Tools)",
+      "text": "5,  Khám Phá Module & Các Công Cụ CLI , Command-Line Tools, , Các Module Có Sẵn Của JDK Built-in Modules java, base : Chứa các thư viện nền tảng java, lang , java, util , java."
+    },
+    {
+      "index": 5,
+      "start": 59.43,
+      "end": 69.19,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "6. So Sánh 3 Loại Module (Types of Modules)",
+      "text": "6,  So Sánh 3 Loại Module , Types of Modules, , Một trong những nội dung có nhiều câu hỏi nhất trong đề thi OCP 21 là so sánh giữa Named Module."
+    },
+    {
+      "index": 6,
+      "start": 69.54,
+      "end": 80.42,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "7. Chiến Lược Chuyển Đổi Hệ Thống (Migration Strategies & Traps)",
+      "text": "7,  Chiến Lược Chuyển Đổi Hệ Thống , Migration Strategies & Traps, , Khi nâng cấp ứng dụng cũ sang JPMS, Oracle đề xuất 2 chiến lược chuyển đổi chính TABLE 12."
+    }
+  ]
+}

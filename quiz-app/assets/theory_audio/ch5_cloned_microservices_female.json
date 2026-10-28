@@ -1,0 +1,64 @@
+{
+  "chapterId": 5,
+  "voiceId": "cloned_microservices_female",
+  "audioUrl": "assets/theory_audio/ch5_cloned_microservices_female.mp3",
+  "duration": 85.65,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 13.6,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "Chương 5: Methods (Phương Thức)",
+      "text": "Chương 5: Methods , Phương Thức, , Tài liệu tham khảo chính: OCP Oracle Certified Professional Java SE 21 Developer Study Guide Exam 1Z0-830 — Jeanne."
+    },
+    {
+      "index": 1,
+      "start": 13.95,
+      "end": 24.99,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "1. Thiết Kế Phương Thức (Designing Methods)",
+      "text": "1,  Thiết Kế Phương Thức , Designing Methods, , 1, 1, Cấu Trúc Khai Báo Phương Thức Một khai báo phương thức Method Declaration hoàn chỉnh xác định toàn bộ thông."
+    },
+    {
+      "index": 2,
+      "start": 25.34,
+      "end": 37.58,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "2. Biến Cục Bộ và Biến Thể Hiện (Local and Instance Variables)",
+      "text": "2,  Biến Cục Bộ và Biến Thể Hiện , Local and Instance Variables, , 2, 1, Biến Cục Bộ và Từ Khóa final Biến cục bộ Local variables được khai báo bên trong một phương thức."
+    },
+    {
+      "index": 3,
+      "start": 37.93,
+      "end": 48.97,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "3. Tham Số Biến Đổi (Working with Varargs)",
+      "text": "3,  Tham Số Biến Đổi , Working with Varargs, , 3, 1, Hai Quy Tắc Vàng Của Varargs , Khi khai báo một phương thức nhận tham số biến đổi Variable Arguments : 1."
+    },
+    {
+      "index": 4,
+      "start": 49.32,
+      "end": 60.76,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "5. Truy Cập Dữ Liệu Tĩnh (Accessing Static Data)",
+      "text": "5,  Truy Cập Dữ Liệu Tĩnh , Accessing Static Data, , 5, 1, Khái Niệm Thành Phần Tĩnh static Khi từ khóa static được áp dụng cho biến hoặc phương thức."
+    },
+    {
+      "index": 5,
+      "start": 61.11,
+      "end": 74.15,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "6. Truyền Dữ Liệu Giữa Các Phương Thức (Passing Data among Methods)",
+      "text": "6,  Truyền Dữ Liệu Giữa Các Phương Thức , Passing Data among Methods, , 6, 1, Bản Chất: Java LUÔN LUÔN Là Pass-by-Value Quan trọng: Quy tắc tuyệt đối: Java luôn luôn truyền theo giá trị."
+    },
+    {
+      "index": 6,
+      "start": 74.5,
+      "end": 85.3,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "7. Nạp Chồng Phương Thức (Overloading Methods)",
+      "text": "7,  Nạp Chồng Phương Thức , Overloading Methods, , 7, 1, Định Nghĩa Nạp chồng phương thức Method Overloading xảy ra khi trong cùng một lớp có nhiều phương thức mang."
+    }
+  ]
+}

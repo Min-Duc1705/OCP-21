@@ -1,0 +1,64 @@
+{
+  "chapterId": 11,
+  "voiceId": "cloned_jobhub_female",
+  "audioUrl": "assets/theory_audio/ch11_cloned_jobhub_female.mp3",
+  "duration": 89.89,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 14.4,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "Sổ Tay Chuyên Sâu: Chapter 11 - Exceptions and Localization",
+      "text": "Sổ Tay Chuyên Sâu: Chapter 11 - Exceptions and Localization, Tài liệu tham chiếu chuẩn OCP Java SE 21: Sách: OCP Oracle Certified Professional Java SE 21 Developer Study Guide."
+    },
+    {
+      "index": 1,
+      "start": 14.75,
+      "end": 23.79,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "🗺️ Bản Đồ Kiến Thức Chương 11 (Chapter Overview)",
+      "text": "🗺️ Bản Đồ Kiến Thức Chương 11 , Chapter Overview, , Trong quá trình phát triển ứng dụng Java thực tế cũng như trong bài thi chứng chỉ OCP 21."
+    },
+    {
+      "index": 2,
+      "start": 24.14,
+      "end": 36.86,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 1: BẢN CHẤT CỦA NGOẠI LỆ & CÂY PHÂN CẤP (EXCEPTION HIERARCHY)",
+      "text": "PHẦN 1: BẢN CHẤT CỦA NGOẠI LỆ & CÂY PHÂN CẤP , EXCEPTION HIERARCHY, , Một ngoại lệ Exception là một sự kiện bất thường làm thay đổi luồng thực thi thông thường của chương trình, 1."
+    },
+    {
+      "index": 3,
+      "start": 37.21,
+      "end": 49.05,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 2: NHẬN DIỆN CÁC LOẠI NGOẠI LỆ TRONG KỲ THI OCP",
+      "text": "PHẦN 2: NHẬN DIỆN CÁC LOẠI NGOẠI LỆ TRONG KỲ THI OCP, 1, Bảng 11, 2: Các Unchecked Exceptions Phổ Biến RuntimeException Ngoại Lệ Hoàn Cảnh Phát Sinh ArithmeticException."
+    },
+    {
+      "index": 4,
+      "start": 49.4,
+      "end": 63.88,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 4: CÂU LỆNH try-with-resources & NGOẠI LỆ BỊ NÉN (SUPPRESSED EXCEPTIONS)",
+      "text": "PHẦN 4: CÂU LỆNH try-with-resources & NGOẠI LỆ BỊ NÉN , SUPPRESSED EXCEPTIONS, , 1, Bản Chất Của try-with-resources Trước Java 7, việc đóng file, đóng socket."
+    },
+    {
+      "index": 5,
+      "start": 64.23,
+      "end": 81.59,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 5: ĐỊNH DẠNG DỮ LIỆU & ĐA VĂN HOÁ BẢN ĐỊA (FORMATTING & LOCALIZATION)",
+      "text": "PHẦN 5: ĐỊNH DẠNG DỮ LIỆU & ĐA VĂN HOÁ BẢN ĐỊA , FORMATTING & LOCALIZATION, , Quốc tế hoá Internationalization - i18n và Bản địa hoá Localization - l10n giúp phần mềm có thể tự điều chỉnh theo."
+    },
+    {
+      "index": 6,
+      "start": 81.94,
+      "end": 89.54,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 6: GÓI TÀI NGUYÊN ĐA NGÔN NGỮ (ResourceBundle)",
+      "text": "PHẦN 6: GÓI TÀI NGUYÊN ĐA NGÔN NGỮ , ResourceBundle, , ResourceBundle chứa các cặp Key-Value định nghĩa chuỗi văn bản cho từng ngôn ngữ."
+    }
+  ]
+}

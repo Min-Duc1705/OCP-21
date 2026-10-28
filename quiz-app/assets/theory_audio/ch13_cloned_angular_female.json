@@ -1,0 +1,64 @@
+{
+  "chapterId": 13,
+  "voiceId": "cloned_angular_female",
+  "audioUrl": "assets/theory_audio/ch13_cloned_angular_female.mp3",
+  "duration": 70.21,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 15.28,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "Hướng Dẫn Ôn Tập OCP Java SE 21 - Chương 13: Concurrency (Đa Luồng & Xử Lý Đồng Thời)",
+      "text": "Hướng Dẫn Ôn Tập OCP Java SE 21 - Chương 13: Concurrency , Đa Luồng & Xử Lý Đồng Thời, , Trọng tâm bài thi Oracle Certified Professional Java SE 21 Developer Exam 1Z0-830 : 1."
+    },
+    {
+      "index": 1,
+      "start": 15.63,
+      "end": 26.19,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "1. Bản Chất Luồng & Điểm Mới Virtual Threads Trong Java 21",
+      "text": "1,  Bản Chất Luồng & Điểm Mới Virtual Threads Trong Java 21, Tiến Trình Process vs, Luồng Thread Tiến trình Process : Là một thể hiện của chương trình đang chạy trên hệ điều."
+    },
+    {
+      "index": 2,
+      "start": 26.54,
+      "end": 35.1,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "2. Quản Lý Đa Luồng Với Concurrency API (ExecutorService)",
+      "text": "2,  Quản Lý Đa Luồng Với Concurrency API , ExecutorService, , Tự tạo và quản lý new Thread thủ công gây tốn kém chi phí khởi tạo."
+    },
+    {
+      "index": 3,
+      "start": 35.45,
+      "end": 42.33,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "3. Viết Mã An Toàn Đa Luồng (Thread-Safety)",
+      "text": "3,  Viết Mã An Toàn Đa Luồng , Thread-Safety, , Khi nhiều luồng cùng đọc và ghi lên một vùng nhớ chung mà không có sự đồng bộ."
+    },
+    {
+      "index": 4,
+      "start": 42.68,
+      "end": 49.8,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "4. Các Bộ Sưu Tập Đồng Thời (Concurrent Collections)",
+      "text": "4,  Các Bộ Sưu Tập Đồng Thời , Concurrent Collections, , Khi nhiều luồng truy cập các collection thông thường ArrayList , HashMap."
+    },
+    {
+      "index": 5,
+      "start": 50.15,
+      "end": 60.31,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "5. Nhận Diện 4 Vấn Đề Liveness & Safety Trong Đa Luồng",
+      "text": "5,  Nhận Diện 4 Vấn Đề Liveness & Safety Trong Đa Luồng, 1, Deadlock Bế Tắc / Khóa Chết : Xảy ra khi hai hoặc nhiều luồng bị chặn vĩnh viễn vì mỗi luồng đang nắm giữ một."
+    },
+    {
+      "index": 6,
+      "start": 60.66,
+      "end": 69.86,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "6. Xử Lý Song Song Với Parallel Streams",
+      "text": "6,  Xử Lý Song Song Với Parallel Streams, Parallel Stream chia nhỏ luồng dữ liệu thành nhiều luồng con và thực thi đồng thời trên các nhân CPU thông qua."
+    }
+  ]
+}

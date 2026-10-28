@@ -1,0 +1,64 @@
+{
+  "chapterId": 14,
+  "voiceId": "cloned_angular_male",
+  "audioUrl": "assets/theory_audio/ch14_cloned_angular_male.mp3",
+  "duration": 75.17,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 14.48,
+      "voiceId": "cloned_angular_male",
+      "anchorText": "Hướng Dẫn Ôn Tập OCP Java SE 21 - Chương 14: I/O (NIO.2 & Serialization)",
+      "text": "Hướng Dẫn Ôn Tập OCP Java SE 21 - Chương 14: I/O , NIO, 2 & Serialization, , Trọng tâm bài thi Oracle Certified Professional Java SE 21 Developer Exam 1Z0-830 : 1."
+    },
+    {
+      "index": 1,
+      "start": 14.83,
+      "end": 27.31,
+      "voiceId": "cloned_angular_male",
+      "anchorText": "1. Cấu Trúc File System, File (I/O) & Path (NIO.2)",
+      "text": "1,  Cấu Trúc File System, File , I/O,  & Path , NIO, 2, , Hệ Thống Tập Tin & Biểu Tượng Đường Dẫn TABLE 14, 1 Root Directory Thư mục gốc : Thư mục cao nhất trong hệ thống /."
+    },
+    {
+      "index": 2,
+      "start": 27.66,
+      "end": 37.02,
+      "voiceId": "cloned_angular_male",
+      "anchorText": "2. Thao Tác Với Path API (TABLE 14.5)",
+      "text": "2,  Thao Tác Với Path API , TABLE 14, 5, , Đối tượng Path là bất biến Immutable : Mọi phương thức biến đổi đường dẫn đều trả về một đối tượng Path mới."
+    },
+    {
+      "index": 3,
+      "start": 37.37,
+      "end": 47.05,
+      "voiceId": "cloned_angular_male",
+      "anchorText": "3. Thao Tác File & Thư Mục Với java.nio.file.Files",
+      "text": "3,  Thao Tác File & Thư Mục Với java, nio, file, Files, Hầu hết các phương thức trong Files đều là phương thức tĩnh static và đều khai báo throws IOException , 1."
+    },
+    {
+      "index": 4,
+      "start": 47.4,
+      "end": 57.48,
+      "voiceId": "cloned_angular_male",
+      "anchorText": "5. Tuần Tự Hóa Dữ Liệu (Java Serialization)",
+      "text": "5,  Tuần Tự Hóa Dữ Liệu , Java Serialization, , Tuần tự hóa Serialization là quá trình chuyển đổi một đồ thị đối tượng Java Object Graph trong bộ nhớ thành một."
+    },
+    {
+      "index": 5,
+      "start": 57.83,
+      "end": 66.71,
+      "voiceId": "cloned_angular_male",
+      "anchorText": "6. Tương Tác Người Dùng & Lớp java.io.Console",
+      "text": "6,  Tương Tác Người Dùng & Lớp java, io, Console, Các Luồng Hệ Thống Chuẩn System, in : Luồng nhập chuẩn kiểu InputStream byte stream , System."
+    },
+    {
+      "index": 6,
+      "start": 67.06,
+      "end": 74.82,
+      "voiceId": "cloned_angular_male",
+      "anchorText": "7. Phân Tích Thuộc Tính Nâng Cao & Duyệt Cây Thư Mục",
+      "text": "7,  Phân Tích Thuộc Tính Nâng Cao & Duyệt Cây Thư Mục, 1, Đọc & Cập Nhật Thuộc Tính Với BasicFileAttributes TABLE 14."
+    }
+  ]
+}

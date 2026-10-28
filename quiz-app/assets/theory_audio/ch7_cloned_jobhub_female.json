@@ -1,0 +1,64 @@
+{
+  "chapterId": 7,
+  "voiceId": "cloned_jobhub_female",
+  "audioUrl": "assets/theory_audio/ch7_cloned_jobhub_female.mp3",
+  "duration": 85.17,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 13.04,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "Sổ Tay Chuyên Sâu: Chapter 7 - Beyond Classes",
+      "text": "Sổ Tay Chuyên Sâu: Chapter 7 - Beyond Classes, Tài liệu tham chiếu chuẩn OCP Java SE 21: Sách: OCP Oracle Certified Professional Java SE 21 Developer Study Guide."
+    },
+    {
+      "index": 1,
+      "start": 13.39,
+      "end": 22.51,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "🗺️ Bản Đồ Kiến Thức Chương 7 (Chapter Overview)",
+      "text": "🗺️ Bản Đồ Kiến Thức Chương 7 , Chapter Overview, , Trong Chương 6, chúng ta đã nắm vững cách thiết kế một lớp Class Design với các cơ chế kế thừa, constructor."
+    },
+    {
+      "index": 2,
+      "start": 22.86,
+      "end": 33.02,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "📌 Các Quy Tắc Cấp Tệp (Top-Level Types Rules) & Annotations Bắt Buộc",
+      "text": "📌 Các Quy Tắc Cấp Tệp , Top-Level Types Rules,  & Annotations Bắt Buộc, Trước khi đi sâu vào từng loại kiểu dữ liệu, Oracle yêu cầu lập trình viên ghi nhớ các quy tắc nền tảng sau: 1."
+    },
+    {
+      "index": 3,
+      "start": 33.37,
+      "end": 45.29,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 2: LỚP LIỆT KÊ (WORKING WITH ENUMS)",
+      "text": "PHẦN 2: LỚP LIỆT KÊ , WORKING WITH ENUMS, , Một kiểu liệt kê enum là một kiểu dữ liệu đặc biệt đại diện cho một tập hợp cố định các hằng số được định nghĩa."
+    },
+    {
+      "index": 4,
+      "start": 45.64,
+      "end": 58.12,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 3: LỚP BỊ NIÊM PHONG (SEALING CLASSES & INTERFACES)",
+      "text": "PHẦN 3: LỚP BỊ NIÊM PHONG , SEALING CLASSES & INTERFACES, , Được hoàn thiện trong Java 17 và là trọng tâm lớn trong kỳ thi Java 21."
+    },
+    {
+      "index": 5,
+      "start": 58.47,
+      "end": 71.19,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 5: CÁC LỚP LỒNG NHAU (CREATING NESTED CLASSES)",
+      "text": "PHẦN 5: CÁC LỚP LỒNG NHAU , CREATING NESTED CLASSES, , Một Nested Class là một lớp được định nghĩa bên trong một lớp khác, Java hỗ trợ chính xác 4 loại: --- 1."
+    },
+    {
+      "index": 6,
+      "start": 71.54,
+      "end": 84.82,
+      "voiceId": "cloned_jobhub_female",
+      "anchorText": "PHẦN 6: TÍNH ĐA HÌNH CHUYÊN SÂU (UNDERSTANDING POLYMORPHISM)",
+      "text": "PHẦN 6: TÍNH ĐA HÌNH CHUYÊN SÂU , UNDERSTANDING POLYMORPHISM, , Tính đa hình Polymorphism là khả năng một đối tượng trong bộ nhớ có thể xuất hiện dưới nhiều hình thức thông qua."
+    }
+  ]
+}

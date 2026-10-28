@@ -1,0 +1,64 @@
+{
+  "chapterId": 9,
+  "voiceId": "cloned_angular_female",
+  "audioUrl": "assets/theory_audio/ch9_cloned_angular_female.mp3",
+  "duration": 94.05,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 13.44,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "Sổ Tay Chuyên Sâu: Chapter 9 - Collections and Generics",
+      "text": "Sổ Tay Chuyên Sâu: Chapter 9 - Collections and Generics, Tài liệu tham chiếu chuẩn OCP Java SE 21: Sách: OCP Oracle Certified Professional Java SE 21 Developer Study Guide."
+    },
+    {
+      "index": 1,
+      "start": 13.79,
+      "end": 21.79,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "🗺️ Bản Đồ Kiến Thức Chương 9 (Chapter Overview)",
+      "text": "🗺️ Bản Đồ Kiến Thức Chương 9 , Chapter Overview, , Trong Chương 8, chúng ta đã thành thạo Lambda, Functional Interface và Method Reference."
+    },
+    {
+      "index": 2,
+      "start": 22.14,
+      "end": 35.5,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "PHẦN 1: CÁC GIAO DIỆN & PHƯƠNG THỨC CHUNG TRONG COLLECTIONS (COMMON APIS)",
+      "text": "PHẦN 1: CÁC GIAO DIỆN & PHƯƠNG THỨC CHUNG TRONG COLLECTIONS , COMMON APIS, , Một Collection là một nhóm các đối tượng được chứa trong một đối tượng duy nhất, Giao diện gốc java, util."
+    },
+    {
+      "index": 3,
+      "start": 35.85,
+      "end": 52.41,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "PHẦN 2: TÍNH NĂNG MỚI JAVA 21: SEQUENCED COLLECTIONS (JEP 431)",
+      "text": "PHẦN 2: TÍNH NĂNG MỚI JAVA 21: SEQUENCED COLLECTIONS , JEP 431, , Trước Java 21, việc thao tác với phần tử đầu và cuối của các collection có thứ tự rất lộn xộn: list, get 0."
+    },
+    {
+      "index": 4,
+      "start": 52.76,
+      "end": 68.2,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "PHẦN 3: SẮP XẾP DỮ LIỆU (SORTING DATA: COMPARABLE & COMPARATOR)",
+      "text": "PHẦN 3: SẮP XẾP DỮ LIỆU , SORTING DATA: COMPARABLE & COMPARATOR, , 1, Comparable<T Thứ Tự Tự Nhiên - Natural Ordering Nằm trong gói java, lang không cần import."
+    },
+    {
+      "index": 5,
+      "start": 68.55,
+      "end": 82.15,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "PHẦN 4: HỆ THỐNG GENERICS & KÝ TỰ ĐẠI DIỆN (WILDCARDS)",
+      "text": "PHẦN 4: HỆ THỐNG GENERICS & KÝ TỰ ĐẠI DIỆN , WILDCARDS, , Generics giúp kiểm tra an toàn kiểu dữ liệu ngay tại thời điểm biên dịch compile-time và tự động chèn các thao tác."
+    },
+    {
+      "index": 6,
+      "start": 82.5,
+      "end": 93.7,
+      "voiceId": "cloned_angular_female",
+      "anchorText": "⚠️ TỔNG KẾT CÁC BẪY THI OCP CHƯƠNG 9 (EXAM TRAPS CHECKLIST)",
+      "text": "⚠️ TỔNG KẾT CÁC BẪY THI OCP CHƯƠNG 9 , EXAM TRAPS CHECKLIST, , 1, List, of và Set, of : Bất biến tuyệt đối, cấm chứa null , Set."
+    }
+  ]
+}

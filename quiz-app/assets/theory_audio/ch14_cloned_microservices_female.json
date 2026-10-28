@@ -1,0 +1,64 @@
+{
+  "chapterId": 14,
+  "voiceId": "cloned_microservices_female",
+  "audioUrl": "assets/theory_audio/ch14_cloned_microservices_female.mp3",
+  "duration": 87.57,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 16.08,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "Hướng Dẫn Ôn Tập OCP Java SE 21 - Chương 14: I/O (NIO.2 & Serialization)",
+      "text": "Hướng Dẫn Ôn Tập OCP Java SE 21 - Chương 14: I/O , NIO, 2 & Serialization, , Trọng tâm bài thi Oracle Certified Professional Java SE 21 Developer Exam 1Z0-830 : 1."
+    },
+    {
+      "index": 1,
+      "start": 16.43,
+      "end": 30.43,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "1. Cấu Trúc File System, File (I/O) & Path (NIO.2)",
+      "text": "1,  Cấu Trúc File System, File , I/O,  & Path , NIO, 2, , Hệ Thống Tập Tin & Biểu Tượng Đường Dẫn TABLE 14, 1 Root Directory Thư mục gốc : Thư mục cao nhất trong hệ thống /."
+    },
+    {
+      "index": 2,
+      "start": 30.78,
+      "end": 42.54,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "2. Thao Tác Với Path API (TABLE 14.5)",
+      "text": "2,  Thao Tác Với Path API , TABLE 14, 5, , Đối tượng Path là bất biến Immutable : Mọi phương thức biến đổi đường dẫn đều trả về một đối tượng Path mới."
+    },
+    {
+      "index": 3,
+      "start": 42.89,
+      "end": 54.65,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "3. Thao Tác File & Thư Mục Với java.nio.file.Files",
+      "text": "3,  Thao Tác File & Thư Mục Với java, nio, file, Files, Hầu hết các phương thức trong Files đều là phương thức tĩnh static và đều khai báo throws IOException , 1."
+    },
+    {
+      "index": 4,
+      "start": 55.0,
+      "end": 66.6,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "5. Tuần Tự Hóa Dữ Liệu (Java Serialization)",
+      "text": "5,  Tuần Tự Hóa Dữ Liệu , Java Serialization, , Tuần tự hóa Serialization là quá trình chuyển đổi một đồ thị đối tượng Java Object Graph trong bộ nhớ thành một."
+    },
+    {
+      "index": 5,
+      "start": 66.95,
+      "end": 77.75,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "6. Tương Tác Người Dùng & Lớp java.io.Console",
+      "text": "6,  Tương Tác Người Dùng & Lớp java, io, Console, Các Luồng Hệ Thống Chuẩn System, in : Luồng nhập chuẩn kiểu InputStream byte stream , System."
+    },
+    {
+      "index": 6,
+      "start": 78.1,
+      "end": 87.22,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "7. Phân Tích Thuộc Tính Nâng Cao & Duyệt Cây Thư Mục",
+      "text": "7,  Phân Tích Thuộc Tính Nâng Cao & Duyệt Cây Thư Mục, 1, Đọc & Cập Nhật Thuộc Tính Với BasicFileAttributes TABLE 14."
+    }
+  ]
+}

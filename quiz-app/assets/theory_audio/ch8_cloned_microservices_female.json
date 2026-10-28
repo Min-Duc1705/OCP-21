@@ -1,0 +1,64 @@
+{
+  "chapterId": 8,
+  "voiceId": "cloned_microservices_female",
+  "audioUrl": "assets/theory_audio/ch8_cloned_microservices_female.mp3",
+  "duration": 111.97,
+  "cues": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 16.72,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "Sổ Tay Chuyên Sâu: Chapter 8 - Lambdas and Functional Interfaces",
+      "text": "Sổ Tay Chuyên Sâu: Chapter 8 - Lambdas and Functional Interfaces, Tài liệu tham chiếu chuẩn OCP Java SE 21: Sách: OCP Oracle Certified Professional Java SE 21 Developer Study Guide."
+    },
+    {
+      "index": 1,
+      "start": 17.07,
+      "end": 25.95,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "🗺️ Bản Đồ Kiến Thức Chương 8 (Chapter Overview)",
+      "text": "🗺️ Bản Đồ Kiến Thức Chương 8 , Chapter Overview, , Trong các chương trước, Java chủ yếu hoạt động theo mô hình hướng đối tượng truyền thống OOP."
+    },
+    {
+      "index": 2,
+      "start": 26.3,
+      "end": 43.1,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "PHẦN 1: CÚ PHÁP BIỂU THỨC LAMBDA (WRITING SIMPLE LAMBDAS)",
+      "text": "PHẦN 1: CÚ PHÁP BIỂU THỨC LAMBDA , WRITING SIMPLE LAMBDAS, , Một Lambda Expression là một khối mã ẩn danh unnamed block of code có thể được truyền đi khắp nơi như một đối."
+    },
+    {
+      "index": 3,
+      "start": 43.45,
+      "end": 61.93,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "PHẦN 2: THIẾT KẾ FUNCTIONAL INTERFACE (CODING FUNCTIONAL INTERFACES)",
+      "text": "PHẦN 2: THIẾT KẾ FUNCTIONAL INTERFACE , CODING FUNCTIONAL INTERFACES, , Một Functional Interface Giao diện hàm là một interface chứa chính xác duy nhất một phương thức trừu tượng Single."
+    },
+    {
+      "index": 4,
+      "start": 62.28,
+      "end": 76.6,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "PHẦN 3: THAM CHIẾU PHƯƠNG THỨC (USING METHOD REFERENCES)",
+      "text": "PHẦN 3: THAM CHIẾU PHƯƠNG THỨC , USING METHOD REFERENCES, , Method Reference là một cú pháp ngắn gọn hơn cả biểu thức lambda khi khối mã chỉ đơn giản chuyển tiếp trực tiếp."
+    },
+    {
+      "index": 5,
+      "start": 76.95,
+      "end": 95.59,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "PHẦN 4: CÁC FUNCTIONAL INTERFACE CÓ SẴN (BUILT-IN FUNCTIONAL INTERFACES)",
+      "text": "PHẦN 4: CÁC FUNCTIONAL INTERFACE CÓ SẴN , BUILT-IN FUNCTIONAL INTERFACES, , Java cung cấp sẵn các Functional Interface dùng chung trong gói java, util, function."
+    },
+    {
+      "index": 6,
+      "start": 95.94,
+      "end": 111.62,
+      "voiceId": "cloned_microservices_female",
+      "anchorText": "PHẦN 5: LÀM VIỆC VỚI BIẾN TRONG LAMBDA (VARIABLES IN LAMBDAS)",
+      "text": "PHẦN 5: LÀM VIỆC VỚI BIẾN TRONG LAMBDA , VARIABLES IN LAMBDAS, , Biến có thể xuất hiện tại 3 vị trí liên quan đến lambda: 1, Danh sách tham số của lambda, 2."
+    }
+  ]
+}

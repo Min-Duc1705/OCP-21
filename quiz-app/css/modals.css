@@ -878,15 +878,35 @@ button.theory-sidebar-item.active::before {
 }
 
 .voice-speed-select {
-  background: var(--bg-surface);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
+  background-color: #181412;
+  color: #fef3c7;
+  color-scheme: dark;
+  border: 1px solid var(--accent-border);
   border-radius: 8px;
-  padding: 0.32rem 0.55rem;
-  font-size: 0.76rem;
+  padding: 0.36rem 0.65rem;
+  font-size: 0.78rem;
   font-weight: 700;
+  font-family: inherit;
   outline: none;
   cursor: pointer;
+}
+
+.voice-speed-select option {
+  background-color: #181412;
+  color: #fef3c7;
+  font-weight: 600;
+  padding: 0.35rem;
+}
+
+[data-theme="light"] .voice-speed-select {
+  background-color: #ffffff;
+  color: #1c1917;
+  color-scheme: light;
+}
+
+[data-theme="light"] .voice-speed-select option {
+  background-color: #ffffff;
+  color: #1c1917;
 }
 
 #btn-voice-bar-autonext.active {
@@ -924,15 +944,24 @@ button.theory-sidebar-item.active::before {
 }
 
 /* Highlight active reading block in markdown */
-.voice-reading-active {
-  background: var(--accent-soft) !important;
-  border-left: 3px solid var(--accent-primary) !important;
-  padding-left: 0.65rem !important;
-  border-radius: 0 8px 8px 0 !important;
-  transition: all 0.25s ease;
+[data-voice-block-id] {
+  transition: background-color 0.22s ease, border-color 0.22s ease, padding-left 0.22s ease;
 }
 
-/* 4 Cloned Voices Modal */
+.voice-reading-active {
+  position: relative;
+  background: var(--accent-soft-hover) !important;
+  border-left: 4px solid var(--accent-primary) !important;
+  padding: 0.45rem 0.85rem !important;
+  border-radius: 0 10px 10px 0 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+}
+
+/* 4 Cloned Voices Modal (Must appear above #theory-modal z-index: 9999) */
+#voice-selector-modal.modal-overlay {
+  z-index: 10050 !important;
+}
+
 .voice-modal-content {
   max-width: 780px;
   width: 95%;

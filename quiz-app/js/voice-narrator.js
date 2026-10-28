@@ -1,6 +1,6 @@
 // ==========================================================================
 // OCP 21 Study Guide - AI Cloned Voice Narrator & Sleep Podcast Engine
-// Ported from drive-video-player (4 Curated Cloned Voices + Sleep Mode)
+// Ported from drive-video-player (4 Curated Cloned Voices + DOM Highlight/Scroll)
 // ==========================================================================
 
 (function(root) {
@@ -11,42 +11,42 @@
     {
       id: 'cloned_microservices_female',
       name: 'Nữ Thuyết Minh Hệ Thống (Cloned)',
+      shortName: 'Nữ Hệ Thống (Clone)',
       gender: 'Nữ',
       accent: 'Miền Nam',
       tag: '🔥 Giọng Mẫu Clone AI',
       desc: 'Giọng thuyết minh công nghệ cuốn hút, rõ chữ, clone từ video Microservices',
-      sampleUrl: 'assets/cloned_voices/microservices_female.wav',
-      sampleText: 'Để ngăn chuyện này, các nền tảng lớn dùng kiến trúc microservices. Khi hàng trăm người ồ ạt nộp hồ sơ, hệ thống vẫn xử lý mượt mà.'
+      sampleUrl: 'assets/cloned_voices/microservices_female.wav'
     },
     {
       id: 'cloned_jobhub_female',
       name: 'Nữ Thuyết Minh JobHub AI (Cloned)',
+      shortName: 'Nữ JobHub AI (Clone)',
       gender: 'Nữ',
       accent: 'Miền Nam',
       tag: '🔥 Giọng Mẫu Clone AI',
       desc: 'Giọng nữ thuyết minh công nghệ JobHub AI & Microservices êm dịu, dễ nghe khi ngủ',
-      sampleUrl: 'assets/cloned_voices/jobhub_female.wav',
-      sampleText: 'Lấy ví dụ trên Job Hub, một nền tảng tuyển dụng bằng AI. Khi một tập đoàn lớn mở đợt tuyển dụng, có hàng chục nghìn ứng viên cùng nộp CV.'
+      sampleUrl: 'assets/cloned_voices/jobhub_female.wav'
     },
     {
       id: 'cloned_angular_male',
       name: 'Nam Đối Thoại Angular (Cloned)',
+      shortName: 'Nam Angular (Clone)',
       gender: 'Nam',
       accent: 'Miền Nam',
       tag: '🎙️ Giọng Nam Podcast AI',
       desc: 'Giọng nam podcast NotebookLM trầm ấm, phong thái thảo luận kỹ thuật tự nhiên',
-      sampleUrl: 'assets/cloned_voices/angular_male.wav',
-      sampleText: 'Chào mừng mọi người quay trở lại với cuộc trò chuyện chuyên sâu ngày hôm nay. Hôm nay chúng ta cùng ôn tập kiến thức Java OCP 21.'
+      sampleUrl: 'assets/cloned_voices/angular_male.wav'
     },
     {
       id: 'cloned_angular_female',
       name: 'Nữ Đối Thoại Angular (Cloned)',
+      shortName: 'Nữ Angular (Clone)',
       gender: 'Nữ',
       accent: 'Miền Nam',
       tag: '🎙️ Giọng Nữ Podcast AI',
       desc: 'Giọng nữ podcast NotebookLM hoạt ngôn, biểu cảm đối đáp sinh động',
-      sampleUrl: 'assets/cloned_voices/angular_female.wav',
-      sampleText: 'Chắc chắn rồi, không phải là một cuốn sách giáo khoa dày cộp hay tài liệu khô khan, chúng ta sẽ nắm chắc các bẫy thi quan trọng nhất.'
+      sampleUrl: 'assets/cloned_voices/angular_female.wav'
     }
   ];
 
@@ -87,7 +87,6 @@
     return fallback;
   }
 
-  // State
   const state = {
     primaryVoice: getSavedVoice(STORAGE_KEYS.primaryVoice, DEFAULT_PRIMARY_VOICE),
     secondaryVoice: getSavedVoice(STORAGE_KEYS.secondaryVoice, DEFAULT_SECONDARY_VOICE),
@@ -103,11 +102,11 @@
     isPlaying: false,
     isPaused: false,
     isLoadingAudio: false,
+    // Each chunk is { text: string, blockId: string | null }
     chunks: [],
     currentChunkIdx: 0,
     activeTitle: '',
     activeSpeakerVoice: DEFAULT_PRIMARY_VOICE,
-    engineMode: 'cloned', // 'cloned' | 'fallback'
     previewingVoiceId: null
   };
 
@@ -118,15 +117,11 @@
   let onChapterAdvanceCallback = null;
   const audioBlobCache = new Map();
 
-  function cleanMarkdownForSpeech(rawText, skipCode = state.skipCodeInSleep) {
+  function cleanTextForSpeech(rawText) {
     if (!rawText) return '';
     return String(rawText)
-      .replace(/```[\s\S]*?```/g, (block) => {
-        if (skipCode) return ' . ';
-        const code = block.replace(/```\w*\n?/g, '').replace(/```/g, '').trim();
-        if (code.length > 260) return ' (Xem đoạn mã ví dụ trong bài). ';
-        return ' Ví dụ mã: ' + code.replace(/[{}();=<>]/g, ' ') + '. ';
-      })
+      .replace(/🔊/g, '')
+      .replace(/📋\s*(Sao chép|Copy|Đã chép|Copied!?)/gi, '')
       .replace(/\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/gi, (_, type) => {
         const map = {
           NOTE: 'Lưu ý: ',
@@ -138,31 +133,24 @@
         return map[type.toUpperCase()] || 'Lưu ý: ';
       })
       .replace(/^#{1,6}\s+/gm, '')
-      .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
       .replace(/`([^`]+)`/g, '$1')
       .replace(/\*\*([^*]+)\*\*/g, '$1')
       .replace(/\*([^*]+)\*/g, '$1')
-      .replace(/__([^_]+)__/g, '$1')
-      .replace(/~~([^~]+)~~/g, '$1')
-      .replace(/^>\s*/gm, '')
-      .replace(/^[-*_]{3,}\s*$/gm, '')
       .replace(/\|/g, ', ')
-      .replace(/[-:]{3,}/g, '')
       .replace(/\s+/g, ' ')
       .trim();
   }
 
-  function splitTextIntoSpeechChunks(text, maxLen = 220) {
-    const cleaned = cleanMarkdownForSpeech(text);
-    if (!cleaned) return [];
+  function splitBlockTextIntoSentences(text, maxLen = 220) {
+    const cleaned = cleanTextForSpeech(text);
+    if (!cleaned || cleaned.length < 2) return [];
 
     const rawSentences = cleaned
       .split(/(?<=[.!?。\n])\s+/)
       .map(s => s.trim())
       .filter(Boolean);
 
-    const chunks = [];
+    const parts = [];
     let current = '';
 
     for (const sentence of rawSentences) {
@@ -175,7 +163,7 @@
             if ((current + ' ' + part).trim().length <= maxLen) {
               current = (current + ' ' + part).trim();
             } else {
-              if (current) chunks.push(current);
+              if (current) parts.push(current);
               current = part.slice(0, maxLen);
             }
           }
@@ -183,13 +171,105 @@
       } else if ((current + ' ' + sentence).length <= maxLen) {
         current = `${current} ${sentence}`;
       } else {
-        chunks.push(current);
+        parts.push(current);
         current = sentence.slice(0, maxLen);
       }
     }
+    if (current) parts.push(current);
+    return parts.filter(c => c.length > 1);
+  }
 
-    if (current) chunks.push(current);
-    return chunks.filter(c => c.length > 1);
+  // Build chunks directly mapped to rendered DOM elements in #theory-content-body
+  // so every chunk highlights and scrolls to its exact DOM element!
+  function buildDomMappedChunks(bodyEl, startFromEl = null) {
+    if (!bodyEl) return [];
+
+    // Clear old block attributes
+    bodyEl.querySelectorAll('[data-voice-block-id]').forEach(el => {
+      el.removeAttribute('data-voice-block-id');
+      el.classList.remove('voice-reading-active');
+    });
+
+    const candidates = Array.from(
+      bodyEl.querySelectorAll('h1, h2, h3, h4, h5, h6, p, li, tr, pre')
+    );
+
+    // Filter out container elements that already have child candidates (e.g. <li> containing <p> or nested <li>)
+    const leafBlocks = candidates.filter(el => {
+      if (el.tagName === 'PRE') {
+        return !state.skipCodeInSleep;
+      }
+      if (el.closest('pre')) return false;
+      if (el.tagName === 'TR') {
+        // Skip markdown table separator rows if any
+        return el.textContent.trim().length > 2;
+      }
+      if (el.tagName === 'LI') {
+        const hasChildBlock = el.querySelector('p, ul, ol');
+        if (hasChildBlock) return false;
+      }
+      return true;
+    });
+
+    let started = !startFromEl;
+    let blockCounter = 0;
+    const mappedChunks = [];
+
+    for (const el of leafBlocks) {
+      if (!started) {
+        if (el === startFromEl || startFromEl.contains(el) || el.contains(startFromEl)) {
+          started = true;
+        } else {
+          continue;
+        }
+      }
+
+      let rawText = '';
+      if (el.tagName === 'PRE') {
+        const codeText = (el.querySelector('code') || el).innerText || '';
+        rawText = codeText.length > 220
+          ? 'Ví dụ đoạn mã Java minh họa trên màn hình.'
+          : 'Ví dụ mã: ' + codeText.replace(/[{}();=<>]/g, ' ');
+      } else if (el.tagName === 'TR') {
+        const cells = Array.from(el.querySelectorAll('th, td')).map(c => c.innerText.trim()).filter(Boolean);
+        rawText = cells.join(', ');
+      } else {
+        // Clone node without action buttons (🔊 or copy)
+        const clone = el.cloneNode(true);
+        clone.querySelectorAll('.btn-speak-heading, .btn-copy-code, pre, ul, ol').forEach(n => n.remove());
+        rawText = clone.textContent || '';
+      }
+
+      const sentenceParts = splitBlockTextIntoSentences(rawText, 220);
+      if (sentenceParts.length === 0) continue;
+
+      const blockId = `vb-${blockCounter++}`;
+      el.setAttribute('data-voice-block-id', blockId);
+
+      // Click any block while listening to jump directly to it
+      if (!el.dataset.voiceClickBound) {
+        el.dataset.voiceClickBound = '1';
+        el.addEventListener('click', (e) => {
+          if (!state.isPlaying) return;
+          if (e.target.closest('a, button, pre, code')) return;
+          const targetBlockId = el.getAttribute('data-voice-block-id');
+          if (!targetBlockId) return;
+          const foundIdx = state.chunks.findIndex(c => c.blockId === targetBlockId);
+          if (foundIdx >= 0) {
+            jumpToChunk(foundIdx);
+          }
+        });
+      }
+
+      for (const part of sentenceParts) {
+        mappedChunks.push({
+          text: part,
+          blockId
+        });
+      }
+    }
+
+    return mappedChunks;
   }
 
   function getVoiceMeta(voiceId) {
@@ -202,9 +282,9 @@
   }
 
   // Synthesize speech via Cloned AI Backend (Port 45678 or Port 8000 or Custom LAN URL)
-  async function fetchClonedSpeechBlob(text, voiceId, speed) {
+  async function fetchClonedSpeechBlob(text, voiceId) {
     const validVoice = CLONED_VOICES.some(v => v.id === voiceId) ? voiceId : DEFAULT_PRIMARY_VOICE;
-    const cacheKey = `${validVoice}_${speed}_${text}`;
+    const cacheKey = `${validVoice}_${text}`;
     if (audioBlobCache.has(cacheKey)) {
       return audioBlobCache.get(cacheKey);
     }
@@ -213,12 +293,12 @@
     if (state.customServerUrl && state.customServerUrl.trim()) {
       const base = state.customServerUrl.trim().replace(/\/+$/, '');
       if (base.includes('/tts')) {
-        endpoints.push({ type: 'get', url: `${base}?text=${encodeURIComponent(text)}&lang=vi&voice=${encodeURIComponent(validVoice)}&speed=${encodeURIComponent(speed)}` });
+        endpoints.push({ type: 'get', url: `${base}?text=${encodeURIComponent(text)}&lang=vi&voice=${encodeURIComponent(validVoice)}&speed=1.0` });
       } else {
         endpoints.push({
           type: 'post',
           url: base.endsWith('/v1/audio/speech') ? base : `${base}/v1/audio/speech`,
-          body: { model: 'tts-1', input: text, voice: validVoice, speed: speed }
+          body: { model: 'tts-1', input: text, voice: validVoice, speed: 1.0 }
         });
       }
     }
@@ -226,14 +306,14 @@
     // 1. Drive Video Player local server (port 45678)
     endpoints.push({
       type: 'get',
-      url: `http://127.0.0.1:45678/tts?text=${encodeURIComponent(text)}&lang=vi&voice=${encodeURIComponent(validVoice)}&speed=${encodeURIComponent(speed)}`
+      url: `http://127.0.0.1:45678/tts?text=${encodeURIComponent(text)}&lang=vi&voice=${encodeURIComponent(validVoice)}&speed=1.0`
     });
 
     // 2. Direct VieNeu Cloned TTS FastAPI server (port 8000)
     endpoints.push({
       type: 'post',
       url: 'http://127.0.0.1:8000/v1/audio/speech',
-      body: { model: 'tts-1', input: text, voice: validVoice, speed: speed }
+      body: { model: 'tts-1', input: text, voice: validVoice, speed: 1.0 }
     });
 
     for (const ep of endpoints) {
@@ -258,7 +338,7 @@
         if (res && res.ok) {
           const blob = await res.blob();
           if (blob && blob.size > 100) {
-            if (audioBlobCache.size > 80) {
+            if (audioBlobCache.size > 90) {
               const firstKey = audioBlobCache.keys().next().value;
               const oldUrl = audioBlobCache.get(firstKey);
               if (oldUrl) URL.revokeObjectURL(oldUrl);
@@ -266,7 +346,6 @@
             }
             const objUrl = URL.createObjectURL(blob);
             audioBlobCache.set(cacheKey, objUrl);
-            state.engineMode = 'cloned';
             return objUrl;
           }
         }
@@ -279,9 +358,61 @@
 
   function prefetchChunk(idx) {
     if (idx < 0 || idx >= state.chunks.length) return;
-    const text = state.chunks[idx];
+    const item = state.chunks[idx];
+    const text = typeof item === 'string' ? item : item.text;
     const voice = getVoiceForChunk(idx);
-    fetchClonedSpeechBlob(text, voice, state.playbackSpeed).catch(() => {});
+    fetchClonedSpeechBlob(text, voice).catch(() => {});
+  }
+
+  function clearActiveHighlight() {
+    const bodyEl = document.getElementById('theory-content-body');
+    if (!bodyEl) return;
+    bodyEl.querySelectorAll('.voice-reading-active').forEach(el => {
+      el.classList.remove('voice-reading-active');
+    });
+  }
+
+  function highlightAndScrollToChunk(chunkObj) {
+    const bodyEl = document.getElementById('theory-content-body');
+    const container = document.getElementById('theory-reader-container');
+    if (!bodyEl || !chunkObj) return;
+
+    clearActiveHighlight();
+
+    let targetEl = null;
+    if (chunkObj.blockId) {
+      targetEl = bodyEl.querySelector(`[data-voice-block-id="${chunkObj.blockId}"]`);
+    }
+
+    // Fallback text search if DOM was re-rendered
+    if (!targetEl && chunkObj.text) {
+      const snippet = chunkObj.text.slice(0, 32).trim().toLowerCase();
+      if (snippet.length > 5) {
+        const blocks = bodyEl.querySelectorAll('h1, h2, h3, h4, p, li, tr, blockquote');
+        for (const b of blocks) {
+          if (b.textContent.toLowerCase().includes(snippet)) {
+            targetEl = b;
+            break;
+          }
+        }
+      }
+    }
+
+    if (targetEl) {
+      targetEl.classList.add('voice-reading-active');
+      if (container) {
+        const containerRect = container.getBoundingClientRect();
+        const targetRect = targetEl.getBoundingClientRect();
+        const relativeTop = targetRect.top - containerRect.top + container.scrollTop;
+        const desiredTop = relativeTop - (containerRect.height * 0.32);
+        container.scrollTo({
+          top: Math.max(0, desiredTop),
+          behavior: 'smooth'
+        });
+      } else {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
   }
 
   function stopAudioInternal() {
@@ -302,35 +433,11 @@
 
   function stopSpeaking() {
     stopAudioInternal();
+    clearActiveHighlight();
     state.isPlaying = false;
     state.isPaused = false;
     state.isLoadingAudio = false;
     updateUI();
-  }
-
-  function highlightActiveChunkInReader(chunkText) {
-    const bodyEl = document.getElementById('theory-content-body');
-    if (!bodyEl || !chunkText) return;
-    bodyEl.querySelectorAll('.voice-reading-active').forEach(el => el.classList.remove('voice-reading-active'));
-
-    const snippet = chunkText.slice(0, 42).trim().toLowerCase();
-    if (snippet.length < 8) return;
-
-    const blocks = bodyEl.querySelectorAll('p, li, h2, h3, h4, blockquote');
-    for (const b of blocks) {
-      if (b.textContent.toLowerCase().includes(snippet)) {
-        b.classList.add('voice-reading-active');
-        const container = document.getElementById('theory-reader-container');
-        if (container) {
-          const cRect = container.getBoundingClientRect();
-          const bRect = b.getBoundingClientRect();
-          if (bRect.top < cRect.top + 60 || bRect.bottom > cRect.bottom - 60) {
-            b.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }
-        break;
-      }
-    }
   }
 
   function updateMediaSession() {
@@ -353,7 +460,7 @@
     if (sessionId !== sessionCounter) return;
 
     if (idx >= state.chunks.length) {
-      // Chapter finished! Check if Auto-Next Chapter (Sleep continuous listening) is enabled
+      clearActiveHighlight();
       if (state.autoNextChapter && typeof onChapterAdvanceCallback === 'function') {
         onChapterAdvanceCallback();
         return;
@@ -366,19 +473,23 @@
       return;
     }
 
-    const chunkText = state.chunks[idx];
+    const chunkItem = state.chunks[idx];
+    const chunkText = typeof chunkItem === 'string' ? chunkItem : chunkItem.text;
     const chosenVoice = getVoiceForChunk(idx);
+
     state.currentChunkIdx = idx;
     state.activeSpeakerVoice = chosenVoice;
     state.isLoadingAudio = true;
     updateUI();
-    highlightActiveChunkInReader(chunkText);
+    highlightAndScrollToChunk(chunkItem);
     updateMediaSession();
 
-    // Pre-fetch next chunk in background for gapless cloned playback
+    // Pre-fetch next 2 chunks in background for gapless cloned playback
     prefetchChunk(idx + 1);
+    prefetchChunk(idx + 2);
 
-    const blobUrl = await fetchClonedSpeechBlob(chunkText, chosenVoice, state.playbackSpeed);
+    // 1. Try fetched Blob from local Cloned TTS (8000 / 45678)
+    const blobUrl = await fetchClonedSpeechBlob(chunkText, chosenVoice);
     if (sessionId !== sessionCounter) return;
 
     if (blobUrl) {
@@ -389,6 +500,7 @@
           audioRef.onerror = null;
         }
         const audio = new Audio(blobUrl);
+        audio.playbackRate = state.playbackSpeed;
         audioRef = audio;
         audio.oncanplay = () => {
           if (sessionId === sessionCounter) {
@@ -402,9 +514,10 @@
         };
         audio.onerror = () => {
           if (sessionId !== sessionCounter) return;
-          playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice);
+          playDirectStreamOrFallback(chunkText, idx, sessionId, chosenVoice);
         };
         await audio.play();
+        audio.playbackRate = state.playbackSpeed;
         state.isLoadingAudio = false;
         updateUI();
         return;
@@ -413,13 +526,52 @@
       }
     }
 
-    // Fallback if local cloned voice server is offline
-    playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice);
+    // 2. Try direct <audio> stream to 127.0.0.1:45678/tts (bypasses CORS preflight on https pages)
+    playDirectStreamOrFallback(chunkText, idx, sessionId, chosenVoice);
+  }
+
+  function playDirectStreamOrFallback(chunkText, idx, sessionId, chosenVoice) {
+    if (sessionId !== sessionCounter) return;
+
+    try {
+      const streamUrl = `http://127.0.0.1:45678/tts?text=${encodeURIComponent(chunkText)}&lang=vi&voice=${encodeURIComponent(chosenVoice)}&speed=${encodeURIComponent(state.playbackSpeed)}`;
+      const audio = new Audio(streamUrl);
+      audio.playbackRate = state.playbackSpeed;
+      audioRef = audio;
+
+      let settled = false;
+      audio.oncanplay = () => {
+        if (sessionId !== sessionCounter) return;
+        settled = true;
+        state.isLoadingAudio = false;
+        audio.playbackRate = state.playbackSpeed;
+        updateUI();
+      };
+      audio.onended = () => {
+        if (sessionId !== sessionCounter) return;
+        playChunkAtIndex(idx + 1, sessionId);
+      };
+      audio.onerror = () => {
+        if (sessionId !== sessionCounter || settled) return;
+        settled = true;
+        playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice);
+      };
+
+      const playPromise = audio.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          if (sessionId !== sessionCounter || settled) return;
+          settled = true;
+          playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice);
+        });
+      }
+    } catch (e) {
+      playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice);
+    }
   }
 
   function playFallbackBrowserSpeech(chunkText, idx, sessionId, chosenVoice) {
     if (sessionId !== sessionCounter) return;
-    state.engineMode = 'fallback';
     state.isLoadingAudio = false;
     updateUI();
 
@@ -434,17 +586,21 @@
       const utter = new SpeechSynthesisUtterance(chunkText);
       utter.lang = 'vi-VN';
       utter.rate = state.playbackSpeed;
-      const voiceMeta = getVoiceMeta(chosenVoice);
-      if (voiceMeta && voiceMeta.gender === 'Nam') {
-        utter.pitch = 0.88;
-      } else {
-        utter.pitch = 1.05;
-      }
+
+      // Distinct pitch per cloned voice profile if running in browser fallback
+      const pitchMap = {
+        cloned_microservices_female: 1.05,
+        cloned_jobhub_female: 0.96,
+        cloned_angular_male: 0.82,
+        cloned_angular_female: 1.14
+      };
+      utter.pitch = pitchMap[chosenVoice] || 1.0;
 
       const voices = root.speechSynthesis.getVoices() || [];
       const viVoices = voices.filter(v => v.lang && v.lang.toLowerCase().includes('vi'));
       if (viVoices.length > 0) {
-        utter.voice = viVoices[idx % viVoices.length];
+        const voiceIdx = CLONED_VOICES.findIndex(v => v.id === chosenVoice);
+        utter.voice = viVoices[Math.max(0, voiceIdx) % viVoices.length];
       }
 
       utter.onend = () => {
@@ -462,13 +618,36 @@
     }
   }
 
-  function speakText(rawMarkdownText, title = 'Lý thuyết chương') {
+  // Primary entry point: reads directly from the rendered DOM inside #theory-content-body
+  function speakFromTheoryDom(title = 'Lý thuyết chương', startFromEl = null) {
     stopAudioInternal();
-    const newChunks = splitTextIntoSpeechChunks(rawMarkdownText);
-    if (newChunks.length === 0) return;
+    const bodyEl = document.getElementById('theory-content-body');
+    const domChunks = buildDomMappedChunks(bodyEl, startFromEl);
+    if (domChunks.length === 0) return;
 
     const currentSession = sessionCounter;
-    state.chunks = newChunks;
+    state.chunks = domChunks;
+    state.activeTitle = title;
+    state.currentChunkIdx = 0;
+    state.isPlaying = true;
+    state.isPaused = false;
+    updateUI();
+
+    playChunkAtIndex(0, currentSession);
+  }
+
+  function speakText(rawMarkdownText, title = 'Lý thuyết chương', startFromEl = null) {
+    const bodyEl = document.getElementById('theory-content-body');
+    if (bodyEl && bodyEl.children.length > 0) {
+      speakFromTheoryDom(title, startFromEl);
+      return;
+    }
+    stopAudioInternal();
+    const parts = splitBlockTextIntoSentences(rawMarkdownText, 220).map(t => ({ text: t, blockId: null }));
+    if (parts.length === 0) return;
+
+    const currentSession = sessionCounter;
+    state.chunks = parts;
     state.activeTitle = title;
     state.currentChunkIdx = 0;
     state.isPlaying = true;
@@ -483,6 +662,7 @@
     if (state.isPaused) {
       state.isPaused = false;
       if (audioRef) {
+        audioRef.playbackRate = state.playbackSpeed;
         audioRef.play().catch(() => {});
       } else if (root.speechSynthesis && root.speechSynthesis.paused) {
         root.speechSynthesis.resume();
@@ -517,7 +697,6 @@
     playChunkAtIndex(idx, sessionCounter);
   }
 
-  // Play reference sample .wav directly or via TTS backend
   async function previewClonedVoice(voiceId) {
     const meta = getVoiceMeta(voiceId);
     if (!meta) return;
@@ -603,9 +782,17 @@
   }
 
   function setPrimaryVoice(voiceId) {
+    if (voiceId === 'dual_podcast') {
+      setDualVoiceMode(true);
+      return;
+    }
     if (!CLONED_VOICES.some(v => v.id === voiceId)) return;
     state.primaryVoice = voiceId;
-    try { localStorage.setItem(STORAGE_KEYS.primaryVoice, voiceId); } catch (e) {}
+    state.dualVoiceMode = false;
+    try {
+      localStorage.setItem(STORAGE_KEYS.primaryVoice, voiceId);
+      localStorage.setItem(STORAGE_KEYS.dualMode, 'false');
+    } catch (e) {}
     if (state.isPlaying && !state.isPaused) {
       const idx = state.currentChunkIdx;
       stopAudioInternal();
@@ -620,6 +807,12 @@
     if (!CLONED_VOICES.some(v => v.id === voiceId)) return;
     state.secondaryVoice = voiceId;
     try { localStorage.setItem(STORAGE_KEYS.secondaryVoice, voiceId); } catch (e) {}
+    if (state.isPlaying && !state.isPaused && state.dualVoiceMode) {
+      const idx = state.currentChunkIdx;
+      stopAudioInternal();
+      state.isPlaying = true;
+      playChunkAtIndex(idx, sessionCounter);
+    }
     updateUI();
     updateVoiceModalUI();
   }
@@ -627,6 +820,12 @@
   function setDualVoiceMode(enabled) {
     state.dualVoiceMode = Boolean(enabled);
     try { localStorage.setItem(STORAGE_KEYS.dualMode, String(state.dualVoiceMode)); } catch (e) {}
+    if (state.isPlaying && !state.isPaused) {
+      const idx = state.currentChunkIdx;
+      stopAudioInternal();
+      state.isPlaying = true;
+      playChunkAtIndex(idx, sessionCounter);
+    }
     updateUI();
     updateVoiceModalUI();
   }
@@ -635,7 +834,11 @@
     const num = Math.max(0.75, Math.min(2.0, Number(speed) || 1.0));
     state.playbackSpeed = num;
     try { localStorage.setItem(STORAGE_KEYS.speed, String(num)); } catch (e) {}
-    if (state.isPlaying && !state.isPaused) {
+
+    // Apply immediately to active HTML5 Audio without interrupting Cloned Voice playback!
+    if (audioRef) {
+      try { audioRef.playbackRate = num; } catch (e) {}
+    } else if (state.isPlaying && !state.isPaused) {
       const idx = state.currentChunkIdx;
       stopAudioInternal();
       state.isPlaying = true;
@@ -663,10 +866,8 @@
     try { localStorage.setItem(STORAGE_KEYS.customServerUrl, state.customServerUrl); } catch (e) {}
   }
 
-  // UI Updates for Top Buttons & Audio Control Bar
   function updateUI() {
     const primaryMeta = getVoiceMeta(state.primaryVoice);
-    const secondaryMeta = getVoiceMeta(state.secondaryVoice);
     const activeMeta = getVoiceMeta(state.activeSpeakerVoice);
 
     const btnReadToggle = document.getElementById('btn-theory-voice-toggle');
@@ -682,8 +883,13 @@
 
     const btnVoiceSelect = document.getElementById('btn-theory-voice-select');
     if (btnVoiceSelect) {
-      const shortName = primaryMeta.name.replace(' (Cloned)', '');
+      const shortName = primaryMeta.shortName || primaryMeta.name.replace(' (Cloned)', '');
       btnVoiceSelect.innerHTML = `🎙️ <span class="hide-mobile">${state.dualVoiceMode ? 'Podcast 2 Giọng' : shortName}</span>`;
+    }
+
+    const voiceQuickSelect = document.getElementById('voice-bar-voice-select');
+    if (voiceQuickSelect) {
+      voiceQuickSelect.value = state.dualVoiceMode ? 'dual_podcast' : state.primaryVoice;
     }
 
     const controlBar = document.getElementById('ocp-voice-control-bar');
@@ -698,7 +904,7 @@
     const speakerLabel = document.getElementById('voice-bar-speaker');
     if (speakerLabel) {
       speakerLabel.textContent = state.isLoadingAudio
-        ? `⏳ Đang tạo âm thanh AI (${activeMeta.name})...`
+        ? `⏳ Đang tải giọng (${activeMeta.shortName})...`
         : `${state.dualVoiceMode ? '🎭 Podcast 2 Giọng' : '🎙️ Giọng Clone AI'}: ${activeMeta.name}`;
     }
 
@@ -710,9 +916,11 @@
       chunkCounterEl.textContent = `Đoạn ${state.currentChunkIdx + 1} / ${state.chunks.length}`;
     }
 
+    const currentChunkObj = state.chunks[state.currentChunkIdx];
+    const currentText = currentChunkObj ? (typeof currentChunkObj === 'string' ? currentChunkObj : currentChunkObj.text) : '';
     const snippetEl = document.getElementById('voice-bar-snippet');
     if (snippetEl) {
-      snippetEl.textContent = `"${state.chunks[state.currentChunkIdx] || ''}"`;
+      snippetEl.textContent = `"${currentText}"`;
     }
 
     const progressFill = document.getElementById('voice-bar-progress-fill');
@@ -899,6 +1107,11 @@
       btnAutoNextBar.addEventListener('click', () => setAutoNextChapter(!state.autoNextChapter));
     }
 
+    const voiceQuickSelect = document.getElementById('voice-bar-voice-select');
+    if (voiceQuickSelect) {
+      voiceQuickSelect.addEventListener('change', (e) => setPrimaryVoice(e.target.value));
+    }
+
     const speedSelect = document.getElementById('voice-bar-speed-select');
     if (speedSelect) {
       speedSelect.addEventListener('change', (e) => setPlaybackSpeed(parseFloat(e.target.value)));
@@ -951,6 +1164,7 @@
     CLONED_VOICES,
     state,
     speakText,
+    speakFromTheoryDom,
     stopSpeaking,
     togglePause,
     skipChunk,

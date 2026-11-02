@@ -33,6 +33,7 @@ jobs:
         run: |
           node quiz-app/js/parser.js
           node quiz-app/scripts/build-theory.js
+          node quiz-app/js/build-sql-data.js
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3

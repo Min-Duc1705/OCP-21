@@ -1,14 +1,34 @@
 // ==========================================================================
-// OCP Java 21 Quiz Master - Main Application Controller (app.js)
+// Oracle SQL & PL/SQL (26 Ch) + OCP Java 21 (14 Ch) Quiz Master - Main Controller (app.js)
 // Works alongside modular i18n.js, theory-viewer.js, and storage.js
 // ==========================================================================
 
 (function() {
   'use strict';
 
-  const { I18N, CHAPTER_METADATA, CHAPTER_VIDEOS, formatMarkdown } = window.AppI18n;
+  // Preserve original Java datasets loaded from quiz-data.js & theory-data.js
+  if (window.QUIZ_DATA && !window.JAVA_QUIZ_DATA) {
+    window.JAVA_QUIZ_DATA = window.QUIZ_DATA;
+  }
+  if (window.THEORY_DATA && !window.JAVA_THEORY_DATA) {
+    window.JAVA_THEORY_DATA = window.THEORY_DATA;
+  }
+
+  const { I18N, CHAPTER_VIDEOS, formatMarkdown } = window.AppI18n;
+
+  function getInitialCourse() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const urlCourse = params.get('course');
+      if (urlCourse === 'sql' || urlCourse === 'java') return urlCourse;
+      const saved = localStorage.getItem('ocp21_active_course');
+      if (saved === 'sql' || saved === 'java') return saved;
+    } catch (e) {}
+    return window.SQL_QUIZ_DATA ? 'sql' : 'java';
+  }
 
   const state = {
+    activeCourse: getInitialCourse(),
     currentView: 'dashboard',
     chapterFilter: 'all',
     chapterSearch: '',
@@ -35,8 +55,22 @@
     reviewFilter: 'all',
 
     // Language State ('en' | 'vi')
-    questionLang: (typeof localStorage !== 'undefined' && localStorage.getItem('ocp21_question_lang')) || 'en'
+    questionLang: (typeof localStorage !== 'undefined' && localStorage.getItem('ocp21_question_lang')) || 'vi'
   };
+
+  function getActiveMetadata() {
+    return state.activeCourse === 'sql'
+      ? (window.AppI18n.SQL_CHAPTER_METADATA || {})
+      : (window.AppI18n.JAVA_CHAPTER_METADATA || {});
+  }
+
+  function syncCourseDatasets() {
+    const isSql = state.activeCourse === 'sql' && Boolean(window.SQL_QUIZ_DATA);
+    window.__ACTIVE_COURSE = isSql ? 'sql' : 'java';
+    window.QUIZ_DATA = isSql ? window.SQL_QUIZ_DATA : window.JAVA_QUIZ_DATA;
+    window.THEORY_DATA = (isSql && window.SQL_THEORY_DATA) ? window.SQL_THEORY_DATA : window.JAVA_THEORY_DATA;
+    window.AppI18n.CHAPTER_METADATA = getActiveMetadata();
+  }
 
   function t(key, vars) {
     const dict = I18N[state.questionLang] || I18N.vi;
@@ -64,7 +98,65 @@
     return (state.questionLang === 'en' && q.explanationEn) ? q.explanationEn : (q.explanationVi || q.explanation);
   }
 
+  function updateCourseBrandingUI() {
+    const isSql = state.activeCourse === 'sql' && Boolean(window.SQL_QUIZ_DATA);
+
+    const segSql = document.getElementById('course-seg-sql');
+    const segJava = document.getElementById('course-seg-java');
+    if (segSql && segJava) {
+      segSql.classList.toggle('active', isSql);
+      segJava.classList.toggle('active', !isSql);
+    }
+
+    const brandIcon = document.getElementById('brand-icon');
+    const brandTitle = document.getElementById('brand-title');
+    const brandBadge = document.getElementById('brand-badge');
+    const brandSub = document.getElementById('brand-subtitle');
+    if (brandIcon) brandIcon.textContent = isSql ? '🗄️' : '☕';
+    if (brandTitle) brandTitle.textContent = isSql ? 'Oracle SQL & PL/SQL' : 'OCP 21 Quiz Master';
+    if (brandBadge) brandBadge.textContent = isSql ? '1Z0-071 • 1Z0-149' : '1Z0-830';
+    if (brandSub) {
+      brandSub.textContent = isSql
+        ? (state.questionLang === 'en' ? 'OCA & OCP Database Developer (26 Chapters)' : 'OCA & OCP Database Developer (26 Chương)')
+        : 'Oracle Java SE 21 Developer';
+    }
+
+    const navEnthuware = document.getElementById('nav-btn-enthuware');
+    const navVideos = document.getElementById('btn-open-videos');
+    if (navEnthuware) navEnthuware.style.display = isSql ? 'none' : 'inline-flex';
+    if (navVideos) navVideos.style.display = isSql ? 'none' : 'inline-flex';
+
+    // Update dynamic i18n keys for SQL vs Java
+    const swapAttr = (id, sqlKey, javaKey) => {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute('data-i18n', isSql ? sqlKey : javaKey);
+    };
+    swapAttr('nav-label-theory', 'nav.theorySql', 'nav.theory');
+    swapAttr('hero-badge', 'hero.badgeSql', 'hero.badge');
+    swapAttr('hero-title', 'hero.titleSql', 'hero.title');
+    swapAttr('hero-subtitle', 'hero.subtitleSql', 'hero.subtitle');
+    swapAttr('banner-title', 'banner.titleSql', 'banner.title');
+    swapAttr('banner-desc', 'banner.descSql', 'banner.desc');
+    swapAttr('dashboard-chapters-title', 'dashboard.chaptersTitleSql', 'dashboard.chaptersTitle');
+    swapAttr('filter-pill-all', 'dashboard.filterAllSql', 'dashboard.filterAll');
+    swapAttr('practice-ide-filename', 'common.sqlCode', 'common.javaCode');
+    swapAttr('exam-ide-filename', 'common.sqlCode', 'common.javaCode');
+    swapAttr('exam-title-display', 'exam.roomTitleSql', 'exam.roomTitle');
+    swapAttr('theory-sidebar-heading', 'theory.sidebarHeadingSql', 'theory.sidebarHeading');
+
+    document.querySelectorAll('.sql-part-pill').forEach(pill => {
+      pill.style.display = isSql ? 'inline-flex' : 'none';
+    });
+
+    const pCode = document.getElementById('practice-code-block');
+    const eCode = document.getElementById('exam-code-block');
+    if (pCode) pCode.className = isSql ? 'language-sql' : 'language-java';
+    if (eCode) eCode.className = isSql ? 'language-sql' : 'language-java';
+  }
+
   function applyI18nToDOM() {
+    updateCourseBrandingUI();
+
     const isEn = state.questionLang === 'en';
     document.documentElement.lang = isEn ? 'en' : 'vi';
 
@@ -88,6 +180,27 @@
       const key = el.getAttribute('data-i18n-placeholder');
       if (key) el.setAttribute('placeholder', t(key));
     });
+  }
+
+  function setCourse(course) {
+    if (course !== 'sql' && course !== 'java') return;
+    if (course === 'sql' && !window.SQL_QUIZ_DATA) return;
+    state.activeCourse = course;
+    try { localStorage.setItem('ocp21_active_course', course); } catch (e) {}
+
+    syncCourseDatasets();
+    state.chapterFilter = 'all';
+    document.querySelectorAll('#chapter-filter-pills .filter-pill-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.chFilter === 'all');
+    });
+
+    applyI18nToDOM();
+    switchView('dashboard');
+
+    const theoryModal = document.getElementById('theory-modal');
+    if (theoryModal && theoryModal.classList.contains('show') && window.TheoryViewer) {
+      window.TheoryViewer.openTheoryModal(1);
+    }
   }
 
   function refreshQuestionLanguageInPlace() {
@@ -171,13 +284,15 @@
   // --- DASHBOARD ---
   function updateDashboardStats() {
     const questions = window.QUIZ_DATA ? window.QUIZ_DATA.questions : [];
+    const activeQIds = new Set(questions.map(q => q.id));
     const progress = QuizStorage.getPracticeProgress();
     const history = QuizStorage.getExamHistory();
-    const bookmarks = QuizStorage.getBookmarks();
-    const mistakes = QuizStorage.getMistakes();
+    const bookmarks = QuizStorage.getBookmarks().filter(id => activeQIds.has(id));
+    const mistakesObj = QuizStorage.getMistakes();
+    const activeMistakeKeys = Object.keys(mistakesObj).filter(id => activeQIds.has(id));
 
     const totalQuestions = questions.length;
-    const attemptedKeys = Object.keys(progress);
+    const attemptedKeys = Object.keys(progress).filter(id => activeQIds.has(id));
     const attemptedCount = attemptedKeys.length;
     let correctCount = 0;
     attemptedKeys.forEach(k => {
@@ -192,7 +307,7 @@
     document.getElementById('stat-exams-taken').textContent = history.length;
 
     document.getElementById('bookmark-count-badge').textContent = bookmarks.length;
-    document.getElementById('mistake-count-badge').textContent = Object.keys(mistakes).length;
+    document.getElementById('mistake-count-badge').textContent = activeMistakeKeys.length;
   }
 
   function renderChapterCards() {
@@ -202,6 +317,8 @@
 
     const progress = QuizStorage.getPracticeProgress();
     const isEn = state.questionLang === 'en';
+    const isSql = state.activeCourse === 'sql' && Boolean(window.SQL_QUIZ_DATA);
+    const metaMap = getActiveMetadata();
     const searchTerm = (state.chapterSearch || '').trim().toLowerCase();
 
     window.QUIZ_DATA.chapters.forEach(ch => {
@@ -211,22 +328,26 @@
         if (progress[q.id] && progress[q.id].answered) completedInCh++;
       });
       const pct = ch.questionCount > 0 ? Math.round((completedInCh / ch.questionCount) * 100) : 0;
-      const meta = CHAPTER_METADATA[ch.id] || { icon: '📘', vi: ch.title, en: ch.title, tags: [] };
+      const meta = metaMap[ch.id] || { icon: '📘', vi: ch.title, en: ch.title, tags: [] };
 
-      // Filter by status
+      // Filter by SQL Part or status
+      if (state.chapterFilter === 'part1' && (ch.id < 1 || ch.id > 13)) return;
+      if (state.chapterFilter === 'part2' && (ch.id < 14 || ch.id > 20)) return;
+      if (state.chapterFilter === 'part3' && (ch.id < 21 || ch.id > 26)) return;
       if (state.chapterFilter === 'progress' && (completedInCh === 0 || pct === 100)) return;
       if (state.chapterFilter === 'done' && pct < 100) return;
 
       // Filter by search
       if (searchTerm) {
-        const hay = `${ch.id} ${meta.vi} ${meta.en} ${(meta.tags || []).join(' ')}`.toLowerCase();
+        const hay = `${ch.id} ${meta.vi} ${meta.en} ${meta.part || ''} ${(meta.tags || []).join(' ')}`.toLowerCase();
         if (!hay.includes(searchTerm)) return;
       }
 
-      const hasVideo = Boolean(CHAPTER_VIDEOS[ch.id]);
+      const hasVideo = !isSql && Boolean(CHAPTER_VIDEOS[ch.id]);
       const displayTitle = isEn ? `Chapter ${ch.id}: ${meta.en}` : `Chương ${ch.id}: ${meta.vi}`;
       const subTitle = isEn ? meta.vi : meta.en;
       const tagsHtml = (meta.tags || []).map(tag => `<span class="chapter-topic-tag">${tag}</span>`).join('');
+      const partBadgeHtml = meta.part ? `<span class="badge badge-warning" style="font-size:0.7rem;">${meta.part.split('—')[0].trim()}</span>` : '';
 
       const card = document.createElement('div');
       card.className = 'chapter-card';
@@ -237,7 +358,8 @@
               <span class="chapter-icon-box">${meta.icon || '📘'}</span>
               <span>${t('chapter.label')} ${String(ch.id).padStart(2, '0')}</span>
             </span>
-            <div style="display: flex; gap: 0.35rem; align-items: center;">
+            <div style="display: flex; gap: 0.35rem; align-items: center; flex-wrap: wrap;">
+              ${partBadgeHtml}
               ${hasVideo ? `<span class="badge badge-warning">${t('chapter.hasVideo')}</span>` : ''}
               <span class="badge badge-info">${ch.questionCount} ${t('chapter.qCount')}</span>
             </div>
@@ -284,7 +406,8 @@
   function startPracticeForChapter(chapterId) {
     const questions = window.QUIZ_DATA.questions.filter(q => q.chapterId === chapterId);
     if (!questions.length) return;
-    const meta = CHAPTER_METADATA[chapterId] || { vi: questions[0].chapterTitle, en: questions[0].chapterTitle };
+    const metaMap = getActiveMetadata();
+    const meta = metaMap[chapterId] || { vi: questions[0].chapterTitle, en: questions[0].chapterTitle };
     const title = state.questionLang === 'en'
       ? `Chapter ${chapterId}: ${meta.en}`
       : `Chương ${chapterId}: ${meta.vi}`;
@@ -404,9 +527,10 @@
       badge.className = 'badge badge-info';
     }
 
+    const isSql = state.activeCourse === 'sql' && Boolean(window.SQL_QUIZ_DATA);
     const btnPracticeVideo = document.getElementById('btn-practice-video');
     if (btnPracticeVideo) {
-      btnPracticeVideo.style.display = CHAPTER_VIDEOS[q.chapterId] ? 'inline-flex' : 'none';
+      btnPracticeVideo.style.display = (!isSql && CHAPTER_VIDEOS[q.chapterId]) ? 'inline-flex' : 'none';
     }
 
     updatePracticeBookmarkButton(q.id);
@@ -416,6 +540,7 @@
     const codeBlock = document.getElementById('practice-code-block');
     if (q.codeSnippet) {
       codeContainer.style.display = 'block';
+      codeBlock.className = isSql ? 'language-sql' : 'language-java';
       codeBlock.textContent = q.codeSnippet;
       if (window.Prism) Prism.highlightElement(codeBlock);
     } else {
@@ -554,10 +679,11 @@
     const listContainer = document.getElementById('modal-chapters-list');
     listContainer.innerHTML = '';
     const isEn = state.questionLang === 'en';
+    const metaMap = getActiveMetadata();
 
     window.QUIZ_DATA.chapters.forEach(ch => {
       const isChecked = defaultChapterId ? (ch.id === defaultChapterId) : true;
-      const meta = CHAPTER_METADATA[ch.id] || { vi: ch.title, en: ch.title };
+      const meta = metaMap[ch.id] || { vi: ch.title, en: ch.title };
       const labelTitle = isEn ? `Chapter ${ch.id}: ${meta.en}` : `Chương ${ch.id}: ${meta.vi}`;
       const row = document.createElement('label');
       row.style.cssText = 'display: flex; align-items: center; gap: 0.6rem; cursor: pointer; padding: 0.35rem; font-size: 0.88rem;';
@@ -670,10 +796,12 @@
 
     document.getElementById('exam-prompt-text').innerHTML = formatMarkdown(getQText(q));
 
+    const isSql = state.activeCourse === 'sql' && Boolean(window.SQL_QUIZ_DATA);
     const codeContainer = document.getElementById('exam-code-container');
     const codeBlock = document.getElementById('exam-code-block');
     if (q.codeSnippet) {
       codeContainer.style.display = 'block';
+      codeBlock.className = isSql ? 'language-sql' : 'language-java';
       codeBlock.textContent = q.codeSnippet;
       if (window.Prism) Prism.highlightElement(codeBlock);
     } else {
@@ -891,6 +1019,9 @@
       return;
     }
 
+    const isSql = state.activeCourse === 'sql' && Boolean(window.SQL_QUIZ_DATA);
+    const codeLangClass = isSql ? 'language-sql' : 'language-java';
+
     filtered.forEach((item, idx) => {
       const q = item.question;
       const card = document.createElement('div');
@@ -899,7 +1030,7 @@
 
       let codeHtml = '';
       if (q.codeSnippet) {
-        codeHtml = `<div class="code-snippet-wrap" style="margin: 1rem 0;"><pre><code class="language-java">${q.codeSnippet.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre></div>`;
+        codeHtml = `<div class="code-snippet-wrap" style="margin: 1rem 0;"><pre><code class="${codeLangClass}">${q.codeSnippet.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre></div>`;
       }
 
       let optionsHtml = '';
@@ -1137,12 +1268,20 @@
   }
 
   function init() {
+    syncCourseDatasets();
+
     if (window.TheoryViewer) {
       window.TheoryViewer.configure({
         getLang: () => state.questionLang,
         t
       });
     }
+
+    // Course Switcher Bindings
+    const courseSegSql = document.getElementById('course-seg-sql');
+    const courseSegJava = document.getElementById('course-seg-java');
+    if (courseSegSql) courseSegSql.addEventListener('click', () => setCourse('sql'));
+    if (courseSegJava) courseSegJava.addEventListener('click', () => setCourse('java'));
 
     // 1. Theme, Palette & Language
     const savedTheme = QuizStorage.getTheme();

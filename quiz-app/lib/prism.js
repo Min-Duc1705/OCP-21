@@ -1,4 +1,4 @@
-/* PrismJS 1.29.0 - Java Syntax Highlighting (Self-contained & offline) */
+/* PrismJS 1.29.0 - Java & Oracle SQL/PLSQL Syntax Highlighting (Self-contained & offline) */
 var _self = typeof window !== 'undefined' ? window : typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope ? self : {};
 var Prism = (function(_self) {
   var lang = /(?:^|\s)lang(?:uage)?-([\w-]+)(?=\s|$)/i;
@@ -37,8 +37,12 @@ var Prism = (function(_self) {
       }
     },
     highlightElement: function(element, async, callback) {
-      var language = 'java';
-      var grammar = _.languages[language];
+      var match = (element.className || '').match(lang);
+      var language = match ? match[1].toLowerCase() : (window.__ACTIVE_COURSE === 'sql' ? 'sql' : 'java');
+      if (language === 'plsql' || language === 'oracle' || (window.__ACTIVE_COURSE === 'sql' && language === 'java')) {
+        language = 'sql';
+      }
+      var grammar = _.languages[language] || _.languages.java;
       if (!grammar) return;
       var code = element.textContent;
       element.innerHTML = _.highlight(code, grammar, language);
@@ -208,6 +212,24 @@ Prism.languages.java = {
   'boolean': /\b(?:false|true)\b/,
   'number': /\b0b[01][01_]*L?\b|\b0x(?:\.?[0-9a-f_p+-]+|[\da-f_]+(?:\.[\da-f_]*)?(?:p[+-]?\d+)?)[fl]?\b|\b(?:\d[\d_]*(?:\.[\d_]*)?|\.\d[\d_]*)(?:e[+-]?\d+)?[\w$]*\b/i,
   'operator': /[<>]=?|[!=]=?=?|--?|\+\+?|&&?|\|\|?|[?*/~^%]/,
+  'punctuation': /[{}[\];(),.:]/
+};
+
+// Oracle SQL & PL/SQL Grammar Definition
+Prism.languages.sql = {
+  'comment': [
+    { pattern: /(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/, lookbehind: true, greedy: true },
+    { pattern: /(^|[^\\])--.*/, lookbehind: true, greedy: true }
+  ],
+  'string': {
+    pattern: /q'\[[\s\S]*?\]'|q'\{[\s\S]*?\}'|q'<[\s\S]*?>'|q'\([\s\S]*?\)'|'(?:''|[^'\r\n])*'|"(?:""|[^"\r\n])*"/i,
+    greedy: true
+  },
+  'function': /\b(?:NVL2?|COALESCE|NULLIF|DECODE|TO_CHAR|TO_DATE|TO_NUMBER|TO_TIMESTAMP|CAST|EXTRACT|SUBSTR|INSTR|LENGTH|LPAD|RPAD|TRIM|LTRIM|RTRIM|REPLACE|TRANSLATE|UPPER|LOWER|INITCAP|ROUND|TRUNC|MOD|CEIL|FLOOR|ABS|SIGN|ADD_MONTHS|MONTHS_BETWEEN|LAST_DAY|NEXT_DAY|SYSDATE|CURRENT_DATE|SYSTIMESTAMP|LOCALTIMESTAMP|COUNT|SUM|AVG|MIN|MAX|LISTAGG|ROW_NUMBER|RANK|DENSE_RANK|NTILE|LEAD|LAG|FIRST_VALUE|LAST_VALUE|NTH_VALUE|GROUPING|GROUPING_ID|SYS_CONNECT_BY_PATH|REGEXP_LIKE|REGEXP_SUBSTR|REGEXP_INSTR|REGEXP_REPLACE|REGEXP_COUNT|RAISE_APPLICATION_ERROR|SQLCODE|SQLERRM|DBMS_OUTPUT|PUT_LINE)\b/i,
+  'keyword': /\b(?:SELECT|FROM|WHERE|GROUP|BY|HAVING|ORDER|ASC|DESC|NULLS|FIRST|LAST|FETCH|NEXT|ONLY|WITH|TIES|OFFSET|ROWS?|RANGE|UNBOUNDED|PRECEDING|FOLLOWING|CURRENT|DISTINCT|UNIQUE|ALL|AS|INTO|VALUES|SET|INSERT|UPDATE|DELETE|MERGE|USING|MATCHED|THEN|CREATE|OR|REPLACE|ALTER|DROP|TRUNCATE|RENAME|COMMENT|GRANT|REVOKE|COMMIT|ROLLBACK|SAVEPOINT|TRANSACTION|READ|WRITE|ISOLATION|LEVEL|SERIALIZABLE|TABLE|GLOBAL|TEMPORARY|EXTERNAL|ORGANIZATION|HEAP|INDEX|CLUSTER|VIEW|MATERIALIZED|SEQUENCE|SYNONYM|PUBLIC|PRIVATE|PRIMARY|FOREIGN|KEY|REFERENCES|CHECK|DEFAULT|GENERATED|ALWAYS|IDENTITY|ON|CASCADE|CONSTRAINT|ENABLE|DISABLE|VALIDATE|NOVALIDATE|DEFERRABLE|INITIALLY|DEFERRED|IMMEDIATE|JOIN|INNER|LEFT|RIGHT|FULL|OUTER|CROSS|NATURAL|UNION|INTERSECT|MINUS|EXCEPT|IN|NOT|BETWEEN|LIKE|ESCAPE|IS|NULL|EXISTS|ANY|SOME|AND|CASE|WHEN|ELSE|END|OVER|PARTITION|WITHIN|ROLLUP|CUBE|SETS|PIVOT|UNPIVOT|START|CONNECT|PRIOR|NOCYCLE|SIBLINGS|LATERAL|APPLY|FOR|NOWAIT|WAIT|SKIP|LOCKED|RETURNING|DECLARE|BEGIN|EXCEPTION|OTHERS|CURSOR|OPEN|CLOSE|LOOP|WHILE|EXIT|CONTINUE|REVERSE|IF|ELSIF|PROCEDURE|FUNCTION|RETURN|PACKAGE|BODY|TRIGGER|BEFORE|AFTER|INSTEAD|OF|EACH|COMPOUND|STATEMENT|PRAGMA|AUTONOMOUS_TRANSACTION|EXCEPTION_INIT|SERIALLY_REUSABLE|AUTHID|DEFINER|CURRENT_USER|DETERMINISTIC|RESULT_CACHE|NOCOPY|OUT|TYPE|RECORD|VARRAY|BULK|COLLECT|LIMIT|FORALL|INDICES|SAVE|EXCEPTIONS|EXECUTE|RAISE|ROWTYPE|FOUND|NOTFOUND|ROWCOUNT|ISOPEN|BULK_EXCEPTIONS|ROWID|ROWNUM|DUAL|NUMBER|VARCHAR2|CHAR|NVARCHAR2|DATE|TIMESTAMP|CLOB|BLOB|RAW|PLS_INTEGER|BINARY_INTEGER|BOOLEAN|SYS_REFCURSOR)\b/i,
+  'boolean': /\b(?:TRUE|FALSE|NULL)\b/i,
+  'number': /\b\d+(?:\.\d+)?(?:e[+-]?\d+)?\b/i,
+  'operator': /:=|=>|\|\||!=|<>|<=|>=|[=<>+\-*/%]/,
   'punctuation': /[{}[\];(),.:]/
 };
 

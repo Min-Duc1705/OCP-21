@@ -1,5 +1,8 @@
 // ==========================================================================
-// OCP 21 Quiz Master - Bilingual Dictionary & Chapter Metadata (i18n.js)
+// OCP Quiz Master - Bilingual Dictionary & Chapter Metadata (i18n.js)
+// Supports both:
+//   - 'java': OCP Java SE 21 Developer (1Z0-830) - 14 Chapters
+//   - 'sql' : Oracle SQL OCA (1Z0-071) & OCP PL/SQL (1Z0-149) - 26 Chapters
 // ==========================================================================
 
 (function(root) {
@@ -9,22 +12,32 @@
     vi: {
       'nav.enthuware': 'Enthuware',
       'nav.theory': '14 Chương Lý Thuyết',
+      'nav.theorySql': '26 Chương Lý Thuyết',
       'nav.videos': '14 Video Bài Giảng',
       'nav.saved': 'Đã lưu',
       'nav.mistakes': 'Câu sai',
       'hero.badge': '✨ Oracle Certified Professional • Java SE 21 (1Z0-830)',
       'hero.title': 'Hệ Thống Luyện Thi OCP Java 21',
       'hero.subtitle': 'Chinh phục chứng chỉ Oracle 1Z0-830 với 14 chương lý thuyết, 14 video bài giảng và 338 câu hỏi trắc nghiệm song ngữ Anh - Việt kèm phân tích bẫy thi chuyên sâu.',
+      'hero.badgeSql': '🗄️ Oracle Database SQL OCA (1Z0-071) & OCP PL/SQL Developer (1Z0-149)',
+      'hero.titleSql': 'Hệ Thống Luyện Thi Oracle SQL & PL/SQL (OCA & OCP)',
+      'hero.subtitleSql': 'Chinh phục kỳ thi sát hạch VNPT & chứng chỉ Oracle Database SQL (1Z0-071) + PL/SQL Developer (1Z0-149) với 26 chương giáo trình chuyên sâu và 650 câu hỏi trắc nghiệm thực chiến.',
       'stats.total': 'Tổng câu hỏi',
       'stats.attempted': 'Đã luyện tập',
       'stats.accuracy': 'Độ chính xác',
       'stats.exams': 'Đề thi đã làm',
       'banner.title': '🚀 Kỳ Thi Thử Tổng Hợp Chuẩn Oracle (Full 14 Chương)',
+      'banner.titleSql': '🚀 Kỳ Thi Thử Tổng Hợp Oracle SQL & PL/SQL (Full 26 Chương)',
       'banner.desc': 'Đề thi mô phỏng ngẫu nhiên từ toàn bộ ngân hàng câu hỏi, tính giờ chuẩn Oracle với ngưỡng đỗ 68%.',
       'banner.cta': '⏱️ Thi Thử Ngay',
       'dashboard.chaptersTitle': 'Lộ Trình 14 Chương Trọng Tâm (Study Chapters)',
+      'dashboard.chaptersTitleSql': 'Giáo Trình 26 Chương Oracle SQL & PL/SQL (OCA & OCP)',
       'dashboard.searchPlaceholder': 'Tìm chương hoặc chủ đề...',
       'dashboard.filterAll': 'Tất cả (14)',
+      'dashboard.filterAllSql': 'Tất cả (26)',
+      'dashboard.filterPart1': 'Phần I: SQL Cơ bản (1–13)',
+      'dashboard.filterPart2': 'Phần II: SQL Nâng cao (14–20)',
+      'dashboard.filterPart3': 'Phần III: PL/SQL (21–26)',
       'dashboard.filterInProgress': 'Đang học',
       'dashboard.filterCompleted': 'Hoàn thành',
       'chapter.label': 'Chương',
@@ -39,6 +52,7 @@
       'common.question': 'Câu hỏi',
       'common.questionPrompt': '📋 Nội dung câu hỏi:',
       'common.javaCode': 'Snippet.java',
+      'common.sqlCode': 'Query.sql',
       'common.copyCode': '📋 Sao chép',
       'common.copiedCode': '✓ Đã chép!',
       'common.selectOptions': '✏️ Chọn phương án trả lời:',
@@ -67,7 +81,7 @@
       'practice.retry': '🔄 Làm lại',
       'practice.alertSelect': 'Vui lòng chọn ít nhất một đáp án trước khi kiểm tra!',
       'exam.quit': '← Thoát phòng thi',
-      'exam.roomTitle': 'Phòng Thi OCP Java 21',
+      'exam.roomTitle': 'Phòng Thi Chuẩn Oracle',
       'exam.flag': '🚩 Cắm cờ xem lại',
       'exam.flagged': 'Đã cắm cờ',
       'exam.paletteBtn': 'Bảng câu hỏi',
@@ -127,7 +141,7 @@
       'video.playlistTitle': '📑 Danh sách bài giảng theo chương:',
       'theory.handbook': '📖 Lý Thuyết',
       'theory.searchPlaceholder': 'Tìm kiếm từ khóa trong chương...',
-      'theory.sidebarHeading': '📑 14 CHƯƠNG LÝ THUYẾT',
+      'theory.sidebarHeading': '📑 DANH SÁCH CHƯƠNG LÝ THUYẾT',
       'theory.resultsCount': '{n} kết quả',
       'theory.copyCode': '📋 Sao chép',
       'theory.copiedCode': '✓ Đã sao chép!'
@@ -135,22 +149,32 @@
     en: {
       'nav.enthuware': 'Enthuware',
       'nav.theory': '14 Theory Chapters',
+      'nav.theorySql': '26 Theory Chapters',
       'nav.videos': '14 Video Lectures',
       'nav.saved': 'Saved',
       'nav.mistakes': 'Mistakes',
       'hero.badge': '✨ Oracle Certified Professional • Java SE 21 (1Z0-830)',
       'hero.title': 'OCP Java 21 Exam & Study Master',
       'hero.subtitle': 'Master the Oracle 1Z0-830 certification with 14 study guides, 14 video lectures, and 338 bilingual EN/VI questions with deep exam-trap analysis.',
+      'hero.badgeSql': '🗄️ Oracle Database SQL OCA (1Z0-071) & OCP PL/SQL Developer (1Z0-149)',
+      'hero.titleSql': 'Oracle SQL & PL/SQL Exam & Study Master',
+      'hero.subtitleSql': 'Master Oracle Database SQL (1Z0-071) & PL/SQL Developer (1Z0-149) with 26 comprehensive study chapters and 650 exam-style practice questions.',
       'stats.total': 'Total Questions',
       'stats.attempted': 'Practiced',
       'stats.accuracy': 'Accuracy Rate',
       'stats.exams': 'Exams Taken',
       'banner.title': '🚀 Full Oracle Mock Exam Simulator (All 14 Chapters)',
+      'banner.titleSql': '🚀 Full Oracle SQL & PL/SQL Mock Exam (All 26 Chapters)',
       'banner.desc': 'Randomized mock exam across the entire question bank with official Oracle timing and 68% passing score.',
       'banner.cta': '⏱️ Start Mock Exam',
       'dashboard.chaptersTitle': 'All 14 Official Study Chapters (1Z0-830)',
+      'dashboard.chaptersTitleSql': 'All 26 Oracle SQL & PL/SQL Study Chapters (OCA & OCP)',
       'dashboard.searchPlaceholder': 'Search chapter or topic...',
       'dashboard.filterAll': 'All (14)',
+      'dashboard.filterAllSql': 'All (26)',
+      'dashboard.filterPart1': 'Part I: Core SQL (1–13)',
+      'dashboard.filterPart2': 'Part II: Advanced SQL (14–20)',
+      'dashboard.filterPart3': 'Part III: PL/SQL (21–26)',
       'dashboard.filterInProgress': 'In Progress',
       'dashboard.filterCompleted': 'Completed',
       'chapter.label': 'Chapter',
@@ -165,6 +189,7 @@
       'common.question': 'Question',
       'common.questionPrompt': '📋 Question Prompt:',
       'common.javaCode': 'Snippet.java',
+      'common.sqlCode': 'Query.sql',
       'common.copyCode': '📋 Copy',
       'common.copiedCode': '✓ Copied!',
       'common.selectOptions': '✏️ Select Your Answer:',
@@ -193,7 +218,7 @@
       'practice.retry': '🔄 Retry',
       'practice.alertSelect': 'Please select at least one option before checking!',
       'exam.quit': '← Quit Exam',
-      'exam.roomTitle': 'OCP Java 21 Mock Exam',
+      'exam.roomTitle': 'Oracle Mock Exam Room',
       'exam.flag': '🚩 Flag for Review',
       'exam.flagged': 'Flagged',
       'exam.paletteBtn': 'Palette',
@@ -253,14 +278,14 @@
       'video.playlistTitle': '📑 Video Lectures by Chapter:',
       'theory.handbook': '📖 Theory Docs',
       'theory.searchPlaceholder': 'Search keywords in this chapter...',
-      'theory.sidebarHeading': '📑 14 THEORY CHAPTERS',
+      'theory.sidebarHeading': '📑 THEORY CHAPTERS',
       'theory.resultsCount': '{n} matches',
       'theory.copyCode': '📋 Copy',
       'theory.copiedCode': '✓ Copied!'
     }
   };
 
-  const CHAPTER_METADATA = {
+  const JAVA_CHAPTER_METADATA = {
     1:  { icon: '🧱', vi: 'Khối Xây Dựng Cơ Bản', en: 'Building Blocks', tags: ['Primitives', 'Text Blocks', 'var', 'GC'] },
     2:  { icon: '⚡', vi: 'Toán Tử & Biểu Thức', en: 'Operators', tags: ['Type Promotion', 'Casting', 'Bitwise'] },
     3:  { icon: '🔀', vi: 'Cấu Trúc Ra Quyết Định', en: 'Making Decisions', tags: ['Pattern Switch', 'Guards', 'Loops'] },
@@ -275,6 +300,35 @@
     12: { icon: '🧩', vi: 'Hệ Thống Module (JPMS)', en: 'Modules (JPMS)', tags: ['exports/opens', 'requires', 'Services'] },
     13: { icon: '🚀', vi: 'Đa Luồng & Virtual Threads', en: 'Concurrency & Virtual Threads', tags: ['Virtual Threads', 'Executors', 'Locks'] },
     14: { icon: '💾', vi: 'Java I/O & NIO.2', en: 'I/O & NIO.2', tags: ['Path/Files', 'Streams', 'Serialization'] }
+  };
+
+  const SQL_CHAPTER_METADATA = {
+    1:  { icon: '🏛️', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'Tổng Quan Oracle Database & SQL', en: 'Oracle Database & SQL Overview', tags: ['RDBMS', 'Schema', 'DDL/DML/TCL', 'DUAL'] },
+    2:  { icon: '🔢', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'Kiểu Dữ Liệu Trong Oracle', en: 'Oracle Data Types & Conversions', tags: ['VARCHAR2/NUMBER', 'DATE/TIMESTAMP', 'NULL & Empty String', 'CAST/TO_CHAR'] },
+    3:  { icon: '🔍', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'Truy Vấn Dữ Liệu Với SELECT', en: 'Retrieving Data with SELECT', tags: ['DISTINCT/Alias', 'ORDER BY NULLS', 'FETCH FIRST', 'Logical Order'] },
+    4:  { icon: '🎯', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'Điều Kiện Lọc Dữ Liệu (WHERE)', en: 'Restricting & Filtering Data', tags: ['IN / NOT IN Trap', 'BETWEEN', 'LIKE ESCAPE', '3-Valued Logic'] },
+    5:  { icon: '🧮', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'Các Hàm SQL Thông Dụng', en: 'Single-Row Functions', tags: ['SUBSTR/INSTR', 'ROUND/TRUNC', 'NVL/NVL2/COALESCE', 'CASE & DECODE'] },
+    6:  { icon: '📊', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'Hàm Tổng Hợp & GROUP BY', en: 'Aggregate Functions & GROUP BY', tags: ['COUNT(*) vs COUNT(col)', 'GROUP BY / HAVING', 'NULL in Aggregates', 'Nested AVG'] },
+    7:  { icon: '🔗', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'JOIN Nhiều Bảng', en: 'Joining Multiple Tables', tags: ['INNER/OUTER JOIN', 'USING / NATURAL', 'Oracle (+)', 'Self & Cross Join'] },
+    8:  { icon: '🪆', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'Subquery — Truy Vấn Con', en: 'Subqueries (Single, Multi-Row & Correlated)', tags: ['IN vs EXISTS', 'ANY / ALL', 'Correlated Subquery', 'Scalar Subquery'] },
+    9:  { icon: '➕', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'Toán Tử Tập Hợp (Set Operators)', en: 'Set Operators (UNION, INTERSECT, MINUS)', tags: ['UNION / UNION ALL', 'INTERSECT', 'MINUS', 'ORDER BY Rules'] },
+    10: { icon: '💳', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'DML & Quản Lý Transaction', en: 'DML & Transactions (ACID)', tags: ['INSERT ALL / MERGE', 'COMMIT/SAVEPOINT', 'Read Consistency', 'Row Locking'] },
+    11: { icon: '🏗️', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'DDL & Quản Lý Table', en: 'DDL & Table Management', tags: ['CREATE/ALTER/DROP', 'IDENTITY / CTAS', 'Temporary Table', 'TRUNCATE vs DELETE'] },
+    12: { icon: '🛡️', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'Constraints — Ràng Buộc Dữ Liệu', en: 'Constraints & Data Integrity', tags: ['PK / FK / UNIQUE', 'CHECK Rules', 'ON DELETE CASCADE', 'ENABLE/VALIDATE'] },
+    13: { icon: '🗂️', part: 1, partBadge: 'Phần I • OCA SQL', vi: 'Các Database Objects & Phân Quyền', en: 'Views, Indexes, Sequences & Grants', tags: ['VIEW CHECK OPTION', 'SEQUENCE / SYNONYM', 'USER_*/ALL_*/DBA_*', 'GRANT / REVOKE'] },
+    14: { icon: '🧬', part: 2, partBadge: 'Phần II • SQL Nâng Cao', vi: 'Advanced Subquery & CTE (WITH)', en: 'Advanced Subqueries, CTE & APPLY', tags: ['WITH Clause', 'Recursive CTE', 'Inline View', 'LATERAL / APPLY'] },
+    15: { icon: '🪟', part: 2, partBadge: 'Phần II • SQL Nâng Cao', vi: 'Analytic / Window Functions', en: 'Analytic & Window Functions', tags: ['ROW_NUMBER/RANK', 'LEAD / LAG', 'Running Total', 'ROWS vs RANGE'] },
+    16: { icon: '📐', part: 2, partBadge: 'Phần II • SQL Nâng Cao', vi: 'Advanced Aggregation', en: 'ROLLUP, CUBE, GROUPING SETS & PIVOT', tags: ['ROLLUP / CUBE', 'GROUPING_ID', 'LISTAGG', 'PIVOT / UNPIVOT'] },
+    17: { icon: '🌳', part: 2, partBadge: 'Phần II • SQL Nâng Cao', vi: 'Truy Vấn Phân Cấp (Hierarchical)', en: 'Hierarchical Queries (CONNECT BY)', tags: ['CONNECT BY PRIOR', 'START WITH / LEVEL', 'SYS_CONNECT_BY_PATH', 'ORDER SIBLINGS BY'] },
+    18: { icon: '🚀', part: 2, partBadge: 'Phần II • SQL Nâng Cao', vi: 'Index & SQL Performance Tuning', en: 'Indexes, Execution Plans & SQL Tuning', tags: ['B-Tree vs Bitmap', 'Composite/Func Index', 'EXPLAIN PLAN', 'Cardinality/Tuning'] },
+    19: { icon: '🔒', part: 2, partBadge: 'Phần II • SQL Nâng Cao', vi: 'Transaction & Concurrency Nâng Cao', en: 'Isolation Levels, Locks & Deadlocks', tags: ['Isolation Levels', 'SELECT FOR UPDATE', 'Deadlock ORA-00060', 'Lost Update'] },
+    20: { icon: '🛠️', part: 2, partBadge: 'Phần II • SQL Nâng Cao', vi: 'Oracle SQL Nâng Cao Thực Chiến', en: 'Real-World Advanced SQL & Regex', tags: ['Top-N & Pagination', 'Dedup ROWID', 'REGEXP_LIKE/SUBSTR', 'Reporting SQL'] },
+    21: { icon: '📜', part: 3, partBadge: 'Phần III • PL/SQL (1Z0-149)', vi: 'PL/SQL Fundamentals', en: 'PL/SQL Block Structure & Control Flow', tags: ['DECLARE/BEGIN/END', '%TYPE & %ROWTYPE', 'IF / CASE / Loops', 'SELECT INTO'] },
+    22: { icon: '🧭', part: 3, partBadge: 'Phần III • PL/SQL (1Z0-149)', vi: 'Cursor Trong PL/SQL', en: 'Implicit, Explicit & REF Cursors', tags: ['SQL%ROWCOUNT', 'Cursor FOR Loop', 'Parameterized Cursor', 'SYS_REFCURSOR'] },
+    23: { icon: '⚙️', part: 3, partBadge: 'Phần III • PL/SQL (1Z0-149)', vi: 'Procedure & Function', en: 'Stored Procedures & Functions', tags: ['IN / OUT / IN OUT', 'NOCOPY Hint', 'Function in SQL', 'AUTHID DEFINER'] },
+    24: { icon: '🚨', part: 3, partBadge: 'Phần III • PL/SQL (1Z0-149)', vi: 'Exception Handling', en: 'Exception Handling & Propagation', tags: ['Predefined Exceptions', 'EXCEPTION_INIT', 'RAISE_APPLICATION_ERROR', 'SQLCODE/SQLERRM'] },
+    25: { icon: '📦', part: 3, partBadge: 'Phần III • PL/SQL (1Z0-149)', vi: 'Package & Trigger', en: 'Packages, Triggers & Mutating Table', tags: ['Package Spec/Body', 'BEFORE/AFTER/INSTEAD OF', ':OLD & :NEW', 'Mutating ORA-04091'] },
+    26: { icon: '⚡', part: 3, partBadge: 'Phần III • PL/SQL (1Z0-149)', vi: 'PL/SQL Nâng Cao & Hiệu Năng', en: 'Collections, Bulk SQL & Dynamic SQL', tags: ['Collections', 'BULK COLLECT / FORALL', 'EXECUTE IMMEDIATE', 'Autonomous Tx'] }
   };
 
   const CHAPTER_VIDEOS = {
@@ -299,13 +353,15 @@
     let raw = text.trim();
     if (!raw) return '';
 
+    const codeLang = (root.__ACTIVE_COURSE === 'sql') ? 'language-sql' : 'language-java';
+
     if (raw.includes('```')) {
-      raw = raw.replace(/```(?:java)?\s*\r?\n([\s\S]*?)```/g, (match, code) => {
+      raw = raw.replace(/```(?:java|sql|plsql|oracle|text|bash)?\s*\r?\n([\s\S]*?)```/gi, (match, code) => {
         const escaped = code.trim()
           .replace(/&/g, '&amp;')
           .replace(/</g, '&lt;')
           .replace(/>/g, '&gt;');
-        return `<pre class="option-code-block"><code class="language-java">${escaped}</code></pre>`;
+        return `<pre class="option-code-block"><code class="${codeLang}">${escaped}</code></pre>`;
       });
     }
 
@@ -319,7 +375,7 @@
         .replace(/>/g, '&gt;');
       s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
       s = s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      s = s.replace(/\$\\rightarrow\$/g, '→').replace(/\$\\to\$/g, '→');
+      s = s.replace(/\$\\rightarrow\$/g, '→').replace(/\\rightarrow/g, '→').replace(/\$\\to\$/g, '→').replace(/\$\\iff\$/g, '⇔').replace(/\\iff/g, '⇔');
       return s;
     }
 
@@ -370,7 +426,9 @@
 
   root.AppI18n = {
     I18N,
-    CHAPTER_METADATA,
+    CHAPTER_METADATA: JAVA_CHAPTER_METADATA,
+    JAVA_CHAPTER_METADATA,
+    SQL_CHAPTER_METADATA,
     CHAPTER_VIDEOS,
     formatMarkdown
   };

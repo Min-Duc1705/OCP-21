@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>OCP Java 21 Quiz Master - Oracle Certified Professional (1Z0-830)</title>
-  <meta name="description" content="Ứng dụng web ôn thi trắc nghiệm chứng chỉ Oracle Certified Professional Java SE 21 Developer (1Z0-830) song ngữ Việt - Anh với giải thích chuyên sâu và chế độ thi thử tính giờ.">
+  <title>Oracle SQL &amp; PL/SQL + Java 21 Quiz Master (OCA 1Z0-071 • OCP 1Z0-149 • 1Z0-830)</title>
+  <meta name="description" content="Hệ thống ôn thi chứng chỉ Oracle Database SQL & PL/SQL (26 chương lý thuyết, 650 câu hỏi trắc nghiệm OCA/OCP) và Oracle Java SE 21 Developer (1Z0-830).">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,11 +13,11 @@
   
   <!-- Modular CSS -->
   <link rel="stylesheet" href="lib/prism.css">
-  <link rel="stylesheet" href="css/variables.css?v=3.4.0">
-  <link rel="stylesheet" href="css/layout.css?v=3.4.0">
-  <link rel="stylesheet" href="css/components.css?v=3.4.0">
-  <link rel="stylesheet" href="css/modals.css?v=3.4.0">
-  <link rel="stylesheet" href="css/responsive.css?v=3.4.0">
+  <link rel="stylesheet" href="css/variables.css?v=3.5.0">
+  <link rel="stylesheet" href="css/layout.css?v=3.5.0">
+  <link rel="stylesheet" href="css/components.css?v=3.5.0">
+  <link rel="stylesheet" href="css/modals.css?v=3.5.0">
+  <link rel="stylesheet" href="css/responsive.css?v=3.5.0">
 </head>
 <body>
 
@@ -25,24 +25,30 @@
   <header>
     <div class="container nav-wrapper">
       <a class="brand" id="brand-logo" href="#" title="Về trang chủ / Home">
-        <div class="brand-icon">☕</div>
+        <div class="brand-icon" id="brand-icon">🗄️</div>
         <div class="brand-text-wrap">
           <div class="brand-title-row">
-            <span class="brand-title">OCP 21 Quiz Master</span>
-            <span class="brand-badge">1Z0-830</span>
+            <span class="brand-title" id="brand-title">Oracle SQL &amp; PL/SQL</span>
+            <span class="brand-badge" id="brand-badge">1Z0-071 • 1Z0-149</span>
           </div>
-          <span class="brand-subtitle">Oracle Java SE 21 Developer</span>
+          <span class="brand-subtitle" id="brand-subtitle">OCA &amp; OCP Database Developer (26 Chương)</span>
         </div>
       </a>
 
       <div class="nav-actions">
-        <a href="https://github.com/Min-Duc1705/OCP-21/tree/main/enthuware" target="_blank" rel="noopener noreferrer" class="btn btn-secondary nav-btn" id="nav-btn-enthuware" title="Sổ tay giải đề & bẫy thi Enthuware">
+        <!-- Course Switcher: SQL & PL/SQL (26 Ch) <-> Java 21 (14 Ch) -->
+        <div class="lang-segmented-btn" id="btn-toggle-course" title="Chuyển đổi lộ trình học: Oracle SQL &amp; PL/SQL (26 Chương) ⇄ Java SE 21 (14 Chương)">
+          <span class="lang-seg-opt active" id="course-seg-sql" data-course="sql">🗄️ SQL &amp; PL/SQL (26)</span>
+          <span class="lang-seg-opt" id="course-seg-java" data-course="java">☕ Java 21 (14)</span>
+        </div>
+
+        <a href="https://github.com/Min-Duc1705/OCP-21/tree/main/enthuware" target="_blank" rel="noopener noreferrer" class="btn btn-secondary nav-btn" id="nav-btn-enthuware" title="Sổ tay giải đề &amp; bẫy thi Enthuware" style="display: none;">
           <span>⚡</span> <span class="nav-btn-label" data-i18n="nav.enthuware">Enthuware</span>
         </a>
-        <button class="btn btn-secondary nav-btn" id="btn-open-theory" title="Xem sổ tay lý thuyết trọn bộ 14 chương OCP 21">
-          <span>📖</span> <span class="nav-btn-label" data-i18n="nav.theory">14 Chương Lý Thuyết</span>
+        <button class="btn btn-secondary nav-btn" id="btn-open-theory" title="Xem sổ tay lý thuyết trọn bộ các chương">
+          <span>📖</span> <span class="nav-btn-label" id="nav-label-theory" data-i18n="nav.theorySql">26 Chương Lý Thuyết</span>
         </button>
-        <button class="btn btn-secondary nav-btn" id="btn-open-videos" title="Xem video bài giảng trọn bộ 14 chương OCP 21">
+        <button class="btn btn-secondary nav-btn" id="btn-open-videos" title="Xem video bài giảng trọn bộ 14 chương OCP 21" style="display: none;">
           <span>🎬</span> <span class="nav-btn-label" data-i18n="nav.videos">14 Video Bài Giảng</span>
         </button>
         <button class="btn btn-secondary nav-btn" id="btn-open-bookmarks" title="Xem các câu hỏi đã đánh dấu">
@@ -52,9 +58,9 @@
           <span>❌</span> <span class="nav-btn-label"><span data-i18n="nav.mistakes">Câu sai</span> (<span id="mistake-count-badge">0</span>)</span>
         </button>
         <div class="palette-switcher" id="palette-switcher" title="Đổi tông màu giao diện (Vàng Hổ Phách / Xanh Ngọc Lục Bảo / Hồng Tím)">
-          <button type="button" class="palette-dot palette-dot-amber active" data-palette="amber" aria-label="Solar Amber Theme" title="Vàng Hổ Phách & Đỏ Cam (Java Duke)"></button>
-          <button type="button" class="palette-dot palette-dot-emerald" data-palette="emerald" aria-label="Emerald Mint Theme" title="Xanh Ngọc Lục Bảo & Mint"></button>
-          <button type="button" class="palette-dot palette-dot-rose" data-palette="rose" aria-label="Rose Amethyst Theme" title="Hồng Nhung & Tím Hoàng Gia"></button>
+          <button type="button" class="palette-dot palette-dot-amber active" data-palette="amber" aria-label="Solar Amber Theme" title="Vàng Hổ Phách &amp; Đỏ Cam (Java Duke)"></button>
+          <button type="button" class="palette-dot palette-dot-emerald" data-palette="emerald" aria-label="Emerald Mint Theme" title="Xanh Ngọc Lục Bảo &amp; Mint"></button>
+          <button type="button" class="palette-dot palette-dot-rose" data-palette="rose" aria-label="Rose Amethyst Theme" title="Hồng Nhung &amp; Tím Hoàng Gia"></button>
         </div>
         <button class="lang-segmented-btn" id="btn-toggle-lang" title="Chuyển đổi ngôn ngữ VI / EN (Phím L)">
           <span class="lang-seg-opt" id="lang-seg-en">🇬🇧 EN</span>
@@ -73,9 +79,9 @@
     <!-- VIEW 1: DASHBOARD -->
     <section id="dashboard-view" class="view active">
       <div class="hero">
-        <div class="hero-pill" data-i18n="hero.badge">✨ Oracle Certified Professional • Java SE 21 (1Z0-830)</div>
-        <h1 data-i18n="hero.title">Hệ Thống Luyện Thi OCP Java 21</h1>
-        <p data-i18n="hero.subtitle">Chinh phục chứng chỉ Oracle 1Z0-830 với 14 chương lý thuyết, 14 video bài giảng và 338 câu hỏi trắc nghiệm song ngữ Anh - Việt kèm phân tích bẫy thi chuyên sâu.</p>
+        <div class="hero-pill" id="hero-badge" data-i18n="hero.badgeSql">✨ Lộ Trình Toàn Diện • Oracle SQL &amp; PL/SQL (OCA 1Z0-071 &amp; OCP 1Z0-149)</div>
+        <h1 id="hero-title" data-i18n="hero.titleSql">Hệ Thống Ôn Tập Oracle SQL &amp; PL/SQL</h1>
+        <p id="hero-subtitle" data-i18n="hero.subtitleSql">Chinh phục kỳ thi Oracle Database (OCA/OCP) &amp; phỏng vấn Backend/SQL Developer với 26 chương lý thuyết chuyên sâu và 650 câu hỏi trắc nghiệm thực chiến kèm giải thích bẫy thi chi tiết.</p>
       </div>
 
       <!-- Stats Ribbon -->
@@ -83,7 +89,7 @@
         <div class="stat-card">
           <div class="stat-icon">📚</div>
           <div class="stat-content">
-            <h3 id="stat-total-questions">338</h3>
+            <h3 id="stat-total-questions">650</h3>
             <span data-i18n="stats.total">Tổng câu hỏi</span>
           </div>
         </div>
@@ -113,8 +119,8 @@
       <!-- Quick Action: Comprehensive Mock Exam -->
       <div class="quick-exam-banner">
         <div class="quick-exam-info">
-          <h2 data-i18n="banner.title">🚀 Kỳ Thi Thử Tổng Hợp Chuẩn Oracle (Full 14 Chương)</h2>
-          <p data-i18n="banner.desc">Đề thi mô phỏng ngẫu nhiên từ toàn bộ ngân hàng câu hỏi, tính giờ chuẩn Oracle với ngưỡng đỗ 68%.</p>
+          <h2 id="banner-title" data-i18n="banner.titleSql">🚀 Kỳ Thi Thử Tổng Hợp Oracle SQL &amp; PL/SQL (Full 26 Chương)</h2>
+          <p id="banner-desc" data-i18n="banner.descSql">Đề thi mô phỏng ngẫu nhiên từ ngân hàng 650 câu hỏi OCA/OCP (Phần I: SQL Cơ bản, Phần II: SQL Nâng cao, Phần III: PL/SQL).</p>
         </div>
         <button class="btn btn-primary quick-exam-cta" id="btn-quick-full-exam" data-i18n="banner.cta">
           ⏱️ Thi Thử Ngay
@@ -124,7 +130,7 @@
       <!-- Chapters Toolbar (Title + Search + Filter Pills) -->
       <div class="dashboard-toolbar">
         <div class="section-title" style="margin-bottom: 0;">
-          <h2 data-i18n="dashboard.chaptersTitle">Lộ Trình 14 Chương Trọng Tâm (Study Chapters)</h2>
+          <h2 id="dashboard-chapters-title" data-i18n="dashboard.chaptersTitleSql">Lộ Trình 26 Chương Oracle SQL &amp; PL/SQL (OCA → OCP)</h2>
         </div>
 
         <div class="chapter-controls">
@@ -133,7 +139,10 @@
             <input type="text" id="chapter-search-input" data-i18n-placeholder="dashboard.searchPlaceholder" placeholder="Tìm chương hoặc chủ đề..." autocomplete="off">
           </div>
           <div class="chapter-filter-pills" id="chapter-filter-pills">
-            <button type="button" class="filter-pill-btn active" data-ch-filter="all" data-i18n="dashboard.filterAll">Tất cả (14)</button>
+            <button type="button" class="filter-pill-btn active" data-ch-filter="all" id="filter-pill-all" data-i18n="dashboard.filterAllSql">Tất cả (26)</button>
+            <button type="button" class="filter-pill-btn sql-part-pill" data-ch-filter="part1" id="filter-pill-part1" data-i18n="dashboard.filterPart1">Phần I: OCA SQL (1–13)</button>
+            <button type="button" class="filter-pill-btn sql-part-pill" data-ch-filter="part2" id="filter-pill-part2" data-i18n="dashboard.filterPart2">Phần II: OCP SQL (14–20)</button>
+            <button type="button" class="filter-pill-btn sql-part-pill" data-ch-filter="part3" id="filter-pill-part3" data-i18n="dashboard.filterPart3">Phần III: PL/SQL (21–26)</button>
             <button type="button" class="filter-pill-btn" data-ch-filter="progress" data-i18n="dashboard.filterInProgress">Đang học</button>
             <button type="button" class="filter-pill-btn" data-ch-filter="done" data-i18n="dashboard.filterCompleted">Hoàn thành</button>
           </div>
@@ -152,7 +161,7 @@
           <button class="btn btn-secondary btn-sm" id="btn-practice-back" data-i18n="practice.back">← Dashboard</button>
           <div class="quiz-meta-titles">
             <div id="practice-chapter-title" class="quiz-chapter-sub">Chapter 1</div>
-            <div class="quiz-question-counter"><span data-i18n="common.question">Câu hỏi</span> <span id="practice-current-index">1</span> / <span id="practice-total-count">23</span></div>
+            <div class="quiz-question-counter"><span data-i18n="common.question">Câu hỏi</span> <span id="practice-current-index">1</span> / <span id="practice-total-count">25</span></div>
           </div>
         </div>
 
@@ -189,11 +198,11 @@
 
       <!-- 2-COLUMN SPLIT LAYOUT -->
       <div class="split-layout-container">
-        <!-- LEFT PANE: QUESTION & IDE JAVA CODE -->
+        <!-- LEFT PANE: QUESTION & IDE CODE -->
         <div class="split-left-pane">
           <div class="pane-top-meta">
             <span class="badge badge-info" id="practice-type-badge">Chọn 1 đáp án</span>
-            <span class="question-id-tag" id="practice-question-id">ch1_q1</span>
+            <span class="question-id-tag" id="practice-question-id">sql_ch1_q1</span>
           </div>
 
           <div class="pane-sub-header">
@@ -215,10 +224,10 @@
                 <span class="ide-dot yellow"></span>
                 <span class="ide-dot green"></span>
               </div>
-              <span class="ide-filename" data-i18n="common.javaCode">Snippet.java</span>
+              <span class="ide-filename" id="practice-ide-filename" data-i18n="common.sqlCode">Query.sql</span>
               <button type="button" class="btn-copy-snippet" id="btn-copy-practice-code" data-i18n="common.copyCode">📋 Sao chép</button>
             </div>
-            <pre><code class="language-java" id="practice-code-block"></code></pre>
+            <pre><code class="language-sql" id="practice-code-block"></code></pre>
           </div>
         </div>
 
@@ -247,7 +256,7 @@
           <!-- Explanation Card (Revealed after check) -->
           <div class="explanation-card" id="practice-explanation-card">
             <div class="explanation-title">
-              <span data-i18n="common.explanationTitle">💡 Giải Thích Chuyên Sâu & Phân Tích Bẫy Thi:</span>
+              <span data-i18n="common.explanationTitle">💡 Giải Thích Chuyên Sâu &amp; Phân Tích Bẫy Thi:</span>
             </div>
             <div class="explanation-body" id="practice-explanation-text"></div>
           </div>
@@ -267,7 +276,7 @@
         <div class="quiz-meta">
           <button class="btn btn-secondary btn-sm" id="btn-exam-quit" data-i18n="exam.quit">← Thoát phòng thi</button>
           <div class="quiz-meta-titles">
-            <div id="exam-title-display" class="quiz-chapter-sub" data-i18n="exam.roomTitle">Phòng Thi OCP Java 21</div>
+            <div id="exam-title-display" class="quiz-chapter-sub" data-i18n="exam.roomTitleSql">Phòng Thi Oracle SQL &amp; PL/SQL</div>
             <div class="quiz-question-counter"><span data-i18n="common.question">Câu hỏi</span> <span id="exam-current-index">1</span> / <span id="exam-total-count">25</span></div>
           </div>
         </div>
@@ -286,7 +295,7 @@
         <!-- Main Exam Question Area -->
         <div class="exam-main">
           <div class="split-layout-container" style="margin-bottom: 0;">
-            <!-- Left Pane: Prompt & IDE Java Code -->
+            <!-- Left Pane: Prompt & IDE Code -->
             <div class="split-left-pane">
               <div class="pane-top-meta">
                 <span class="badge badge-info" id="exam-type-badge">Chọn tất cả đáp án đúng</span>
@@ -309,10 +318,10 @@
                     <span class="ide-dot yellow"></span>
                     <span class="ide-dot green"></span>
                   </div>
-                  <span class="ide-filename" data-i18n="common.javaCode">Snippet.java</span>
+                  <span class="ide-filename" id="exam-ide-filename" data-i18n="common.sqlCode">Query.sql</span>
                   <button type="button" class="btn-copy-snippet" id="btn-copy-exam-code" data-i18n="common.copyCode">📋 Sao chép</button>
                 </div>
-                <pre><code class="language-java" id="exam-code-block"></code></pre>
+                <pre><code class="language-sql" id="exam-code-block"></code></pre>
               </div>
             </div>
 
@@ -401,7 +410,7 @@
       <div id="exam-review-section" style="margin-top: 2rem;">
         <div class="dashboard-toolbar">
           <div class="section-title" style="margin-bottom: 0;">
-            <h2 data-i18n="result.detailedTitle">Chi Tiết Từng Câu Hỏi & Đáp Án</h2>
+            <h2 data-i18n="result.detailedTitle">Chi Tiết Từng Câu Hỏi &amp; Đáp Án</h2>
           </div>
           <div class="review-filters" id="review-filters">
             <button class="btn btn-secondary btn-sm active" data-filter="all" data-i18n="result.filterAll">Tất cả</button>
@@ -527,13 +536,13 @@
     <div class="modal-content theory-modal-content">
       <div class="theory-top-bar">
         <div class="theory-top-left">
-          <button class="btn-sidebar-toggle" id="btn-toggle-theory-sidebar" title="Ẩn / Hiện danh mục 14 chương" aria-label="Toggle Sidebar">
+          <button class="btn-sidebar-toggle" id="btn-toggle-theory-sidebar" title="Ẩn / Hiện danh mục các chương" aria-label="Toggle Sidebar">
             ☰
           </button>
           <div class="theory-breadcrumb">
             <span class="theory-brand-tag" data-i18n="theory.handbook">📖 Lý Thuyết</span>
             <span class="theory-breadcrumb-sep">/</span>
-            <span class="theory-breadcrumb-active" id="theory-modal-breadcrumb">Chương 1: Khối Xây Dựng Cơ Bản</span>
+            <span class="theory-breadcrumb-active" id="theory-modal-breadcrumb">Chương 1: Tổng quan Oracle Database và SQL</span>
           </div>
         </div>
 
@@ -549,13 +558,13 @@
           <button type="button" class="btn btn-primary btn-sm" id="btn-theory-voice-toggle" title="Nghe AI Cloned đọc lý thuyết chương này (Hỗ trợ nghe khi ngủ)">
             🔊 <span class="hide-mobile">Nghe Lý Thuyết</span>
           </button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btn-theory-voice-select" title="Chọn 4 giọng đọc Cloned AI & Hẹn giờ ngủ">
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-theory-voice-select" title="Chọn 4 giọng đọc Cloned AI &amp; Hẹn giờ ngủ">
             🎙️ <span class="hide-mobile">4 Giọng Clone</span>
           </button>
           <a id="theory-github-link" href="https://github.com/Min-Duc1705/OCP-21" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="Mở file Markdown gốc trên GitHub" style="text-decoration: none;">
             🔗 <span class="hide-mobile">GitHub</span>
           </a>
-          <button class="btn btn-secondary btn-sm" id="btn-theory-video-link" title="Xem video bài giảng của chương này">
+          <button class="btn btn-secondary btn-sm" id="btn-theory-video-link" title="Xem video bài giảng của chương này" style="display: none;">
             🎬 <span class="hide-mobile">Video</span>
           </button>
           <button class="close-modal-btn" id="btn-close-theory-modal" title="Đóng sổ tay lý thuyết (Esc)">&times;</button>
@@ -597,7 +606,7 @@
             <option value="1.25">1.25x</option>
             <option value="1.5">1.5x</option>
           </select>
-          <button type="button" class="btn btn-secondary btn-sm" id="btn-voice-bar-settings" title="Cấu hình 4 giọng Clone & Hẹn giờ ngủ">🎙️ Đổi giọng / Hẹn giờ</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-voice-bar-settings" title="Cấu hình 4 giọng Clone &amp; Hẹn giờ ngủ">🎙️ Đổi giọng / Hẹn giờ</button>
           <button type="button" class="btn btn-danger btn-sm" id="btn-voice-bar-stop" title="Dừng đọc">⏹</button>
         </div>
       </div>
@@ -606,12 +615,12 @@
         <!-- Mobile Backdrop Overlay -->
         <div class="theory-sidebar-backdrop" id="theory-sidebar-backdrop"></div>
 
-        <!-- Left Sidebar: 14 Chapters -->
+        <!-- Left Sidebar: Chapters -->
         <aside class="theory-sidebar" id="theory-sidebar">
           <div class="theory-sidebar-header">
-            <span class="theory-sidebar-header-title" data-i18n="theory.sidebarHeading">📑 14 CHƯƠNG LÝ THUYẾT</span>
+            <span class="theory-sidebar-header-title" id="theory-sidebar-heading" data-i18n="theory.sidebarHeadingSql">📑 26 CHƯƠNG LÝ THUYẾT</span>
             <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span class="theory-sidebar-count">14</span>
+              <span class="theory-sidebar-count" id="theory-sidebar-count">26</span>
               <button type="button" class="btn-close-theory-drawer" id="btn-close-theory-drawer" title="Thu gọn danh mục" aria-label="Close sidebar">&times;</button>
             </div>
           </div>
@@ -634,7 +643,7 @@
     <div class="modal-content voice-modal-content">
       <div class="modal-header">
         <div>
-          <h2 style="margin: 0; font-size: 1.15rem;">🎙️ 4 Giọng Đọc Clone AI & Chế Độ Nghe Khi Ngủ</h2>
+          <h2 style="margin: 0; font-size: 1.15rem;">🎙️ 4 Giọng Đọc Clone AI &amp; Chế Độ Nghe Khi Ngủ</h2>
           <p style="margin: 0.25rem 0 0; font-size: 0.82rem; color: var(--text-muted);">
             Chỉ giữ 4 giọng đọc Clone tuyển chọn (Microservices, JobHub AI, Nam/Nữ Podcast Angular) tối ưu nghe thấm kiến thức lúc ngủ.
           </p>
@@ -654,7 +663,7 @@
 
         <label class="voice-toggle-row">
           <div>
-            <strong>🔁 Nghe liên tục tự động chuyển chương khi ngủ (CH1 → CH14)</strong>
+            <strong>🔁 Nghe liên tục tự động chuyển chương khi ngủ</strong>
             <span>Đọc hết chương hiện tại sẽ tự mở chương kế tiếp và đọc liên tục không ngắt quãng</span>
           </div>
           <input type="checkbox" id="chk-voice-auto-next" checked>
@@ -709,14 +718,16 @@
   </div>
 
   <!-- Modular Scripts -->
-  <script src="lib/prism.js?v=3.4.0"></script>
-  <script src="lib/marked.min.js?v=3.4.0"></script>
-  <script src="js/quiz-data.js?v=3.4.0"></script>
-  <script src="js/theory-data.js?v=3.4.0"></script>
-  <script src="js/storage.js?v=3.4.0"></script>
-  <script src="js/i18n.js?v=3.4.0"></script>
-  <script src="js/voice-narrator.js?v=3.4.0"></script>
-  <script src="js/theory-viewer.js?v=3.4.0"></script>
-  <script src="js/app.js?v=3.4.0"></script>
+  <script src="lib/prism.js?v=3.5.0"></script>
+  <script src="lib/marked.min.js?v=3.5.0"></script>
+  <script src="js/quiz-data.js?v=3.5.0"></script>
+  <script src="js/theory-data.js?v=3.5.0"></script>
+  <script src="js/sql-quiz-data.js?v=3.5.0"></script>
+  <script src="js/sql-theory-data.js?v=3.5.0"></script>
+  <script src="js/storage.js?v=3.5.0"></script>
+  <script src="js/i18n.js?v=3.5.0"></script>
+  <script src="js/voice-narrator.js?v=3.5.0"></script>
+  <script src="js/theory-viewer.js?v=3.5.0"></script>
+  <script src="js/app.js?v=3.5.0"></script>
 </body>
 </html>

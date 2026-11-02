@@ -1,5 +1,5 @@
 // ==========================================================================
-// OCP 21 Quiz Master - Theory Reader & Video Lecture Controller (theory-viewer.js)
+// OCP 21 & Oracle SQL/PLSQL Quiz Master - Theory Reader & Video Lecture Controller
 // ==========================================================================
 
 (function(root) {
@@ -32,11 +32,24 @@
     tabsContainer.innerHTML = '';
     const isEn = getLangFn() === 'en';
     const metaMap = (root.AppI18n && root.AppI18n.CHAPTER_METADATA) || {};
+    const keys = Object.keys(root.THEORY_DATA).map(Number).sort((a, b) => a - b);
 
-    Object.keys(root.THEORY_DATA).forEach(k => {
-      const item = root.THEORY_DATA[k];
-      const chId = Number(item.chapterId);
+    const countEl = document.getElementById('theory-sidebar-count');
+    if (countEl) countEl.textContent = String(keys.length);
+
+    let lastPart = '';
+    keys.forEach(chId => {
+      const item = root.THEORY_DATA[chId];
+      if (!item) return;
       const meta = metaMap[chId] || { icon: '📘', vi: item.title || `Chương ${chId}`, en: `Chapter ${chId}` };
+
+      if (meta.part && meta.part !== lastPart) {
+        lastPart = meta.part;
+        const partHeader = document.createElement('div');
+        partHeader.style.cssText = 'padding: 0.55rem 0.75rem 0.25rem; font-size: 0.7rem; font-weight: 800; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 0.05em;';
+        partHeader.textContent = meta.part;
+        tabsContainer.appendChild(partHeader);
+      }
 
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -87,6 +100,7 @@
     const metaMap = (root.AppI18n && root.AppI18n.CHAPTER_METADATA) || {};
     const meta = metaMap[currentChapterId] || { vi: data.title, en: data.title };
     const isEn = getLangFn() === 'en';
+    const isSql = root.__ACTIVE_COURSE === 'sql';
 
     const breadcrumbEl = document.getElementById('theory-modal-breadcrumb');
     if (breadcrumbEl) {
@@ -97,7 +111,13 @@
 
     const githubLink = document.getElementById('theory-github-link');
     if (githubLink) {
-      githubLink.href = data.githubUrl || `https://github.com/Min-Duc1705/OCP-21/blob/main/${data.filename}`;
+      githubLink.href = data.githubUrl || `https://github.com/Min-Duc1705/OCP-21/blob/main/${isSql ? 'sql/' : ''}${data.filename}`;
+    }
+
+    const videoBtn = document.getElementById('btn-theory-video-link');
+    if (videoBtn) {
+      const hasVideo = !isSql && root.AppI18n && root.AppI18n.CHAPTER_VIDEOS && root.AppI18n.CHAPTER_VIDEOS[currentChapterId];
+      videoBtn.style.display = hasVideo ? 'inline-flex' : 'none';
     }
 
     document.querySelectorAll('.theory-sidebar-item').forEach(el => {

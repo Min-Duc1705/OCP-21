@@ -43,11 +43,12 @@
       if (!item) return;
       const meta = metaMap[chId] || { icon: '📘', vi: item.title || `Chương ${chId}`, en: `Chapter ${chId}` };
 
-      if (meta.part && meta.part !== lastPart) {
-        lastPart = meta.part;
+      const partLabel = meta.partBadge || (typeof meta.part === 'string' ? meta.part : '');
+      if (partLabel && partLabel !== lastPart) {
+        lastPart = partLabel;
         const partHeader = document.createElement('div');
         partHeader.style.cssText = 'padding: 0.55rem 0.75rem 0.25rem; font-size: 0.7rem; font-weight: 800; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 0.05em;';
-        partHeader.textContent = meta.part;
+        partHeader.textContent = partLabel;
         tabsContainer.appendChild(partHeader);
       }
 

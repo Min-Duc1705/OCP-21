@@ -347,7 +347,8 @@
       const displayTitle = isEn ? `Chapter ${ch.id}: ${meta.en}` : `Chương ${ch.id}: ${meta.vi}`;
       const subTitle = isEn ? meta.vi : meta.en;
       const tagsHtml = (meta.tags || []).map(tag => `<span class="chapter-topic-tag">${tag}</span>`).join('');
-      const partBadgeHtml = meta.part ? `<span class="badge badge-warning" style="font-size:0.7rem;">${meta.part.split('—')[0].trim()}</span>` : '';
+      const partLabel = meta.partBadge || (typeof meta.part === 'string' ? meta.part.split('—')[0].trim() : '');
+      const partBadgeHtml = partLabel ? `<span class="badge badge-warning" style="font-size:0.7rem;">${partLabel}</span>` : '';
 
       const card = document.createElement('div');
       card.className = 'chapter-card';
